@@ -97,9 +97,6 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {     
-      
-      const atenciones = document.querySelector("#atenciones");
-      
       function getURL(){
 
         const url = new URL(window.location.href);
