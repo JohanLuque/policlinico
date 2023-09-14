@@ -19,4 +19,17 @@ class Servicio extends Conexion{
       die($e->getCode());
     }
   }
+
+  public function filtroServicios($datos = []){
+    try{
+      $query = $this->connection->prepare("CALL spu_filtro_servicios(?)");
+      $query->execute(array(
+        $datos["idServicio"]
+      ));
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+      die($e->getMessage());
+    }
+  }
 }

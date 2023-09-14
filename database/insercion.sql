@@ -11,11 +11,9 @@ INSERT INTO servicios (tipo, nombreServicio) VALUES
 ('S', 'Laboratorio clínico'),
 ('S', 'Ecografía'),
 ('S', 'Radiografía Digital'),
-
 ('S', 'Tópico Inyectable'),
 ('S', 'Electrocardiograma'),
 ('S', 'Medida de vista'),
-
 ('S', 'Nebulización'),
 ('S', 'Anatomiía patológica'),
 ('E', 'Medicina General'),
@@ -78,32 +76,24 @@ INSERT INTO Especialistas (codigo, idpersona) VALUES
 ('3', 6);
 
 INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
-(3,9),
-(3,10);
-
-INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES 
-(1, 'Hemograma completo', '30.00'),
-(1, 'Examen de orina', '10.00'),
-(1, 'Hemograma completo', '30.00'),
-(1,'Creatinina Orina 24Hrs','13.00'),
-(1,'Depuracion de Creatinina en Orina 24 Hrs','25.00'),
-
-(1,'Proteinuria 24 Hrs','25.00'),
-(1,'Proteinas de Bence Jones Orina 24 Hrs','50.00'),
-(1,'Ferritina','65.00'),
-(1,'Calcio en Orina 24 Hrs','50.00'),
-(1,'Acido Urico en Orina 24 Hrs','40.00'),
-
-(1,'Microalbuminuria en orina simple','35.00'),
-(1,'Microalbuminuria en orina de 24Hrs','60.00'),
-(1,'TGO','10.00'),
-(1,'TGP','10.00'),
-(9,'Consulta','30.00'), -- 15
-(10,'Consulta','40.00'),
-(11,'Consulta','40.00');
-
+(1,1),
+(2,2),
+(1,3),
+(2,9),
+(3,10),
+(1,11);
 
 INSERT INTO Detalle_Servicios (idAtencion ,idservicios_detalle) VALUES 
+(1,1),
+(1,2),
+(1,3),
+(1,4),
+(2,5),
+(3,6),
+(4,5),
+(5,9),
+(6,10),
+(10,16),
 (11,15);
 
 
@@ -130,13 +120,15 @@ INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
 WHERE Detalle_Servicios.idAtencion = 1
 GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 
+
 -- Lista de cards
-SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,personas.nombres,SUM(servicios_detalle.precio)
+SELECT *
 FROM Detalle_Servicios
 LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+
 INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
 GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
@@ -150,7 +142,115 @@ INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
 INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 
-
+INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES 
+(1,'ANCA (Elisa)','100.00'),
+(1,'Aglutinaciones en lamina y en tubo','15.00'),
+(1,'ANTI ATG(Anti tiroglobulina)(tiroides autoinmune)','85.00'),
+(1,'ANTI CARDIOLIPINA lg M','100.00'),
+(1,'ANTI CARDIOLIPINA lg G','100.00'),
+(1,'ANTI-CPP(Peptido Ciclico Cirulano) lg G','230.00'),
+(1,'ANTI DNA-DS','160.00'),
+(1,'ANTIESTREPTOLISINA O (ASO)-Cualitativa','15.00'),
+(1,'ANTIESTREPTOLISINA O (ASO)-Cuantitativo','45.00'),
+(1,'ASMA (ANTI MITOCONDRIALES)','100.00'),
+(1,'ASMA (ANTI MUSCULO LISO)','100.00'),
+(1,'ANA(ANTICUERPOS ANTINUCLEARES)','240.00'),
+(1,'BETA HCG CUANTITATIVO(Semana de gestación)','35.00'),
+(1,'BETA HCG CUALITATIVO','18.00'),
+(1,'CHLAMYDIA TRACHOMATIS lg G','100.00'),
+(1,'CHLAMYDIA TRACHOMATIS lg M','100.00'),
+(1,'CITOMEGALOVIRUS lg G','60.00'),
+(1,'CITOMEGALOVIRUS lg M','60.00'),
+(1,'DESPISTAJE ALERGICO','280.00'),
+(1,'EPSTEIN BAR VIRUS (EBNA lg G)','85.00'),
+(1,'EPSTEIN BAR VIRUS (EBNA lg M)','85.00'),
+(1,'EPSTEIN BAR VIRUS (VCA lg G)','90.00'),
+(1,'FACTOR REUMATOIDEO CUALITATIVO','15.00'),
+(1,'FACTOR REUMATOIDEO CUANTITATIVO','60.00'),
+(1,'HELICOBACTER PILORI lg G','60.00'),
+(1,'HELICOBACTER PILORI lg M','60.00'),
+(1,'HEPATITIS A lg M','55.00'),
+(1,'HEPATITIS B (HBSAG CORE TOTAL)','80.00'),
+(1,'HEPATITIS B (HBSAG)','40.00'),
+(1,'HEPATITIS C','80.00'),
+(1,'HEPATITIS D','100.00'),
+(1,'HERPES I lg G','60.00'),
+(1,'HERPES I lg M','60.00'),
+(1,'HERPES II lg G','60.00'),
+(1,'HERPES II lg M','60.00'),
+(1,'HIDATIDOSIS(ELISA)', '80.00'),
+(1,'HIDATIDOSIS(WETERN BLOT)', '230.00'),
+(1,'HTLV I-II ANTICUERPOS', '211.00'),
+(1,'VIH (ELISA)','45.00'),
+(1,'VIH PRUEBA RAPIDA','30.00'),
+(1,'VDRL','15.00'),
+(1,'VDRL CUANTITATIVO','40.00'),
+(1,'INMUNOGLOBINA SERICA IG E (alergía)','100.00'),
+(1,'PROTEÍNA C REACTIVA (PCR)- CUALITATIVO','20.00'),
+(1,'PROTEÍNA C REACTIVA (PCR)- CUANTITATIVO','60.00'),
+(1,'RUBEOLA Ig G','60.00'),
+(1,'RUBEOLA lg M','60.00'),
+(1,'SIFILIS ELISA VDRL CUANTITATIVO','60.00'),
+(1,'TOXOPLASMA lg G','60.00'),
+(1,'TOXOPLASMA lg M','60.00'),
+(1,'ACTH','100.00'),
+(1,'CORTISOL (AM o PM)','60.00'),
+(1,'DHEA-S (DEHIDROEPIANDROSTERONA)','180.00'),
+(1,'ESTRADIOL','80.00'),
+(1,'ESTRADIOL LIBRE','80.00'),
+(1,'FSH','60.00'),
+(1,'INSULINA BASAL','65.00'),
+(1,'INSULINA CURVA O TOLERANCIA','120.00'),
+(1,'LH','65.00'),
+(1,'PARATOHORMONAS (PTH)','135.00'),
+(1,'PROGESTERONA','60.00'),
+(1,'PROLACTINA','60.00'),
+(1,'PROLACTINAL POOL','100.00'),
+(1,'T3 LIBRE','60.00'),
+(1,'T3 (TRIODOTIRONINA)','60.00'),
+(1,'T4 LIBRE','60.00'),
+(1,'T4 (TIROXINA)','45.00'),
+(1,'TESTOSTERONA TOTAL','60.00'),
+(1,'TESTOSTERONA LIBRE','60.00'),
+(1,'TSH ULTRA SENSIBLE','35.00'),
+(1,'ALFA FETO PROTEINA (AFP)','80.00'),
+(1,'CEA (ANTIGENO CARCINO EMBRIONARIO)','65.00'),
+(1,'CA 125 (OVARIO)','80.00'),
+(1,'CA 15-3 (MAMA)','85.00'),
+(1,'CA 72-4','140.00'),
+(1,'CA 19-9 (PANCREAS)','125.00'),
+(1,'PSA TOTAL (PROSTATA)','60.00'),
+(1,'PSA LIBRE (PROSTATA)','60.00'),
+(1,'CALCITONINA','130.00'),
+(1,'BETA 2 MICROGLOBULINA SERICA','110.00'),
+(1,'CYFRA 21-1','130.00'),
+(1,'PAPANICOLAU','35.00'),
+(1,'BIOPSIAS (Endometrio, cuello uterino, piel)','320.00'),
+(1,'BIOPSIAS (Hepatica, Renal, Pleural)','320'),
+(1,'BIOPSIA PEQUEÑA (gastrica, duodenal, colonica, esofagica, rectal, anal)','240.00'),
+(1,'BIOPSIAS MEDIANA (vesicula biliar, apendice, cecal, restos endouterinos)','280.000'),
+(1,'TUMORES(Mamas,lipomas, partes blandas)','200.00'),
+(1,'UTERO SIN ANEXOS','250.00'),
+(1,'UTERO CON ANEXOS','320.00'),
+(1,'PROSTATA','200.00'),
+(1,'BLOCK CELL','100.00'),
+(1,'Hemograma completo','30.00'),
+(1,'Hematocrito','10.00'),
+(1,'Hemoglobina','10.00'),
+(1,'Grupo Sanguíneo','15.00'),
+(1,'Recuento de Plaquetas','15.00'),
+(1,'Lamina periferíca','15.00'),
+(1,'VSG (Velocidad de sedimentación globular)','10.00'),
+(1,'Gota gruesa (Malaria)','15.00'),
+(1,'Constante Corpusculares','25.00'),
+(1,'Recuento de Reticulocitos (Globulos Rojos)','15.00'),
+(1,'Celulas L.E. (Lupues eritematoso)','20.00'),
+(1,'Tiempo de coagulacion y sangría','10.00'),
+(1,'Tiempo de Protrombina-INR','40.00'),
+(1,'Tiempo Parcial y Tromboplastina (APTT)','40.00'),
+(1,'Fibrinogeno','40.00'),
+(1,'Coombs directo','50.00'),
+(1,'Coombs indirecto','50.00');
 
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;

@@ -2,7 +2,7 @@
 
 require_once 'Conexion.php';
 
-class Atencion extends Conexion{
+class DetalleServicio extends Conexion{
 
   private $connection;
 
@@ -12,15 +12,10 @@ class Atencion extends Conexion{
 
   public function create($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_admision_atenciones(?,?,?,?,?,?)");
+      $query = $this->connection->prepare("CALL spu_servicios_detalles(?)");
       $query->execute(
         array(
-            $data['turno'],
-            $data['idusuario'],
-            $data['idpersona'],
-            $data['idfamiliar'],
-            $data['parentesco'],
-            $data['orden']
+            $data['idServicioDetalle']
         )
       );
         return $query->fetchAll(PDO::FETCH_ASSOC);

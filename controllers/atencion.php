@@ -9,13 +9,12 @@ if(isset($_POST['operacion'])){
   switch($_POST['operacion']){
     case 'add':
       $parametros = [
-        "idusuario"      => $_POST['idusuario'],
+        "turno"         => $_POST['turno'],
+        "idusuario"     => $_POST['idusuario'],
         "idpersona"     => $_POST['idpersona'],
         "idfamiliar"    => $_POST['idfamiliar'],
         "parentesco"    => $_POST['parentesco'],
-        "idorden"       => $_POST['idorden'],
-        "servicio"      => $_POST['servicio'],
-        "precio"        => $_POST['precio']
+        "orden"         => $_POST['orden']
     ];
       echo json_encode($atencion->create($parametros));
       break;
