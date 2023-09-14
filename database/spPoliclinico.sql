@@ -8,9 +8,7 @@ IN _idusuario 	INT,
 IN _idpersona 	INT,
 IN _idfamiliar 	INT,
 IN _parentesco 	VARCHAR(100),
-IN _idorden 	INT,
-IN _servicio	INT,
-IN _precio	DECIMAL (7,2)
+IN _orden 	INT
 )
 BEGIN
 
@@ -19,12 +17,10 @@ BEGIN
 	DECLARE _contador INT;
 	DECLARE _numAtencion VARCHAR(15);
 
-	-- Para el detalle_servicios 
-	DECLARE _idAtencion INT;
-
+	
 	-- Por si el campo es vacio
 	IF _idfamiliar = 0 THEN SET _idfamiliar = NULL; END IF;
-	IF _idorden = 0 THEN SET _idorden = NULL; END IF;
+	IF _orden = 0 THEN SET _orden = NULL; END IF;
 	IF _parentesco = '' THEN SET _parentesco = NULL; END IF;
 
 	-- Autogenerado 
@@ -44,14 +40,10 @@ BEGIN
 	);
 
 	INSERT INTO Atenciones
-	(turno, numeroAtencion, parentesco, idOrdenDoctor, idUsuario, idFamiliar, idPersona) VALUES
-	('M', _numAtencion, _parentesco, _idorden, _idusuario, _idfamiliar, _idpersona);
+	(turno, numeroAtencion, parentesco, OrdenDoctor, idUsuario, idFamiliar, idPersona) VALUES
+	('M', _numAtencion, _parentesco, _orden, _idusuario, _idfamiliar, _idpersona);
 
-	SET _idAtencion  = LAST_INSERT_ID();
 	
-	INSERT INTO Detalle_Servicios 
-	(idAtencion, idServicio, precio)VALUES
-	(_idAtencion, _servicio, _precio);
 END $$
 
 DELIMITER $$
@@ -63,7 +55,7 @@ BEGIN
 	SELECT `idPersona`,
 		CONCAT(`apellidoPaterno`, 
 		' ', `apellidoMaterno`, 
-		' ' , nombres) AS 'Apellidos y Nombres',
+		', ' , nombres) AS 'ApellidosNombres',
 		YEAR(CURDATE()) - YEAR(`fechaNacimiento`) AS 'Edad'
 	FROM personas
 	WHERE `numeroDocumento` = _numeroDocumento;
@@ -107,8 +99,19 @@ BEGIN
 	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
 	WHERE especialistas_servicios.`idServicio` = _idservicio;
 END $$
--- CALL spu_admision_atenciones(1, 2, '', '', '', 1, 99)
+
+CALL spu_admision_atenciones(1, 2, '', '', '');
+CALL spu_admision_atenciones(1, 3, '', '', '');
+CALL spu_admision_atenciones(1, 4, '', '', '');
+CALL spu_admision_atenciones(1, 5, '', '', '');
+CALL spu_admision_atenciones(1, 6, '', '', '');
+CALL spu_admision_atenciones(1, 7, '', '', '');
+
+CALL spu_admision_atenciones(1, 9, '', '', '');
+
 -- call spu_buscar_personas ('98745632')
 -- call spu_listar_especialistas (1) 
 -- call spu_listar_servicios
 -- call spu_listar_espcialistas_servicios(2)
+
+SELECT * FROM atenciones

@@ -38,10 +38,17 @@ CREATE TABLE Servicios
 idServicio	INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 tipo				CHAR(1)			NOT NULL,
 nombreServicio	VARCHAR(100)	NOT NULL,
-precio			DECIMAL(7,2)	NOT NULL,
 CONSTRAINT uk_nombreServicio_ser UNIQUE(nombreServicio)
 )ENGINE = INNODB;
 
+CREATE TABLE servicios_detalle
+(
+	idservicios_detalle	INT AUTO_INCREMENT PRIMARY KEY,
+	idservicio 				INT NOT NULL,
+	descripcion 			VARCHAR(100) NOT NULL,
+	precio 					DECIMAL(7,2) NOT NULL,
+	CONSTRAINT fk_idservicios_serdet FOREIGN KEY (idservicio) REFERENCES Servicios(idServicio)	
+)ENGINE = INNODB;
 CREATE TABLE Enfermedades
 (
 idEnfermedad		INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -119,23 +126,21 @@ fechaActualizacion			DATETIME 	NULL,
 parentesco				VARCHAR(100) 	NULL,
 estado					CHAR(1) 	NOT NULL DEFAULT '0',
 idUsuario				INT 		NOT NULL,
-idOrdenDoctor				INT 		NULL,
+ordenDoctor				VARCHAR(100) 		NULL,
 idFamiliar				INT 		NULL,
 idPersona				INT 		NOT NULL,
 CONSTRAINT fk_usuario_ate FOREIGN KEY Atenciones (idUsuario) REFERENCES Usuarios (idUsuario),
-CONSTRAINT fk_ordoc_ate FOREIGN KEY Atenciones (idOrdenDoctor) REFERENCES Especialistas (idEspecialista),
 CONSTRAINT fk_fami_ate FOREIGN KEY Atenciones (idFamiliar) REFERENCES Personas (idPersona),
 CONSTRAINT fk_per_ate FOREIGN KEY Atenciones (idPersona) REFERENCES Personas (idPersona)
 )ENGINE = INNODB;
 
 CREATE TABLE Detalle_Servicios
 (
-idDetalleServicio	INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-precio			DECIMAL(7,2) NOT NULL,
-idAtencion		INT 	NOT NULL,
-idServicio		INT 	NOT NULL,
+idDetalleServicio		INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idservicios_detalle 	INT NOT NULL,
+idAtencion				INT 	NOT NULL,
 CONSTRAINT fk_idAtencion_dpr FOREIGN KEY Detalle_Servicios (idAtencion) REFERENCES Atenciones (idAtencion),
-CONSTRAINT fk_idServicios_dpr FOREIGN KEY Detalle_Servicios (idServicio) REFERENCES Servicios (idServicio)
+CONSTRAINT fk_idServicios_detalle_dpr FOREIGN KEY Detalle_Servicios (idservicios_detalle) REFERENCES servicios_detalle (idservicios_detalle)
 )ENGINE = INNODB;
 
 CREATE TABLE Detalle_Atenciones
