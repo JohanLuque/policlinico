@@ -258,5 +258,7 @@ SELECT * FROM personas;
 SELECT * FROM Especialistas;
 SELECT * FROM usuarios;
 SELECT * FROM Especialistas_Servicios;
-SELECT * FROM atenciones;
+SELECT * FROM pagos;
+SELECT * FROM atenciones ORDER BY idAtencion DESC;
 SELECT * FROM Detalle_Servicios;
+SELECT * FROM servicios_detalle;

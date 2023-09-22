@@ -1,11 +1,12 @@
-<div class="container-fluid">
+<div class="container-fluid border-0">
   
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title fw-semibold mb-4" style="color:#ff7619 ;">Registrar atención de servicios</h5>
-      <div class="card">
+  <div class="card border-0">
+    <div class="card-body border-0">
+
+      <h3 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h3>
+      <div class="card border-0">
         <div class="card-body">            
-          <form id="form-atenciones">
+          <form id="form-atenciones" class="needs-validation">
             <div class="mb-3 row g-2">
               <div class="col-md-10">
                 <label for="" class="card-title" style="color:#ff7619 ;">PACIENTE:</label>
@@ -16,7 +17,10 @@
                 <label for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-              <input class="form-control form-control-sm" id="DNI_personas">                
+              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="8" type="tel" required>
+                <div class="invalid-feedback">
+                  Complete este campo para continuar
+                </div>       
               </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
@@ -27,7 +31,7 @@
                 <label for="">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
-                <input class="form-control form-control-sm" id="nombrePaciente" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="nombrePaciente" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2">
@@ -35,7 +39,7 @@
                 <label for="">Edad:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm" id="edadPaciente" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
             </div>
             <!-- familiar -->
@@ -49,7 +53,7 @@
                 <label for="DNI_familiar">N° Doc: </label>
               </div>
               <div class="col-md-3">
-                <input type="text" class="form-control form-control-sm" id="DNI_familiar">
+                <input type="text" class="form-control form-control-sm" id="DNI_familiar" placeholder="12345678" maxlength="8" type="tel">
               </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
@@ -57,10 +61,10 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="">Nombre completo:</label>          
+                <label for="nombreFamiliar">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
-                <input class="form-control form-control-sm" id="nombreFamiliar" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="nombreFamiliar" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2">
@@ -68,7 +72,7 @@
                 <label for="">Parentesco:</label>          
               </div>
               <div class="col-md-3">                                  
-                <input class="form-control form-control-sm" id="parentescoFamilar" type="text">
+                <input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>
               </div>
             </div>
             <!-- orden medica -->
@@ -98,12 +102,12 @@
                 <label for="">Servicio:</label>          
               </div>
               <div class="col-md-3">                                  
-                <select name="" id="listaServicios" class="form-select form-select-sm" >
+                <select name="" id="listaServicios" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
                 </select> 
               </div>
               <div class="col-md-4">                                  
-                <select name="" id="listaServiciosFiltro" class="form-select form-select-sm" >
+                <select name="" id="listaServiciosFiltro" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
                 </select> 
               </div>
@@ -112,12 +116,20 @@
               </div>
             </div>
             <div class="row mt-5">
-              <div class="col-md-12">
-                <table class="table table-sm table-striped table-danger" id="tabla_atenciones_procedimientos">
-                  <thead>
+              <div class="col-md-12 mb-2">
+                <table class="table table-sm " id="tabla_atenciones_procedimientos">
+                  <colgroup>
+                    <col width="10%"> <!-- # -->
+                    <col width="60%"> <!-- titulo -->
+                    <col width="20%"> <!-- precio-->
+                    <col width="10%"> <!-- eliminar-->
+                  </colgroup>
+                  <thead class="thead-danger">
                     <tr>
+                      <th>#</th>
                       <th>Descripción</th>
-                      <th>Total</th>
+                      <th>Precio</th>
+                      <th>Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -130,7 +142,7 @@
                 <label for="">SubTotal:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm" id="subTotal" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="subTotal" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
@@ -138,7 +150,7 @@
                 <label for="">I.G.V:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm" id="IGV" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="IGV" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
@@ -146,7 +158,7 @@
                 <label for="">Total:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm" id="total" type="text" readonly>
+                <input class="form-control form-control-sm bg-light" id="total" type="text" readonly>
               </div>
             </div>                          
             <div class="mb-3 row g-2">
@@ -243,222 +255,369 @@
     </div>
   </div>
 </div>
-
-
-
-
-
 <script>
-  // Pacientes
-    const dniPersonas = document.querySelector("#DNI_personas");    
-    const nombrePaciente = document.querySelector("#nombrePaciente");    
-    const edadPaciente = document.querySelector("#edadPaciente");    
+// Pacientes
+const dniPersonas = document.querySelector("#DNI_personas");    
+const nombrePaciente = document.querySelector("#nombrePaciente");    
+const edadPaciente = document.querySelector("#edadPaciente"); 
+let idpersona = 0;   
 
-  //Familiar
-    const dniFamilar = document.querySelector("#DNI_familiar");
-    const nombreFamiliar = document.querySelector("#nombreFamiliar");
-    const parentesco = document.querySelector("#parentescoFamilar");
+//Familiar
+const dniFamilar = document.querySelector("#DNI_familiar");
+const nombreFamiliar = document.querySelector("#nombreFamiliar");
+const parentesco = document.querySelector("#parentescoFamilar");
+let idfamiliar = 0;
 
-  //Orden Doctor
-    const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
-  
-  //Servicios
-    const listaServicios = document.querySelector("#listaServicios");
-    const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
+//Orden Doctor
+const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
 
-  //Tabla de Resusmen de Servicios
-    const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
-    const btnagregarServicio = document.querySelector("#agregarServicio");
-    let precio;
-  
-  //Modal API
-    const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
-    const dni = document.querySelector("#DNIp");
-    const apellidos = document.querySelector("#apellidosPersona");
-    const nombres = document.querySelector("#nombrePersona");
-    const buscar = document.querySelector("#buscar");
+//Servicios
+const listaServicios = document.querySelector("#listaServicios");
+const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
 
-    function listarEspecialistas(){
-      const parametros = new URLSearchParams();
-      parametros.append("operacion", "getData");
-      parametros.append("estado" , "1");
-      fetch("../controllers/especialista.php",{
-        method : "POST",
-        body: parametros
-      })
-      .then(response => response.json())
-      .then(datos => {
-        //console.log(datos);
-        listaOrdenDoctor.innerHTML = "<option value=''>Seleccione</option>";
-        datos.forEach(element => {
-          const optionTag = document.createElement("option");
-          optionTag.value = element.idEspecialista;
-          optionTag.text = element.ApellidosNombres;
-          listaOrdenDoctor.appendChild(optionTag);
-        });
-      })
-    }
-    
-    function listarServicios(){
-      const parametros = new URLSearchParams();
-      parametros.append("operacion", "getData");
-      fetch("../controllers/servicio.php",{
-        method : "POST",
-        body: parametros
-      })
-      .then(response => response.json())
-      .then(datos => {
-        //console.log(datos);
-        listaServicios.innerHTML = "<option value=''>Seleccione</option>";
-        datos.forEach(element => {
-          const optionTag = document.createElement("option");
-          optionTag.value = element.idServicio;
-          optionTag.text = element.nombreServicio;
-          listaServicios.appendChild(optionTag);
-        });
-      })
-    }
+//Tabla de Resusmen de Servicios
+const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
+const btnagregarServicio = document.querySelector("#agregarServicio");
+const igv = document.querySelector("#IGV");
+const subTotal = document.querySelector("#subTotal");
+const total_servicios = document.querySelector("#total");
+let precio = 0;
 
-    function listarServiciosFiltro(){
-      const parametros = new URLSearchParams();
-      parametros.append("operacion", "filtroServicios");
-      parametros.append("idServicio",listaServicios.value);
-      fetch("../controllers/servicio.php",{
-        method : "POST",
-        body: parametros
-      })
-      .then(response => response.json())
-      .then(datos => {
-        console.log(datos);
-        listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option>";
-        datos.forEach(element => {
-        const optionTag = document.createElement("option");
-        optionTag.value = element.idservicios_detalle;
-        optionTag.text = element.descripcion;
-        precio = element.precio;
-        listaServiciosFiltro.appendChild(optionTag);
-        });
-      })
-    }
+//Modal API
+const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
+const dni = document.querySelector("#DNIp");
+const apellidos = document.querySelector("#apellidosPersona");
+const nombres = document.querySelector("#nombrePersona");
+const buscar = document.querySelector("#buscar");
 
-    function agregarServicio(){
-      const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
-      if (servicioSeleccionado.value !== "") {
+//Guardar atención
+const agregarAtencion = document.querySelector("#agregarAtencion");
+const form = document.querySelector("#form-atenciones");
 
-
-        // Crea una nueva fila
-        const newRow = tabla_servicios.insertRow();
-
-        // Crea las celdas para descripción y precio
-        const cellDescripcion = newRow.insertCell(0);
-        const cellPrecio = newRow.insertCell(1);
-
-        
-          for(var i = 0,cell; cell = tabla_servicios[i]; i++){
-            console.log(`col: ${cell[i].innerText}`);
-            if(col.innerText != servicioSeleccionado.text){
-              cellDescripcion.innerHTML = servicioSeleccionado.text;
-              cellPrecio.innerHTML = precio;
-            }else{
-              console.log("no se puede repetir");
-              alert("no se puede agregar");
-            }
-          }
-        
-        // Asigna los valores a las celdas
-        
+function validar(){
+  if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+      form.classList.add('was-validated');
+  }else{
+    mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+      if(result.isConfirmed){
+        registrarAtencion();
+        registrarServiciosDetalles();
       }
-      else{
-        console.log("algo anda mal :c");
+    })
+  }
+}
+
+function registrarAtencion(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "add");
+  parametros.append("turno", "T");
+  parametros.append("idusuario", 1);
+  parametros.append("idfamiliar", idfamiliar);
+  parametros.append("idpersona", idpersona);
+  parametros.append("parentesco", parentesco.value);
+  parametros.append("orden", listaOrdenDoctor.value);
+  fetch("../controllers/atencion.php", {
+    method : "POST",
+    body : parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    //if(datos.status){
+      form.reset();
+    //}
+    //else{
+     // console.log("algo mal")
+    //}
+  })
+}
+
+function registrarServiciosDetalles() {
+  const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
+  const filas = tabla_servicios.rows;
+
+  // Crear un array de promesas para almacenar las solicitudes fetch
+  const promesasFetch = [];
+
+  for (let i = 1; i < filas.length; i++) {
+  const fila = filas[i];
+  const idservicios_detalle = fila.cells[0].innerHTML;
+
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "add");
+  parametros.append("idServicioDetalle", idservicios_detalle);
+
+  // Agregar la solicitud fetch al array de promesas
+  const fetchPromise = fetch("../controllers/detalleServicio.php", {
+    method: "POST",
+    body: parametros
+  })
+  .then(response => {
+    if (response.ok) {
+      // Si la respuesta es exitosa, puedes realizar acciones adicionales aquí si es necesario.
+      console.log(`Detalle ${idservicios_detalle} registrado con éxito.`);
+    } else {
+      // Manejar errores de solicitud aquí
+      console.error(`Error al registrar el detalle ${idservicios_detalle}.`);
+    }
+  })
+  .catch(error => {
+    // Manejar errores de red aquí
+    console.error(`Error de red al registrar el detalle ${idservicios_detalle}.`, error);
+  });
+
+  promesasFetch.push(fetchPromise);
+  }
+}
+
+function limpiarSelect(){
+  listaServicios.selectedIndex = 0;
+  listaServiciosFiltro.selectedIndex = 0;
+}
+
+function listarEspecialistas(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "getData");
+  parametros.append("estado" , "1");
+  fetch("../controllers/especialista.php",{
+    method : "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    listaOrdenDoctor.innerHTML = "<option value=''>Seleccione</option>";
+    datos.forEach(element => {
+      const optionTag = document.createElement("option");
+      optionTag.value = element.idEspecialista;
+      optionTag.text = element.ApellidosNombres;
+      listaOrdenDoctor.appendChild(optionTag);
+    });
+  })
+}
+
+function listarServicios(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "getData");
+  fetch("../controllers/servicio.php",{
+    method : "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    listaServicios.innerHTML = "<option value=''>Seleccione</option>";
+    datos.forEach(element => {
+      const optionTag = document.createElement("option");
+      optionTag.value = element.idServicio;
+      optionTag.text = element.nombreServicio;
+      listaServicios.appendChild(optionTag);
+    });
+  })
+}
+
+function listarServiciosFiltro(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "filtroServicios");
+  parametros.append("idServicio",listaServicios.value);
+  fetch("../controllers/servicio.php",{
+    method : "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option>";
+    datos.forEach(element => {
+    const optionTag = document.createElement("option");
+    optionTag.value = element.idservicios_detalle;
+    optionTag.text = element.descripcion;
+    optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
+    listaServiciosFiltro.appendChild(optionTag);
+    });
+  })
+}
+
+function agregarServicio() {
+  const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
+
+  if (servicioSeleccionado.value !== "") {
+    // Obtener el precio del servicio seleccionado desde el atributo de datos
+    precio = parseFloat(servicioSeleccionado.dataset.precio);
+
+    // Verificar si el servicio ya está en la tabla
+    const tablaFilas = tabla_servicios.rows;
+    let servicioRepetido = false;
+
+    for (let i = 1; i < tablaFilas.length; i++) {
+      const descripcionCelda = tablaFilas[i].cells[1].innerText;
+      if (descripcionCelda === servicioSeleccionado.text) {
+        servicioRepetido = true;
+        break;
       }
     }
+
+    if (!servicioRepetido) {
+      // Crea una nueva fila
+      let newRow = `
+        <tr>
+          <td>${listaServiciosFiltro.value}</td>
+          <td>${servicioSeleccionado.text}</td>
+          <td>${precio}</td>
+          
+        </tr>    
+      `;
+      tabla_servicios.innerHTML += newRow;
+      calcularTotal();
+    } else {
+      toast("El servicio ya ha sido agregado a la tabla.");
+    }
+  } else {
+    console.log("algo anda mal :c");
+  }
+}
+
+function calcularTotal() {
+  const tablaFilas = tabla_servicios.rows;
+  let total = 0, tigv = 0;tsubTotal = 0 ;
+
+  for (let i = 1; i < tablaFilas.length; i++) {
+
+    const precioCelda = parseFloat(tablaFilas[i].cells[2].innerText);
+    total += precioCelda;
     
 
-    function consultarPaciente(){
-      const parametros = new URLSearchParams();
-      parametros.append("operacion", "getData");
-      parametros.append("numeroDocumento", dniPersonas.value);
-      fetch("../controllers/persona.php", {
-        method : "POST",
-        body: parametros
-      })
-      .then(response => response.json())
-      .then(datos => {
-        console.log(datos);
-        if(datos.length>0){
+  }
+  tigv = total*0.18;
+  tsubTotal = total-tigv;
+  // Mostrar el total en la caja de texto
+  total_servicios.value = total.toFixed(2); // Formatear el total a 2 decimales
+  igv.value = tigv.toFixed(2);
+  subTotal.value = tsubTotal.toFixed(2);
+}
 
-          datos.forEach(element => {
-            nombrePaciente.value = element.ApellidosNombres;
-            edadPaciente.value = element.Edad;
-          });
-        }else{
-          modalRegistrarPersonas.show();
-          dni.value = dniPersonas.value;
-        }
-      })
-    }
-    function consultarFamiliar(){
-      const parametros = new URLSearchParams();
-      parametros.append("operacion", "getData");
-      parametros.append("numeroDocumento", dniFamilar.value);
-      fetch("../controllers/persona.php", {
-        method : "POST",
-        body: parametros
-      })
-      .then(response => response.json())
-      .then(datos => {
-        console.log(datos);
-        if(datos.length>0){
-          datos.forEach(element => {
-          nombreFamiliar.value = element.ApellidosNombres;
-        });
-        }else{
-          modalRegistrarPersonas.show();
-          dni.value = dniFamilar.value;
-        }
-        
-      })
-    }
-    function consultarDNI() {
-      const documento =dni.value;
-      const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
+function consultarPaciente(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "getData");
+  parametros.append("numeroDocumento", dniPersonas.value);
+  fetch("../controllers/persona.php", {
+    method : "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    if(datos.length>0){
 
-      fetch(url)
-        .then(datos => {
-          if(datos.status == 200) {
-            return datos.text();
-          } else {
-            throw `Respuesta incorrecta del servidor`; 
-          }
-        })
-        .then(datos => {
-          const resultado = JSON.parse(datos);
-          console.log(resultado);
-          if (resultado.dni == documento) {
-            apellidos.value = resultado.apellidoPaterno + ", " + resultado.apellidoMaterno;
-            nombres.value = resultado.nombres;
-          } else {
-            alert(content.message);
-          }
-        })
-        .catch( e => {
-          console.error(e);
-        });
+      datos.forEach(element => {
+        idpersona = element.idPersona;
+        nombrePaciente.value = element.ApellidosNombres;
+        edadPaciente.value = element.Edad;
+      });
+    }else{
+      modalRegistrarPersonas.show();
+      dni.value = dniPersonas.value;
     }
+  })
+}
 
-    buscar.addEventListener("click", consultarDNI);
-    
-    dniPersonas.addEventListener("keypress", (evt) => {
-        if (evt.charCode == 13) consultarPaciente();
+function consultarFamiliar(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "getData");
+  parametros.append("numeroDocumento", dniFamilar.value);
+  fetch("../controllers/persona.php", {
+    method: 'POST',
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos =>{
+    if(datos.length>0){
+      datos.forEach(element =>{
+        idfamiliar = element.idPersona;
+        nombreFamiliar.value = element.ApellidosNombres;
+      });
+    }else{
+      modalRegistrarPersonas.show();
+      dni.value = dniFamilar.value;
+    }
+  })
+}
+
+function consultarDNI() {
+  const documento =dni.value;
+  const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
+
+  fetch(url)
+    .then(datos => {
+      if(datos.status == 200) {
+        return datos.text();
+      } else {
+        throw `Respuesta incorrecta del servidor`; 
+      }
+    })
+    .then(datos => {
+      const resultado = JSON.parse(datos);
+      console.log(resultado);
+      if (resultado.dni == documento) {
+        apellidos.value = resultado.apellidoPaterno + ", " + resultado.apellidoMaterno;
+        nombres.value = resultado.nombres;
+      } else {
+        alert(content.message);
+      }
+    })
+    .catch( e => {
+      console.error(e);
     });
+}
 
-    dniFamilar.addEventListener("keypress", (evt) => {
-      if (evt.charCode == 13) consultarFamiliar();
-    });
-    
-    listaServicios.addEventListener("change", listarServiciosFiltro);
-    btnagregarServicio.addEventListener("click", agregarServicio);
-    listarEspecialistas();
-    listarServicios();
-    
+buscar.addEventListener("click", consultarDNI);
+
+dniPersonas.addEventListener("keypress", (evt) => {
+    if (evt.charCode == 13) consultarPaciente();
+});
+
+dniFamilar.addEventListener("keypress", (evt) => {
+  if (evt.charCode == 13) consultarFamiliar();
+});
+
+listaServicios.addEventListener("change", listarServiciosFiltro);
+
+btnagregarServicio.addEventListener("click", () => {
+  if(listaServiciosFiltro.value >0){
+    agregarServicio();
+    limpiarSelect();
+  }
+  else{
+    notificar("Seleccione el servicio", "Ingrese un valor", 2);
+  }
+  
+});
+
+agregarAtencion.addEventListener("click", ()=>{
+  validar()
+})
+
+dniFamilar.addEventListener('input', ()=>{
+  const dniFamiliarValue = dniFamilar.value;
+
+  // Verificar si el campo dniFamiliar tiene datos
+  if (dniFamiliarValue.length > 0) {
+  // Habilitar el campo parentesco para edición
+  parentesco.disabled = false;
+  } else {
+  // Deshabilitar el campo parentesco si no hay datos en dniFamiliar
+  parentesco.disabled = true;
+}
+});
+
+tabla_servicios.addEventListener("click", (e) => {
+    const objetivo = e.target;
+
+    if (objetivo.closest(".eliminar")) {
+      const idServicio = objetivo.closest(".eliminar").dataset.idServicio;
+      deleteProduct(idServicio);
+    }
+  });
+
+
+listarEspecialistas();
+listarServicios();
+
 </script>

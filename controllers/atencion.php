@@ -16,7 +16,8 @@ if(isset($_POST['operacion'])){
         "parentesco"    => $_POST['parentesco'],
         "orden"         => $_POST['orden']
     ];
-      echo json_encode($atencion->create($parametros));
+      $respuesta = $atencion->create($parametros);
+      echo json_encode($respuesta);
       break;
   }
 }

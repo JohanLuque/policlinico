@@ -18,7 +18,7 @@ class DetalleServicio extends Conexion{
             $data['idServicioDetalle']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        return $query->fetchAll(PDO::FETCH_NUM);
     }catch(Exception $e){
       die($e->getCode());
     }

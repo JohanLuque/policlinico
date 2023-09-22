@@ -7,7 +7,11 @@
   <title>Policlinico</title>
   <!-- <link rel="shortcut icon" type="image/png" href="images/logos/" /> -->
   <link rel="stylesheet" href="css/styles.min.css" />
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <script src="https://kit.fontawesome.com/f4286f5039.js" crossorigin="anonymous"></script>
+  <!-- Boostrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
 </head>
 <body>
   <!--  Body Wrapper -->
@@ -38,7 +42,13 @@
               <a class='sidebar-link bg-d' href='index.php?view=atenciones.php' id="atenciones" aria-expanded='false'>        
                 <span class='hide-menu' style='color:#ffffff ;'>Atenciones</span>
               </a>
-            </li>    
+            </li>
+               
+            <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=historiaClinica.php' id="historiaClinica" aria-expanded='false'>        
+                <span class='hide-menu' style='color:#ffffff ;'>Historia Clinica</span>
+              </a>
+            </li> 
 
           </ul>
         </nav>
@@ -91,10 +101,14 @@
   <script src="libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/sidebarmenu.js"></script>
   <script src="js/app.min.js"></script>
+  <script src="js/notificaciones.js"></script>
   <script src="libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="libs/simplebar/dist/simplebar.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+   <!-- Boostrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {     
       function getURL(){
@@ -119,5 +133,4 @@
 
   </script>
 </body>
-
 </html>

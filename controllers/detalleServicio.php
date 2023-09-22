@@ -9,7 +9,7 @@ if(isset($_POST['operacion'])){
   switch($_POST['operacion']){
     case 'add':
       $parametros = [
-        "idservicios_detalle"   => $_POST['idserviciosdetalle']
+        "idServicioDetalle"   => $_POST['idServicioDetalle']
     ];
       echo json_encode($detalleServicio->create($parametros));
       break;
