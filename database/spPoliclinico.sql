@@ -53,6 +53,7 @@ BEGIN
     (_idservicios_detalle, _idatencion);
 END $$
 
+SELECT idAtencion FROM atenciones ORDER BY idatencion DESC LIMIT 1;
 
 DELIMITER $$
 CREATE PROCEDURE spu_buscar_personas
@@ -108,12 +109,14 @@ DELIMITER $$
 CREATE PROCEDURE spu_listar_atenciones()
 BEGIN 
 	SELECT
-		 DATE(atenciones.fechaCreacion) AS Dia,
+		atenciones.idAtencion,
+		 atenciones.fechaCreacion AS Dia,
 		 PP.nombres,
 		 PP.apellidoPaterno,
 		 PP.apellidoMaterno,
 		 servicios.nombreServicio,
-		 SUM(servicios_detalle.precio) AS Total
+		 SUM(servicios_detalle.precio) AS Total,
+		 atenciones.estado
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
@@ -125,6 +128,7 @@ BEGIN
 	GROUP BY Dia, atenciones.idAtencion
 	ORDER BY Dia;
 END $$
+
 
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
 DELIMITER $$
@@ -206,24 +210,23 @@ BEGIN
 	('E', _medioPago, _descripcion, _monto);
 END $$
 
--- CALL spu_admision_atenciones('M',1, 2, '', '', '');
--- CALL spu_admision_atenciones('M',1, 3, '', '', '');
--- CALL spu_admision_atenciones('M',1, 4, '', '', '');
--- CALL spu_admision_atenciones('M',1, 5, '', '', '');
--- CALL spu_admision_atenciones('M',1, 6, '', '', '');
--- CALL spu_admision_atenciones('M',1, 7, '', '', '');
--- CALL spu_admision_atenciones('M',1, 9, '', '', '');
--- CALL spu_admision_atenciones('M',1, 10, '', '', '');
--- CALL spu_admision_atenciones('M',1, 11, '', '', '');
--- CALL spu_admision_atenciones('M',1, 12, '', '', '');
--- CALL spu_admision_atenciones('M',1, 13, '', '', '');
--- CALL spu_admision_atenciones('M',1, 14, '', '', '');
+ CALL spu_admision_atenciones('M',1, 2, '', '', '');
+ CALL spu_admision_atenciones('M',1, 3, '', '', '');
+ CALL spu_admision_atenciones('M',1, 4, '', '', '');
+ CALL spu_admision_atenciones('M',1, 5, '', '', '');
+ CALL spu_admision_atenciones('M',1, 6, '', '', '');
+ CALL spu_admision_atenciones('M',1, 7, '', '', '');
+ CALL spu_admision_atenciones('M',1, 9, '', '', '');
+ CALL spu_admision_atenciones('M',1, 10, '', '', '');
+ CALL spu_admision_atenciones('M',1, 11, '', '', '');
+ CALL spu_admision_atenciones('M',1, 12, '', '', '');
+ CALL spu_admision_atenciones('M',1, 13, '', '', '');
+ CALL spu_admision_atenciones('M',1, 14, '', '', '');
 
--- CALL spu_servicios_detalles(17);
+ CALL spu_servicios_detalles(17);
 
 -- call spu_buscar_personas ('98745632')
 -- call spu_listar_especialistas (1) 
 -- call spu_listar_servicios
 -- call spu_listar_espcialistas_servicios(2)
-
--- SELECT * FROM atenciones
+SELECT * FROM atenciones
