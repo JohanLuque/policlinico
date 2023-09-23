@@ -19,5 +19,9 @@ if(isset($_POST['operacion'])){
       $respuesta = $atencion->create($parametros);
       echo json_encode($respuesta);
       break;
+
+    case 'listarAtenciones':
+      echo json_encode($atencion->listarAtenciones());
+      break;
   }
 }

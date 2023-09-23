@@ -326,6 +326,7 @@ function registrarAtencion(){
   .then(datos => {
     //if(datos.status){
       form.reset();
+      limpiarTabla();
     //}
     //else{
      // console.log("algo mal")
@@ -374,6 +375,16 @@ function registrarServiciosDetalles() {
 function limpiarSelect(){
   listaServicios.selectedIndex = 0;
   listaServiciosFiltro.selectedIndex = 0;
+}
+
+function limpiarTabla() {
+  const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
+  // Itera sobre las filas de datos y elimínalas
+  filasDatos.forEach((fila) => {
+    fila.remove();
+  });
+
+  calcularTotal(); 
 }
 
 function listarEspecialistas(){
@@ -462,7 +473,9 @@ function agregarServicio() {
           <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
           <td>${precio}</td>
-          
+          <td>
+            <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+          </td>
         </tr>    
       `;
       tabla_servicios.innerHTML += newRow;
@@ -514,6 +527,7 @@ function consultarPaciente(){
     }else{
       modalRegistrarPersonas.show();
       dni.value = dniPersonas.value;
+      buscar.click();
     }
   })
 }
@@ -536,6 +550,7 @@ function consultarFamiliar(){
     }else{
       modalRegistrarPersonas.show();
       dni.value = dniFamilar.value;
+      buscar.click();
     }
   })
 }
@@ -569,12 +584,32 @@ function consultarDNI() {
 
 buscar.addEventListener("click", consultarDNI);
 
-dniPersonas.addEventListener("keypress", (evt) => {
+/*dniPersonas.addEventListener("keypress", (evt) => {
     if (evt.charCode == 13) consultarPaciente();
+});*/
+
+dniPersonas.addEventListener("input", () => {
+  const valor = dniPersonas.value.trim(); // Obtener el valor del campo sin espacios en blanco
+
+  if (valor.length === 8) {
+    consultarPaciente();
+  }
 });
 
-dniFamilar.addEventListener("keypress", (evt) => {
+
+/*dniFamilar.addEventListener("keypress", (evt) => {
   if (evt.charCode == 13) consultarFamiliar();
+});*/
+dniFamilar.addEventListener("input", () => {
+  const valor = dniFamilar.value.trim(); // Obtener el valor del campo sin espacios en blanco
+
+  if (valor.length === 8) {
+    consultarFamiliar();
+    parentesco.disabled = false;
+  }else{
+    parentesco.disabled = true;
+    
+  }
 });
 
 listaServicios.addEventListener("change", listarServiciosFiltro);
@@ -590,34 +625,17 @@ btnagregarServicio.addEventListener("click", () => {
   
 });
 
-agregarAtencion.addEventListener("click", ()=>{
-  validar()
-})
-
-dniFamilar.addEventListener('input', ()=>{
-  const dniFamiliarValue = dniFamilar.value;
-
-  // Verificar si el campo dniFamiliar tiene datos
-  if (dniFamiliarValue.length > 0) {
-  // Habilitar el campo parentesco para edición
-  parentesco.disabled = false;
-  } else {
-  // Deshabilitar el campo parentesco si no hay datos en dniFamiliar
-  parentesco.disabled = true;
-}
+agregarAtencion.addEventListener("click", validar);
+tabla_servicios.addEventListener("click", (e)=>{
+  if (e.target.closest(".eliminar")) {
+        const row = e.target.closest("tr");
+        row.remove();
+        calcularTotal();
+      }
 });
-
-tabla_servicios.addEventListener("click", (e) => {
-    const objetivo = e.target;
-
-    if (objetivo.closest(".eliminar")) {
-      const idServicio = objetivo.closest(".eliminar").dataset.idServicio;
-      deleteProduct(idServicio);
-    }
-  });
-
 
 listarEspecialistas();
 listarServicios();
+calcularTotal();
 
 </script>

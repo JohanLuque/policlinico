@@ -48,7 +48,13 @@
               <a class='sidebar-link bg-d' href='index.php?view=historiaClinica.php' id="historiaClinica" aria-expanded='false'>        
                 <span class='hide-menu' style='color:#ffffff ;'>Historia Clinica</span>
               </a>
-            </li> 
+            </li> 
+
+            <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
+                <span class='hide-menu' style='color:#ffffff ;'>Caja</span>
+              </a>
+            </li>
 
           </ul>
         </nav>

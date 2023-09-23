@@ -122,9 +122,9 @@ BEGIN
 	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
-	GROUP BY Dia, servicios.nombreServicio, PP.nombres, PP.apellidoPaterno, PP.apellidoMaterno
-	ORDER BY Dia;
-END $$
+	GROUP BY Dia, atenciones.idAtencion
+	ORDER BY Dia;
+END $$
 
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
 DELIMITER $$

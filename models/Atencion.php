@@ -34,4 +34,14 @@ class Atencion extends Conexion{
     }
     return $respuesta;
   }
+
+  public function listarAtenciones(){
+    try{
+      $query = $this->connection->prepare("CALL spu_listar_atenciones()");
+      $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
