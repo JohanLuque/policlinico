@@ -27,9 +27,81 @@
                         </div>      
                         <div class="row g-2 mb-3">
                             <div class="col-md-6">
-                                
+                                <label for="">DNI:</label>
                             </div>
-                        </div>    
+                            <div class="col-md-6">
+                                <label for="" id="dni"></label>
+                            </div>
+                        </div>   
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Edad:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="edad"></label>
+                            </div>
+                        </div>  
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Teléfono:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="telefono"></label>
+                            </div>
+                        </div> 
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Especialidad:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="especialidad"></label>
+                            </div>
+                        </div> 
+                        <div class="row g-2 mb-3">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Servicio</th>
+                                        <th>Total</th>
+                                      </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- traer datos  -->
+                                </tbody>
+                            </table>
+                        </div> 
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Sub Total:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="subtotal"></label>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">I.G.V:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="igv"></label>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Total:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" id="total"></label>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="">Metodo de pago:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select name="" id="metodosPago"></select>
+                            </div>
+                        </div>
                     </div>
                   </div>
             </div>
