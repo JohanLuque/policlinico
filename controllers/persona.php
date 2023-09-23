@@ -12,4 +12,21 @@ if(isset($_POST['operacion'])){
       echo json_encode($persona->getData($parametros));
       break;
   }
+
+  switch($_POST['operacion']){
+    case 'registrarPersona':
+      $datos = 
+      [
+        "nombres"             => $_POST['nombres'],
+        "apellidoPaterno"     => $_POST['apellidoPaterno'],
+        "apellidoMaterno"     => $_POST['apellidoMaterno'],
+        "tipoDocumento"       => $_POST['tipoDocumento'],
+        "numeroDocumento"     => $_POST['numeroDocumento'],
+        "fechaNacimiento"     => $_POST['fechaNacimiento'],
+        "genero"              => $_POST['genero'],
+        "telefono"            => $_POST['telefono']
+      ];
+      echo json_encode($persona->registrarPersona($datos));
+      break;
+  }
 }

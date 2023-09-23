@@ -173,6 +173,26 @@ BEGIN
 	WHERE Servicios.idServicio = _idServicio;
 END $$
 
+-- Registrar Paciente
+DELIMITER $$
+CREATE PROCEDURE spu_registrar_persona
+(
+	IN _nombres 			VARCHAR(100),
+	IN _apellidoPaterno 	VARCHAR(50),
+	IN _apellidoMaterno 	VARCHAR(50),
+	IN _tipoDocumento		CHAR(1),
+	IN _numeroDocumento	VARCHAR(12),
+	IN _fechaNacimiento	DATE,
+	IN _genero				CHAR(1),
+	IN _telefono			CHAR(9)
+)
+BEGIN
+	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
+	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
+END$$
+
+-- CALL spu_registrar_paciente('Tamara', 'Gonzales', 'Pachas', 'E', '004801385', '1998-08-25', 'F', NULL)
+
 -- CAJA
 DELIMITER $$
 CREATE PROCEDURE spu_pagar_pagos
@@ -208,6 +228,38 @@ IN _monto			DECIMAL(7,2)
 BEGIN
 	INSERT INTO pagos(tipoMovimiento, idMedioPago, descripcionGasto, monto) VALUES
 	('E', _medioPago, _descripcion, _monto);
+END $$
+
+-- Triaje
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_Nueva_historiaClinica
+(
+IN _idpersona 					INT,
+IN _idusuario 					INT, 
+IN _antecedentePersonal		VARCHAR(199),
+IN _antecedenteFamiliar		VARCHAR(199),
+IN _antecedenteQuirurgico 	VARCHAR(199),
+IN _antecedenteOtro			VARCHAR(199)
+)
+BEGIN 
+	IF _antecedentePersonal = "" THEN SET _antecedentePersonal = NULL; END IF;
+	IF _antecedenteFamiliar = "" THEN SET _antecedenteFamiliar = NULL; END IF;
+	IF _antecedenteQuirurgico = "" THEN SET _antecedenteQuirurgico = NULL; END IF;
+	IF _antecedenteOtro = "" THEN SET _antecedenteOtro = NULL; END IF;
+	
+	INSERT INTO Historias_Clinicas (idPersona, idUsuario, antecedentePersonal, antecedenteFamiliar, antecedenteQuirurgico, antecedenteOtro)VALUES
+	(_idpersona, _idusuario, _antecedentePersonal, _antecedenteFamiliar, _antecedenteQuirurgico, _antecedenteOtro);
+	
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_agregar_alergias
+(
+IN _idhistoria INT,
+IN _alergia
+)
+BEGIN 
+
 END $$
 
  CALL spu_admision_atenciones('M',1, 2, '', '', '');

@@ -23,4 +23,30 @@ class Persona extends Conexion{
       die($e->getCode());
     }
   }
+
+  public function registrarPersona($data = []){
+    $respuesta = [
+      "status" => false,
+      "mensaje" => ""
+    ];
+    try{
+      $consulta = $this->connection->prepare("CALL spu_registrar_persona(?,?,?,?,?,?,?,?)");
+      $respuesta["status"]=$consulta->execute(
+        array(
+          $data["nombres"],
+          $data["apellidoPaterno"],
+          $data["apellidoMaterno"],
+          $data["tipoDocumento"],
+          $data["numeroDocumento"],
+          $data["fechaNacimiento"],
+          $data["genero"],
+          $data["telefono"]
+        )
+      );
+    }
+    catch(Exception $e){
+      $respuesta["mensaje"] = "No se pudo guardar. Codigo ". $e->getMessage();
+    }
+    return $respuesta;
+  }
 }
