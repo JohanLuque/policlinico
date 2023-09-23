@@ -207,7 +207,7 @@
                     <label for="">Nombres:</label>          
                   </div>
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="nombrePersona" type="text" readonly>
+                    <input class="form-control form-control-sm" id="nombrePersona" type="text" >
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
@@ -215,7 +215,7 @@
                     <label for="">Apellidos:</label>          
                   </div>
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="apellidosPersona" type="text" readonly>
+                    <input class="form-control form-control-sm" id="apellidosPersona" type="text" >
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
@@ -303,7 +303,6 @@ function validar(){
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
       if(result.isConfirmed){
         registrarAtencion();
-        registrarServiciosDetalles();
       }
     })
   }
@@ -325,8 +324,10 @@ function registrarAtencion(){
   .then(response => response.json())
   .then(datos => {
     //if(datos.status){
+      registrarServiciosDetalles();
       form.reset();
       limpiarTabla();
+      
     //}
     //else{
      // console.log("algo mal")
@@ -527,7 +528,8 @@ function consultarPaciente(){
     }else{
       modalRegistrarPersonas.show();
       dni.value = dniPersonas.value;
-      buscar.click();
+      
+      
     }
   })
 }
@@ -597,9 +599,7 @@ dniPersonas.addEventListener("input", () => {
 });
 
 
-/*dniFamilar.addEventListener("keypress", (evt) => {
-  if (evt.charCode == 13) consultarFamiliar();
-});*/
+
 dniFamilar.addEventListener("input", () => {
   const valor = dniFamilar.value.trim(); // Obtener el valor del campo sin espacios en blanco
 
@@ -626,6 +626,7 @@ btnagregarServicio.addEventListener("click", () => {
 });
 
 agregarAtencion.addEventListener("click", validar);
+
 tabla_servicios.addEventListener("click", (e)=>{
   if (e.target.closest(".eliminar")) {
         const row = e.target.closest("tr");
