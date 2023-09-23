@@ -123,8 +123,8 @@ BEGIN
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia;
-END $$
+	ORDER BY Dia;
+END $$
 
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
 DELIMITER $$
