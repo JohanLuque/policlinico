@@ -212,10 +212,18 @@
                 </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
-                    <label for="">Apellidos:</label>          
+                    <label for="">Apellido Paterno:</label>          
                   </div>
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="apellidosPersona" type="text" >
+                    <input class="form-control form-control-sm" id="apellidosPaternoPersona" type="text" >
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-2">
+                    <label for="">Apellido Materno:</label>          
+                  </div>
+                  <div class="col-md-9">                                  
+                    <input class="form-control form-control-sm" id="apellidosMaternoPersona" type="text" >
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
@@ -286,13 +294,46 @@ let precio = 0;
 //Modal API
 const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
 const dni = document.querySelector("#DNIp");
-const apellidos = document.querySelector("#apellidosPersona");
+const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
+const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
 const nombres = document.querySelector("#nombrePersona");
+const fechanacimiento = document.querySelector("#fechaNacimiento");
+const genero = document.querySelector("#genero");
+const telefono = document.querySelector("#telefono");
 const buscar = document.querySelector("#buscar");
+const guardarRegistro = document.querySelector("#md-guardar");
 
 //Guardar atención
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
+
+function registrarPaciente(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "registrarPersona");
+  parametros.append("nombres", nombres.value);
+  parametros.append("apellidoPaterno",apellidoPaterno.value);
+  parametros.append("apellidoMaterno",apellidoMaterno.value);
+  parametros.append("tipoDocumento", "N");
+  parametros.append("numeroDocumento", dni.value);
+  parametros.append("fechaNacimiento", fechanacimiento.value);
+  parametros.append("genero", genero.value);
+  parametros.append("telefono", telefono.value);
+  fetch("../controllers/persona.php", {
+    method : "POST",
+    body : parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    if(datos.status){
+      alert("Registro guardado");
+    }else{
+      alert(datos.mensaje);
+    }
+  })
+  .catch(error => {
+    alert("Error al guardar")
+  })
+}
 
 function validar(){
   if (!form.checkValidity()) {
@@ -573,7 +614,8 @@ function consultarDNI() {
       const resultado = JSON.parse(datos);
       console.log(resultado);
       if (resultado.dni == documento) {
-        apellidos.value = resultado.apellidoPaterno + ", " + resultado.apellidoMaterno;
+        apellidoPaterno.value = resultado.apellidoPaterno;
+        apellidoMaterno.value = resultado.apellidoMaterno;
         nombres.value = resultado.nombres;
       } else {
         alert(content.message);
@@ -639,4 +681,5 @@ listarEspecialistas();
 listarServicios();
 calcularTotal();
 
+guardarRegistro.addEventListener("click", registrarPaciente)
 </script>
