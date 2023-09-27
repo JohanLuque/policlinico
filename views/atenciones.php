@@ -41,8 +41,13 @@
               <div class="col-md-1">                                  
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="mostrarFamiliar" type="button">Agregar Familiar</button>
+              </div>
             </div>
+            
             <!-- familiar -->
+            <div id="familiar" style="display: none;">
             <div class="mb-3 row g-2">
               <div class="col-md-10">
                 <label for="" class="card-title" style="color:#ff7619 ;">FAMILIAR:</label>
@@ -74,6 +79,7 @@
               <div class="col-md-3">                                  
                 <input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>
               </div>
+            </div>
             </div>
             <!-- orden medica -->
             <div class="mb-3 row g-2">
@@ -264,6 +270,10 @@
   </div>
 </div>
 <script>
+//Prueba de ocultar
+const divFamiliar = document.querySelector("#familiar");
+const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
+
 // Pacientes
 const dniPersonas = document.querySelector("#DNI_personas");    
 const nombrePaciente = document.querySelector("#nombrePaciente");    
@@ -306,6 +316,17 @@ const guardarRegistro = document.querySelector("#md-guardar");
 //Guardar atención
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
+
+var clic =1;
+function mostrardiv(){
+  if(clic ==1){
+    divFamiliar.style.display = "";
+    clic = clic+1;
+  }else{
+    divFamiliar.style.display = "none";
+    clic = 1
+  }
+}
 
 function registrarPaciente(){
   const parametros = new URLSearchParams();
@@ -681,5 +702,6 @@ listarEspecialistas();
 listarServicios();
 calcularTotal();
 
-guardarRegistro.addEventListener("click", registrarPaciente)
+guardarRegistro.addEventListener("click", registrarPaciente);
+mostrarFamiliar.addEventListener("click", mostrardiv);
 </script>

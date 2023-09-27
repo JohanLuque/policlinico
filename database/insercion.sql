@@ -16,6 +16,7 @@ INSERT INTO servicios (tipo, nombreServicio) VALUES
 ('S', 'Medida de vista'),
 ('S', 'Nebulización'),
 ('S', 'Anatomiía patológica'),
+-- 8
 ('E', 'Medicina General'),
 ('E', 'Medicina Interna'),
 ('E', 'Pediatría'),
@@ -155,11 +156,6 @@ LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servic
 INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 
 INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
-
-
-
-
--- Inicio de laboratorio
 (1,'ANCA (Elisa)','100.00'),
 (1,'Aglutinaciones en lamina y en tubo','15.00'),
 (1,'ANTI ATG(Anti tiroglobulina)(tiroides autoinmune)','85.00'),
@@ -267,7 +263,25 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (1,'Tiempo Parcial y Tromboplastina (APTT)','40.00'),
 (1,'Fibrinogeno','40.00'),
 (1,'Coombs directo','50.00'),
-(1,'Coombs indirecto','50.00');
+(1,'Coombs indirecto','50.00'),
+(2,'Abdominal','60.00'),
+(2,'Pelvica','80.00'),
+(2,'Cervical','50.00'),
+(2,'Obstetrica','70.00'),
+(3,'Abdominal','60.00'),
+(3,'Torax','50.00'),
+(3,'Mano','50.00'),
+(3,'Columna lumbosacra','80.00'),
+(4,'Curación de herida','40.00'),
+(4,'Inyectable','7.00'),
+(4,'Control de glicemia','20.00'),
+(4,'Intramuscular','30.00'),
+(9,'Consulta','30.00'),
+(10,'Consulta','40.00'),
+(11,'Consulta','40.00'),
+(12,'Consulta','50.00'),
+(13,'Consulta','40.00'),
+(13,'Revision general','50.00');
 
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;
