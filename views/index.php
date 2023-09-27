@@ -47,8 +47,8 @@
             </li>
                
             <li class='sidebar-item bg'>
-              <a class='sidebar-link bg-d' href='index.php?view=historiaClinica.php' id="historiaClinica" aria-expanded='false'>        
-                <span class='hide-menu' style='color:#ffffff ;'>Historia Clinica</span>
+              <a class='sidebar-link bg-d' href='index.php?view=triaje.php' id="historiaClinica" aria-expanded='false'>        
+                <span class='hide-menu' style='color:#ffffff ;'>Triaje</span>
               </a>
             </li> 
 
