@@ -601,6 +601,8 @@ function agregarServicio() {
   }
 }
 
+
+
 function calcularTotal() {
   const tablaFilas = tabla_servicios.rows;
   let total = 0, tigv = 0;tsubTotal = 0 ;
