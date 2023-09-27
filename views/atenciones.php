@@ -41,8 +41,13 @@
               <div class="col-md-1">                                  
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="mostrarFamiliar" type="button">Agregar Familiar</button>
+              </div>
             </div>
+            
             <!-- familiar -->
+            <div id="familiar" style="display: none;">
             <div class="mb-3 row g-2">
               <div class="col-md-10">
                 <label for="" class="card-title" style="color:#ff7619 ;">FAMILIAR:</label>
@@ -74,6 +79,7 @@
               <div class="col-md-3">                                  
                 <input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>
               </div>
+            </div>
             </div>
             <!-- orden medica -->
             <div class="mb-3 row g-2">
@@ -285,56 +291,7 @@
   </div>
 </div>
 <script>
-  // Pacientes
-  const dniPersonas = document.querySelector("#DNI_personas");    
-  const nombrePaciente = document.querySelector("#nombrePaciente");    
-  const edadPaciente = document.querySelector("#edadPaciente"); 
-  let idpersona = 0;   
 
-  //Familiar
-  const dniFamilar = document.querySelector("#DNI_familiar");
-  const nombreFamiliar = document.querySelector("#nombreFamiliar");
-  const parentesco = document.querySelector("#parentescoFamilar");
-  let idfamiliar = 0;
-
-  //Orden Doctor
-  const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
-
-  //Servicios
-  const listaServicios = document.querySelector("#listaServicios");
-  const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
-
-  //Tabla de Resusmen de Servicios
-  const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
-  const btnagregarServicio = document.querySelector("#agregarServicio");
-  const igv = document.querySelector("#IGV");
-  const subTotal = document.querySelector("#subTotal");
-  const total_servicios = document.querySelector("#total");
-  let precio = 0;
-
-  //Modal API
-  const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
-  const dni = document.querySelector("#DNIp");
-  const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
-  const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
-  const nombres = document.querySelector("#nombrePersona");
-  const fechanacimiento = document.querySelector("#fechaNacimiento");
-  //const genero = document.querySelector("#genero");
-  const telefono = document.querySelector("#telefono");
-  const buscar = document.querySelector("#buscar");
-  const guardarRegistro = document.querySelector("#md-guardar");
-
-  //Guardar atención
-  const agregarAtencion = document.querySelector("#agregarAtencion");
-  const form = document.querySelector("#form-atenciones");
-
-  function registrarPaciente(){
-
-    const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
-    if (!tipoDocumento) {
-      alert("Por favor, selecciona un tipo de documento.");
-      return;  // No hay opción seleccionada, no continuamos
-    }
 
     const genero = document.querySelector('input[name="options"]:checked');
     if (!genero) {
@@ -717,5 +674,11 @@
   listarServicios();
   calcularTotal();
 
+
+
+   
+guardarRegistro.addEventListener("click", registrarPaciente);
+mostrarFamiliar.addEventListener("click", mostrardiv);
   guardarRegistro.addEventListener("click", registrarPaciente);
   </script>
+
