@@ -336,6 +336,8 @@ BEGIN
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 END $$
 
+CALL spu_detalle_pagos(1);
+
 DELIMITER $$ 
 CREATE PROCEDURE spu_listar_detalle_servicio( IN _idatencion INT)
 BEGIN
