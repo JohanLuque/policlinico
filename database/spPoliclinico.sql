@@ -190,7 +190,7 @@ BEGIN
 	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
 END$$
 
--- CALL spu_registrar_paciente('Tamara', 'Gonzales', 'Pachas', 'E', '004801385', '1998-08-25', 'F', NULL)
+-- CALL spu_registrar_persona('Tamara', 'Gonzales', 'Pachas', 'E', '004801385', '1998-08-25', 'F', NULL)
 
 -- CAJA
 DELIMITER $$
