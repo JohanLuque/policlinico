@@ -251,7 +251,8 @@ BEGIN
 	(_idpersona, _idusuario, _antecedentePersonal, _antecedenteFamiliar, _antecedenteQuirurgico, _antecedenteOtro);
 	
 END$$
--- call spu_triaje_Nueva_historiaClinica(1,1, null, null,null, null);
+-- call spu_triaje_Nueva_historiaClinica(23,1, null, null,null, null);
+
 
 -- sigo por aca
 DELIMITER $$
@@ -276,12 +277,14 @@ IN _frecuenciaCardiaca 		VARCHAR(5),
 IN _frecuenciaRespiratoria 	VARCHAR(5),
 IN _presionArterial 		VARCHAR(10),
 IN _temperatura			DECIMAL(4,2),
-IN _saturacionOxigeno		TINYINT
+IN _saturacionOxigeno		TINYINT,
+IN _idusuario INT
 )
 BEGIN 
-	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
-	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno);
+	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno, idUsuario) VALUES
+	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END $$
+-- call spu_triaje_agregar_triaje(1, 1, 66.8, 163, '10x1', '10x2', '10x3', 33.9, 100, 1);
 
 DELIMITER $$
 CREATE PROCEDURE spu_doctor_agregar
@@ -353,23 +356,26 @@ BEGIN
 	WHERE detalle_servicios.`idAtencion` = _idatencion;
 END $$
 
- CALL spu_admision_atenciones('M',1, 2, '', '', '');
- CALL spu_admision_atenciones('M',1, 3, '', '', '');
- CALL spu_admision_atenciones('M',1, 4, '', '', '');
- CALL spu_admision_atenciones('M',1, 5, '', '', '');
- CALL spu_admision_atenciones('M',1, 6, '', '', '');
- CALL spu_admision_atenciones('M',1, 7, '', '', '');
- CALL spu_admision_atenciones('M',1, 9, '', '', '');
- CALL spu_admision_atenciones('M',1, 10, '', '', '');
- CALL spu_admision_atenciones('M',1, 11, '', '', '');
- CALL spu_admision_atenciones('M',1, 12, '', '', '');
- CALL spu_admision_atenciones('M',1, 13, '', '', '');
- CALL spu_admision_atenciones('M',1, 14, '', '', '');
+DELIMITER $$
+CREATE PROCEDURE spu_listar_detalles_atenciones
+(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN
+	SELECT DATE(Detalle_Atenciones.fechaCreacion) AS fecha
+	FROM Detalle_Atenciones
+	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
+	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+	WHERE personas.numeroDocumento = _numeroDocumento;
+END $$
 
- CALL spu_servicios_detalles(17);
 
 -- call spu_buscar_personas ('98745632')
 -- call spu_listar_especialistas (1) 
 -- call spu_listar_servicios
 -- call spu_listar_espcialistas_servicios(2)
 SELECT * FROM Detalle_Atenciones
+INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno, idUsuario, fechacreacion) VALUES
+(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-26'),
+(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-25');
+SELECT * FROM atenciones

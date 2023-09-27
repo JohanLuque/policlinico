@@ -156,6 +156,8 @@ temperatura					DECIMAL(4,2) 	NOT NULL,
 saturacionOxigeno			TINYINT 			NOT NULL,
 examemGeneral 				VARCHAR(2000) 	NULL,
 frecuencia					CHAR(1) 			NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
+fechaCreacion 				DATETIME			NOT NULL DEFAULT NOW(),
+fechaActualizacion		DATETIME			NULL,
 idHistoria					INT 				NOT NULL,
 idAtencion					INT 				NOT NULL,
 idUsuario					INT 				NOT NULL,
