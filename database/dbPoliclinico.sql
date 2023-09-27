@@ -96,14 +96,15 @@ CONSTRAINT fk_idServicio_ees FOREIGN KEY Especialistas_Servicios (idServicio) RE
 CREATE TABLE Historias_Clinicas
 (
 idHistoriaClinica			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-antecentePersonal			VARCHAR(199) 	NULL,
-antecenteFamiliar			VARCHAR(199) 	NULL,
-antecenteQuirurgico 		VARCHAR(199) 	NULL,
-antecenteOtro				VARCHAR(199) 	NULL,
+antecedentePersonal			VARCHAR(199) 	NULL,
+antecedenteFamiliar			VARCHAR(199) 	NULL,
+antecedenteQuirurgico 		VARCHAR(199) 	NULL,
+antecedenteOtro				VARCHAR(199) 	NULL,
 idUsuario					INT 				NOT NULL,
 idPersona					INT 				NOT NULL,
 CONSTRAINT fk_idUsuario_hcl FOREIGN KEY Historias_Clinicas (idUsuario) REFERENCES Usuarios (idUsuario),
-CONSTRAINT fk_idPersona_hcl FOREIGN KEY Historias_Clinicas (idPersona) REFERENCES Personas(idPersona)
+CONSTRAINT fk_idPersona_hcl FOREIGN KEY Historias_Clinicas (idPersona) REFERENCES Personas(idPersona),
+CONSTRAINT uk_historia_hcl UNIQUE(idPersona)
 )ENGINE = INNODB;
 
 CREATE TABLE Detalle_Alergias
