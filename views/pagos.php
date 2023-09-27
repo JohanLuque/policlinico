@@ -384,7 +384,7 @@ function cambiarEstadoPago(){
     })
     .then(response => response.json())
     .then(datos => {  
-        toast("estado cambiado");      
+        toastCheck("estado cambiado");      
   })
 }
 
@@ -427,7 +427,10 @@ guardarPago.addEventListener("click", () => {
       if(result.isConfirmed){
         registrarPagos();
         cambiarEstadoPago();
+        modal.toggle();
+        
       }
+      listarCards();
     })
 });
 

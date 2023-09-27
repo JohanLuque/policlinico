@@ -52,12 +52,15 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
 insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`) values 
-(1,'T','270920230001','2023-09-27 08:20:23',NULL,NULL,'0',1,NULL,23,23);
+(1,'T','270920230001','2023-09-27 14:29:16','2023-09-27 14:29:28',NULL,'1',1,NULL,NULL,22),
+(2,'T','270920230002','2023-09-27 14:31:38','2023-09-27 14:33:36',NULL,'1',1,NULL,NULL,22),
+(3,'T','270920230003','2023-09-27 14:34:21','2023-09-27 14:34:31',NULL,'1',1,NULL,NULL,24),
+(4,'T','270920230004','2023-09-27 14:35:42','2023-09-27 14:35:56',NULL,'1',1,NULL,NULL,23);
 
 /*Table structure for table `detalle_alergias` */
 
@@ -91,6 +94,8 @@ CREATE TABLE `detalle_atenciones` (
   `saturacionOxigeno` tinyint(4) NOT NULL,
   `examemGeneral` varchar(2000) DEFAULT NULL,
   `frecuencia` char(1) DEFAULT 'p',
+  `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
+  `fechaActualizacion` datetime DEFAULT NULL,
   `idHistoria` int(11) NOT NULL,
   `idAtencion` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
@@ -118,12 +123,17 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
 insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
-(1,9,1);
+(1,121,1),
+(2,92,2),
+(3,109,3),
+(4,114,4),
+(5,1,4),
+(6,109,4);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -263,9 +273,16 @@ CREATE TABLE `pagos` (
   KEY `fk_idmep_pag` (`idMedioPago`),
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pagos` */
+
+insert  into `pagos`(`idPago`,`monto`,`tipoMovimiento`,`descripcionGasto`,`fechaHora`,`fechaDevolucion`,`idAtencion`,`idMedioPago`) values 
+(1,30.00,'I',NULL,'2023-09-27 14:29:28',NULL,1,3),
+(2,10.00,'I',NULL,'2023-09-27 14:33:36',NULL,2,4),
+(3,20.00,'I',NULL,'2023-09-27 14:33:36',NULL,2,3),
+(4,60.00,'I',NULL,'2023-09-27 14:34:31',NULL,3,3),
+(5,50.00,'I',NULL,'2023-09-27 14:35:56',NULL,4,5);
 
 /*Table structure for table `personas` */
 
@@ -286,37 +303,39 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personas` */
 
 insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno`,`tipoDocumento`,`numeroDocumento`,`fechaNacimiento`,`genero`,`telefono`,`fechaCreacion`,`fechaFin`,`estado`) values 
-(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
-(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-27 08:18:47',NULL,'1');
+(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
+(27,'JAHAYRA ELIZABETH','SUAREZ','MATIAS','N','76364011','1999-06-02','F','934323619','2023-09-27 14:40:29',NULL,'1'),
+(28,'BRIANNA HELENA','MATTA','VALVERDE','N','76364012','2000-05-15','F','','2023-09-27 14:44:53',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -372,7 +391,7 @@ CREATE TABLE `servicios_detalle` (
   PRIMARY KEY (`idservicios_detalle`),
   KEY `fk_idservicios_serdet` (`idservicio`),
   CONSTRAINT `fk_idservicios_serdet` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `servicios_detalle` */
 
@@ -484,7 +503,25 @@ insert  into `servicios_detalle`(`idservicios_detalle`,`idservicio`,`descripcion
 (105,1,'Tiempo Parcial y Tromboplastina (APTT)',40.00),
 (106,1,'Fibrinogeno',40.00),
 (107,1,'Coombs directo',50.00),
-(108,1,'Coombs indirecto',50.00);
+(108,1,'Coombs indirecto',50.00),
+(109,2,'Abdominal',60.00),
+(110,2,'Pelvica',80.00),
+(111,2,'Cervical',50.00),
+(112,2,'Obstetrica',70.00),
+(113,3,'Abdominal',60.00),
+(114,3,'Torax',50.00),
+(115,3,'Mano',50.00),
+(116,3,'Columna lumbosacra',80.00),
+(117,4,'Curación de herida',40.00),
+(118,4,'Inyectable',7.00),
+(119,4,'Control de glicemia',20.00),
+(120,4,'Intramuscular',30.00),
+(121,9,'Consulta',30.00),
+(122,10,'Consulta',40.00),
+(123,11,'Consulta',40.00),
+(124,12,'Consulta',50.00),
+(125,13,'Consulta',40.00),
+(126,13,'Revision general',50.00);
 
 /*Table structure for table `usuarios` */
 
@@ -507,9 +544,9 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idUsuario`,`nombreUsuario`,`clave`,`nivelAcceso`,`fechaInicio`,`fechaFin`,`estado`,`idPersona`) values 
-(1,'JuanQ','123','A','2023-09-27 08:18:47',NULL,'1',1),
-(2,'AnaC','1','A','2023-09-27 08:18:47',NULL,'1',2),
-(3,'JuanaU','','A','2023-09-27 08:18:47',NULL,'1',3);
+(1,'JuanQ','123','A','2023-09-27 14:26:58',NULL,'1',1),
+(2,'AnaC','1','A','2023-09-27 14:26:58',NULL,'1',2),
+(3,'JuanaU','','A','2023-09-27 14:26:58',NULL,'1',3);
 
 /* Procedure structure for procedure `spu_admision_atenciones` */
 
@@ -710,6 +747,24 @@ BEGIN
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
 	ORDER BY Dia;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_detalles_atenciones` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_detalles_atenciones` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_detalles_atenciones`(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN
+	SELECT DATE(Detalle_Atenciones.fechaCreacion) AS fecha
+	FROM Detalle_Atenciones
+	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
+	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+	WHERE personas.numeroDocumento = _numeroDocumento;
 END */$$
 DELIMITER ;
 
@@ -917,11 +972,12 @@ IN _frecuenciaCardiaca 		VARCHAR(5),
 IN _frecuenciaRespiratoria 	VARCHAR(5),
 IN _presionArterial 		VARCHAR(10),
 IN _temperatura			DECIMAL(4,2),
-IN _saturacionOxigeno		TINYINT
+IN _saturacionOxigeno		TINYINT,
+IN _idusuario INT
 )
 BEGIN 
-	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
-	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno);
+	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno, idUsuario) VALUES
+	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END */$$
 DELIMITER ;
 
