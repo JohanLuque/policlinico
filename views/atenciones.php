@@ -17,7 +17,7 @@
                 <label for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="8" type="tel" required>
+              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="12" type="tel" required>
                 <div class="invalid-feedback">
                   Complete este campo para continuar
                 </div>       
@@ -189,6 +189,21 @@
           <div class="col-md-12">
             <div class="row g-2 mb-3">  
               <form action="" id="form-ganador">
+              <div class="mb-3 row g-2">
+                  <div class="col-md-2">
+                    <label for="">Tipo Doc.</label>          
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbDni" value="N">
+                      <label class="form-check-label">DNI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet" value="E">
+                      <label class="form-check-label">Carnet Extranjeria</label>
+                    </div>
+                  </div>
+                </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
                     <label for="">N° Doc:</label>          
@@ -212,12 +227,19 @@
                 </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
-                    <label for="">Apellidos:</label>          
+                    <label for="">Apellido Paterno:</label>          
                   </div>
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="apellidosPersona" type="text" >
+                    <input class="form-control form-control-sm" id="apellidosPaternoPersona" type="text" >
                   </div>
                 </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-2">
+                    <label for="">Apellido Materno:</label>          
+                  </div>
+                  <div class="col-md-9">                                  
+                    <input class="form-control form-control-sm" id="apellidosMaternoPersona" type="text" >
+                  </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
                     <label for="">F. Nac:</label>          
@@ -231,7 +253,14 @@
                     <label for="">Genero:</label>          
                   </div>
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="genero" type="text">
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="options" id="rbFemenino" value="F">
+                      <label class="form-check-label">Femenino</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="options" id="rbMasculino" value="M">
+                      <label class="form-check-label">Masculino</label>
+                    </div>
                   </div>
                   <div class="mb-3 row g-2">
                     <div class="col-md-2">
@@ -286,13 +315,61 @@ let precio = 0;
 //Modal API
 const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
 const dni = document.querySelector("#DNIp");
-const apellidos = document.querySelector("#apellidosPersona");
+const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
+const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
 const nombres = document.querySelector("#nombrePersona");
+const fechanacimiento = document.querySelector("#fechaNacimiento");
+//const genero = document.querySelector("#genero");
+const telefono = document.querySelector("#telefono");
 const buscar = document.querySelector("#buscar");
+const guardarRegistro = document.querySelector("#md-guardar");
 
 //Guardar atención
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
+
+function registrarPaciente(){
+
+  const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
+  if (!tipoDocumento) {
+    alert("Por favor, selecciona un tipo de documento.");
+    return;  // No hay opción seleccionada, no continuamos
+  }
+
+  const genero = document.querySelector('input[name="options"]:checked');
+  if (!genero) {
+    alert("Por favor, seleccione un genero");
+    return;  // No hay opción seleccionada, no continuamos
+  }
+  
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "registrarPersona");
+  parametros.append("nombres", nombres.value);
+  parametros.append("apellidoPaterno",apellidoPaterno.value);
+  parametros.append("apellidoMaterno",apellidoMaterno.value);
+  parametros.append("tipoDocumento", tipoDocumento.value);
+  parametros.append("numeroDocumento", dni.value);
+  parametros.append("fechaNacimiento", fechanacimiento.value);
+  parametros.append("genero", genero.value);
+  parametros.append("telefono", telefono.value);
+  fetch("../controllers/persona.php", {
+    method : "POST",
+    body : parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    if(datos.status){
+      alert("Registro guardado");
+      //modalRegistrarPersonas.closed();
+      //dniPersonas.value = dni.value;
+    }else{
+      alert(datos.mensaje);
+    }
+  })
+  .catch(error => {
+    alert("Error al guardar")
+  })
+}
 
 function validar(){
   if (!form.checkValidity()) {
@@ -573,7 +650,8 @@ function consultarDNI() {
       const resultado = JSON.parse(datos);
       console.log(resultado);
       if (resultado.dni == documento) {
-        apellidos.value = resultado.apellidoPaterno + ", " + resultado.apellidoMaterno;
+        apellidoPaterno.value = resultado.apellidoPaterno;
+        apellidoMaterno.value = resultado.apellidoMaterno;
         nombres.value = resultado.nombres;
       } else {
         alert(content.message);
@@ -593,7 +671,7 @@ buscar.addEventListener("click", consultarDNI);
 dniPersonas.addEventListener("input", () => {
   const valor = dniPersonas.value.trim(); // Obtener el valor del campo sin espacios en blanco
 
-  if (valor.length === 8) {
+  if (valor.length === 8 || valor.length === 9) {
     consultarPaciente();
   }
 });
@@ -639,4 +717,5 @@ listarEspecialistas();
 listarServicios();
 calcularTotal();
 
+guardarRegistro.addEventListener("click", registrarPaciente);
 </script>

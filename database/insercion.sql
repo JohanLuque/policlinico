@@ -16,6 +16,7 @@ INSERT INTO servicios (tipo, nombreServicio) VALUES
 ('S', 'Medida de vista'),
 ('S', 'Nebulización'),
 ('S', 'Anatomiía patológica'),
+-- 8
 ('E', 'Medicina General'),
 ('E', 'Medicina Interna'),
 ('E', 'Pediatría'),
@@ -58,7 +59,7 @@ INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, 
 ('Gustavo Alonso','Carbajal', 'Quispe','N','76582497','1984-08-08','M',NULL),			
 ('Angelica','Diaz', 'Pachas','N','61060072','1986-02-02','F',NULL),
 ('Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL),
-('Johan Ruperto','Luque','Ramos','N','71789712','2003-02-24','M',NULL),			
+('Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL),			
 ('Anny', 'Cabrera','Napa', 'N', '71788436','2003-07-16','F',NULL),
 ('Carol Nichol','Canchari', 'Silvestre','N','21884566','1978-08-08','F',NULL),			
 ('Rosa Luz','Vizarreta', 'De Mendoza','N','21800841','1962-03-03','F',NULL);			
@@ -141,7 +142,7 @@ INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
 INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 
-INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES 
+INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (1,'ANCA (Elisa)','100.00'),
 (1,'Aglutinaciones en lamina y en tubo','15.00'),
 (1,'ANTI ATG(Anti tiroglobulina)(tiroides autoinmune)','85.00'),
@@ -249,7 +250,20 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (1,'Tiempo Parcial y Tromboplastina (APTT)','40.00'),
 (1,'Fibrinogeno','40.00'),
 (1,'Coombs directo','50.00'),
-(1,'Coombs indirecto','50.00');
+(1,'Coombs indirecto','50.00'),
+(2,'Cervical', '50.00'),
+(2,'Abdominal', '60.00'),
+(2,'EcoTv','60.00'),
+(3,'Abdominal','60.00'),
+(3,'Craneo','90.00'),
+(3,'Columna Lumbosacra','110.00'),
+(4,'Curacion de herida','30.00'),
+(4,'Apliacion de inyectable','7.00'),
+(4,'Control de glicemia','30.00'),
+(9,'Consulta', '30.00'),
+(10,'Consulta', '40.00'),
+(11,'Consulta', '40.00'),
+(12,'Consulta', '50.00');
 
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;
