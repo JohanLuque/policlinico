@@ -278,7 +278,7 @@ function calcularTotalResumen() {
 function agregarPagoTabla(){
     const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
 
-    if(medioSeleccionado.value !== ""){
+    if(medioSeleccionado.value != ""){
         let medioRepetido = false;
         const filaMedios = detallepagos.rows;
         
@@ -303,13 +303,23 @@ function agregarPagoTabla(){
             `;
             detallepagos.innerHTML += nuevaFila;
         }
+        else{
+            toastCheck("No puede repetir dos métodos de pago");
+        }        
+        calcularRestante();      
         
-        
-        calcularRestante();
-        
-        
+    }else{
+        toast("Por favor seleccione un método de pago");
     }
 }
+
+detallepagos.addEventListener("click", (e) => {
+    if(e.target.closest(".eliminar")){
+        const row = e.target.closest("tr");
+        row.remove();
+        calcularRestante();
+    }
+});
 
 function calcularRestante(){
     const filaPagos = detallepagos.rows;
@@ -384,7 +394,7 @@ function cambiarEstadoPago(){
     })
     .then(response => response.json())
     .then(datos => {  
-        toast("estado cambiado");      
+        toastCheck("estado cambiado");      
   })
 }
 

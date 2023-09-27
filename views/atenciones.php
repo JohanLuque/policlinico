@@ -367,45 +367,42 @@ function mostrardiv(){
 }
 
 function registrarPaciente(){
-
-const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
-if (!tipoDocumento) {
-  alert("Por favor, selecciona un tipo de documento.");
-  return;  // No hay opción seleccionada, no continuamos
-}
-
-const genero = document.querySelector('input[name="options"]:checked');
-if (!genero) {
-  alert("Por favor, seleccione un genero");
-  return;  // No hay opción seleccionada, no continuamos
-}
-const parametros = new URLSearchParams();
-parametros.append("operacion", "registrarPersona");
-parametros.append("nombres", nombres.value);
-parametros.append("apellidoPaterno",apellidoPaterno.value);
-parametros.append("apellidoMaterno",apellidoMaterno.value);
-parametros.append("tipoDocumento", tipoDocumento.value);
-parametros.append("numeroDocumento", dni.value);
-parametros.append("fechaNacimiento", fechanacimiento.value);
-parametros.append("genero", genero.value);
-parametros.append("telefono", telefono.value);
-fetch("../controllers/persona.php", {
-  method : "POST",
-  body : parametros
-})
-.then(response => response.json())
-.then(datos => {
-  if(datos.status){
-    alert("Registro guardado");
-    //modalRegistrarPersonas.hide();
-    //dniPersonas.value = dni.value;
-  }else{
-    alert(datos.mensaje);
+  const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
+  if (!tipoDocumento) {
+      alert("Por favor, selecciona un tipo de documento.");
+      return;  // No hay opción seleccionada, no continuamos
   }
-})
-.catch(error => {
-  alert("Error al guardar")
-})
+  const genero = document.querySelector('input[name="options"]:checked');
+  if (!genero) {
+    alert("Por favor, seleccione un genero");
+    return;  // No hay opción seleccionada, no continuamos
+  }
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "registrarPersona");
+  parametros.append("nombres", nombres.value);
+  parametros.append("apellidoPaterno",apellidoPaterno.value);
+  parametros.append("apellidoMaterno",apellidoMaterno.value);
+  parametros.append("tipoDocumento", tipoDocumento.value);
+  parametros.append("numeroDocumento", dni.value);
+  parametros.append("fechaNacimiento", fechanacimiento.value);
+  parametros.append("genero", genero.value);
+  parametros.append("telefono", telefono.value);
+  fetch("../controllers/persona.php", {
+    method : "POST",
+    body : parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    if(datos.status){
+      toastCheck("Guardado Correctamente");   
+      modalRegistrarPersonas.toggle();
+    }else{
+      alert(datos.mensaje);
+    }
+  })
+  .catch(error => {
+    alert("Error al guardar")
+  })
 }
 
 function validar(){
@@ -417,6 +414,7 @@ function validar(){
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
       if(result.isConfirmed){
         registrarAtencion();
+        toastCheck("Guardado correctamente");   
       }
     })
   }
@@ -602,6 +600,8 @@ function agregarServicio() {
     console.log("algo anda mal :c");
   }
 }
+
+
 
 function calcularTotal() {
   const tablaFilas = tabla_servicios.rows;
