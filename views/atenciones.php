@@ -206,11 +206,11 @@
                   </div>
                   <div class="col-md-9">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbDni" value="N">
+                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N">
                       <label class="form-check-label">DNI</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet" value="E">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
                       <label class="form-check-label">Carnet Extranjeria</label>
                     </div>
                   </div>
@@ -278,7 +278,7 @@
                       <label for="">Telefono:</label>          
                     </div>
                     <div class="col-md-9">                                  
-                      <input class="form-control form-control-sm" id="telefono" placeholder="999999999" type="text">
+                      <input class="form-control form-control-sm"  maxlength="9" id="telefono" placeholder="999999999" type="text">
                     </div>
                   </div>
                 </div>
@@ -348,7 +348,7 @@ var presionar=1;
 function mostrardivOrden(){
   if(presionar == 1){
     divOrden.style.display = "";
-    //presionar = presionar+1;
+    presionar = presionar+1;
   }else{
     divOrden.style.display = "none";
     presionar = 1

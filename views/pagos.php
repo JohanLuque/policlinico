@@ -104,7 +104,7 @@
                     <div class="row g-2 mb-3">
                         <div class="row">
                             <div class="col-md-3">
-                                <label for="">Metodo de pago:</label>
+                                <label for="">Método de pago:</label>
                             </div>
                             <div class="col-md-4">
                                 <select name="" class="form-select form-select-sm" id="metodosPago"></select>
@@ -132,7 +132,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>metodo</th>
+                                    <th>método</th>
                                     <th>Cantidad</th>
                                   </tr>
                             </thead>
