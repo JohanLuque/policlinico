@@ -1,20 +1,11 @@
 <div class="container-fluid">
-    <div class="mb-2 row g-2" >
-        <div class="col-md-3">
-            <div class="card" id="cardpagos">
-                <div class="card-content">
-                    <div class="card-header" style="background-color: red;"></div>
-                    <div class="card-body" id="cardRow" style="text-align: center;">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>  
+    <div class="mb-2 row g-2" id="cardresumen">
+         
     </div>
 </div>
   
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Resumen de pago:</h1>
@@ -22,7 +13,8 @@
         </div>
         <div class="modal-body">
             <div class="row mt-2 mb-3">
-                <div class="row mt-2 mb-3">
+                <div class="col-md-5">
+                    <div class="row mt-2 mb-3">
                     <div class="col-md-12">
                         <!-- <div class="row g-2 mb-3">
                             <h1>Resumen de pago:</h1>
@@ -68,7 +60,7 @@
                             </div>
                         </div> 
                         <div class="row g-2 mb-3">
-                            <table id="detallemodal">
+                            <table id="detallemodal" class="bg-light">
                                 <thead>
                                     <tr>
                                         <th>Servicio</th>
@@ -80,7 +72,7 @@
                                 </tbody>
                             </table>
                         </div> 
-                        <div class="row g-2 mb-3">
+                        <!-- <div class="row g-2 mb-3">
                             <div class="col-md-6">
                                 <label for="">Sub Total:</label>
                             </div>
@@ -95,7 +87,7 @@
                             <div class="col-md-6">
                                 <label for="" id="igv"></label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row g-2 mb-3">
                             <div class="col-md-6">
                                 <label for="">Total:</label>
@@ -104,16 +96,53 @@
                                 <input type="text" class="form-control form-control-sm bg-light" id="total" >
                             </div>
                         </div>
-                        <div class="row g-2 mb-3">
-                            <div class="col-md-6">
+                        
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="row g-2 mb-3">
+                        <div class="row">
+                            <div class="col-md-3">
                                 <label for="">Metodo de pago:</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <select name="" class="form-select form-select-sm" id="metodosPago"></select>
                             </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control form-control-sm bg-light" placeholder="a pagar" id="totalMedioPago" >
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
+
+                              </div>
                         </div>
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                                <label for="">Restante:</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm bg-light" readonly  id="totalRestante" >
+                            </div>
+                        </div>
+                        
                     </div>
-                  </div>
+                    <div class="row g-2 mb-3">
+                        <table id="detallepagos" class="bg-light">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>metodo</th>
+                                    <th>Cantidad</th>
+                                  </tr>
+                            </thead>
+                            <tbody id="cuerpoPagos">
+                                <!-- traer datos  -->
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -124,12 +153,17 @@
     </div>
 </div>
 <script>
-const carPagos = document.querySelector("#cardpagos");
-const cardRow = carPagos.querySelector("#cardRow");
+const cardresumen = document.querySelector("#cardresumen");
 
 const detalle = document.querySelector("#detallemodal");
+
 const cuerpomodal = detalle.querySelector("#cuerpomodal");
 const btnpagos = document.querySelector("#btnpagos");
+const detallepagos = document.querySelector("#detallepagos");
+const totalMedioPago = document.querySelector("#totalMedioPago");
+const totalRestante = document.querySelector("#totalRestante");
+const agregarPago = document.querySelector("#agregarPago");
+const guardarPago = document.querySelector("#md-guardar");
 
 //modal 
 const modal = new bootstrap.Modal(document.querySelector("#modalPagos"));
@@ -139,7 +173,7 @@ const dniPaciente = document.querySelector("#dni");
 const edad = document.querySelector("#edad");
 const telefono = document.querySelector("#telefono");
 const especialidad = document.querySelector("#especialidad");
-const total = document.querySelector("#total");
+const totalResumen = document.querySelector("#total");
 const metodosPago = document.querySelector("#metodosPago");
 
 let idatencion;
@@ -153,8 +187,8 @@ function listarCards(){
     })
     .then(response => response.json())
     .then(datos => {
-        console.log(datos);
-        cardRow.innerHTML = ""; // Limpiar el contenido de la fila de tarjetas
+        //console.log(datos);
+        cardresumen.innerHTML = ""; // Limpiar el contenido de la fila de tarjetas
         
         for(let i = datos.length - 1; i >= 0; i--){
             const element = datos[i];
@@ -167,18 +201,28 @@ function listarCards(){
                 color = "green";
             }
             const nuevoCard = `
-                        <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                        <h6>${element.nombreServicio}</h6>
-                        <div class='mt-2 row g-2'>
-                            <div class='col-md-6'>
-                                <h6>S/${element.Total}</h6>
-                            </div>
-                            <div class='col-md-6'>
-                                <button class='pagar' type='button' data-idatencion='${element.idAtencion}' style='background-color: orange; color:white;'>Pagar</button>
+            <div class="col-md-3" >
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-header" style="background-color: ${color};"></div>
+                        <div class="card-body" style="text-align: center;">
+                            <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                            <h6>${element.nombreServicio}</h6>
+                            <div class='mt-2 row g-2'>
+                                <div class='col-md-6'>
+                                    <h6>S/${element.Total}</h6>
+                                </div>
+                                <div class='col-md-6'>
+                                    <button class='pagar' type='button' data-idatencion='${element.idAtencion}' style='background-color: orange; color:white;'>Pagar</button>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div> 
+           
             `;
-            cardRow.innerHTML += nuevoCard;
+            cardresumen.innerHTML += nuevoCard;
         }
     })
     .catch(error => {
@@ -186,10 +230,10 @@ function listarCards(){
     });
 }
 
-cardRow.addEventListener("click", (event) => {
+cardresumen.addEventListener("click", (event) => {
     if(event.target.classList[0] === 'pagar'){
         idatencion = parseInt(event.target.dataset.idatencion);
-        console.log(idatencion);
+        //console.log(idatencion);
 
         const parametros = new URLSearchParams();
         parametros.append("operacion", "resumen");
@@ -208,51 +252,141 @@ cardRow.addEventListener("click", (event) => {
                 edad.innerHTML = element.Edad;
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
+                tablaDetalle(idatencion);
 
             })
-        })
+        })   
+        modal.toggle();
+    }
+});
 
-        const parametros2 = new URLSearchParams();
+function calcularTotalResumen() {
+  const tablaFilas = detalle.rows;
+  let total = 0;
+
+  for (let i = 1; i < tablaFilas.length; i++) {
+
+    const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
+    //console.log(precioCelda);
+    total += precioCelda;   
+
+  }
+  
+  totalResumen.value = total.toFixed(2);
+}
+
+function agregarPagoTabla(){
+    const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
+
+    if(medioSeleccionado.value !== ""){
+        let medioRepetido = false;
+        const filaMedios = detallepagos.rows;
+        
+        for(let i=1; i< filaMedios.length; i++){
+            const medioCelda = filaMedios[i].cells[1].innerText;
+            if(medioCelda === medioSeleccionado.text){
+                medioRepetido = true;
+                break;
+            }
+        }
+        //console.log(metodosPago.text);
+        if(!medioRepetido){
+            let nuevaFila = `
+            <tr>
+                <td>${medioSeleccionado.value}</td>
+                <td>${medioSeleccionado.text}</td>
+                <td>${totalMedioPago.value}</td>
+                <td>
+                    <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>  
+            `;
+            detallepagos.innerHTML += nuevaFila;
+        }
+        
+        
+        calcularRestante();
+        
+        
+    }
+}
+
+function calcularRestante(){
+    const filaPagos = detallepagos.rows;
+    let restante = totalResumen.value;
+    for(let i = 1; i<filaPagos.length; i++){
+        const precioCelda = parseFloat(filaPagos[i].cells[2].innerText);
+        //console.log(precioCelda);
+        restante = restante - precioCelda;
+    }
+    totalRestante.value = restante;
+    //console.log(restante);
+}
+calcularRestante();
+
+
+
+function registrarPagos(){
+    const filaspagos = detallepagos.rows;
+    const promesas = [];
+    for (let i = 1; i < filaspagos.length; i++){
+        const idmediopago = parseInt(filaspagos[i].cells[0].innerText);
+        const monto = parseFloat(filaspagos[i].cells[2].innerText);
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "RegistrarPago");
+        parametros.append("idatencion", idatencion);
+        parametros.append("idMedioPago", idmediopago);
+        parametros.append("monto", monto);
+        
+        const fetchPromesa = fetch("../controllers/pago.php", {
+            method: "POST",
+            body: parametros
+        });
+        promesas.push(fetchPromesa);
+    }
+
+}
+
+function tablaDetalle(idatencion){
+    const parametros2 = new URLSearchParams();
         parametros2.append("operacion", "detalle");
         parametros2.append("idatencion", idatencion);
 
         fetch("../controllers/detalleServicio.php", {
             method: 'POST',
-            body: parametros
+            body: parametros2
         })
         .then(response => response.json())
         .then(datos => {
-            console.log(datos);
+            //console.log(datos);
             cuerpomodal.innerHTML = ``;
             datos.forEach(element => {
                 
                 const datos1 =`
                 <tr>
-                    <td>${element.idDetalleServicio}</td>
                     <td>${element.descripcion}</td>
+                    <td>${element.total}</td>
                 </tr>
                 `;
             cuerpomodal.innerHTML += datos1;
             })
+            calcularTotalResumen();
         })
+}
 
-
-        modal.toggle();
-    }
-});
-
-// Agrega un manejador de eventos clic a los botones "Pagar"
-// cardRow.addEventListener("click", (event) => {
-//   const target = event.target;
-
-//   if (target.classList.contains("btnpagos")) {
-//     const modalId = target.getAttribute("data-target");
-//     const modal = document.querySelector(modalId);
-//     if (modal) {
-//       $(modal).modal("show"); 
-//     }
-//   }
-// });
+function cambiarEstadoPago(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "cambiarEstado");
+    parametros.append("idatencion", idatencion);
+    fetch("../controllers/pago.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {  
+        toast("estado cambiado");      
+  })
+}
 
 function pagar(){
     const paramettro = new URLSearchParams();
@@ -282,4 +416,19 @@ function listarMetodosPago(){
 
 listarMetodosPago();
 listarCards();
+agregarPago.addEventListener("click", () => {
+    if(metodosPago.value > 0){
+        agregarPagoTabla();
+    }
+});
+
+guardarPago.addEventListener("click", () => {
+    mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+      if(result.isConfirmed){
+        registrarPagos();
+        cambiarEstadoPago();
+      }
+    })
+});
+
 </script>
