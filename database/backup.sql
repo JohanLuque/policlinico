@@ -52,17 +52,12 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
 insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`) values 
-(1,'T','230920230001','2023-09-23 14:11:13',NULL,NULL,'0',1,NULL,NULL,24),
-(2,'T','230920230002','2023-09-23 14:11:48',NULL,NULL,'0',1,NULL,NULL,23),
-(3,'T','230920230003','2023-09-23 14:12:29',NULL,NULL,'0',1,NULL,NULL,22),
-(4,'T','230920230004','2023-09-23 14:13:35',NULL,NULL,'0',1,'2',NULL,22),
-(5,'T','230920230005','2023-09-23 14:13:59',NULL,NULL,'0',1,NULL,NULL,22),
-(6,'T','230920230006','2023-09-23 14:16:16',NULL,NULL,'0',1,NULL,NULL,22);
+(1,'T','270920230001','2023-09-27 08:20:23',NULL,NULL,'0',1,NULL,23,23);
 
 /*Table structure for table `detalle_alergias` */
 
@@ -123,19 +118,12 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
 insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
-(1,18,1),
-(2,10,1),
-(3,8,2),
-(4,100,2),
-(5,12,2),
-(6,15,4),
-(7,13,4),
-(8,9,5);
+(1,9,1);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -222,15 +210,15 @@ DROP TABLE IF EXISTS `historias_clinicas`;
 
 CREATE TABLE `historias_clinicas` (
   `idHistoriaClinica` int(11) NOT NULL AUTO_INCREMENT,
-  `antecentePersonal` varchar(199) DEFAULT NULL,
-  `antecenteFamiliar` varchar(199) DEFAULT NULL,
-  `antecenteQuirurgico` varchar(199) DEFAULT NULL,
-  `antecenteOtro` varchar(199) DEFAULT NULL,
+  `antecedentePersonal` varchar(199) DEFAULT NULL,
+  `antecedenteFamiliar` varchar(199) DEFAULT NULL,
+  `antecedenteQuirurgico` varchar(199) DEFAULT NULL,
+  `antecedenteOtro` varchar(199) DEFAULT NULL,
   `idUsuario` int(11) NOT NULL,
   `idPersona` int(11) NOT NULL,
   PRIMARY KEY (`idHistoriaClinica`),
+  UNIQUE KEY `uk_historia_hcl` (`idPersona`),
   KEY `fk_idUsuario_hcl` (`idUsuario`),
-  KEY `fk_idPersona_hcl` (`idPersona`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -303,32 +291,32 @@ CREATE TABLE `personas` (
 /*Data for the table `personas` */
 
 insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno`,`tipoDocumento`,`numeroDocumento`,`fechaNacimiento`,`genero`,`telefono`,`fechaCreacion`,`fechaFin`,`estado`) values 
-(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(23,'Johan Ruperto','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-23 14:08:55',NULL,'1'),
-(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-23 14:08:55',NULL,'1');
+(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-27 08:18:47',NULL,'1'),
+(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-27 08:18:47',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -519,9 +507,9 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idUsuario`,`nombreUsuario`,`clave`,`nivelAcceso`,`fechaInicio`,`fechaFin`,`estado`,`idPersona`) values 
-(1,'JuanQ','123','A','2023-09-23 14:09:14',NULL,'1',1),
-(2,'AnaC','1','A','2023-09-23 14:09:14',NULL,'1',2),
-(3,'JuanaU','','A','2023-09-23 14:09:14',NULL,'1',3);
+(1,'JuanQ','123','A','2023-09-27 08:18:47',NULL,'1',1),
+(2,'AnaC','1','A','2023-09-27 08:18:47',NULL,'1',2),
+(3,'JuanaU','','A','2023-09-27 08:18:47',NULL,'1',3);
 
 /* Procedure structure for procedure `spu_admision_atenciones` */
 
@@ -585,6 +573,65 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_detalle_pagos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_detalle_pagos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_detalle_pagos`( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
+	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
+	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
+	personas.`telefono`
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE Detalle_Servicios.idAtencion = _idatencion
+	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctor_agregar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctor_agregar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctor_agregar`(
+IN _idDetalleatencion INT,
+IN _examenGeneral VARCHAR(2000),
+IN _frecuencia CHAR(1)
+)
+BEGIN
+	UPDATE Detalle_Atenciones SET
+		examenGeneral = _examenGeneral,
+		frecuencia = _frecuencia
+	WHERE idDetalleAtenciones = _idDetalleatencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctor_agregar_enfermedad` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctor_agregar_enfermedad` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctor_agregar_enfermedad`(
+IN _idEnfermedad INT,
+IN _idDetalleatencion INT
+)
+BEGIN
+	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
+	(_idEnfermedad, _idDetalleatencion);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_estadoCambiar_Pagos` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_estadoCambiar_Pagos` */;
@@ -645,12 +692,14 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_atenciones`()
 BEGIN 
 	SELECT
-		 DATE(atenciones.fechaCreacion) AS Dia,
+		atenciones.idAtencion,
+		 atenciones.fechaCreacion AS Dia,
 		 PP.nombres,
 		 PP.apellidoPaterno,
 		 PP.apellidoMaterno,
 		 servicios.nombreServicio,
-		 SUM(servicios_detalle.precio) AS Total
+		 SUM(servicios_detalle.precio) AS Total,
+		 atenciones.estado
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
@@ -661,6 +710,27 @@ BEGIN
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
 	ORDER BY Dia;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_detalle_servicio` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_detalle_servicio` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_detalle_servicio`( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.`idDetalleServicio`, servicios.nombreServicio,servicios_detalle.`descripcion`,
+	personas.`telefono`,servicios_detalle.precio AS 'total'
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE detalle_servicios.`idAtencion` = _idatencion;
 END */$$
 DELIMITER ;
 
@@ -703,6 +773,19 @@ BEGIN
 	FROM especialistas
 	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
 	WHERE especialistas.estado = _estado;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_metodospago` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_metodospago` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_metodospago`()
+BEGIN
+	SELECT *
+	FROM Medio_Pagos;
 END */$$
 DELIMITER ;
 
@@ -762,6 +845,28 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_registrar_persona` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_registrar_persona` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registrar_persona`(
+	IN _nombres 			VARCHAR(100),
+	IN _apellidoPaterno 	VARCHAR(50),
+	IN _apellidoMaterno 	VARCHAR(50),
+	IN _tipoDocumento		CHAR(1),
+	IN _numeroDocumento	VARCHAR(12),
+	IN _fechaNacimiento	DATE,
+	IN _genero				CHAR(1),
+	IN _telefono			CHAR(9)
+)
+BEGIN
+	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
+	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_servicios_detalles` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_detalles` */;
@@ -778,6 +883,71 @@ BEGIN
     
     INSERT INTO Detalle_Servicios (idservicios_detalle, idAtencion) VALUES
     (_idservicios_detalle, _idatencion);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_agregar_alergias` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_agregar_alergias` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_agregar_alergias`(
+IN _idHistoriaClinica INT,
+IN _idAlergia INT
+)
+BEGIN 
+	INSERT INTO Detalle_Alergias(idHistoriaClinica, idAlergia) VALUES
+	(_idHistoriaClinica, _idAlergia);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_agregar_triaje` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_agregar_triaje` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_agregar_triaje`(
+IN _idatencion 	INT,
+IN _idhistoria 	INT,
+IN _peso 	DECIMAL(5,2),
+IN _talla	INT,
+IN _frecuenciaCardiaca 		VARCHAR(5),
+IN _frecuenciaRespiratoria 	VARCHAR(5),
+IN _presionArterial 		VARCHAR(10),
+IN _temperatura			DECIMAL(4,2),
+IN _saturacionOxigeno		TINYINT
+)
+BEGIN 
+	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
+	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_Nueva_historiaClinica` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_Nueva_historiaClinica` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_Nueva_historiaClinica`(
+IN _idpersona 					INT,
+IN _idusuario 					INT, 
+IN _antecedentePersonal		VARCHAR(199),
+IN _antecedenteFamiliar		VARCHAR(199),
+IN _antecedenteQuirurgico 	VARCHAR(199),
+IN _antecedenteOtro			VARCHAR(199)
+)
+BEGIN 
+	IF _antecedentePersonal = "" THEN SET _antecedentePersonal = NULL; END IF;
+	IF _antecedenteFamiliar = "" THEN SET _antecedenteFamiliar = NULL; END IF;
+	IF _antecedenteQuirurgico = "" THEN SET _antecedenteQuirurgico = NULL; END IF;
+	IF _antecedenteOtro = "" THEN SET _antecedenteOtro = NULL; END IF;
+	
+	INSERT INTO Historias_Clinicas (idPersona, idUsuario, antecedentePersonal, antecedenteFamiliar, antecedenteQuirurgico, antecedenteOtro)VALUES
+	(_idpersona, _idusuario, _antecedentePersonal, _antecedenteFamiliar, _antecedenteQuirurgico, _antecedenteOtro);
+	
 END */$$
 DELIMITER ;
 
