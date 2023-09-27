@@ -1,22 +1,32 @@
 <div class="container-fluid">
-    <div class="mb-2 row g-2" id="cardRow">
+    <div class="mb-2 row g-2" >
+        <div class="col-md-3">
+            <div class="card" id="cardpagos">
+                <div class="card-content">
+                    <div class="card-header" style="background-color: red;"></div>
+                    <div class="card-body" id="cardRow" style="text-align: center;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>  
     </div>
 </div>
   
-<div class="modal fade" id="modalPagos" tabindex="-1"  aria-hidden="true">
+<div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Paciente</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Resumen de pago:</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <div class="row mt-2 mb-3">
                 <div class="row mt-2 mb-3">
                     <div class="col-md-12">
-                        <div class="row g-2 mb-3">
+                        <!-- <div class="row g-2 mb-3">
                             <h1>Resumen de pago:</h1>
-                        </div>
+                        </div> -->
                         <div class="row g-2 mb-3"> 
                             <div class="col-md-6">
                                 <label for="">Nombre completo: </label>
@@ -58,14 +68,14 @@
                             </div>
                         </div> 
                         <div class="row g-2 mb-3">
-                            <table>
+                            <table id="detallemodal">
                                 <thead>
                                     <tr>
                                         <th>Servicio</th>
                                         <th>Total</th>
                                       </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="cuerpomodal">
                                     <!-- traer datos  -->
                                 </tbody>
                             </table>
@@ -91,7 +101,7 @@
                                 <label for="">Total:</label>
                             </div>
                             <div class="col-md-6">
-                                <label for="" id="total"></label>
+                                <input type="text" class="form-control form-control-sm bg-light" id="total" >
                             </div>
                         </div>
                         <div class="row g-2 mb-3">
@@ -99,7 +109,7 @@
                                 <label for="">Metodo de pago:</label>
                             </div>
                             <div class="col-md-6">
-                                <select name="" id="metodosPago"></select>
+                                <select name="" class="form-select form-select-sm" id="metodosPago"></select>
                             </div>
                         </div>
                     </div>
@@ -114,8 +124,23 @@
     </div>
 </div>
 <script>
-const cardRow = document.querySelector("#cardRow");
+const carPagos = document.querySelector("#cardpagos");
+const cardRow = carPagos.querySelector("#cardRow");
+
+const detalle = document.querySelector("#detallemodal");
+const cuerpomodal = detalle.querySelector("#cuerpomodal");
 const btnpagos = document.querySelector("#btnpagos");
+
+//modal 
+const modal = new bootstrap.Modal(document.querySelector("#modalPagos"));
+//Modal RESUMEN DE PAGO
+const nombrePaciente = document.querySelector("#nombreCompleto");
+const dniPaciente = document.querySelector("#dni");
+const edad = document.querySelector("#edad");
+const telefono = document.querySelector("#telefono");
+const especialidad = document.querySelector("#especialidad");
+const total = document.querySelector("#total");
+const metodosPago = document.querySelector("#metodosPago");
 
 let idatencion;
 function listarCards(){
@@ -134,6 +159,7 @@ function listarCards(){
         for(let i = datos.length - 1; i >= 0; i--){
             const element = datos[i];
             idatencion = element.idAtencion;
+            console.log(idatencion);
             let color;
             if(element.estado == 0){
                 color = "red";
@@ -141,25 +167,16 @@ function listarCards(){
                 color = "green";
             }
             const nuevoCard = `
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-header" style="background-color: ${color};"></div>
-                        <div class="card-body" style="text-align: center;">
-                            <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <h6>${element.nombreServicio}</h6>
-                            <div class="mt-2 row g-2">
-                                <div class="col-md-6">
-                                    <h6>S/${element.Total}</h6>
-                                </div>
-                                <div class="col-md-6">
-                                    <button class="btn btn-sm btnpagos" id="btnpagos"  type="button" data-toggle="modal" data-target="#modalPagos" style="background-color: orange; color:white;">Pagar</button>
-                                </div>
+                        <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                        <h6>${element.nombreServicio}</h6>
+                        <div class='mt-2 row g-2'>
+                            <div class='col-md-6'>
+                                <h6>S/${element.Total}</h6>
+                            </div>
+                            <div class='col-md-6'>
+                                <button class='pagar' type='button' data-idatencion='${element.idAtencion}' style='background-color: orange; color:white;'>Pagar</button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>  
             `;
             cardRow.innerHTML += nuevoCard;
         }
@@ -169,20 +186,73 @@ function listarCards(){
     });
 }
 
-// Agrega un manejador de eventos clic a los botones "Pagar"
 cardRow.addEventListener("click", (event) => {
-  const target = event.target;
+    if(event.target.classList[0] === 'pagar'){
+        idatencion = parseInt(event.target.dataset.idatencion);
+        console.log(idatencion);
 
-  if (target.classList.contains("btnpagos")) {
-    // Cuando se hace clic en un botón "Pagar"
-    // Abre el modal correspondiente
-    const modalId = target.getAttribute("data-target");
-    const modal = document.querySelector(modalId);
-    if (modal) {
-      $(modal).modal("show"); // Utilizamos jQuery para abrir el modal
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "resumen");
+        parametros.append("idatencion", idatencion);
+
+        fetch("../controllers/detalleServicio.php", {
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            datos.forEach(element => {
+                console.log(element.nombres);
+                nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
+                dni.innerHTML = element.numeroDocumento;
+                edad.innerHTML = element.Edad;
+                telefono.innerHTML = element.telefono;
+                especialidad.innerHTML = element.nombreServicio;
+
+            })
+        })
+
+        const parametros2 = new URLSearchParams();
+        parametros2.append("operacion", "detalle");
+        parametros2.append("idatencion", idatencion);
+
+        fetch("../controllers/detalleServicio.php", {
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            console.log(datos);
+            cuerpomodal.innerHTML = ``;
+            datos.forEach(element => {
+                
+                const datos1 =`
+                <tr>
+                    <td>${element.idDetalleServicio}</td>
+                    <td>${element.descripcion}</td>
+                </tr>
+                `;
+            cuerpomodal.innerHTML += datos1;
+            })
+        })
+
+
+        modal.toggle();
     }
-  }
 });
+
+// Agrega un manejador de eventos clic a los botones "Pagar"
+// cardRow.addEventListener("click", (event) => {
+//   const target = event.target;
+
+//   if (target.classList.contains("btnpagos")) {
+//     const modalId = target.getAttribute("data-target");
+//     const modal = document.querySelector(modalId);
+//     if (modal) {
+//       $(modal).modal("show"); 
+//     }
+//   }
+// });
 
 function pagar(){
     const paramettro = new URLSearchParams();
@@ -190,7 +260,26 @@ function pagar(){
     paramettro.append("idatencion", idatencion);
 }
 
+function listarMetodosPago(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "listar");
+    fetch("../controllers/mediosPago.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+        metodosPago.innerHTML = "<option value=''>Seleccione</option>";
+        datos.forEach(element => {
+        const optionTag = document.createElement("option");
+        optionTag.value = element.idMedioPago;
+        optionTag.text = element.nombrePago;
+        metodosPago.appendChild(optionTag);
+    });
+  })
+}
 
 
+listarMetodosPago();
 listarCards();
 </script>
