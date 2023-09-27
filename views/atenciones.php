@@ -17,7 +17,7 @@
                 <label for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="8" type="tel" required>
+              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
                 <div class="invalid-feedback">
                   Complete este campo para continuar
                 </div>       
@@ -42,6 +42,9 @@
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
               <div class="col-md-2">
+                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
+              </div>
+              <div class="col-md-2">
                 <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="mostrarFamiliar" type="button">Agregar Familiar</button>
               </div>
             </div>
@@ -58,7 +61,7 @@
                 <label for="DNI_familiar">N° Doc: </label>
               </div>
               <div class="col-md-3">
-                <input type="text" class="form-control form-control-sm" id="DNI_familiar" placeholder="12345678" maxlength="8" type="tel">
+                <input type="text" class="form-control form-control-sm" id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
               </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
@@ -82,19 +85,21 @@
             </div>
             </div>
             <!-- orden medica -->
-            <div class="mb-3 row g-2">
-              <div class="col-md-10">
-                <label for="" class="card-title" style="color:#ff7619 ;">ORDEN MÉDICA:</label>
-              </div>                                                               
-            </div>
-            <div class="mb-3 row g-2">
-              <div class="col-md-2">
-                <label for="">Doctor:</label>          
+            <div id="ordenM" style="display: none;">
+              <div class="mb-3 row g-2">
+                <div class="col-md-10">
+                  <label for="" class="card-title" style="color:#ff7619 ;">ORDEN MÉDICA:</label>
+                </div>                                                               
               </div>
-              <div class="col-md-9">                                  
-                <select name="" id="listaOrdenDoctor" class="form-select form-select-sm" >
-                  <option value="">Seleccione</option>
-                </select> 
+              <div class="mb-3 row g-2">
+                <div class="col-md-2">
+                  <label for="">Doctor:</label>          
+                </div>
+                <div class="col-md-9">                                  
+                  <select name="" id="listaOrdenDoctor" class="form-select form-select-sm" >
+                    <option value="">Seleccione</option>
+                  </select> 
+                </div>
               </div>
             </div>
             <!-- servicio -->
@@ -195,6 +200,21 @@
           <div class="col-md-12">
             <div class="row g-2 mb-3">  
               <form action="" id="form-ganador">
+              <div class="mb-3 row g-2">
+                  <div class="col-md-2">
+                    <label for="">Tipo Doc.</label>          
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbDni" value="N">
+                      <label class="form-check-label">DNI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet" value="E">
+                      <label class="form-check-label">Carnet Extranjeria</label>
+                    </div>
+                  </div>
+                </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
                     <label for="">N° Doc:</label>          
@@ -205,9 +225,8 @@
                   <div class="col-md-3">                                  
                     <button class="btn btn-sm" id="buscar" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
                   </div>
-                  
-
                 </div>
+                
                 <div class="mb-3 row g-2">
                   <div class="col-md-2">
                     <label for="">Nombres:</label>          
@@ -244,8 +263,15 @@
                   <div class="col-md-2">
                     <label for="">Genero:</label>          
                   </div>
-                  <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="genero" type="text">
+                  <div class="col-md-9">       
+                    <div class="form-check form-check-inline">                           
+                      <input class="form-check-input" type="radio" name="options" id="rbFemenino" value="F">
+                        <label class="form-check-label">Femenino</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="options" id="rbMasculino" value="M">
+                        <label class="form-check-label">Masculino</label>
+                    </div>
                   </div>
                   <div class="mb-3 row g-2">
                     <div class="col-md-2">
@@ -270,7 +296,9 @@
   </div>
 </div>
 <script>
-//Prueba de ocultar
+//ocultar
+const divOrden = document.querySelector("#ordenM");
+const mostrarOrden = document.querySelector("#ordenMedica");
 const divFamiliar = document.querySelector("#familiar");
 const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
 
@@ -281,7 +309,7 @@ const edadPaciente = document.querySelector("#edadPaciente");
 let idpersona = 0;   
 
 //Familiar
-const dniFamilar = document.querySelector("#DNI_familiar");
+const dniFamiliar = document.querySelector("#DNI_familiar");
 const nombreFamiliar = document.querySelector("#nombreFamiliar");
 const parentesco = document.querySelector("#parentescoFamilar");
 let idfamiliar = 0;
@@ -308,7 +336,6 @@ const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
 const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
 const nombres = document.querySelector("#nombrePersona");
 const fechanacimiento = document.querySelector("#fechaNacimiento");
-const genero = document.querySelector("#genero");
 const telefono = document.querySelector("#telefono");
 const buscar = document.querySelector("#buscar");
 const guardarRegistro = document.querySelector("#md-guardar");
@@ -316,6 +343,17 @@ const guardarRegistro = document.querySelector("#md-guardar");
 //Guardar atención
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
+
+var presionar=1;
+function mostrardivOrden(){
+  if(presionar == 1){
+    divOrden.style.display = "";
+    //presionar = presionar+1;
+  }else{
+    divOrden.style.display = "none";
+    presionar = 1
+  }
+}
 
 var clic =1;
 function mostrardiv(){
@@ -329,31 +367,45 @@ function mostrardiv(){
 }
 
 function registrarPaciente(){
-  const parametros = new URLSearchParams();
-  parametros.append("operacion", "registrarPersona");
-  parametros.append("nombres", nombres.value);
-  parametros.append("apellidoPaterno",apellidoPaterno.value);
-  parametros.append("apellidoMaterno",apellidoMaterno.value);
-  parametros.append("tipoDocumento", "N");
-  parametros.append("numeroDocumento", dni.value);
-  parametros.append("fechaNacimiento", fechanacimiento.value);
-  parametros.append("genero", genero.value);
-  parametros.append("telefono", telefono.value);
-  fetch("../controllers/persona.php", {
-    method : "POST",
-    body : parametros
-  })
-  .then(response => response.json())
-  .then(datos => {
-    if(datos.status){
-      alert("Registro guardado");
-    }else{
-      alert(datos.mensaje);
-    }
-  })
-  .catch(error => {
-    alert("Error al guardar")
-  })
+
+const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
+if (!tipoDocumento) {
+  alert("Por favor, selecciona un tipo de documento.");
+  return;  // No hay opción seleccionada, no continuamos
+}
+
+const genero = document.querySelector('input[name="options"]:checked');
+if (!genero) {
+  alert("Por favor, seleccione un genero");
+  return;  // No hay opción seleccionada, no continuamos
+}
+const parametros = new URLSearchParams();
+parametros.append("operacion", "registrarPersona");
+parametros.append("nombres", nombres.value);
+parametros.append("apellidoPaterno",apellidoPaterno.value);
+parametros.append("apellidoMaterno",apellidoMaterno.value);
+parametros.append("tipoDocumento", tipoDocumento.value);
+parametros.append("numeroDocumento", dni.value);
+parametros.append("fechaNacimiento", fechanacimiento.value);
+parametros.append("genero", genero.value);
+parametros.append("telefono", telefono.value);
+fetch("../controllers/persona.php", {
+  method : "POST",
+  body : parametros
+})
+.then(response => response.json())
+.then(datos => {
+  if(datos.status){
+    alert("Registro guardado");
+    //modalRegistrarPersonas.hide();
+    //dniPersonas.value = dni.value;
+  }else{
+    alert(datos.mensaje);
+  }
+})
+.catch(error => {
+  alert("Error al guardar")
+})
 }
 
 function validar(){
@@ -599,7 +651,7 @@ function consultarPaciente(){
 function consultarFamiliar(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "getData");
-  parametros.append("numeroDocumento", dniFamilar.value);
+  parametros.append("numeroDocumento", dniFamiliar.value);
   fetch("../controllers/persona.php", {
     method: 'POST',
     body: parametros
@@ -613,7 +665,7 @@ function consultarFamiliar(){
       });
     }else{
       modalRegistrarPersonas.show();
-      dni.value = dniFamilar.value;
+      dni.value = dniFamiliar.value;
       buscar.click();
     }
   })
@@ -649,21 +701,23 @@ function consultarDNI() {
 
 buscar.addEventListener("click", consultarDNI);
 
-/*dniPersonas.addEventListener("keypress", (evt) => {
+dniPersonas.addEventListener("keypress", (evt) => {
     if (evt.charCode == 13) consultarPaciente();
-});*/
-
-dniPersonas.addEventListener("input", () => {
-  const valor = dniPersonas.value.trim(); // Obtener el valor del campo sin espacios en blanco
-
-  if (valor.length === 8) {
-    consultarPaciente();
-  }
 });
 
+/*dniPersonas.addEventListener("input", () => {
+  const valor = dniPersonas.value.trim(); // Obtener el valor del campo sin espacios en blanco
 
+  if (valor.length === 8 || valor.length ===9) {
+    consultarPaciente();
+  }
+});*/
 
-dniFamilar.addEventListener("input", () => {
+dniFamiliar.addEventListener("keypress", (evt) => {
+  if(evt.charCode == 13) consultarFamiliar();
+    parentesco.disabled = false;
+});
+/*dniFamiliar.addEventListener("input", () => {
   const valor = dniFamilar.value.trim(); // Obtener el valor del campo sin espacios en blanco
 
   if (valor.length === 8) {
@@ -673,7 +727,7 @@ dniFamilar.addEventListener("input", () => {
     parentesco.disabled = true;
     
   }
-});
+});*/
 
 listaServicios.addEventListener("change", listarServiciosFiltro);
 
@@ -704,4 +758,5 @@ calcularTotal();
 
 guardarRegistro.addEventListener("click", registrarPaciente);
 mostrarFamiliar.addEventListener("click", mostrardiv);
+mostrarOrden.addEventListener("click", mostrardivOrden);
 </script>
