@@ -70,6 +70,7 @@ BEGIN
 END $$
 
 
+
 DELIMITER $$
 CREATE PROCEDURE spu_listar_especialistas
 (
@@ -296,6 +297,7 @@ BEGIN
 	WHERE idDetalleAtenciones = _idDetalleatencion;
 END$$
 
+
 DELIMITER $$
 CREATE PROCEDURE spu_doctor_agregar_enfermedad
 (
@@ -306,6 +308,48 @@ BEGIN
 	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
 	(_idEnfermedad, _idDetalleatencion);
 END$$
+
+-- listar pagos
+DELIMITER $$ 
+CREATE PROCEDURE spu_listar_metodospago()
+BEGIN
+	SELECT *
+	FROM Medio_Pagos;
+END $$
+
+-- detalle de venta
+DELIMITER $$ 
+CREATE PROCEDURE spu_detalle_pagos( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
+	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
+	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
+	personas.`telefono`
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE Detalle_Servicios.idAtencion = _idatencion
+	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
+END $$
+
+DELIMITER $$ 
+CREATE PROCEDURE spu_listar_detalle_servicio( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.`idDetalleServicio`, servicios.nombreServicio,servicios_detalle.`descripcion`,
+	personas.`telefono`,servicios_detalle.precio AS 'total'
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE detalle_servicios.`idAtencion` = _idatencion;
+END $$
 
  CALL spu_admision_atenciones('M',1, 2, '', '', '');
  CALL spu_admision_atenciones('M',1, 3, '', '', '');

@@ -109,16 +109,29 @@ INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
 WHERE Detalle_Servicios.idAtencion = 1 AND  atenciones.estado = '0'
 GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 
-SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,personas.nombres,SUM(servicios_detalle.precio)
+SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
+	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
+	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
+	personas.`telefono`,SUM(servicios_detalle.precio) AS 'total'
 FROM Detalle_Servicios
 LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
 INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
+INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 
+SELECT Detalle_Servicios.idAtencion,detalle_servicios.`idDetalleServicio`, servicios.nombreServicio,servicios_detalle.`descripcion`,
+	personas.`telefono`,servicios_detalle.precio AS 'total'
+FROM Detalle_Servicios
+LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+WHERE detalle_servicios.`idAtencion` = 14;
 
 -- Lista de cards
 SELECT *
