@@ -53,7 +53,6 @@ BEGIN
     (_idservicios_detalle, _idatencion);
 END $$
 
-SELECT idAtencion FROM atenciones ORDER BY idatencion DESC LIMIT 1;
 
 DELIMITER $$
 CREATE PROCEDURE spu_buscar_personas
@@ -251,16 +250,62 @@ BEGIN
 	(_idpersona, _idusuario, _antecedentePersonal, _antecedenteFamiliar, _antecedenteQuirurgico, _antecedenteOtro);
 	
 END$$
+-- call spu_triaje_Nueva_historiaClinica(1,1, null, null,null, null);
 
+-- sigo por aca
 DELIMITER $$
 CREATE PROCEDURE spu_triaje_agregar_alergias
 (
-IN _idhistoria INT,
-IN _alergia
+IN _idHistoriaClinica INT,
+IN _idAlergia INT
 )
 BEGIN 
-
+	INSERT INTO Detalle_Alergias(idHistoriaClinica, idAlergia) VALUES
+	(_idHistoriaClinica, _idAlergia);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_agregar_triaje
+(
+IN _idatencion 	INT,
+IN _idhistoria 	INT,
+IN _peso 	DECIMAL(5,2),
+IN _talla	INT,
+IN _frecuenciaCardiaca 		VARCHAR(5),
+IN _frecuenciaRespiratoria 	VARCHAR(5),
+IN _presionArterial 		VARCHAR(10),
+IN _temperatura			DECIMAL(4,2),
+IN _saturacionOxigeno		TINYINT
+)
+BEGIN 
+	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
+	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno);
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_doctor_agregar
+(
+IN _idDetalleatencion INT,
+IN _examenGeneral VARCHAR(2000),
+IN _frecuencia CHAR(1)
+)
+BEGIN
+	UPDATE Detalle_Atenciones SET
+		examenGeneral = _examenGeneral,
+		frecuencia = _frecuencia
+	WHERE idDetalleAtenciones = _idDetalleatencion;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE spu_doctor_agregar_enfermedad
+(
+IN _idEnfermedad INT,
+IN _idDetalleatencion INT
+)
+BEGIN
+	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
+	(_idEnfermedad, _idDetalleatencion);
+END$$
 
  CALL spu_admision_atenciones('M',1, 2, '', '', '');
  CALL spu_admision_atenciones('M',1, 3, '', '', '');
@@ -281,4 +326,4 @@ END $$
 -- call spu_listar_especialistas (1) 
 -- call spu_listar_servicios
 -- call spu_listar_espcialistas_servicios(2)
-SELECT * FROM atenciones
+SELECT * FROM Detalle_Atenciones
