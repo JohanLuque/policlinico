@@ -253,8 +253,6 @@ BEGIN
 END$$
 -- call spu_triaje_Nueva_historiaClinica(23,1, null, null,null, null);
 
-
--- sigo por aca
 DELIMITER $$
 CREATE PROCEDURE spu_triaje_agregar_alergias
 (
@@ -366,16 +364,54 @@ BEGIN
 	FROM Detalle_Atenciones
 	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
 	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
-	WHERE personas.numeroDocumento = _numeroDocumento;
+	WHERE personas.numeroDocumento = _numeroDocumento
+	ORDER BY Detalle_Atenciones.`idDetalleAtenciones` DESC;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_listar_historias_clinicas
+(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN
+	SELECT *
+	 FROM Historias_Clinicas
+	INNER JOIN personas ON personas.`idPersona` = Historias_Clinicas.idpersona
+	WHERE personas.`numeroDocumento` = _numeroDocumento;
 END $$
 
 
--- call spu_buscar_personas ('98745632')
--- call spu_listar_especialistas (1) 
+DELIMITER $$
+CREATE PROCEDURE spu_listar_especialidades()
+BEGIN
+	SELECT * FROM Servicios
+	WHERE tipo = "E";
+END$$
+
+-- CALL spu_listar_especialidades();
+
+-- Listar doctores por especialidad
+DELIMITER$$
+CREATE PROCEDURE spu_filtro_doctores
+(
+	IN _idServicio INT
+)	
+BEGIN
+	SELECT idEspecialistasServicios,servicios.nombreservicio,
+	CONCAT(personas.apellidoPaterno, ' ',
+	personas.nombres) AS 'Nombre Completo'
+	FROM especialistas_servicios
+	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
+	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
+	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
+	WHERE especialistas_servicios.`idServicio` =_idservicio;
+END$$
+-- call spu_listar_detalles_atenciones ('71789712')
+-- call spu_listar_historias_clinicas ('71789712') 
 -- call spu_listar_servicios
 -- call spu_listar_espcialistas_servicios(2)
 SELECT * FROM Detalle_Atenciones
 INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno, idUsuario, fechacreacion) VALUES
-(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-26'),
-(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-25');
+(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-25'),
+(1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-26');
 SELECT * FROM atenciones

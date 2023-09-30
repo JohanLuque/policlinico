@@ -52,15 +52,12 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
 insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`) values 
-(1,'T','270920230001','2023-09-27 14:29:16','2023-09-27 14:29:28',NULL,'1',1,NULL,NULL,22),
-(2,'T','270920230002','2023-09-27 14:31:38','2023-09-27 14:33:36',NULL,'1',1,NULL,NULL,22),
-(3,'T','270920230003','2023-09-27 14:34:21','2023-09-27 14:34:31',NULL,'1',1,NULL,NULL,24),
-(4,'T','270920230004','2023-09-27 14:35:42','2023-09-27 14:35:56',NULL,'1',1,NULL,NULL,23);
+(1,'T','300920230001','2023-09-30 17:12:27',NULL,NULL,'0',1,NULL,NULL,23);
 
 /*Table structure for table `detalle_alergias` */
 
@@ -106,9 +103,14 @@ CREATE TABLE `detalle_atenciones` (
   CONSTRAINT `fk_idAtencion_das` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idHistoria_das` FOREIGN KEY (`idHistoria`) REFERENCES `historias_clinicas` (`idHistoriaClinica`),
   CONSTRAINT `fk_idusuario_das` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_atenciones` */
+
+insert  into `detalle_atenciones`(`idDetalleAtenciones`,`peso`,`talla`,`frecuenciaCardiaca`,`frecuenciaRespiratoria`,`presionArterial`,`temperatura`,`saturacionOxigeno`,`examemGeneral`,`frecuencia`,`fechaCreacion`,`fechaActualizacion`,`idHistoria`,`idAtencion`,`idUsuario`) values 
+(5,60.00,163,'20x1','20x2','20x3',30.90,127,NULL,'p','2023-09-25 00:00:00',NULL,1,1,1),
+(6,60.00,163,'20x1','20x2','20x3',30.90,127,NULL,'p','2023-09-26 00:00:00',NULL,1,1,1),
+(7,66.80,163,'10x1','10x2','10x3',33.90,100,NULL,'p','2023-09-30 17:13:12',NULL,1,1,1);
 
 /*Table structure for table `detalle_servicios` */
 
@@ -123,17 +125,12 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
 insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
-(1,121,1),
-(2,92,2),
-(3,109,3),
-(4,114,4),
-(5,1,4),
-(6,109,4);
+(1,127,1);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -231,9 +228,13 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `historias_clinicas` */
+
+insert  into `historias_clinicas`(`idHistoriaClinica`,`antecedentePersonal`,`antecedenteFamiliar`,`antecedenteQuirurgico`,`antecedenteOtro`,`idUsuario`,`idPersona`) values 
+(1,NULL,NULL,NULL,NULL,1,23),
+(2,NULL,NULL,NULL,NULL,1,24);
 
 /*Table structure for table `medio_pagos` */
 
@@ -273,16 +274,9 @@ CREATE TABLE `pagos` (
   KEY `fk_idmep_pag` (`idMedioPago`),
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pagos` */
-
-insert  into `pagos`(`idPago`,`monto`,`tipoMovimiento`,`descripcionGasto`,`fechaHora`,`fechaDevolucion`,`idAtencion`,`idMedioPago`) values 
-(1,30.00,'I',NULL,'2023-09-27 14:29:28',NULL,1,3),
-(2,10.00,'I',NULL,'2023-09-27 14:33:36',NULL,2,4),
-(3,20.00,'I',NULL,'2023-09-27 14:33:36',NULL,2,3),
-(4,60.00,'I',NULL,'2023-09-27 14:34:31',NULL,3,3),
-(5,50.00,'I',NULL,'2023-09-27 14:35:56',NULL,4,5);
 
 /*Table structure for table `personas` */
 
@@ -303,39 +297,37 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personas` */
 
 insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno`,`tipoDocumento`,`numeroDocumento`,`fechaNacimiento`,`genero`,`telefono`,`fechaCreacion`,`fechaFin`,`estado`) values 
-(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-27 14:26:44',NULL,'1'),
-(27,'JAHAYRA ELIZABETH','SUAREZ','MATIAS','N','76364011','1999-06-02','F','934323619','2023-09-27 14:40:29',NULL,'1'),
-(28,'BRIANNA HELENA','MATTA','VALVERDE','N','76364012','2000-05-15','F','','2023-09-27 14:44:53',NULL,'1');
+(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-09-30 17:10:52',NULL,'1'),
+(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-09-30 17:10:52',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -391,137 +383,137 @@ CREATE TABLE `servicios_detalle` (
   PRIMARY KEY (`idservicios_detalle`),
   KEY `fk_idservicios_serdet` (`idservicio`),
   CONSTRAINT `fk_idservicios_serdet` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `servicios_detalle` */
 
 insert  into `servicios_detalle`(`idservicios_detalle`,`idservicio`,`descripcion`,`precio`) values 
-(1,1,'ANCA (Elisa)',100.00),
-(2,1,'Aglutinaciones en lamina y en tubo',15.00),
-(3,1,'ANTI ATG(Anti tiroglobulina)(tiroides autoinmune)',85.00),
-(4,1,'ANTI CARDIOLIPINA lg M',100.00),
-(5,1,'ANTI CARDIOLIPINA lg G',100.00),
-(6,1,'ANTI-CPP(Peptido Ciclico Cirulano) lg G',230.00),
-(7,1,'ANTI DNA-DS',160.00),
-(8,1,'ANTIESTREPTOLISINA O (ASO)-Cualitativa',15.00),
-(9,1,'ANTIESTREPTOLISINA O (ASO)-Cuantitativo',45.00),
-(10,1,'ASMA (ANTI MITOCONDRIALES)',100.00),
-(11,1,'ASMA (ANTI MUSCULO LISO)',100.00),
-(12,1,'ANA(ANTICUERPOS ANTINUCLEARES)',240.00),
-(13,1,'BETA HCG CUANTITATIVO(Semana de gestación)',35.00),
-(14,1,'BETA HCG CUALITATIVO',18.00),
-(15,1,'CHLAMYDIA TRACHOMATIS lg G',100.00),
-(16,1,'CHLAMYDIA TRACHOMATIS lg M',100.00),
-(17,1,'CITOMEGALOVIRUS lg G',60.00),
-(18,1,'CITOMEGALOVIRUS lg M',60.00),
-(19,1,'DESPISTAJE ALERGICO',280.00),
-(20,1,'EPSTEIN BAR VIRUS (EBNA lg G)',85.00),
-(21,1,'EPSTEIN BAR VIRUS (EBNA lg M)',85.00),
-(22,1,'EPSTEIN BAR VIRUS (VCA lg G)',90.00),
-(23,1,'FACTOR REUMATOIDEO CUALITATIVO',15.00),
-(24,1,'FACTOR REUMATOIDEO CUANTITATIVO',60.00),
-(25,1,'HELICOBACTER PILORI lg G',60.00),
-(26,1,'HELICOBACTER PILORI lg M',60.00),
-(27,1,'HEPATITIS A lg M',55.00),
-(28,1,'HEPATITIS B (HBSAG CORE TOTAL)',80.00),
-(29,1,'HEPATITIS B (HBSAG)',40.00),
-(30,1,'HEPATITIS C',80.00),
-(31,1,'HEPATITIS D',100.00),
-(32,1,'HERPES I lg G',60.00),
-(33,1,'HERPES I lg M',60.00),
-(34,1,'HERPES II lg G',60.00),
-(35,1,'HERPES II lg M',60.00),
-(36,1,'HIDATIDOSIS(ELISA)',80.00),
-(37,1,'HIDATIDOSIS(WETERN BLOT)',230.00),
-(38,1,'HTLV I-II ANTICUERPOS',211.00),
-(39,1,'VIH (ELISA)',45.00),
-(40,1,'VIH PRUEBA RAPIDA',30.00),
-(41,1,'VDRL',15.00),
-(42,1,'VDRL CUANTITATIVO',40.00),
-(43,1,'INMUNOGLOBINA SERICA IG E (alergía)',100.00),
-(44,1,'PROTEÍNA C REACTIVA (PCR)- CUALITATIVO',20.00),
-(45,1,'PROTEÍNA C REACTIVA (PCR)- CUANTITATIVO',60.00),
-(46,1,'RUBEOLA Ig G',60.00),
-(47,1,'RUBEOLA lg M',60.00),
-(48,1,'SIFILIS ELISA VDRL CUANTITATIVO',60.00),
-(49,1,'TOXOPLASMA lg G',60.00),
-(50,1,'TOXOPLASMA lg M',60.00),
-(51,1,'ACTH',100.00),
-(52,1,'CORTISOL (AM o PM)',60.00),
-(53,1,'DHEA-S (DEHIDROEPIANDROSTERONA)',180.00),
-(54,1,'ESTRADIOL',80.00),
-(55,1,'ESTRADIOL LIBRE',80.00),
-(56,1,'FSH',60.00),
-(57,1,'INSULINA BASAL',65.00),
-(58,1,'INSULINA CURVA O TOLERANCIA',120.00),
-(59,1,'LH',65.00),
-(60,1,'PARATOHORMONAS (PTH)',135.00),
-(61,1,'PROGESTERONA',60.00),
-(62,1,'PROLACTINA',60.00),
-(63,1,'PROLACTINAL POOL',100.00),
-(64,1,'T3 LIBRE',60.00),
-(65,1,'T3 (TRIODOTIRONINA)',60.00),
-(66,1,'T4 LIBRE',60.00),
-(67,1,'T4 (TIROXINA)',45.00),
-(68,1,'TESTOSTERONA TOTAL',60.00),
-(69,1,'TESTOSTERONA LIBRE',60.00),
-(70,1,'TSH ULTRA SENSIBLE',35.00),
-(71,1,'ALFA FETO PROTEINA (AFP)',80.00),
-(72,1,'CEA (ANTIGENO CARCINO EMBRIONARIO)',65.00),
-(73,1,'CA 125 (OVARIO)',80.00),
-(74,1,'CA 15-3 (MAMA)',85.00),
-(75,1,'CA 72-4',140.00),
-(76,1,'CA 19-9 (PANCREAS)',125.00),
-(77,1,'PSA TOTAL (PROSTATA)',60.00),
-(78,1,'PSA LIBRE (PROSTATA)',60.00),
-(79,1,'CALCITONINA',130.00),
-(80,1,'BETA 2 MICROGLOBULINA SERICA',110.00),
-(81,1,'CYFRA 21-1',130.00),
-(82,1,'PAPANICOLAU',35.00),
-(83,1,'BIOPSIAS (Endometrio, cuello uterino, piel)',320.00),
-(84,1,'BIOPSIAS (Hepatica, Renal, Pleural)',320.00),
-(85,1,'BIOPSIA PEQUEÑA (gastrica, duodenal, colonica, esofagica, rectal, anal)',240.00),
-(86,1,'BIOPSIAS MEDIANA (vesicula biliar, apendice, cecal, restos endouterinos)',280.00),
-(87,1,'TUMORES(Mamas,lipomas, partes blandas)',200.00),
-(88,1,'UTERO SIN ANEXOS',250.00),
-(89,1,'UTERO CON ANEXOS',320.00),
-(90,1,'PROSTATA',200.00),
-(91,1,'BLOCK CELL',100.00),
-(92,1,'Hemograma completo',30.00),
-(93,1,'Hematocrito',10.00),
-(94,1,'Hemoglobina',10.00),
-(95,1,'Grupo Sanguíneo',15.00),
-(96,1,'Recuento de Plaquetas',15.00),
-(97,1,'Lamina periferíca',15.00),
-(98,1,'VSG (Velocidad de sedimentación globular)',10.00),
-(99,1,'Gota gruesa (Malaria)',15.00),
-(100,1,'Constante Corpusculares',25.00),
-(101,1,'Recuento de Reticulocitos (Globulos Rojos)',15.00),
-(102,1,'Celulas L.E. (Lupues eritematoso)',20.00),
-(103,1,'Tiempo de coagulacion y sangría',10.00),
-(104,1,'Tiempo de Protrombina-INR',40.00),
-(105,1,'Tiempo Parcial y Tromboplastina (APTT)',40.00),
-(106,1,'Fibrinogeno',40.00),
-(107,1,'Coombs directo',50.00),
-(108,1,'Coombs indirecto',50.00),
-(109,2,'Abdominal',60.00),
-(110,2,'Pelvica',80.00),
-(111,2,'Cervical',50.00),
-(112,2,'Obstetrica',70.00),
-(113,3,'Abdominal',60.00),
-(114,3,'Torax',50.00),
-(115,3,'Mano',50.00),
-(116,3,'Columna lumbosacra',80.00),
-(117,4,'Curación de herida',40.00),
-(118,4,'Inyectable',7.00),
-(119,4,'Control de glicemia',20.00),
-(120,4,'Intramuscular',30.00),
-(121,9,'Consulta',30.00),
-(122,10,'Consulta',40.00),
-(123,11,'Consulta',40.00),
-(124,12,'Consulta',50.00),
-(125,13,'Consulta',40.00),
-(126,13,'Revision general',50.00);
+(127,1,'ANCA (Elisa)',100.00),
+(128,1,'Aglutinaciones en lamina y en tubo',15.00),
+(129,1,'ANTI ATG(Anti tiroglobulina)(tiroides autoinmune)',85.00),
+(130,1,'ANTI CARDIOLIPINA lg M',100.00),
+(131,1,'ANTI CARDIOLIPINA lg G',100.00),
+(132,1,'ANTI-CPP(Peptido Ciclico Cirulano) lg G',230.00),
+(133,1,'ANTI DNA-DS',160.00),
+(134,1,'ANTIESTREPTOLISINA O (ASO)-Cualitativa',15.00),
+(135,1,'ANTIESTREPTOLISINA O (ASO)-Cuantitativo',45.00),
+(136,1,'ASMA (ANTI MITOCONDRIALES)',100.00),
+(137,1,'ASMA (ANTI MUSCULO LISO)',100.00),
+(138,1,'ANA(ANTICUERPOS ANTINUCLEARES)',240.00),
+(139,1,'BETA HCG CUANTITATIVO(Semana de gestación)',35.00),
+(140,1,'BETA HCG CUALITATIVO',18.00),
+(141,1,'CHLAMYDIA TRACHOMATIS lg G',100.00),
+(142,1,'CHLAMYDIA TRACHOMATIS lg M',100.00),
+(143,1,'CITOMEGALOVIRUS lg G',60.00),
+(144,1,'CITOMEGALOVIRUS lg M',60.00),
+(145,1,'DESPISTAJE ALERGICO',280.00),
+(146,1,'EPSTEIN BAR VIRUS (EBNA lg G)',85.00),
+(147,1,'EPSTEIN BAR VIRUS (EBNA lg M)',85.00),
+(148,1,'EPSTEIN BAR VIRUS (VCA lg G)',90.00),
+(149,1,'FACTOR REUMATOIDEO CUALITATIVO',15.00),
+(150,1,'FACTOR REUMATOIDEO CUANTITATIVO',60.00),
+(151,1,'HELICOBACTER PILORI lg G',60.00),
+(152,1,'HELICOBACTER PILORI lg M',60.00),
+(153,1,'HEPATITIS A lg M',55.00),
+(154,1,'HEPATITIS B (HBSAG CORE TOTAL)',80.00),
+(155,1,'HEPATITIS B (HBSAG)',40.00),
+(156,1,'HEPATITIS C',80.00),
+(157,1,'HEPATITIS D',100.00),
+(158,1,'HERPES I lg G',60.00),
+(159,1,'HERPES I lg M',60.00),
+(160,1,'HERPES II lg G',60.00),
+(161,1,'HERPES II lg M',60.00),
+(162,1,'HIDATIDOSIS(ELISA)',80.00),
+(163,1,'HIDATIDOSIS(WETERN BLOT)',230.00),
+(164,1,'HTLV I-II ANTICUERPOS',211.00),
+(165,1,'VIH (ELISA)',45.00),
+(166,1,'VIH PRUEBA RAPIDA',30.00),
+(167,1,'VDRL',15.00),
+(168,1,'VDRL CUANTITATIVO',40.00),
+(169,1,'INMUNOGLOBINA SERICA IG E (alergía)',100.00),
+(170,1,'PROTEÍNA C REACTIVA (PCR)- CUALITATIVO',20.00),
+(171,1,'PROTEÍNA C REACTIVA (PCR)- CUANTITATIVO',60.00),
+(172,1,'RUBEOLA Ig G',60.00),
+(173,1,'RUBEOLA lg M',60.00),
+(174,1,'SIFILIS ELISA VDRL CUANTITATIVO',60.00),
+(175,1,'TOXOPLASMA lg G',60.00),
+(176,1,'TOXOPLASMA lg M',60.00),
+(177,1,'ACTH',100.00),
+(178,1,'CORTISOL (AM o PM)',60.00),
+(179,1,'DHEA-S (DEHIDROEPIANDROSTERONA)',180.00),
+(180,1,'ESTRADIOL',80.00),
+(181,1,'ESTRADIOL LIBRE',80.00),
+(182,1,'FSH',60.00),
+(183,1,'INSULINA BASAL',65.00),
+(184,1,'INSULINA CURVA O TOLERANCIA',120.00),
+(185,1,'LH',65.00),
+(186,1,'PARATOHORMONAS (PTH)',135.00),
+(187,1,'PROGESTERONA',60.00),
+(188,1,'PROLACTINA',60.00),
+(189,1,'PROLACTINAL POOL',100.00),
+(190,1,'T3 LIBRE',60.00),
+(191,1,'T3 (TRIODOTIRONINA)',60.00),
+(192,1,'T4 LIBRE',60.00),
+(193,1,'T4 (TIROXINA)',45.00),
+(194,1,'TESTOSTERONA TOTAL',60.00),
+(195,1,'TESTOSTERONA LIBRE',60.00),
+(196,1,'TSH ULTRA SENSIBLE',35.00),
+(197,1,'ALFA FETO PROTEINA (AFP)',80.00),
+(198,1,'CEA (ANTIGENO CARCINO EMBRIONARIO)',65.00),
+(199,1,'CA 125 (OVARIO)',80.00),
+(200,1,'CA 15-3 (MAMA)',85.00),
+(201,1,'CA 72-4',140.00),
+(202,1,'CA 19-9 (PANCREAS)',125.00),
+(203,1,'PSA TOTAL (PROSTATA)',60.00),
+(204,1,'PSA LIBRE (PROSTATA)',60.00),
+(205,1,'CALCITONINA',130.00),
+(206,1,'BETA 2 MICROGLOBULINA SERICA',110.00),
+(207,1,'CYFRA 21-1',130.00),
+(208,1,'PAPANICOLAU',35.00),
+(209,1,'BIOPSIAS (Endometrio, cuello uterino, piel)',320.00),
+(210,1,'BIOPSIAS (Hepatica, Renal, Pleural)',320.00),
+(211,1,'BIOPSIA PEQUEÑA (gastrica, duodenal, colonica, esofagica, rectal, anal)',240.00),
+(212,1,'BIOPSIAS MEDIANA (vesicula biliar, apendice, cecal, restos endouterinos)',280.00),
+(213,1,'TUMORES(Mamas,lipomas, partes blandas)',200.00),
+(214,1,'UTERO SIN ANEXOS',250.00),
+(215,1,'UTERO CON ANEXOS',320.00),
+(216,1,'PROSTATA',200.00),
+(217,1,'BLOCK CELL',100.00),
+(218,1,'Hemograma completo',30.00),
+(219,1,'Hematocrito',10.00),
+(220,1,'Hemoglobina',10.00),
+(221,1,'Grupo Sanguíneo',15.00),
+(222,1,'Recuento de Plaquetas',15.00),
+(223,1,'Lamina periferíca',15.00),
+(224,1,'VSG (Velocidad de sedimentación globular)',10.00),
+(225,1,'Gota gruesa (Malaria)',15.00),
+(226,1,'Constante Corpusculares',25.00),
+(227,1,'Recuento de Reticulocitos (Globulos Rojos)',15.00),
+(228,1,'Celulas L.E. (Lupues eritematoso)',20.00),
+(229,1,'Tiempo de coagulacion y sangría',10.00),
+(230,1,'Tiempo de Protrombina-INR',40.00),
+(231,1,'Tiempo Parcial y Tromboplastina (APTT)',40.00),
+(232,1,'Fibrinogeno',40.00),
+(233,1,'Coombs directo',50.00),
+(234,1,'Coombs indirecto',50.00),
+(235,2,'Abdominal',60.00),
+(236,2,'Pelvica',80.00),
+(237,2,'Cervical',50.00),
+(238,2,'Obstetrica',70.00),
+(239,3,'Abdominal',60.00),
+(240,3,'Torax',50.00),
+(241,3,'Mano',50.00),
+(242,3,'Columna lumbosacra',80.00),
+(243,4,'Curación de herida',40.00),
+(244,4,'Inyectable',7.00),
+(245,4,'Control de glicemia',20.00),
+(246,4,'Intramuscular',30.00),
+(247,9,'Consulta',30.00),
+(248,10,'Consulta',40.00),
+(249,11,'Consulta',40.00),
+(250,12,'Consulta',50.00),
+(251,13,'Consulta',40.00),
+(252,13,'Revision general',50.00);
 
 /*Table structure for table `usuarios` */
 
@@ -544,9 +536,9 @@ CREATE TABLE `usuarios` (
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idUsuario`,`nombreUsuario`,`clave`,`nivelAcceso`,`fechaInicio`,`fechaFin`,`estado`,`idPersona`) values 
-(1,'JuanQ','123','A','2023-09-27 14:26:58',NULL,'1',1),
-(2,'AnaC','1','A','2023-09-27 14:26:58',NULL,'1',2),
-(3,'JuanaU','','A','2023-09-27 14:26:58',NULL,'1',3);
+(1,'JuanQ','123','A','2023-09-30 17:10:52',NULL,'1',1),
+(2,'AnaC','1','A','2023-09-30 17:10:52',NULL,'1',2),
+(3,'JuanaU','','A','2023-09-30 17:10:52',NULL,'1',3);
 
 /* Procedure structure for procedure `spu_admision_atenciones` */
 
@@ -686,6 +678,27 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_filtro_doctores` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtro_doctores` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtro_doctores`(
+	IN _idServicio INT
+)
+BEGIN
+	SELECT idEspecialistasServicios,servicios.nombreservicio,
+	CONCAT(personas.apellidoPaterno, ' ',
+	personas.nombres) AS 'Nombre Completo'
+	FROM especialistas_servicios
+	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
+	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
+	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
+	WHERE especialistas_servicios.`idServicio` =_idservicio;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_filtro_servicios` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_filtro_servicios` */;
@@ -764,7 +777,8 @@ BEGIN
 	FROM Detalle_Atenciones
 	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
 	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
-	WHERE personas.numeroDocumento = _numeroDocumento;
+	WHERE personas.numeroDocumento = _numeroDocumento
+	order by Detalle_Atenciones.`idDetalleAtenciones` desc;
 END */$$
 DELIMITER ;
 
@@ -811,6 +825,19 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_listar_especialidades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_especialidades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_especialidades`()
+BEGIN
+	SELECT * FROM Servicios
+	WHERE tipo = "E";
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_listar_especialistas` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_especialistas` */;
@@ -829,6 +856,23 @@ BEGIN
 	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
 	WHERE especialistas.estado = _estado;
 END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_historias_clinicas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_historias_clinicas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_historias_clinicas`(
+in _numeroDocumento varchar(12)
+)
+begin
+	select *
+	 from Historias_Clinicas
+	inner join personas on personas.`idPersona` = Historias_Clinicas.idpersona
+	where personas.`numeroDocumento` = _numeroDocumento;
+end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `spu_listar_metodospago` */
