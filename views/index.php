@@ -20,12 +20,12 @@
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
-    <aside class="left-sidebar" style="background-color:#29ABE2 ;">
+    <aside class="left-sidebar bg-gradient" >
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
           <a href="" class="text-nowrap logo-img">
-            <img src="images/logos/LOGO COLOR BLANCO.png" style="padding:15px ;" width="210" alt="" />
+            <img src="" style="padding:15px ;" width="210" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
@@ -42,19 +42,19 @@
             
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=atenciones.php' id="atenciones" aria-expanded='false'>        
-                <span class='hide-menu' style='color:#ffffff ;'>Atenciones</span>
+                <span class='hide-menu'>Atenciones</span>
               </a>
             </li>
                
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=triaje.php' id="historiaClinica" aria-expanded='false'>        
-                <span class='hide-menu' style='color:#ffffff ;'>Triaje</span>
+                <span class='hide-menu'>Triaje</span>
               </a>
             </li> 
 
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
-                <span class='hide-menu' style='color:#ffffff ;'>Caja</span>
+                <span class='hide-menu'>Caja</span>
               </a>
             </li>
 
@@ -68,7 +68,7 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header" style="background-color:#ff7619 ;">
+      <header class="app-header bg-danger" >
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
@@ -88,7 +88,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="../controllers/usuario.controller.php?operacion=destroy" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar Sesión</a>
+                    <a href="../index.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Cerrar Sesión</a>
                   </div>
                 </div>
               </li>
