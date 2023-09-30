@@ -1,7 +1,14 @@
 <div class="container-fluid">
-    <div class="mb-2 row g-2" id="cardresumen">
-         
+    <div class="card">
+        <div class="card-header">
+            <h1 class="text-center">Lista de Atenciones</h1>
+        </div>
+        <div class="card-body">
+            <div class="mb-2 row g-2" id="cardresumen">         
+            </div>
+        </div>
     </div>
+    
 </div>
   
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
