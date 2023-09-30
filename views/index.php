@@ -42,7 +42,7 @@
             
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=atenciones.php' id="atenciones" aria-expanded='false'>        
-                <span class='hide-menu'>Atenciones</span>
+                <span class='hide-menu'>Admisión</span>
               </a>
             </li>
                
@@ -55,6 +55,17 @@
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
                 <span class='hide-menu'>Caja</span>
+              </a>
+            </li>
+
+            <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=atencionMedica.php' id="pagos" aria-expanded='false'>        
+                <span class='hide-menu'>Atencion Médica</span>
+              </a>
+            </li>
+            <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=configuracionAtencion.php' id="pagos" aria-expanded='false'>        
+                <span class='hide-menu'>Configuración Atención</span>
               </a>
             </li>
 

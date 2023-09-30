@@ -5,7 +5,7 @@
 </div>
   
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Pago:</h1>
@@ -13,7 +13,7 @@
         </div>
         <div class="modal-body">
             <div class="row mt-2 mb-3">                
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
 
                         <div class="card-body">
@@ -80,66 +80,59 @@
                                         <div class="col-md-8">
                                             <input type="text" class="form-control form-control-sm bg-light" id="total" >
                                         </div>
-                                    </div>                        
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row g-2 mb-3">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <label for="">Método de pago:</label>
+                                    </div>  
+                                    <div class="row g-2 mb-3">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="">Método de pago:</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select name="" class="form-select form-select-sm" id="metodosPago"></select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control form-control-sm bg-light" placeholder="a pagar" id="totalMedioPago" >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                            </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <select name="" class="form-select form-select-sm" id="metodosPago"></select>
+                                    <div class="row mt-2">
+                                        <div class="col-md-4">
+                                            <label for="">Restante:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control form-control-sm bg-light" readonly  id="totalRestante" >
+                                        </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control form-control-sm bg-light" placeholder="a pagar" id="totalMedioPago" >
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
-        
-                                      </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-4">
-                                        <label for="">Restante:</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control form-control-sm bg-light" readonly  id="totalRestante" >
-                                    </div>
-                                </div>
+                                    <div class="row g-2 mb-3">
+                                        <table id="detallepagos" class="table-danger">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>método</th>
+                                                    <th>Cantidad</th>
+                                                    <th></th>
+                                                  </tr>
+                                            </thead>
+                                            <tbody id="cuerpoPagos">
+                                                <!-- traer datos  -->
+                                            </tbody>
+                                        </table>
+                                    </div> 
                                 
+                                </div>                      
                             </div>
-                            <div class="row g-2 mb-3">
-                                <table id="detallepagos" class="table-danger">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>método</th>
-                                            <th>Cantidad</th>
-                                            <th></th>
-                                          </tr>
-                                    </thead>
-                                    <tbody id="cuerpoPagos">
-                                        <!-- traer datos  -->
-                                    </tbody>
-                                </table>
-                            </div> 
+                            </div>
 
                         </div>
                     </div>
                 </div>
                 
+                
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary "   id="md-guardar">Guardar</button>
         </div>
       </div>
@@ -217,7 +210,7 @@ function listarCards(){
                                 </div>
                                 <div class='col-md-6'>
                                     <button class='btn ${colorBoton} m-1' type='button'>
-                                        <a class='PAGAR' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
+                                        <a class='PAGAR' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
                                     </button>
                                 </div>
                             </div>
@@ -258,7 +251,7 @@ cardresumen.addEventListener("click", (event) => {
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
                 tablaDetalle(idatencion);
-
+                totalMedioPago.value = 0;
             })
         })   
         modal.toggle();
@@ -279,58 +272,8 @@ function calcularTotalResumen() {
   }
   
   totalResumen.value = total.toFixed(2);
+  totalRestante.value = totalResumen.value;
 }
-
-function agregarPagoTabla(){
-    const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
-
-    if(medioSeleccionado.value != ""){
-        let medioRepetido = false;
-        let totaltablapagos = 0;
-        const filaMedios = detallepagos.rows;
-        
-        for(let i=1; i< filaMedios.length; i++){
-            const medioCelda = filaMedios[i].cells[1].innerText;
-            const precioCelda = filaMedios[i].cells[2].innerText;
-
-            if(medioCelda === medioSeleccionado.text){
-                medioRepetido = true;
-                totalMedioPago +=  precioCelda;
-                break;
-            }
-        }
-        //console.log(metodosPago.text);
-        if(!medioRepetido){
-            let nuevaFila = `
-            <tr>
-                <td>${medioSeleccionado.value}</td>
-                <td>${medioSeleccionado.text}</td>
-                <td>${totalMedioPago.value}</td>
-                <td>
-                    <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
-                </td>
-            </tr>  
-            `;
-            detallepagos.innerHTML += nuevaFila;
-        }
-        else{
-            toastCheck("No puede repetir dos métodos de pago");
-        }
-               
-        calcularRestante();      
-        
-    }else{
-        toast("Por favor seleccione un método de pago");
-    }
-}
-
-detallepagos.addEventListener("click", (e) => {
-    if(e.target.closest(".eliminar")){
-        const row = e.target.closest("tr");
-        row.remove();
-        calcularRestante();
-    }
-});
 
 function calcularRestante(){
     const filaPagos = detallepagos.rows;
@@ -350,9 +293,72 @@ function calcularRestante(){
     totalRestante.value = restante;
     //console.log(restante);
 }
+function agregarPagoTabla(){
+    if(totalMedioPago.value > 0){  
+        const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
+    
+        if(medioSeleccionado.value != ""){
+            let medioRepetido = false;
+            let totaltablapagos = 0;
+            const filaMedios = detallepagos.rows;
+            
+            for(let i=1; i< filaMedios.length; i++){
+                const medioCelda = filaMedios[i].cells[1].innerText;
+                const precioCelda = filaMedios[i].cells[2].innerText;
+    
+                if(medioCelda === medioSeleccionado.text){
+                    medioRepetido = true;
+                    totalMedioPago +=  precioCelda;                
+                    break;
+                }
+                
+            }
+            //console.log(metodosPago.text);
+            if(totalMedioPago.value >= totalRestante.value){
+                toast("excede el monto restante");
+            }else{
+                if(!medioRepetido){
+                    
+                    let nuevaFila = `
+                    <tr>
+                        <td>${medioSeleccionado.value}</td>
+                        <td>${medioSeleccionado.text}</td>
+                        <td>${totalMedioPago.value}</td>
+                        <td>
+                            <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+                        </td>
+                    </tr>  
+                    `;
+                    detallepagos.innerHTML += nuevaFila;
+                    totalMedioPago.value = 0;
+                    listarMetodosPago();
+                    calcularRestante();   
+                }
+                else{
+                    toast("No puede repetir dos métodos de pago");
+                }
+                
+            }
+        }
+     }else{
+        toast("Monto inválido");
+        totalMedioPago.value = 0;
+    }
+    
+        
+   
+}
+
+detallepagos.addEventListener("click", (e) => {
+    if(e.target.closest(".eliminar")){
+        const row = e.target.closest("tr");
+        row.remove();
+        calcularRestante();
+    }
+});
+
+
 calcularRestante();
-
-
 
 function registrarPagos(){
     const filaspagos = detallepagos.rows;
@@ -447,8 +453,10 @@ function listarMetodosPago(){
 listarMetodosPago();
 listarCards();
 agregarPago.addEventListener("click", () => {
-    if(metodosPago.value > 0){
+    if(metodosPago.value > 0 ){
         agregarPagoTabla();
+    }else{
+        toast("Seleccion un metodo de pago");
     }
 });
 
