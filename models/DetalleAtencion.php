@@ -14,7 +14,16 @@ class DetalleAtencion extends Conexion{
     try{
       $query = $this->connection->prepare("CALL spu_listar_detalles_atenciones(?)");
       $query->execute(array($dni));
-        return $query->fetchA(PDO::FETCH_ASSOC);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  } 
+  public function listarHistoriasClinicas($dni=0){
+    try{
+      $query = $this->connection->prepare("CALL spu_listar_historias_clinicas(?)");
+      $query->execute(array($dni));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
       die($e->getCode());
     }
