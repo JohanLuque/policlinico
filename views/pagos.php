@@ -321,7 +321,7 @@ function agregarPagoTabla(){
                 
             }
             //console.log(metodosPago.text);
-            if(totalMedioPago.value >= totalRestante.value){
+            if(totalMedioPago.value > totalRestante.value){
                 toast("excede el monto restante");
             }else{
                 if(!medioRepetido){
