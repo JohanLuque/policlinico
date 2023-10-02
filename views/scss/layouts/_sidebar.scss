@@ -78,8 +78,8 @@
         }
 
         &:hover {
-          background-color: rgba($danger, 0.1);
-          color: $danger;
+          background-color: rgba($primary, 0.1);
+          color: $primary;
 
           &.has-arrow::after {
             border-color: $primary;
@@ -90,7 +90,7 @@
       .sidebar-link.active {
         &:hover {
           &.has-arrow::after {
-            border-color: $info;
+            border-color: $white;
           }
         }
       }
