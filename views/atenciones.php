@@ -95,11 +95,17 @@
                 <div class="col-md-2">
                   <label for="">Doctor:</label>          
                 </div>
-                <div class="col-md-9">                                  
+                <div class="col-md-3">                                  
+                  <select name="" id="listaEspecialidades" class="form-select form-select-sm" >
+                    <option value="">Seleccione</option>
+                  </select> 
+                </div>
+                <div class="col-md-4">                                  
                   <select name="" id="listaOrdenDoctor" class="form-select form-select-sm" >
                     <option value="">Seleccione</option>
                   </select> 
                 </div>
+
               </div>
             </div>
             <!-- servicio -->
@@ -315,6 +321,7 @@ const parentesco = document.querySelector("#parentescoFamilar");
 let idfamiliar = 0;
 
 //Orden Doctor
+const listaEspecialidades = document.querySelector("#listaEspecialidades");
 const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
 
 //Servicios
@@ -352,17 +359,6 @@ function mostrardivOrden(){
   }else{
     divOrden.style.display = "none";
     presionar = 1
-  }
-}
-
-var clic =1;
-function mostrardiv(){
-  if(clic ==1){
-    divFamiliar.style.display = "";
-    clic = clic+1;
-  }else{
-    divFamiliar.style.display = "none";
-    clic = 1
   }
 }
 
@@ -500,11 +496,29 @@ function limpiarTabla() {
   calcularTotal(); 
 }
 
+function listarEspecialidades(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "listarEspecialidades");
+  fetch("../controllers/servicio.php",{
+    method: "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+    listaEspecialidades.innerHTML = "<option value=''>Seleccione</option>";
+    datos.forEach(element=>{
+      const optionTag = document.createElement("option");
+      optionTag.value = element.idServicio;
+      optionTag.text = element.nombreServicio;
+      listaEspecialidades.appendChild(optionTag);
+    });
+  })
+}
 function listarEspecialistas(){
   const parametros = new URLSearchParams();
-  parametros.append("operacion", "getData");
-  parametros.append("estado" , "1");
-  fetch("../controllers/especialista.php",{
+  parametros.append("operacion", "filtroDoctores");
+  parametros.append("idServicio" , listaEspecialidades.value);
+  fetch("../controllers/servicio.php",{
     method : "POST",
     body: parametros
   })
@@ -513,8 +527,8 @@ function listarEspecialistas(){
     listaOrdenDoctor.innerHTML = "<option value=''>Seleccione</option>";
     datos.forEach(element => {
       const optionTag = document.createElement("option");
-      optionTag.value = element.idEspecialista;
-      optionTag.text = element.ApellidosNombres;
+      optionTag.value = element.idEspecialistasServicios;
+      optionTag.text = element.NombreCompleto;
       listaOrdenDoctor.appendChild(optionTag);
     });
   })
@@ -641,9 +655,14 @@ function consultarPaciente(){
       });
     }else{
       modalRegistrarPersonas.show();
-      dni.value = dniPersonas.value;
-      
-      
+      dni.value = dniPersonas.value; 
+    }
+    if(edadPaciente.value <18){
+      divFamiliar.style.display = "";
+    }else if(edadPaciente.value >65){
+      divFamiliar.style.display = "";
+    }else if(edadPaciente.value){
+      divFamiliar.style.display = "none";
     }
   })
 }
@@ -729,6 +748,7 @@ dniFamiliar.addEventListener("keypress", (evt) => {
   }
 });*/
 
+listaEspecialidades.addEventListener("change", listarEspecialistas);
 listaServicios.addEventListener("change", listarServiciosFiltro);
 
 btnagregarServicio.addEventListener("click", () => {
@@ -755,8 +775,7 @@ tabla_servicios.addEventListener("click", (e)=>{
 listarEspecialistas();
 listarServicios();
 calcularTotal();
-
+listarEspecialidades();
 guardarRegistro.addEventListener("click", registrarPaciente);
-mostrarFamiliar.addEventListener("click", mostrardiv);
 mostrarOrden.addEventListener("click", mostrardivOrden);
 </script>
