@@ -486,7 +486,6 @@ function registrarServiciosDetalles() {
 }
 
 function limpiarSelect(){
-  listaServicios.selectedIndex = 0;
   listaServiciosFiltro.selectedIndex = 0;
 }
 
@@ -560,6 +559,32 @@ function listarServiciosFiltro(){
   })
 }
 
+function validarEspecialidadServicio(){
+  const servicioSeleccionado  = listaServicios.options[listaServicios.selectedIndex];
+  const filas = tabla_servicios.rows;
+  let especialidad = false;
+  
+  for(let i = 1; i < filas.length; i++){
+    const idservicioEspecialidad = filas[i].cells[0].innerText;
+    if(idservicioEspecialidad != servicioSeleccionado.value){
+      especialidad = true;
+      break;
+      console.log(idservicioEspecialidad);
+      console.log(servicioSeleccionado.value);      
+    }
+  }
+  if(!especialidad){
+    agregarServicio();
+  } 
+  else{
+    mostrarPregunta("ADVERTENCIA", "Si cambia el servicio se reseteara la tabla").then((result) => {
+      if(result.isConfirmed){
+        limpiarTabla(); 
+      }
+    })
+  }
+}
+
 function agregarServicio() {
   const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
 
@@ -583,7 +608,7 @@ function agregarServicio() {
       // Crea una nueva fila
       let newRow = `
         <tr>
-          <td>${listaServiciosFiltro.value}</td>
+          <td>${listaServicios.value}</td>
           <td>${servicioSeleccionado.text}</td>
           <td>${precio}</td>
           <td>
@@ -705,35 +730,18 @@ dniPersonas.addEventListener("keypress", (evt) => {
     if (evt.charCode == 13) consultarPaciente();
 });
 
-/*dniPersonas.addEventListener("input", () => {
-  const valor = dniPersonas.value.trim(); // Obtener el valor del campo sin espacios en blanco
-
-  if (valor.length === 8 || valor.length ===9) {
-    consultarPaciente();
-  }
-});*/
 
 dniFamiliar.addEventListener("keypress", (evt) => {
   if(evt.charCode == 13) consultarFamiliar();
     parentesco.disabled = false;
 });
-/*dniFamiliar.addEventListener("input", () => {
-  const valor = dniFamilar.value.trim(); // Obtener el valor del campo sin espacios en blanco
 
-  if (valor.length === 8) {
-    consultarFamiliar();
-    parentesco.disabled = false;
-  }else{
-    parentesco.disabled = true;
-    
-  }
-});*/
 
 listaServicios.addEventListener("change", listarServiciosFiltro);
 
 btnagregarServicio.addEventListener("click", () => {
   if(listaServiciosFiltro.value >0){
-    agregarServicio();
+    validarEspecialidadServicio();
     limpiarSelect();
   }
   else{
