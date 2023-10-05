@@ -143,7 +143,8 @@
                   </colgroup>
                   <thead class="thead-danger">
                     <tr>
-                      <th>#</th>
+                      <th>Servicio</th>
+                      <th>id</th>
                       <th>Descripción</th>
                       <th>Precio</th>
                       <th>Eliminar</th>
@@ -452,7 +453,7 @@ function registrarServiciosDetalles() {
 
   for (let i = 1; i < filas.length; i++) {
   const fila = filas[i];
-  const idservicios_detalle = fila.cells[0].innerHTML;
+  const idservicios_detalle = fila.cells[1].innerHTML;
 
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
@@ -611,7 +612,7 @@ function agregarServicio() {
     let servicioRepetido = false;
 
     for (let i = 1; i < tablaFilas.length; i++) {
-      const descripcionCelda = tablaFilas[i].cells[1].innerText;
+      const descripcionCelda = tablaFilas[i].cells[2].innerText;
       if (descripcionCelda === servicioSeleccionado.text) {
         servicioRepetido = true;
         break;
@@ -623,6 +624,7 @@ function agregarServicio() {
       let newRow = `
         <tr>
           <td>${listaServicios.value}</td>
+          <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
           <td>${precio}</td>
           <td>
@@ -648,7 +650,7 @@ function calcularTotal() {
 
   for (let i = 1; i < tablaFilas.length; i++) {
 
-    const precioCelda = parseFloat(tablaFilas[i].cells[2].innerText);
+    const precioCelda = parseFloat(tablaFilas[i].cells[3].innerText);
     total += precioCelda;
     
 

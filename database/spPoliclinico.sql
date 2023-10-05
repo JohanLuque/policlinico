@@ -9,7 +9,8 @@ IN _idusuario 	INT,
 IN _idpersona 	INT,
 IN _idfamiliar 	INT,
 IN _parentesco 	VARCHAR(100),
-IN _orden 	INT
+IN _orden 	INT,
+IN _fechaAtencion DATE
 )
 BEGIN
 	-- Para el contador
@@ -34,8 +35,8 @@ BEGIN
 	LPAD(_contador, 4, '0')
 	);
 	INSERT INTO Atenciones
-	(turno, numeroAtencion, parentesco, OrdenDoctor, idUsuario, idFamiliar, idPersona) VALUES
-	(_turno, _numAtencion, _parentesco, _orden, _idusuario, _idfamiliar, _idpersona);
+	(turno, numeroAtencion, parentesco, OrdenDoctor, idUsuario, idFamiliar, idPersona,fechaAtencion) VALUES
+	(_turno, _numAtencion, _parentesco, _orden, _idusuario, _idfamiliar, _idpersona,_fechaAtencion);
 END $$
 
 -- detalles de la atencion
