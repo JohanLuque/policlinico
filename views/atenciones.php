@@ -108,6 +108,19 @@
 
               </div>
             </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-10">
+                <label for="" class="card-title" style="color:#ff7619 ;">FECHA:</label>
+              </div>                                                               
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-2">
+                <label for="">Fecha atención:</label>          
+              </div>
+              <div class="col-md-3">                                  
+                <input type="date" class="form-control form-control-sm" id="FechaActual" value="<?php echo date('Y-m-d');?>">
+              </div>
+            </div>
             <!-- servicio -->
             <div class="mb-3 row g-2">
               <div class="col-md-10">
@@ -143,7 +156,8 @@
                   </colgroup>
                   <thead class="thead-danger">
                     <tr>
-                      <th>#</th>
+                      <th>Servicio</th>
+                      <th>id</th>
                       <th>Descripción</th>
                       <th>Precio</th>
                       <th>Eliminar</th>
@@ -348,6 +362,7 @@ const buscar = document.querySelector("#buscar");
 const guardarRegistro = document.querySelector("#md-guardar");
 
 //Guardar atención
+const fecha = document.querySelector("#FechaActual");
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
 
@@ -410,7 +425,7 @@ function validar(){
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
       if(result.isConfirmed){
         registrarAtencion();
-        toastCheck("Guardado correctamente");   
+          
       }
     })
   }
@@ -425,21 +440,19 @@ function registrarAtencion(){
   parametros.append("idpersona", idpersona);
   parametros.append("parentesco", parentesco.value);
   parametros.append("orden", listaOrdenDoctor.value);
+  parametros.append("fechaAtencion", fecha.value); // arreglar
   fetch("../controllers/atencion.php", {
     method : "POST",
     body : parametros
   })
   .then(response => response.json())
   .then(datos => {
-    //if(datos.status){
       registrarServiciosDetalles();
+      toastCheck("Guardado correctamente"); 
       form.reset();
       limpiarTabla();
       
-    //}
-    //else{
-     // console.log("algo mal")
-    //}
+    
   })
 }
 
@@ -452,7 +465,7 @@ function registrarServiciosDetalles() {
 
   for (let i = 1; i < filas.length; i++) {
   const fila = filas[i];
-  const idservicios_detalle = fila.cells[0].innerHTML;
+  const idservicios_detalle = fila.cells[1].innerHTML;
 
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
@@ -611,7 +624,7 @@ function agregarServicio() {
     let servicioRepetido = false;
 
     for (let i = 1; i < tablaFilas.length; i++) {
-      const descripcionCelda = tablaFilas[i].cells[1].innerText;
+      const descripcionCelda = tablaFilas[i].cells[2].innerText;
       if (descripcionCelda === servicioSeleccionado.text) {
         servicioRepetido = true;
         break;
@@ -623,6 +636,7 @@ function agregarServicio() {
       let newRow = `
         <tr>
           <td>${listaServicios.value}</td>
+          <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
           <td>${precio}</td>
           <td>
@@ -648,7 +662,7 @@ function calcularTotal() {
 
   for (let i = 1; i < tablaFilas.length; i++) {
 
-    const precioCelda = parseFloat(tablaFilas[i].cells[2].innerText);
+    const precioCelda = parseFloat(tablaFilas[i].cells[3].innerText);
     total += precioCelda;
     
 
