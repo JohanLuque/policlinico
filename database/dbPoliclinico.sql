@@ -131,7 +131,7 @@ idUsuario				INT 		NOT NULL,
 ordenDoctor				VARCHAR(100) 		NULL,
 idFamiliar				INT 		NULL,
 idPersona				INT 		NOT NULL,
-fechaAtencion				DATETIME	NOT NULL,
+fechaAtencion				DATE		NOT NULL,
 CONSTRAINT fk_usuario_ate FOREIGN KEY Atenciones (idUsuario) REFERENCES Usuarios (idUsuario),
 CONSTRAINT fk_fami_ate FOREIGN KEY Atenciones (idFamiliar) REFERENCES Personas (idPersona),
 CONSTRAINT fk_per_ate FOREIGN KEY Atenciones (idPersona) REFERENCES Personas (idPersona)
