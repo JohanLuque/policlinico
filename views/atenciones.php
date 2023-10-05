@@ -108,6 +108,19 @@
 
               </div>
             </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-10">
+                <label for="" class="card-title" style="color:#ff7619 ;">FECHA:</label>
+              </div>                                                               
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-2">
+                <label for="">Fecha atención:</label>          
+              </div>
+              <div class="col-md-3">                                  
+                <input type="date" class="form-control form-control-sm" id="FechaActual" value="<?php echo date('Y-m-d');?>">
+              </div>
+            </div>
             <!-- servicio -->
             <div class="mb-3 row g-2">
               <div class="col-md-10">
@@ -349,6 +362,7 @@ const buscar = document.querySelector("#buscar");
 const guardarRegistro = document.querySelector("#md-guardar");
 
 //Guardar atención
+const fecha = document.querySelector("#FechaActual");
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
 
@@ -411,7 +425,7 @@ function validar(){
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
       if(result.isConfirmed){
         registrarAtencion();
-        toastCheck("Guardado correctamente");   
+          
       }
     })
   }
@@ -426,21 +440,19 @@ function registrarAtencion(){
   parametros.append("idpersona", idpersona);
   parametros.append("parentesco", parentesco.value);
   parametros.append("orden", listaOrdenDoctor.value);
+  parametros.append("fechaAtencion", fecha.value); // arreglar
   fetch("../controllers/atencion.php", {
     method : "POST",
     body : parametros
   })
   .then(response => response.json())
   .then(datos => {
-    //if(datos.status){
       registrarServiciosDetalles();
+      toastCheck("Guardado correctamente"); 
       form.reset();
       limpiarTabla();
       
-    //}
-    //else{
-     // console.log("algo mal")
-    //}
+    
   })
 }
 

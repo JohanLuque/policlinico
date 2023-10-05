@@ -16,7 +16,7 @@ class Atencion extends Conexion{
       "message" => ""
     ];
     try{
-      $query = $this->connection->prepare("CALL spu_admision_atenciones(?,?,?,?,?,?)");
+      $query = $this->connection->prepare("CALL spu_admision_atenciones(?,?,?,?,?,?,?)");
       $respuesta["status"] =$query->execute(
         array(
             $data['turno'],
@@ -24,7 +24,8 @@ class Atencion extends Conexion{
             $data['idpersona'],
             $data['idfamiliar'],
             $data['parentesco'],
-            $data['orden']
+            $data['orden'],
+            $data['fechaAtencion']
         )
       );
         return $query->fetchAll(PDO::FETCH_ASSOC);
