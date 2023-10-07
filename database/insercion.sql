@@ -536,6 +536,11 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 (12,'CULTIVO DE SECRECION VAGINAL','60.00','F'),
 (12,'BIOPSIA DE CUELLO UTERINO','150.00','F'),
 (12,'COLCOSPIA','120.00','F');
+
+INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES 
+(1,22),
+(1,23),
+(1,24);
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;
 SELECT * FROM personas;
@@ -546,3 +551,4 @@ SELECT * FROM pagos;
 SELECT * FROM atenciones ORDER BY idAtencion DESC;
 SELECT * FROM Detalle_Servicios;
 SELECT * FROM servicios_detalle;
+SELECT * FROM historias_clinicas;
