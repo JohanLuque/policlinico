@@ -19,5 +19,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $historiaClininca->create($parametros);
       echo json_encode($respuesta);
       break;
+    case 'list':
+      echo json_encode($historiaClininca->listar());
+      break;
   }
 }

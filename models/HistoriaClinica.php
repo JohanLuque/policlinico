@@ -33,4 +33,18 @@ class HistoriaClinica extends Conexion{
     }
     return $respuesta;
   }
+  public function listar(){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL spu_listar_historiasClinicasTodo()");
+      $respuesta["status"] =$query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
 }
