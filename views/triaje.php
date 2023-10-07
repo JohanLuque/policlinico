@@ -11,7 +11,7 @@
           
           <div class="container-fluid">
             <div class="mb-2 row g-2" id="historia">
-                 <!-- aqui iran los detalles-->
+                 <!-- aqui iran las historias-->
             </div>
         </div>
 

@@ -407,6 +407,16 @@ BEGIN
 	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
 	WHERE especialistas_servicios.`idServicio` =_idservicio;
 END$$
+
+-- --------------------------------------------------------------------------------------------------------
+-- LISTAR TODAS LAS HISTORIAS CLINICAS
+DELIMITER $$
+CREATE PROCEDURE spu_listar_historiasClinicasTodo()
+BEGIN
+	SELECT historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
+	FROM historias_clinicas
+	INNER JOIN personas ON personas.`idPersona` = historias_clinicas.`idPersona`;
+END$$
 -- call spu_listar_detalles_atenciones ('71789712')
 -- call spu_listar_historias_clinicas ('71789712') 
 -- call spu_listar_servicios
@@ -416,3 +426,4 @@ INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaC
 (1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-25'),
 (1, 1, 60, 163, '20x1', '20x2', '20x3', 30.9, 150, 1, '2023-09-26');
 SELECT * FROM atenciones
+
