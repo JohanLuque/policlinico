@@ -159,7 +159,7 @@ const cardresumen = document.querySelector("#cardresumen");
 const detalle = document.querySelector("#detallemodal");
 
 const cuerpomodal = detalle.querySelector("#cuerpomodal");
-const btnpagos = document.querySelector("#btnpagos");
+//const btnpagos = document.querySelector("#btnpagos");
 const detallepagos = document.querySelector("#detallepagos");
 const totalMedioPago = document.querySelector("#totalMedioPago");
 const totalRestante = document.querySelector("#totalRestante");
