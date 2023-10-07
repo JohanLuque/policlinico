@@ -377,7 +377,7 @@ const form = document.querySelector("#form-atenciones");
 const limpiar = document.querySelector("#limpiar");
 
 function obtenerFecha(){
-  fechaAhora = new Date();
+  const fechaAhora = new Date();
   const año = fechaAhora.getFullYear();
   const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
   const dia = fechaAhora.getDate().toString().padStart(2, "0");
@@ -455,13 +455,15 @@ function validar(){
 
 function validarFecha(){
   const fechaActual = new Date();
-  const fechaIngresada = new Date(fecha.value);
+  console.log(fechaActual);
+  //const fechaIngresada = new Date(fecha.value);
+  console.log(fecha.value);
   const fechaQuince = new Date(fechaActual);
   fechaQuince.setDate(fechaQuince.getDate() + 15);
-   if(fechaIngresada < fechaActual){
+   if(fecha.value < fechaActual){
       notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser menor a la fecha Actual", 3000);
   
-   }else if(fechaIngresada > fechaQuince){
+   }else if(fecha.value > fechaQuince){
     notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser mayor a dentro de 15 dias", 3000);
     
    }else{
