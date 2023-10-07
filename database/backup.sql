@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.25-MariaDB : Database - sispsolidario
+MySQL - 10.4.28-MariaDB : Database - sispsolidario
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.25-MariaDB : Database - sispsolidario
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `sispsolidario`;
 
@@ -25,7 +25,7 @@ CREATE TABLE `alergias` (
   `alergia` varchar(100) NOT NULL,
   PRIMARY KEY (`idAlergia`),
   UNIQUE KEY `uk_alergias_ale` (`alergia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `alergias` */
 
@@ -53,9 +53,14 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
+
+insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`,`fechaAtencion`) values 
+(1,'T','071020230001','2023-10-07 13:51:37',NULL,NULL,'0',1,NULL,NULL,23,'2023-10-08'),
+(2,'T','071020230002','2023-10-07 13:52:46',NULL,NULL,'0',1,NULL,NULL,22,'2024-10-05'),
+(3,'T','071020230003','2023-10-07 15:05:37',NULL,NULL,'0',1,NULL,NULL,22,'2023-10-21');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -70,7 +75,7 @@ CREATE TABLE `detalle_alergias` (
   KEY `fk_idHistoriaClinica_dal` (`idHistoriaClinica`),
   CONSTRAINT `fk_idAlergia_dal` FOREIGN KEY (`idAlergia`) REFERENCES `alergias` (`idAlergia`),
   CONSTRAINT `fk_idHistoriaClinica_dal` FOREIGN KEY (`idHistoriaClinica`) REFERENCES `historias_clinicas` (`idHistoriaClinica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_alergias` */
 
@@ -101,7 +106,7 @@ CREATE TABLE `detalle_atenciones` (
   CONSTRAINT `fk_idAtencion_das` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idHistoria_das` FOREIGN KEY (`idHistoria`) REFERENCES `historias_clinicas` (`idHistoriaClinica`),
   CONSTRAINT `fk_idusuario_das` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_atenciones` */
 
@@ -118,9 +123,14 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
+
+insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
+(1,143,1),
+(2,1,2),
+(3,174,3);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -135,7 +145,7 @@ CREATE TABLE `enfermedad_pacientes` (
   KEY `fk_det_epp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_epp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`),
   CONSTRAINT `fk_enf_epp` FOREIGN KEY (`idEnfermedad`) REFERENCES `enfermedades` (`idEnfermedad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `enfermedad_pacientes` */
 
@@ -151,7 +161,7 @@ CREATE TABLE `enfermedades` (
   `fechaActualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idEnfermedad`),
   UNIQUE KEY `uk_codigoCie_enf` (`codigoCie_10`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `enfermedades` */
 
@@ -167,7 +177,7 @@ CREATE TABLE `especialistas` (
   PRIMARY KEY (`idEspecialista`),
   UNIQUE KEY `uk_idPersona_esp` (`idPersona`),
   CONSTRAINT `fk_idPersona_esp` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `especialistas` */
 
@@ -189,7 +199,7 @@ CREATE TABLE `especialistas_servicios` (
   KEY `fk_idEspecialista_ees` (`idEspecialista`),
   CONSTRAINT `fk_idEspecialista_ees` FOREIGN KEY (`idEspecialista`) REFERENCES `especialistas` (`idEspecialista`),
   CONSTRAINT `fk_idServicio_ees` FOREIGN KEY (`idServicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `especialistas_servicios` */
 
@@ -218,7 +228,7 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `historias_clinicas` */
 
@@ -231,7 +241,7 @@ CREATE TABLE `medio_pagos` (
   `nombrePago` varchar(100) NOT NULL,
   PRIMARY KEY (`idMedioPago`),
   UNIQUE KEY `uk_nombrePago_mps` (`nombrePago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `medio_pagos` */
 
@@ -260,7 +270,7 @@ CREATE TABLE `pagos` (
   KEY `fk_idmep_pag` (`idMedioPago`),
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pagos` */
 
@@ -283,7 +293,7 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personas` */
 
@@ -325,7 +335,7 @@ CREATE TABLE `servicios` (
   `nombreServicio` varchar(100) NOT NULL,
   PRIMARY KEY (`idServicio`),
   UNIQUE KEY `uk_nombreServicio_ser` (`nombreServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `servicios` */
 
@@ -370,7 +380,7 @@ CREATE TABLE `servicios_detalle` (
   PRIMARY KEY (`idservicios_detalle`),
   KEY `fk_idservicios_serdet` (`idservicio`),
   CONSTRAINT `fk_idservicios_serdet` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `servicios_detalle` */
 
@@ -646,7 +656,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `uk_idpersona_usu` (`idPersona`),
   CONSTRAINT `fk_usuarios_usu` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `usuarios` */
 
@@ -686,7 +696,6 @@ BEGIN
 	FROM Atenciones
 	WHERE DATE(fechaCreacion) = _fecha;
 	SET _contador = _contador + 1;
-
 	-- Construir el número de atención basado en la fecha y el contador
 	SET _numAtencion = CONCAT(
 	DATE_FORMAT(_fecha, '%d%m%Y'),
@@ -729,7 +738,7 @@ BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
 	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
 	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`
+	personas.`telefono`, atenciones.`fechaAtencion`
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
@@ -1030,7 +1039,7 @@ BEGIN
 	SELECT Detalle_Servicios.idAtencion,
 				PP.nombres,PP.apellidoPaterno, PP.apellidoMaterno, PP.numeroDocumento,
 				servicios.nombreServicio,
-				SUM(servicios_detalle.precio) AS 'Total'
+				SUM(servicios_detalle.precio) AS 'Total', atenciones.`fechaAtencion`
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle

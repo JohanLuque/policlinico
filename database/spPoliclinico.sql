@@ -141,7 +141,7 @@ BEGIN
 	SELECT Detalle_Servicios.idAtencion,
 				PP.nombres,PP.apellidoPaterno, PP.apellidoMaterno, PP.numeroDocumento,
 				servicios.nombreServicio,
-				SUM(servicios_detalle.precio) AS 'Total'
+				SUM(servicios_detalle.precio) AS 'Total', atenciones.`fechaAtencion`
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
@@ -326,7 +326,7 @@ BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
 	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
 	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`
+	personas.`telefono`, atenciones.`fechaAtencion`
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
