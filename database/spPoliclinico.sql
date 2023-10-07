@@ -127,7 +127,7 @@ BEGIN
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia;
+	ORDER BY Dia DESC;
 END $$
 
 
@@ -284,7 +284,6 @@ BEGIN
 	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END $$
 -- call spu_triaje_agregar_triaje(1, 1, 66.8, 163, '10x1', '10x2', '10x3', 33.9, 100, 1);
-
 DELIMITER $$
 CREATE PROCEDURE spu_doctor_agregar
 (
@@ -415,7 +414,8 @@ CREATE PROCEDURE spu_listar_historiasClinicasTodo()
 BEGIN
 	SELECT historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
 	FROM historias_clinicas
-	INNER JOIN personas ON personas.`idPersona` = historias_clinicas.`idPersona`;
+	INNER JOIN personas ON personas.`idPersona` = historias_clinicas.`idPersona`
+	ORDER BY historias_clinicas.`idHistoriaClinica` DESC;
 END$$
 -- call spu_listar_detalles_atenciones ('71789712')
 -- call spu_listar_historias_clinicas ('71789712') 
