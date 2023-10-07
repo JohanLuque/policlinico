@@ -28,4 +28,24 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   }
+  public function create($data=[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_agregar_triaje(?,?,?,?,?,?,?,?,?,?)");
+      $query->execute(array(
+        $data['idatencion'],
+        $data['idhistoria'],
+        $data['peso'],
+        $data['talla'],
+        $data['frecuenciaCardiaca'],
+        $data['frecuenciaRespiratoria'],
+        $data['presionArterial'],
+        $data['temperatura'],
+        $data['saturacionOxigeno'],
+        $data['idusuario']
+      ));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  } 
 }
