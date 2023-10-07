@@ -424,11 +424,22 @@ function validar(){
   }else{
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
       if(result.isConfirmed){
-        registrarAtencion();
+        validarFecha();
           
       }
     })
   }
+}
+
+function validarFecha(){
+  const fechaActual = new Date();
+  const fechaIngresada = new Date(fecha.value);
+   if(fechaIngresada < fechaActual){
+      notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser menor a la fecha Actual", 3000);
+      
+   }else{
+    registrarAtencion();
+   }
 }
 
 function registrarAtencion(){
