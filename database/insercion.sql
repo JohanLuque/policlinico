@@ -402,7 +402,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (4,'RETIRO DE PUNTOS','10.00'),
 (4,'COLOCACION DE ENEMA','20.00'),
 (4,'COLOCACION DE SONDA ','30.00'),
-(4,'PRUEBA DE SENSIBILIDAD','6.00'),
+(4,'PRUEBA DE SENSIBILIDAD','6.00');
 -- ELECTROCARDIOGRAMA ???
 -- (5,'','.00'),
 -- MEDIDA DE VISTA ???
@@ -442,7 +442,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 (12,'PAPANICOLAO','40.00','F'),
 (12,'CULTIVO DE SECRECION VAGINAL','60.00','F'),
 (12,'BIOPSIA DE CUELLO UTERINO','150.00','F'),
-(12,'COLCOSPIA','120.00','F'),
+(12,'COLCOSPIA','120.00','F');
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;
 SELECT * FROM personas;

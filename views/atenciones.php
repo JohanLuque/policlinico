@@ -2,8 +2,15 @@
   
   <div class="card border-0">
     <div class="card-body border-0">
-
-      <h3 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h3>
+      <div class="row">
+        <div class="col-md-11">
+          <h3 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h3>
+        </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-sm" id="limpiar"><i class="fa-solid fa-trash-can fa-2xl" style="color: #f96f12;"></i></button>
+        </div>
+      </div>
+      
       <div class="card border-0">
         <div class="card-body">            
           <form id="form-atenciones" class="needs-validation">
@@ -118,7 +125,7 @@
                 <label for="">Fecha atención:</label>          
               </div>
               <div class="col-md-3">                                  
-                <input type="date" class="form-control form-control-sm" id="FechaActual" value="<?php echo date('Y-m-d');?>">
+                <input type="date" class="form-control form-control-sm" id="FechaActual" >
               </div>
             </div>
             <!-- servicio -->
@@ -349,6 +356,7 @@ const igv = document.querySelector("#IGV");
 const subTotal = document.querySelector("#subTotal");
 const total_servicios = document.querySelector("#total");
 let precio = 0;
+let genero= "";
 
 //Modal API
 const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-personas"));
@@ -365,6 +373,20 @@ const guardarRegistro = document.querySelector("#md-guardar");
 const fecha = document.querySelector("#FechaActual");
 const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
+//limpiar
+const limpiar = document.querySelector("#limpiar");
+
+function obtenerFecha(){
+  fechaAhora = new Date();
+  const año = fechaAhora.getFullYear();
+  const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
+  const dia = fechaAhora.getDate().toString().padStart(2, "0");
+
+  const fechaTotal = `${año}-${mes}-${dia}`;
+  fecha.value = fechaTotal;
+  console.log(fechaTotal);
+}
+obtenerFecha();
 
 var presionar=1;
 function mostrardivOrden(){
@@ -505,6 +527,12 @@ function registrarServiciosDetalles() {
   }
 }
 
+function limpiarTodo(){
+  limpiarSelect();
+  limpiarTabla();
+  form.reset();
+}
+
 function limpiarSelect(){
   listaServiciosFiltro.selectedIndex = 0;
 }
@@ -592,9 +620,25 @@ function listarServiciosFiltro(){
     optionTag.value = element.idservicios_detalle;
     optionTag.text = element.descripcion;
     optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
+    optionTag.dataset.genero = element.genero;
     listaServiciosFiltro.appendChild(optionTag);
     });
+    
   })
+}
+
+function validarGenero(){
+  const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
+  generoObtenido = servicioSeleccionado.dataset.genero;
+  console.log(generoObtenido);
+  console.log(generoPaciente);
+
+  if(generoObtenido == generoPaciente || generoObtenido == "null"){
+    validarEspecialidadServicio();
+  }else{
+    notificar("POLICLINICO SOLIDARIO DE CHINCHA","SERVICIO NO DISPONIBLE", 3000 );
+
+  }
 }
 
 function validarEspecialidadServicio(){
@@ -686,6 +730,7 @@ function calcularTotal() {
   subTotal.value = tsubTotal.toFixed(2);
 }
 
+let generoPaciente;
 function consultarPaciente(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "getData");
@@ -702,6 +747,7 @@ function consultarPaciente(){
         idpersona = element.idPersona;
         nombrePaciente.value = element.ApellidosNombres;
         edadPaciente.value = element.Edad;
+        generoPaciente = element.genero;
       });
     }else{
       modalRegistrarPersonas.show();
@@ -786,7 +832,7 @@ listaServicios.addEventListener("change", listarServiciosFiltro);
 
 btnagregarServicio.addEventListener("click", () => {
   if(listaServiciosFiltro.value >0){
-    validarEspecialidadServicio();
+    validarGenero();
     limpiarSelect();
   }
   else{
@@ -794,6 +840,7 @@ btnagregarServicio.addEventListener("click", () => {
   }
   
 });
+limpiar.addEventListener("click", limpiarTodo);
 
 agregarAtencion.addEventListener("click", validar);
 

@@ -65,7 +65,7 @@ BEGIN
 		CONCAT(`apellidoPaterno`, 
 		' ', `apellidoMaterno`, 
 		', ' , nombres) AS 'ApellidosNombres',
-		YEAR(CURDATE()) - YEAR(`fechaNacimiento`) AS 'Edad'
+		YEAR(CURDATE()) - YEAR(`fechaNacimiento`) AS 'Edad', genero
 	FROM personas
 	WHERE `numeroDocumento` = _numeroDocumento;
 END $$
@@ -168,7 +168,7 @@ CREATE PROCEDURE spu_filtro_servicios
 	IN _idServicio INT 
 )
 BEGIN 
-	SELECT Servicios.idServicio, servicios.nombreServicio, servicios_detalle.idservicios_detalle, servicios_detalle.descripcion, servicios_detalle.precio
+	SELECT Servicios.idServicio, servicios.nombreServicio, servicios_detalle.idservicios_detalle, servicios_detalle.descripcion, servicios_detalle.precio, servicios_detalle.genero
 	FROM Servicios
 	INNER JOIN servicios_detalle ON servicios_detalle.idServicio = Servicios.idServicio 
 	WHERE Servicios.idServicio = _idServicio;
