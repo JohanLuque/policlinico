@@ -68,6 +68,14 @@
                                         </div>
                                     </div> 
                                     <div class="row g-2 mb-3">
+                                        <div class="col-md-4">
+                                            <label class="fw-bolder" for="">Fecha Atención:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label for="" id="fechaAtencion"></label>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-3">
                                         <table id="detallemodal" class="bg-light">
                                             <thead>
                                                 <tr>
@@ -166,6 +174,7 @@ const dniPaciente = document.querySelector("#dni");
 const edad = document.querySelector("#edad");
 const telefono = document.querySelector("#telefono");
 const especialidad = document.querySelector("#especialidad");
+const fechaAtencion = document.querySelector("#fechaAtencion");
 const totalResumen = document.querySelector("#total");
 const metodosPago = document.querySelector("#metodosPago");
 
@@ -257,6 +266,7 @@ cardresumen.addEventListener("click", (event) => {
                 edad.innerHTML = element.Edad;
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
+                fechaAtencion.innerHTML = element.fechaAtencion;
                 tablaDetalle(idatencion);
                 totalMedioPago.value = 0;
             })
