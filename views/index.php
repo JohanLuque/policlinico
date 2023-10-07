@@ -45,7 +45,13 @@
                 <span class='hide-menu'>Admisión</span>
               </a>
             </li>
-               
+            
+            <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=atencionesListado.php' id="atenciones" aria-expanded='false'>        
+                <span class='hide-menu'>Lista de atenciones</span>
+              </a>
+            </li>
+
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=triaje.php' id="historiaClinica" aria-expanded='false'>        
                 <span class='hide-menu'>Triaje</span>
