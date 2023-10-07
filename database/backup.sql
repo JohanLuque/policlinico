@@ -53,14 +53,16 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
 insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`,`fechaAtencion`) values 
 (1,'T','071020230001','2023-10-07 13:51:37',NULL,NULL,'0',1,NULL,NULL,23,'2023-10-08'),
 (2,'T','071020230002','2023-10-07 13:52:46',NULL,NULL,'0',1,NULL,NULL,22,'2024-10-05'),
-(3,'T','071020230003','2023-10-07 15:05:37',NULL,NULL,'0',1,NULL,NULL,22,'2023-10-21');
+(3,'T','071020230003','2023-10-07 15:05:37',NULL,NULL,'0',1,NULL,NULL,22,'2023-10-21'),
+(4,'T','071020230004','2023-10-07 15:46:41',NULL,NULL,'0',1,NULL,NULL,22,'2023-10-07'),
+(5,'T','071020230005','2023-10-07 15:50:59',NULL,NULL,'0',1,NULL,NULL,24,'2023-10-07');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -123,14 +125,17 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
 insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
 (1,143,1),
 (2,1,2),
-(3,174,3);
+(3,174,3),
+(4,5,4),
+(5,5,5),
+(6,3,5);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -228,9 +233,14 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `historias_clinicas` */
+
+insert  into `historias_clinicas`(`idHistoriaClinica`,`antecedentePersonal`,`antecedenteFamiliar`,`antecedenteQuirurgico`,`antecedenteOtro`,`idUsuario`,`idPersona`) values 
+(1,NULL,NULL,NULL,NULL,1,22),
+(2,NULL,NULL,NULL,NULL,1,23),
+(3,NULL,NULL,NULL,NULL,1,24);
 
 /*Table structure for table `medio_pagos` */
 
@@ -980,6 +990,20 @@ BEGIN
 	FROM especialistas
 	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
 	WHERE especialistas.estado = _estado;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_listar_historiasClinicasTodo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_historiasClinicasTodo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_historiasClinicasTodo`()
+BEGIN
+	select historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
+	from historias_clinicas
+	inner join personas on personas.`idPersona` = historias_clinicas.`idPersona`;
 END */$$
 DELIMITER ;
 
