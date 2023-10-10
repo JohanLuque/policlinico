@@ -94,48 +94,10 @@
                                             <input type="text" class="form-control form-control-sm bg-light" id="total" >
                                         </div>
                                     </div>  
-                                    <div class="row g-2 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="">Método de pago:</label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="" class="form-select form-select-sm" id="metodosPago"></select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control form-control-sm bg-light" placeholder="a pagar" id="totalMedioPago" >
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
-                                            </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">
-                                            <label for="">Restante:</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control form-control-sm bg-light" readonly  id="totalRestante" >
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <table id="detallepagos" class="table-danger">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>método</th>
-                                                    <th>Cantidad</th>
-                                                    <th></th>
-                                                  </tr>
-                                            </thead>
-                                            <tbody id="cuerpoPagos">
-                                                <!-- traer datos  -->
-                                            </tbody>
-                                        </table>
-                                    </div> 
-                                
+                                    
                                 </div>                      
                             </div>
-                            </div>
+                            
 
                         </div>
                     </div>
@@ -153,9 +115,19 @@
 </div>
 
 <script>
-  
-  const cardAtencion = document.querySelector("#cardAtencion");
-  function listarCardsAtencion(){
+
+//MODAL
+const modalAtencion = new bootstrap.Modal(document.querySelector("#modalAtenciones"));
+//CARDS
+const cardAtencion = document.querySelector("#cardAtencion");
+const nombrePaciente = document.querySelector("#nombreCompleto");
+const dniPaciente = document.querySelector("#dni");
+const edad = document.querySelector("#edad");
+const telefono = document.querySelector("#telefono");
+const especialidad = document.querySelector("#especialidad");
+const fechaAtencion = document.querySelector("#fechaAtencion");
+let idatencion;
+function listarCardsAtencion(){
     const parametros = new URLSearchParams();
     parametros.append("operacion","listarAtenciones");
 
@@ -166,8 +138,9 @@
     .then(response => response.json())
     .then(datos => {
       cardAtencion.innerHTML= "";
-
       datos.forEach(element => {
+        idatencion = element.idAtencion;
+        console.log(idatencion);
         const nuevoCard = `
         <div class="col-md-3" >
                 <div class="card">
@@ -181,7 +154,10 @@
                                     <h6>S/${element.Total}</h6>
                                 </div>
                                 <div class='col-md-3'>
-                                    <button class='btn btn-sm m-1' type='button'><i class="fa-solid fa-pen-to-square fa-2xl" style="color: #539bff;"></i></button>
+                                    <button class='btn btn-sm m-1' type='button'>
+                                        <i class="fa-solid fa-pen fa-2xl" style="color: #005eff;"></i>
+                                        <a type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}'></a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -193,5 +169,37 @@
       });
     })
   }
-  listarCardsAtencion();
+
+  cardAtencion.addEventListener("click", (event)=> {
+    idatencion = parseInt(event.target.dataset.idatencion);
+    console.log(idatencion);
+    
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "resumen");
+    parametros.append("idatencion", idatencion);
+
+    fetch("../controllers/detalleServicio.php",{
+        method: 'POST',
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+
+        datos.forEach(element => {
+            console.log(element.nombres);
+            //nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
+            //dniPaciente.innerHTML = element.numeroDocumento;
+            //edad.innerHTML = element.Edad;
+            //telefono.innerHTML = element.telefono;
+            //especialidad.innerHTML = element.nombreServicio;
+            //fechaAtencion.innerHTML = element.fechaAtencion;
+            //tablaDetalle(idatencion);
+            //totalMedioPago.value = 0;
+        })
+    })
+    .catch(error => console.error('Error al obtener detalles de la cita:', error))
+    modalAtencion.toggle();   
+  })
+
+listarCardsAtencion();
 </script>
