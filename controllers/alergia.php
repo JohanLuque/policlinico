@@ -15,5 +15,9 @@ if(isset($_POST['operacion'])){
       $respuesta = $alergia->create($parametros);
       echo json_encode($respuesta);
       break;
+    case 'listar':
+      echo json_encode($alergia->listarAlergias());
+      break;
+
   }
 }
