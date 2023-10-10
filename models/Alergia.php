@@ -29,4 +29,14 @@ class Alergia extends Conexion{
     }
     return $respuesta;
   }
+  public function listarAlergias(){
+    try{
+      $query = $this->connection->prepare("CALL spu_listar_alergias()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
 }

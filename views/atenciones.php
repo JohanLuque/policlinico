@@ -226,7 +226,7 @@
         <div class="row mt-2 mb-3">
           <div class="col-md-12">
             <div class="row g-2 mb-3">  
-              <form action="" id="form-ganador">
+              <form action="" id="form-paciente">
               <div class="mb-3 row g-2">
                   <div class="col-md-2">
                     <label for="">Tipo Doc.</label>          
