@@ -79,6 +79,7 @@
                                                 <tr>
                                                     <th>Servicio</th>
                                                     <th>Total</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="cuerpomodal">
@@ -118,6 +119,8 @@
 
 //MODAL
 const modalAtencion = new bootstrap.Modal(document.querySelector("#modalAtenciones"));
+const detalle = document.querySelector("#detallemodal");
+const cuerpomodal = document.querySelector("#cuerpomodal")
 //CARDS
 const cardAtencion = document.querySelector("#cardAtencion");
 const nombrePaciente = document.querySelector("#nombreCompleto");
@@ -150,10 +153,10 @@ function listarCardsAtencion(){
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
                             <h6>${element.nombreServicio}</h6>
                             <div class='mt-2 row g-2'>
-                                <div class='col-md-9'>
+                                <div class='col-md-8'>
                                     <h6>S/${element.Total}</h6>
                                 </div>
-                                <div class="card" id="${element.idAtencion}">
+                                <div class="card col-md-4" id="${element.idAtencion}">
                                     <a class="resume btn btn-sm btn-danger">ver</a>
                                 </div>
                             </div>
@@ -171,7 +174,6 @@ function listarCardsAtencion(){
     const botonVer = e.target.closest(".resume");
     if (botonVer) {
         const cardId = botonVer.closest(".card").id;
-
         const parametros = new URLSearchParams();
         parametros.append("operacion", "resumen");
         parametros.append("idatencion", cardId);
@@ -191,8 +193,8 @@ function listarCardsAtencion(){
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
                 fechaAtencion.innerHTML = element.fechaAtencion;
-                tablaDetalle(cardId);
-                totalMedioPago.value = 0;
+                detalleServicios(cardId);
+                //totalMedioPago.value = 0;
             })
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
@@ -200,7 +202,32 @@ function listarCardsAtencion(){
     }
   });
 
+function detalleServicios(cardId){
+    //const cardId = botonVer.closest(".card").id;
+    const parametros = new URLSearchParams();
+    parametros.append("operacion","detalle");
+    parametros.append("idatencion", cardId);
 
+    fetch("../controllers/detalleServicio.php",{
+        method: 'POST',
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+        console.log(datos);
+        cuerpomodal.innerHTML = ``;
+            datos.forEach(element => {
+                
+                const datos =`
+                <tr>
+                    <td>${element.descripcion}</td>
+                    <td>${element.total}</td>
+                </tr>
+                `;
+            cuerpomodal.innerHTML += datos;
+            })
+    })
+}
 
 listarCardsAtencion();
 </script>
