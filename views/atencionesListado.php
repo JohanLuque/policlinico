@@ -140,7 +140,7 @@ function listarCardsAtencion(){
       cardAtencion.innerHTML= "";
       datos.forEach(element => {
         idatencion = element.idAtencion;
-        console.log(idatencion);
+        console.log("cards",idatencion);
         const nuevoCard = `
         <div class="col-md-3" >
                 <div class="card">
@@ -153,11 +153,8 @@ function listarCardsAtencion(){
                                 <div class='col-md-9'>
                                     <h6>S/${element.Total}</h6>
                                 </div>
-                                <div class='col-md-3'>
-                                    <button class='btn btn-sm m-1' type='button'>
-                                        <i class="fa-solid fa-pen fa-2xl" style="color: #005eff;"></i>
-                                        <a type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}'></a>
-                                    </button>
+                                <div class="card" id="${element.idAtencion}">
+                                    <a class="resume btn btn-sm btn-danger">ver</a>
                                 </div>
                             </div>
                         </div>
@@ -170,36 +167,40 @@ function listarCardsAtencion(){
     })
   }
 
-  cardAtencion.addEventListener("click", (event)=> {
-    idatencion = parseInt(event.target.dataset.idatencion);
-    console.log(idatencion);
-    
-    const parametros = new URLSearchParams();
-    parametros.append("operacion", "resumen");
-    parametros.append("idatencion", idatencion);
+  cardAtencion.addEventListener("click", (e) => {
+    const botonVer = e.target.closest(".resume");
+    if (botonVer) {
+        const cardId = botonVer.closest(".card").id;
 
-    fetch("../controllers/detalleServicio.php",{
-        method: 'POST',
-        body: parametros
-    })
-    .then(response => response.json())
-    .then(datos => {
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "resumen");
+        parametros.append("idatencion", cardId);
 
-        datos.forEach(element => {
-            console.log(element.nombres);
-            //nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
-            //dniPaciente.innerHTML = element.numeroDocumento;
-            //edad.innerHTML = element.Edad;
-            //telefono.innerHTML = element.telefono;
-            //especialidad.innerHTML = element.nombreServicio;
-            //fechaAtencion.innerHTML = element.fechaAtencion;
-            //tablaDetalle(idatencion);
-            //totalMedioPago.value = 0;
+        fetch("../controllers/detalleServicio.php",{
+            method: 'POST',
+            body: parametros
         })
-    })
-    .catch(error => console.error('Error al obtener detalles de la cita:', error))
-    modalAtencion.toggle();   
-  })
+        .then(response => response.json())
+        .then(datos => {
+
+            datos.forEach(element => {
+                console.log(element);
+                nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
+                dniPaciente.innerHTML = element.numeroDocumento;
+                edad.innerHTML = element.Edad;
+                telefono.innerHTML = element.telefono;
+                especialidad.innerHTML = element.nombreServicio;
+                fechaAtencion.innerHTML = element.fechaAtencion;
+                tablaDetalle(cardId);
+                totalMedioPago.value = 0;
+            })
+        })
+        .catch(error => console.error('Error al obtener detalles de la cita:', error))
+        modalAtencion.toggle();  
+    }
+  });
+
+
 
 listarCardsAtencion();
 </script>
