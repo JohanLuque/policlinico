@@ -65,6 +65,12 @@
             </li>
 
             <li class='sidebar-item bg'>
+              <a class='sidebar-link bg-d' href='index.php?view=gastos.php' id="gastos" aria-expanded='false'>        
+                <span class='hide-menu'>Gastos</span>
+              </a>
+            </li>
+
+            <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=atencionMedica.php' id="pagos" aria-expanded='false'>        
                 <span class='hide-menu'>Atencion Médica</span>
               </a>
