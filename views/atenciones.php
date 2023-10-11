@@ -444,12 +444,19 @@ function validar(){
       event.stopPropagation()
       form.classList.add('was-validated');
   }else{
-    mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-      if(result.isConfirmed){
-        validarFecha();
-          
-      }
-    })
+    const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
+    if (filasDatos.length < 1) {
+      toast('Agregue al menos un servicio.');
+    } else {
+      mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+        if(result.isConfirmed){
+          validarFecha();        
+        }
+        else{
+          console.log("validar fecha error");
+        }
+      })
+    }
   }
 }
 

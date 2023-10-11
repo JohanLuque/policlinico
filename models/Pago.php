@@ -39,4 +39,19 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+  public function registrarGasto($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_gastos_pagos(?,?,?)");
+      $query->execute(
+        array(
+            $data['idMedioPago'],
+            $data['descripcion'],
+            $data['monto']
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
