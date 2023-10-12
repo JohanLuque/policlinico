@@ -360,7 +360,7 @@ CREATE PROCEDURE spu_listar_detalles_atenciones
 IN _numeroDocumento VARCHAR(12)
 )
 BEGIN
-	SELECT personas.`numeroDocumento`,personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`,DATE(Detalle_Atenciones.fechaCreacion) AS fecha
+	SELECT DATE(Detalle_Atenciones.fechaCreacion) AS fecha
 	FROM Detalle_Atenciones
 	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
 	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
@@ -407,6 +407,24 @@ BEGIN
 	WHERE especialistas_servicios.`idServicio` =_idservicio;
 END$$
 
+DELIMITER $$ 
+CREATE PROCEDURE spu_detalle_atencion( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion,servicios.idServicio, servicios.nombreServicio,
+	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
+	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
+	personas.`telefono`, atenciones.`fechaAtencion`
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE Detalle_Servicios.idAtencion = _idatencion
+	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
+END $$
+-- call spu_detalle_atencion(1);
 -- --------------------------------------------------------------------------------------------------------
 -- LISTAR TODAS LAS HISTORIAS CLINICAS
 DELIMITER $$
