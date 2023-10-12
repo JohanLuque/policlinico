@@ -32,5 +32,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $pago->registrarGasto($parametros);
       echo json_encode($respuesta);
       break;
+    case "listarGastos":
+      echo json_encode($pago->listarGastos());
+      break;
   }
 }
