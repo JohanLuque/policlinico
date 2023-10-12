@@ -542,13 +542,17 @@ INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES
 (1,23),
 (1,24);
 
+INSERT INTO Detalle_Atenciones(idHistoria, idAtencion, idUsuario, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
+(1,2,1,45.50,1.50,'83x1','20x1','90/60', 36.5,98);
 INSERT INTO alergias (alergia) VALUES
-('Anticonvulsivos'),
-('Insulina'),
-('yodo'),
+('Ampisilina'),
 ('Penicilina'),
-('Sulfamidas'),
-('Polvo');
+('Paracetamol'),
+('Ibuprofeno'),
+('Aspirina '),
+('Salbutamol'),
+('Amoxicilina');
+SELECT * FROM Detalle_Atenciones;
 SELECT * FROM medio_pagos;
 SELECT * FROM servicios;
 SELECT * FROM personas;
