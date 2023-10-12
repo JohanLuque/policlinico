@@ -54,4 +54,13 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+  public function listarGastos(){
+    try{
+      $query = $this->connection->prepare("CALL spu_listarGastos_pagos()");
+      $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
