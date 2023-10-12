@@ -360,7 +360,7 @@ CREATE PROCEDURE spu_listar_detalles_atenciones
 IN _numeroDocumento VARCHAR(12)
 )
 BEGIN
-	SELECT DATE(Detalle_Atenciones.fechaCreacion) AS fecha
+	SELECT personas.`numeroDocumento`,personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`,DATE(Detalle_Atenciones.fechaCreacion) AS fecha
 	FROM Detalle_Atenciones
 	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
 	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona

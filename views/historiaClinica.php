@@ -2,7 +2,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title fw-semibold mb-4" style="color:#ff7619 ;">Historia Clínica</h5>
+        <h5 class="card-title fw-semibold mb-4" style="color:#ff7619 ;">Triaje</h5>
         <div class="card">
             <div class="card-body">
                 <form id="form-historia">

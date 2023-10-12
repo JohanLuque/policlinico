@@ -27,7 +27,6 @@ class HistoriaClinica extends Conexion{
             $data['antecedenteOtro']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
       $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
     }

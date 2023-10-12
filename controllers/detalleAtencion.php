@@ -10,7 +10,7 @@ if(isset($_POST['operacion'])){
     case 'listarHistoriasClinicas':
       echo json_encode($detalleAtencion->listarHistoriasClinicas($_POST['nroDocumento']));
       break;
-    case 'getData':
+    case 'listarDetallehistorias':
       echo json_encode($detalleAtencion->getData($_POST['nroDocumento']));
       break ;
       case 'registrarDetalle':
