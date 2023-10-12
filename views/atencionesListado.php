@@ -74,7 +74,20 @@
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-3">
-                                        <table id="detallemodal" class="bg-light">
+                                        <div class="col-md-3">
+                                            <label class="" for="">Servicio:</label>
+                                        </div>
+                                        <div class="col-md-6">                                  
+                                            <select name="" id="listaServicios" class="form-select form-select-sm">
+                                              <option value="">Seleccione</option>
+                                            </select> 
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <table id="detallemodal" class="">
                                             <thead>
                                                 <tr>
                                                     <th>Servicio</th>
@@ -123,6 +136,7 @@ const detalle = document.querySelector("#detallemodal");
 const cuerpomodal = document.querySelector("#cuerpomodal")
 //CARDS
 const cardAtencion = document.querySelector("#cardAtencion");
+const listaServicios = document.querySelector("#listaServicios");
 const nombrePaciente = document.querySelector("#nombreCompleto");
 const dniPaciente = document.querySelector("#dni");
 const edad = document.querySelector("#edad");
@@ -151,7 +165,7 @@ function listarCardsAtencion(){
                         <div class="card-header bg-info"></div>
                         <div class="card-body" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <h6>${element.nombreServicio}</h6>
+                            <div class="servicio" id="${element.idServicio}">${element.nombreServicio}</div>
                             <div class='mt-2 row g-2'>
                                 <div class='col-md-8'>
                                     <h6>S/${element.Total}</h6>
@@ -175,7 +189,7 @@ function listarCardsAtencion(){
     if (botonVer) {
         const cardId = botonVer.closest(".card").id;
         const parametros = new URLSearchParams();
-        parametros.append("operacion", "resumen");
+        parametros.append("operacion", "resumenAtencion");
         parametros.append("idatencion", cardId);
 
         fetch("../controllers/detalleServicio.php",{
@@ -203,7 +217,6 @@ function listarCardsAtencion(){
   });
 
 function detalleServicios(cardId){
-    //const cardId = botonVer.closest(".card").id;
     const parametros = new URLSearchParams();
     parametros.append("operacion","detalle");
     parametros.append("idatencion", cardId);
@@ -222,12 +235,61 @@ function detalleServicios(cardId){
                 <tr>
                     <td>${element.descripcion}</td>
                     <td>${element.total}</td>
+                    <td><a class="eliminar btn btn-sm btn-primary">Eliminar</a></td>
                 </tr>
                 `;
             cuerpomodal.innerHTML += datos;
-            })
+            });
+            const btnEliminar = document.querySelectorAll('.eliminar');
+            btnEliminar.forEach(boton => {
+                //boton.addEventListener('click', eliminarFila);
+        });
     })
 }
 
+function limpiarSelect(){
+    listaServicios.selectedIndex = 0;
+}
+
+
+function listarServicios(e) {
+    const Ver = e.target.closest(".resume");
+    if (Ver) {
+        const servicioId = Ver.closest(".servicio");
+        if (servicioId) {
+            const servicio = servicioId.id;
+
+            const parametros = new URLSearchParams();
+            parametros.append("operacion", "filtroServicios");
+            parametros.append("idservicio", servicio);
+
+            fetch("../controllers/servicio.php", {
+                method: "POST",
+                body: parametros
+            })
+            .then(response => response.json())
+            .then(datos => {
+                listaServicios.innerHTML = "<option value=''>Seleccione</option>";
+                datos.forEach(element => {
+                    const optionTag = document.createElement("option");
+                    optionTag.value = element.idservicios_detalle;
+                    optionTag.text = element.descripcion;
+                    optionTag.dataset.precio = element.precio;
+                    optionTag.dataset.genero = element.genero;
+                    listaServicios.appendChild(optionTag);
+                });
+            });
+        }
+    }
+}
+
+detalle.addEventListener("click", (e)=> {
+    if(e.target.closest(".eliminar")){
+        const row = e.target.closest("tr");
+        row.remove();
+    }
+    listarServicios(e);
+})
 listarCardsAtencion();
+
 </script>

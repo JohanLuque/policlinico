@@ -42,4 +42,14 @@ class DetalleServicio extends Conexion{
       die($e->getCode());
     }
   }
+
+  public function resumenAtencion($idatencion){
+    try{
+      $query = $this->connection->prepare("CALL spu_detalle_atencion(?)");
+      $query->execute(array($idatencion));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
