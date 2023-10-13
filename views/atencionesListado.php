@@ -157,7 +157,7 @@ function listarCardsAtencion(){
       cardAtencion.innerHTML= "";
       datos.forEach(element => {
         idatencion = element.idAtencion;
-        console.log("cards",idatencion);
+        console.log(datos);
         const nuevoCard = `
         <div class="col-md-3" >
                 <div class="card">
@@ -165,13 +165,13 @@ function listarCardsAtencion(){
                         <div class="card-header bg-info"></div>
                         <div class="card-body" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <div class="servicio" id="${element.idServicio}">${element.nombreServicio}</div>
+                            <div class="servicio">${element.nombreServicio}</div>
                             <div class='mt-2 row g-2'>
                                 <div class='col-md-8'>
                                     <h6>S/${element.Total}</h6>
                                 </div>
-                                <div class="card col-md-4" id="${element.idAtencion}">
-                                    <a class="resume btn btn-sm btn-danger">ver</a>
+                                <div class="card col-md-4" id="">
+                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}'>ver</a>
                                 </div>
                             </div>
                         </div>
@@ -183,14 +183,16 @@ function listarCardsAtencion(){
       });
     })
   }
-
+  let idServicioModal;
+  let idatencionmodal;
   cardAtencion.addEventListener("click", (e) => {
-    const botonVer = e.target.closest(".resume");
-    if (botonVer) {
-        const cardId = botonVer.closest(".card").id;
+    if(e.target.classList[0] === ("resume")){
+        idatencionmodal = parseInt(e.target.dataset.idatencion);
+        idServicioModal = e.target.dataset.idservicio;
+        console.log(idServicioModal);
         const parametros = new URLSearchParams();
         parametros.append("operacion", "resumenAtencion");
-        parametros.append("idatencion", cardId);
+        parametros.append("idatencion", idatencionmodal);
 
         fetch("../controllers/detalleServicio.php",{
             method: 'POST',
@@ -207,7 +209,8 @@ function listarCardsAtencion(){
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
                 fechaAtencion.innerHTML = element.fechaAtencion;
-                detalleServicios(cardId);
+                detalleServicios(idatencionmodal);
+                listarServiciosFiltro(idServicioModal);
                 //totalMedioPago.value = 0;
             })
         })
@@ -216,10 +219,33 @@ function listarCardsAtencion(){
     }
   });
 
-function detalleServicios(cardId){
+  function listarServiciosFiltro(idServicioModal){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "filtroServicios");
+    parametros.append("idServicio",idServicioModal);
+    fetch("../controllers/servicio.php",{
+      method : "POST",
+      body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+      listaServicios.innerHTML = "<option value=''>Seleccione</option>";
+      datos.forEach(element => {
+      const optionTag = document.createElement("option");
+      optionTag.value = element.idservicios_detalle;
+      optionTag.text = element.descripcion;
+      optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
+      optionTag.dataset.genero = element.genero;
+      listaServicios.appendChild(optionTag);
+      });
+      
+    })
+  }
+
+function detalleServicios(idatencionmodal){
     const parametros = new URLSearchParams();
     parametros.append("operacion","detalle");
-    parametros.append("idatencion", cardId);
+    parametros.append("idatencion", idatencionmodal);
 
     fetch("../controllers/detalleServicio.php",{
         method: 'POST',

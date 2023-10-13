@@ -115,6 +115,7 @@ BEGIN
 		 PP.nombres,
 		 PP.apellidoPaterno,
 		 PP.apellidoMaterno,
+		 servicios.idServicio,
 		 servicios.nombreServicio,
 		 SUM(servicios_detalle.precio) AS Total,
 		 atenciones.estado
@@ -130,7 +131,7 @@ BEGIN
 	ORDER BY Dia DESC;
 END $$
 
-
+CALL spu_listar_atenciones();
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
 DELIMITER $$
 CREATE PROCEDURE spu_obtenerDatos_atencion
