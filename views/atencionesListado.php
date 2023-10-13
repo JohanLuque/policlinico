@@ -133,7 +133,8 @@
 //MODAL
 const modalAtencion = new bootstrap.Modal(document.querySelector("#modalAtenciones"));
 const detalle = document.querySelector("#detallemodal");
-const cuerpomodal = document.querySelector("#cuerpomodal")
+const cuerpomodal = document.querySelector("#cuerpomodal");
+const agregarServicio = document.querySelector("#agregarServicio");
 //CARDS
 const cardAtencion = document.querySelector("#cardAtencion");
 const listaServicios = document.querySelector("#listaServicios");
@@ -143,6 +144,7 @@ const edad = document.querySelector("#edad");
 const telefono = document.querySelector("#telefono");
 const especialidad = document.querySelector("#especialidad");
 const fechaAtencion = document.querySelector("#fechaAtencion");
+let precio = 0;
 let idatencion;
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
@@ -273,48 +275,51 @@ function detalleServicios(idatencionmodal){
     })
 }
 
-function limpiarSelect(){
-    listaServicios.selectedIndex = 0;
-}
+function añadirServicio(){
+    const servicioSelect = listaServicios.options[listaServicios.selectedIndex];
+    if(servicioSelect.value !== ""){
+        precio = parseFloat(servicioSelect.dataset.precio);
 
+        const filasTabla = detalle.rows;
+        let servicioRepetido = false;
 
-function listarServicios(e) {
-    const Ver = e.target.closest(".resume");
-    if (Ver) {
-        const servicioId = Ver.closest(".servicio");
-        if (servicioId) {
-            const servicio = servicioId.id;
-
-            const parametros = new URLSearchParams();
-            parametros.append("operacion", "filtroServicios");
-            parametros.append("idservicio", servicio);
-
-            fetch("../controllers/servicio.php", {
-                method: "POST",
-                body: parametros
-            })
-            .then(response => response.json())
-            .then(datos => {
-                listaServicios.innerHTML = "<option value=''>Seleccione</option>";
-                datos.forEach(element => {
-                    const optionTag = document.createElement("option");
-                    optionTag.value = element.idservicios_detalle;
-                    optionTag.text = element.descripcion;
-                    optionTag.dataset.precio = element.precio;
-                    optionTag.dataset.genero = element.genero;
-                    listaServicios.appendChild(optionTag);
-                });
-            });
+        for(let i = 1; i<filasTabla.length; i++){
+            const descripcion = filasTabla[i].cells[2].innerText;
+            if(descripcion === servicioSelect.text){
+                servicioRepetido = true;
+                break;
+            }
         }
+        if(!servicioRepetido){
+            let nuevaFila = `
+                <tr>
+                    
+                    <td>${servicioSelect.text}</td>
+                    <td>${precio}</td>
+                    <td>
+                        <a class ="eliminar btn btn-sm btn-primary">Eliminar</a>
+                    </td>
+                </tr>
+            `;
+            detalle.innerHTML += nuevaFila;
+        }else{
+            toast("El servicio ya ha sido agregado a la tabla.");
+        }
+    }else{
+        console.log("hay problemas");
     }
 }
 
+agregarServicio.addEventListener("click",()=>{
+    if(listaServicios.value>0){
+        añadirServicio();
+    }
+});
 detalle.addEventListener("click", (e)=> {
     if(e.target.closest(".eliminar")){
         const row = e.target.closest("tr");
         row.remove();
     }
-    listarServicios(e);
 })
 listarCardsAtencion();
 
