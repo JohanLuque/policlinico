@@ -33,7 +33,7 @@
         </div>
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-          <ul id="sidebarnav">
+        <ul id="sidebarnav">
             
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -53,12 +53,6 @@
             </li>
 
             <li class='sidebar-item bg'>
-              <a class='sidebar-link bg-d' href='index.php?view=triaje.php' id="historiaClinica" aria-expanded='false'>        
-                <span class='hide-menu'>Triaje</span>
-              </a>
-            </li> 
-
-            <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
                 <span class='hide-menu'>Caja</span>
               </a>
@@ -71,9 +65,21 @@
             </li>
 
             <li class='sidebar-item bg'>
-              <a class='sidebar-link bg-d' href='index.php?view=atencionMedica.php' id="pagos" aria-expanded='false'>        
+              <a class='sidebar-link has-arrow' href='#' id="pagos" aria-expanded='false'>        
                 <span class='hide-menu'>Atencion Médica</span>
               </a>
+              <ul aria-expanded="false" class="collapse first-level">
+                <li class="sidebar-item">
+                  <a href="index.php?view=historiaClinica.php" class="sidebar-link">
+                    <span class='hide-menu'>Historia Clinica</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="index.php?view=triaje.php" class="sidebar-link">
+                    <span class='hide-menu'>Triaje</span>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class='sidebar-item bg'>
               <a class='sidebar-link bg-d' href='index.php?view=configuracionAtencion.php' id="pagos" aria-expanded='false'>        
