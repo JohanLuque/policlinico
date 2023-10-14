@@ -334,7 +334,7 @@ END $$
 DELIMITER $$ 
 CREATE PROCEDURE spu_listar_detalle_servicio( IN _idatencion INT)
 BEGIN
-	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio, servicios.nombreServicio,servicios_detalle.descripcion,
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
 	personas.telefono,servicios_detalle.precio AS 'total'
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
@@ -345,6 +345,7 @@ BEGIN
 	WHERE detalle_servicios.idAtencion = _idatencion;
 END $$
 
+-- CALL spu_listar_detalle_servicio(3)
 DELIMITER $$
 CREATE PROCEDURE spu_listar_detalles_atenciones
 (
