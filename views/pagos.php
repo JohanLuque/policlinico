@@ -11,6 +11,7 @@
     
 </div>
   
+<!-- modal de registro de pagos -->
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
       <div class="modal-content">
@@ -22,7 +23,6 @@
             <div class="row mt-2 mb-3">                
                 <div class="col-md-12">
                     <div class="card">
-
                         <div class="card-body">
                             <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
                             <div class="row mt-2 mb-3">
@@ -153,6 +153,66 @@
       </div>
     </div>
 </div>
+<!-- modal de registro de devoluciones -->
+<div class="modal fade" id="modalDevoluciones" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Devolucion:</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row mt-2 mb-3">                
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
+                            <div class="row g-2 mb-3">                             
+                                <div class="col-md-4">
+                                    <label class="fw-bolder" for="">Nombre completo: </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="" id="paciente"></label>
+                                </div>
+                            </div>      
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-4">
+                                    <label class="fw-bolder" for="">DNI:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="" id="nroDocumento"></label>
+                                </div>
+                            </div>
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-4">
+                                    <label class="fw-bolder" for="">Especialidad:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="" id="detEspecialidad"></label>
+                                </div>
+                            </div> 
+                            <div class="row g-2 mb-3">
+                                <div class="col-md-4">
+                                    <label class="fw-bolder" for="">Total:</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="" id="monto"></label>
+                                </div>
+                            </div>  
+                            <textarea type="text" id="descripcion" class="form-control form-control-sm" cols="10" rows="5" placeholder="Motivo de devolucion"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary "   id="devGuardar">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>
 <script>
 const cardresumen = document.querySelector("#cardresumen");
 
@@ -168,6 +228,7 @@ const guardarPago = document.querySelector("#md-guardar");
 
 //modal 
 const modal = new bootstrap.Modal(document.querySelector("#modalPagos"));
+const modalDevolucion = new bootstrap.Modal(document.querySelector("#modalDevoluciones"));
 //Modal RESUMEN DE PAGO
 const nombrePaciente = document.querySelector("#nombreCompleto");
 const dniPaciente = document.querySelector("#dni");
@@ -177,8 +238,13 @@ const especialidad = document.querySelector("#especialidad");
 const fechaAtencion = document.querySelector("#fechaAtencion");
 const totalResumen = document.querySelector("#total");
 const metodosPago = document.querySelector("#metodosPago");
-
-const devolucion = document.querySelector("#devolucion");
+//modal devolucion
+const devPaciente = document.querySelector("#paciente");
+const devNroDocumento = document.querySelector("#nroDocumento");
+const devEspecialidad = document.querySelector("#detEspecialidad");
+const devMonto = document.querySelector("#monto");
+const devGuardar = document.querySelector("#devGuardar");
+const descripcion =document.querySelector("#descripcion");
 
 let idatencion;
 function listarCards(){
@@ -205,13 +271,15 @@ function listarCards(){
                 nombreBoton = "Pagar";
                 colorBoton = "btn-danger";
                 colorFondo = "bg-light-danger";
+                clase="pagar"
             }else{
                 color = "bg-primary";
                 nombreBoton = "Devolución";
                 colorBoton = "btn-primary";
                 colorFondo = "bg-light-primary";
-
+                clase = "devolucion"
             }
+
             const nuevoCard = `
             <div class="col-md-3" >
                 <div class="card">
@@ -226,7 +294,7 @@ function listarCards(){
                                 </div>
                                 <div class='col-md-6'>
                                     <button class='btn ${colorBoton} m-1' type='button'>
-                                        <a class='PAGAR' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
+                                        <a class='${clase}' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
                                     </button>
                                 </div>
                             </div>
@@ -245,10 +313,8 @@ function listarCards(){
 }
 
 cardresumen.addEventListener("click", (event) => {
-    if(event.target.classList[0] === 'PAGAR'){
-        idatencion = parseInt(event.target.dataset.idatencion);
-        //console.log(idatencion);
-
+    idatencion = parseInt(event.target.dataset.idatencion);
+    if (event.target.classList[0] == 'pagar') {
         const parametros = new URLSearchParams();
         parametros.append("operacion", "resumen");
         parametros.append("idatencion", idatencion);
@@ -262,7 +328,7 @@ cardresumen.addEventListener("click", (event) => {
             datos.forEach(element => {
                 console.log(element.nombres);
                 nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
-                dni.innerHTML = element.numeroDocumento;
+                dniPaciente.innerHTML = element.numeroDocumento;
                 edad.innerHTML = element.Edad;
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
@@ -272,6 +338,25 @@ cardresumen.addEventListener("click", (event) => {
             })
         })   
         modal.toggle();
+    }else if(event.target.classList[0] == 'devolucion'){
+        const parametros =new URLSearchParams();
+        parametros.append("operacion", "traerDatosDevolucion");
+        parametros.append("idAtencion", idatencion);
+
+        fetch("../controllers/pago.php",{
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            datos.forEach(element => {
+                devPaciente.innerHTML = element.Paciente;
+                devNroDocumento.innerHTML = element.numeroDocumento;
+                devEspecialidad.innerHTML = element.Servicio;
+                devMonto.innerHTML = element.MontoTotal;
+            })
+        })
+        modalDevolucion.toggle();
     }
 });
 
@@ -466,6 +551,20 @@ function listarMetodosPago(){
   })
 }
 
+function GuardarDevolucion(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "registrarDevolucion");
+    parametros.append("idAtencion", idatencion);
+    parametros.append("descripcion", descripcion.value);
+    fetch("../controllers/pago.php",{
+        method: "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos=>{
+        
+    })
+}
 
 listarMetodosPago();
 listarCards();
@@ -489,4 +588,5 @@ guardarPago.addEventListener("click", () => {
     })
 });
 
+devGuardar.addEventListener("click", GuardarDevolucion);
 </script>

@@ -96,64 +96,6 @@ INSERT INTO Detalle_Servicios (idAtencion ,idservicios_detalle) VALUES
 (10,16),
 (11,15);
 
-
--- Card de caja =Modal
-SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,personas.nombres,SUM(servicios_detalle.precio)
-FROM Detalle_Servicios
-LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
-WHERE Detalle_Servicios.idAtencion = 1 AND  atenciones.estado = '0'
-GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
-
-SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
-	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
-	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`,SUM(servicios_detalle.precio) AS 'total'
-FROM Detalle_Servicios
-LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
-
-SELECT Detalle_Servicios.idAtencion,detalle_servicios.`idDetalleServicio`, servicios.nombreServicio,servicios_detalle.`descripcion`,
-	personas.`telefono`,servicios_detalle.precio AS 'total'
-FROM Detalle_Servicios
-LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-WHERE detalle_servicios.`idAtencion` = 14;
-
--- Lista de cards
-SELECT *
-FROM Detalle_Servicios
-LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-
-INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-INNER JOIN personas ON personas.idPersona = Especialistas.idPersona
-GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
-
-
-SELECT  *
-FROM Detalle_Servicios     
-LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-
 INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 -- LABORATORIO
 (1,'ACIDO FOLICO','60.00'),
@@ -402,7 +344,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (4,'RETIRO DE PUNTOS','10.00'),
 (4,'COLOCACION DE ENEMA','20.00'),
 (4,'COLOCACION DE SONDA ','30.00'),
-(4,'PRUEBA DE SENSIBILIDAD','6.00');
+(4,'PRUEBA DE SENSIBILIDAD','6.00'),
 -- ELECTROCARDIOGRAMA ???
 -- (5,'','.00'),
 -- MEDIDA DE VISTA ???
@@ -488,7 +430,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (26, 'BLANCAMIENTO','350.00'),
 (26, 'EXTRACION DE DIENTE','80.00'),
 (26, 'PULPOTOMIA','100.00'),
-(26, 'VARNIZ FLORADO - FLUOR','40.00'),
+(26, 'VARNIZ FLORADO - FLUOR','40.00');
 -- ODONTOPEDIATRIA
 (27, 'CONSULTA','40.00'),
 (27, 'LIMPIEZA DENTAL','100.00'),
@@ -498,32 +440,32 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (27, 'PULPOTOMIA','100.00'),
 (27, 'VARNIZ FLORADO - FLUOR','40.00'),
 -- TOMOGRAFIAS
-(28, 'CEREBRAL TAC SIN CONTRASTE','330.00'),
-(28, 'CEREBRAL TAC CON CONTRASTE','430.00'),
-(28, 'CEREBRAL V.O TAC SIN CONTRASTE','380.00'),
-(28, 'CEREBRAL V.O TAC CON CONTRASTE','480.00'),
-(28, 'HIPOTISIS TAC SIN CONTRASTE','330.00'),
-(28, 'HIPOTISIS TAC CON CONTRASTE','430.00'),
-(28, 'TORAX TAC SIN CONTRASTE','330.00'),
-(28, 'TORAX TAC CON CONTRASTE','430.00'),
-(28, 'COLUMNA LUMBO-SACRA TAC SIN CONTRASTE','400.00'),
-(28, 'COLUMNA LUMBO-SACRA TAC CON CONTRASTE','500.00'),
-(28, 'COLUMNA DORSAL TAC SIN CONTRASTE','400.00'),
-(28, 'COLUMNA DORSAL TAC CON CONTRASTE','500.00'),
-(28, 'COLUMNA CERVICAL TAC SIN CONTRASTE','400.00'),
-(28, 'COLUMNA CERVICAL TAC CON CONTRASTE','500.00'),
-(28, 'ABDOMEN COMPLETO TAC SIN CONTRASTE','500.00'),
-(28, 'ABDOMEN COMPLETO TAC CON CONTRASTE','600.00'),
-(28, 'ABDOMEN SUPERIOR TAC SIN CONTRASTE','400.00'),
-(28, 'ABDOMEN SUPERIOR TAC CON CONTRASTE','510.00'),
-(28, 'ABDOMEN INFERIOR TAC SIN CONTRASTE','400.00'),
-(28, 'ABDOMEN INFERIOR TAC CON CONTRASTE','510.00'),
-(28, '','.00'),
-(28, '','.00'),
-(28, '','.00'),
-(28, '','.00'),
-(28, '','.00'),
-(28, '','.00'),
+-- (28, 'CEREBRAL TAC SIN CONTRASTE','330.00'),
+-- (28, 'CEREBRAL TAC CON CONTRASTE','430.00'),
+-- (28, 'CEREBRAL V.O TAC SIN CONTRASTE','380.00'),
+-- (28, 'CEREBRAL V.O TAC CON CONTRASTE','480.00'),
+-- (28, 'HIPOTISIS TAC SIN CONTRASTE','330.00'),
+-- (28, 'HIPOTISIS TAC CON CONTRASTE','430.00'),
+-- (28, 'TORAX TAC SIN CONTRASTE','330.00'),
+-- (28, 'TORAX TAC CON CONTRASTE','430.00'),
+-- (28, 'COLUMNA LUMBO-SACRA TAC SIN CONTRASTE','400.00'),
+-- (28, 'COLUMNA LUMBO-SACRA TAC CON CONTRASTE','500.00'),
+-- (28, 'COLUMNA DORSAL TAC SIN CONTRASTE','400.00'),
+-- (28, 'COLUMNA DORSAL TAC CON CONTRASTE','500.00'),
+-- (28, 'COLUMNA CERVICAL TAC SIN CONTRASTE','400.00'),
+-- (28, 'COLUMNA CERVICAL TAC CON CONTRASTE','500.00'),
+-- (28, 'ABDOMEN COMPLETO TAC SIN CONTRASTE','500.00'),
+-- (28, 'ABDOMEN COMPLETO TAC CON CONTRASTE','600.00'),
+-- (28, 'ABDOMEN SUPERIOR TAC SIN CONTRASTE','400.00'),
+-- (28, 'ABDOMEN SUPERIOR TAC CON CONTRASTE','510.00'),
+-- (28, 'ABDOMEN INFERIOR TAC SIN CONTRASTE','400.00'),
+-- (28, 'ABDOMEN INFERIOR TAC CON CONTRASTE','510.00');
+-- (28, '','.00');
+-- (28, '','.00'),
+-- (28, '','.00'),
+-- (28, '','.00'),
+-- (28, '','.00'),
+-- (28, '','.00');
 INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 -- GINECOLOGIA
 (2,'ECO 4D','100.00', 'F'),
@@ -542,8 +484,8 @@ INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES
 (1,23),
 (1,24);
 
-INSERT INTO Detalle_Atenciones(idHistoria, idAtencion, idUsuario, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
-(1,2,1,45.50,1.50,'83x1','20x1','90/60', 36.5,98);
+-- INSERT INTO Detalle_Atenciones(idHistoria, idAtencion, idUsuario, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
+-- (1,2,1,45.50,1.50,'83x1','20x1','90/60', 36.5,98);
 INSERT INTO alergias (alergia) VALUES
 ('Ampisilina'),
 ('Penicilina'),
@@ -552,16 +494,3 @@ INSERT INTO alergias (alergia) VALUES
 ('Aspirina '),
 ('Salbutamol'),
 ('Amoxicilina');
-SELECT * FROM Detalle_Atenciones;
-SELECT * FROM medio_pagos;
-SELECT * FROM servicios;
-SELECT * FROM personas;
-SELECT * FROM Especialistas;
-SELECT * FROM usuarios;
-SELECT * FROM Especialistas_Servicios;
-SELECT * FROM pagos;
-SELECT * FROM atenciones ORDER BY idAtencion DESC;
-SELECT * FROM Detalle_Servicios;
-SELECT * FROM servicios_detalle;
-SELECT * FROM historias_clinicas;
-SELECT * FROM alergias;

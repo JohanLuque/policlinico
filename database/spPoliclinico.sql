@@ -70,8 +70,6 @@ BEGIN
 	WHERE `numeroDocumento` = _numeroDocumento;
 END $$
 
-
-
 DELIMITER $$
 CREATE PROCEDURE spu_listar_especialistas
 (
@@ -86,7 +84,6 @@ BEGIN
 	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
 	WHERE especialistas.estado = _estado;
 END $$
-
 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_espcialistas_servicios
@@ -123,15 +120,13 @@ BEGIN
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
-	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia DESC;
+	ORDER BY Dia DESC;
 END $$
 
-CALL spu_listar_atenciones();
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
 DELIMITER $$
 CREATE PROCEDURE spu_obtenerDatos_atencion
@@ -192,8 +187,6 @@ BEGIN
 	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
 	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
 END$$
-
--- CALL spu_registrar_persona('Tamara', 'Gonzales', 'Pachas', 'E', '004801385', '1998-08-25', 'F', NULL)
 
 -- CAJA
 DELIMITER $$
@@ -284,7 +277,7 @@ BEGIN
 	INSERT INTO Detalle_Atenciones (idAtencion, idHistoria, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno, idUsuario) VALUES
 	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END $$
--- call spu_triaje_agregar_triaje(1, 1, 66.8, 163, '10x1', '10x2', '10x3', 33.9, 100, 1);
+
 DELIMITER $$
 CREATE PROCEDURE spu_doctor_agregar
 (
@@ -324,35 +317,32 @@ DELIMITER $$
 CREATE PROCEDURE spu_detalle_pagos( IN _idatencion INT)
 BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
-	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
-	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`, atenciones.`fechaAtencion`
+	personas.nombres,personas.apellidoMaterno, personas.apellidoPaterno,
+	personas.numeroDocumento,YEAR(CURDATE()) - YEAR(personas.fechaNacimiento) AS 'Edad',
+	personas.telefono, atenciones.fechaAtencion
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	-- INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	WHERE Detalle_Servicios.idAtencion = _idatencion
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 END $$
 
-CALL spu_detalle_pagos(1);
-
 DELIMITER $$ 
 CREATE PROCEDURE spu_listar_detalle_servicio( IN _idatencion INT)
 BEGIN
-	SELECT Detalle_Servicios.idAtencion,detalle_servicios.`idDetalleServicio`, servicios.nombreServicio,servicios_detalle.`descripcion`,
-	personas.`telefono`,servicios_detalle.precio AS 'total'
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio, servicios.nombreServicio,servicios_detalle.descripcion,
+	personas.telefono,servicios_detalle.precio AS 'total'
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE detalle_servicios.`idAtencion` = _idatencion;
+	WHERE detalle_servicios.idAtencion = _idatencion;
 END $$
 
 DELIMITER $$
@@ -389,8 +379,6 @@ BEGIN
 	WHERE tipo = "E";
 END$$
 
--- CALL spu_listar_especialidades();
-
 -- Listar doctores por especialidad
 DELIMITER$$
 CREATE PROCEDURE spu_filtro_doctores
@@ -425,8 +413,7 @@ BEGIN
 	WHERE Detalle_Servicios.idAtencion = _idatencion
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 END $$
--- call spu_detalle_atencion(1);
--- --------------------------------------------------------------------------------------------------------
+
 -- LISTAR TODAS LAS HISTORIAS CLINICAS
 DELIMITER $$
 CREATE PROCEDURE spu_listar_historiasClinicasTodo()
@@ -437,13 +424,76 @@ BEGIN
 	ORDER BY historias_clinicas.`idHistoriaClinica` DESC;
 END$$
 
-SELECT * FROM Detalle_Atenciones
-SELECT * FROM atenciones
-
--- ---------------------------------------------------------------------------------------------------------
 -- LISTAR ALERGIAS
 DELIMITER $$
 CREATE PROCEDURE spu_listar_alergias()
 BEGIN 
 	SELECT * FROM alergias;
+END $$
+
+-- listar gastos 
+DELIMITER $$
+CREATE PROCEDURE spu_listarGastos_pagos()
+BEGIN 
+	SELECT * 
+	FROM pagos
+	WHERE tipoMovimiento = 'E' AND DATE(fechaHora) = CURDATE();
+END $$
+
+-- registrar devolucion
+DELIMITER $$ 
+CREATE PROCEDURE spu_devolucion_pagos
+(
+IN _idAtencion INT,
+IN _descripcion VARCHAR(200)
+)
+BEGIN 
+	UPDATE pagos SET
+		tipoMovimiento = 'D',
+		descripcionGasto = _descripcion,
+		fechaDevolucion = NOW()
+	WHERE idAtencion = _idAtencion;
+END $$
+-- listar devoluciones
+DELIMITER $$
+CREATE PROCEDURE spu_listarDevolucion_pagos()
+BEGIN 
+	SELECT * 
+	FROM pagos
+	WHERE tipoMovimiento = 'D' AND DATE(fechaDevolucion) = CURDATE();
+END $$
+
+-- traer datos para devolucion
+DELIMITER $$
+CREATE PROCEDURE spu_listarDevolucion_pagos
+(
+IN _idAtencion INT
+)
+BEGIN 
+	SELECT CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+		per.numeroDocumento,
+	       ser.nombreServicio AS 'Servicio',
+	       SUM(pag.monto) AS 'MontoTotal'
+	FROM Pagos pag
+	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+	INNER JOIN Personas per ON ate.idPersona = per.idPersona
+	INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+	INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+	INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+	WHERE ate.idAtencion = _idAtencion;
+END $$
+
+-- listar atenciones por dni 
+DELIMITER $$
+CREATE PROCEDURE spu_listar_Atenciones_triaje_dni(IN _numeroDocumento VARCHAR(12))
+BEGIN
+	SELECT atenciones.idAtencion, servicios.nombreServicio, atenciones.fechaAtencion AS 'dia'
+	FROM atenciones
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' 
+	GROUP BY Detalle_Servicios.idatencion
+	ORDER BY dia DESC;
 END $$
