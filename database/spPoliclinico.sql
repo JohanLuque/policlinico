@@ -114,8 +114,7 @@ BEGIN
 		 PP.apellidoMaterno,
 		 servicios.idServicio,
 		 servicios.nombreServicio,
-		 SUM(servicios_detalle.precio) AS Total,
-		 atenciones.estado
+		 SUM(servicios_detalle.precio) AS Total
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
@@ -463,10 +462,10 @@ BEGIN
 	FROM pagos
 	WHERE tipoMovimiento = 'D' AND DATE(fechaDevolucion) = CURDATE();
 END $$
-SELECT * FROM pagos
+
 -- traer datos para devolucion
 DELIMITER $$
-CREATE PROCEDURE spu_obtenerDevolucion_pagos
+CREATE PROCEDURE spu_listarDevolucion_pagos
 (
 IN _idAtencion INT
 )
@@ -483,7 +482,7 @@ BEGIN
 	INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
 	WHERE ate.idAtencion = _idAtencion;
 END $$
-CALL spu_listarDevolucion_pagos(1)
+
 -- listar atenciones por dni 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_Atenciones_triaje_dni(IN _numeroDocumento VARCHAR(12))
