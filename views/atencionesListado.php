@@ -90,6 +90,7 @@
                                         <table id="detallemodal" class="">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Servicio</th>
                                                     <th>Total</th>
                                                     <th></th>
@@ -146,6 +147,7 @@ const especialidad = document.querySelector("#especialidad");
 const fechaAtencion = document.querySelector("#fechaAtencion");
 let precio = 0;
 let idatencion;
+let genero= "";
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
     parametros.append("operacion","listarAtenciones");
@@ -261,6 +263,7 @@ function detalleServicios(idatencionmodal){
                 
                 const datos =`
                 <tr>
+                    <td>${element.idservicios_detalle}</td>
                     <td>${element.descripcion}</td>
                     <td>${element.total}</td>
                     <td><a class="eliminar btn btn-sm btn-primary">Eliminar</a></td>
@@ -274,6 +277,8 @@ function detalleServicios(idatencionmodal){
         });
     })
 }
+
+
 
 function añadirServicio(){
     const servicioSelect = listaServicios.options[listaServicios.selectedIndex];
@@ -290,10 +295,11 @@ function añadirServicio(){
                 break;
             }
         }
+        
         if(!servicioRepetido){
             let nuevaFila = `
                 <tr>
-                    
+                    <td>${listaServicios.value}</td>
                     <td>${servicioSelect.text}</td>
                     <td>${precio}</td>
                     <td>
