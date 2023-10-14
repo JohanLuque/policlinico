@@ -64,52 +64,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="col-md-6">
-      <div class="card" id="detalleHistoria"style="display: none;">
-        <div class="card-header">
-          <h1 class="text-center">Triaje</h1>      
-        </div>
-        <div class="card-body">
-          <div class="mb-2 row g-2">
-            <div class="col-md-1">
-              <label for="">Buscar:</label>
-            </div>
-            <div class="col-md-3 mb-4">
-              <input type="text" class="form-control form-control-sm" id="buscarDetalle" maxlength="8">
-            </div>
-            <div class="col-md-3">                                  
-              <button class="btn btn-sm" id="abrirmodalRegistro" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
-            </div>
-          </div>
-          <div  class="mb-2 row g-2" id="carddetalleHistoria" >  
-    
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="col-md-6">
-      <div class="card" id="detalleHistoria"">
-        <div class="card-header">
-          <h1 class="text-center">Atenciones</h1>      
-        </div>
-        <div class="card-body">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Especialidad</th>
-                <th>Fecha</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
 
