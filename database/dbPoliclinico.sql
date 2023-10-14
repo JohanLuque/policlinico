@@ -126,7 +126,6 @@ numeroAtencion				VARCHAR(15)	NOT NULL,
 fechaCreacion				DATETIME 	NOT NULL DEFAULT NOW(),
 fechaActualizacion			DATETIME 	NULL,
 parentesco				VARCHAR(100) 	NULL,
-estado					CHAR(1) 	NOT NULL DEFAULT '0',
 idUsuario				INT 		NOT NULL,
 ordenDoctor				VARCHAR(100) 		NULL,
 idFamiliar				INT 		NULL,
@@ -172,15 +171,37 @@ CREATE TABLE Pagos
 (
 idPago						INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 monto							DECIMAL(6,2) 	NOT NULL,
-tipoMovimiento 			CHAR(1) 			NOT NULL DEFAULT 'E',
-descripcionGasto			VARCHAR(200)	NULL,
-fechaHora					DATETIME			NOT NULL DEFAULT NOW(),
-fechaDevolucion			DATETIME			NULL,
+estado						CHAR(1)			NOT NULL DEFAULT '0',
+fechaHoraPago				DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
 CONSTRAINT fk_idate_pag FOREIGN KEY Pagos (idAtencion) REFERENCES Atenciones (idAtencion),
 CONSTRAINT fk_idmep_pag	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
 )ENGINE = INNODB;
+
+CREATE TABLE Devoluciones
+(
+idDevolucion				INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+montoDevolucion			DECIMAL(6,2) 	NOT NULL,
+estado						CHAR(1)			NOT NULL DEFAULT '0',
+fechaHoraDevolucion		DATETIME			NOT NULL DEFAULT NOW(),
+idAtencion					INT 				NULL,
+idMedioPago 				INT 				NOT NULL,
+CONSTRAINT fk_idate_dev FOREIGN KEY Pagos (idAtencion) REFERENCES Atenciones (idAtencion),
+CONSTRAINT fk_idmep_dev	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
+)ENGINE = INNODB;
+
+CREATE TABLE Gastos
+(
+idGasto						INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+montoGasto					DECIMAL(6,2) 	NOT NULL,
+fechaHoraGasto				DATETIME			NOT NULL DEFAULT NOW(),
+idPersona					INT 		NOT NULL,
+idMedioPago 				INT 				NOT NULL,
+CONSTRAINT fk_per_gas FOREIGN KEY Atenciones (idPersona) REFERENCES Personas (idPersona),
+CONSTRAINT fk_idmep_gas	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
+)ENGINE = INNODB;
+
 
 CREATE TABLE Enfermedad_Pacientes
 (
