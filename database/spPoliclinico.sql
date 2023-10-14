@@ -124,7 +124,7 @@ BEGIN
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia DESC;
+	ORDER BY Dia DESC;
 END $$
 
 -- INFORMACION PARA EL MODAL DE CAJA POR ATENCIÓN
@@ -462,10 +462,10 @@ BEGIN
 	FROM pagos
 	WHERE tipoMovimiento = 'D' AND DATE(fechaDevolucion) = CURDATE();
 END $$
-
+SELECT * FROM pagos
 -- traer datos para devolucion
 DELIMITER $$
-CREATE PROCEDURE spu_listarDevolucion_pagos
+CREATE PROCEDURE spu_obtenerDevolucion_pagos
 (
 IN _idAtencion INT
 )
@@ -482,7 +482,7 @@ BEGIN
 	INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
 	WHERE ate.idAtencion = _idAtencion;
 END $$
-
+CALL spu_listarDevolucion_pagos(1)
 -- listar atenciones por dni 
 DELIMITER $$
 CREATE PROCEDURE spu_listar_Atenciones_triaje_dni(IN _numeroDocumento VARCHAR(12))

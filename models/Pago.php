@@ -79,7 +79,7 @@ class Pago extends Conexion{
   }
   public function traerDatosDevolucion($idAtencion = 0){
     try{
-      $query = $this->connection->prepare("CALL spu_listarDevolucion_pagos(?)");
+      $query = $this->connection->prepare("CALL spu_obtenerDevolucion_pagos(?)");
       $query->execute(array($idAtencion));
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
