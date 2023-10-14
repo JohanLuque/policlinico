@@ -63,4 +63,27 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+  public function registrarDevolucion($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_devolucion_pagos(?,?)");
+      $query->execute(
+        array(
+            $data['idAtencion'],
+            $data['descripcion'],
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+  public function traerDatosDevolucion($idAtencion = 0){
+    try{
+      $query = $this->connection->prepare("CALL spu_listarDevolucion_pagos(?)");
+      $query->execute(array($idAtencion));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
