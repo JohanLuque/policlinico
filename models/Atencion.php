@@ -55,4 +55,13 @@ class Atencion extends Conexion{
       die($e->getCode());
     }
   }
+  public function listarParaTriaje($numeroDocumento){
+    try{
+      $query = $this->connection->prepare("CALL spu_listar_Atenciones_triaje_dni(?)");
+      $query->execute(array($numeroDocumento));
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

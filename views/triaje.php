@@ -48,7 +48,7 @@
           <h1 class="text-center">Atenciones</h1>      
         </div>
         <div class="card-body">
-          <table class="table table-danger">
+          <table id="tablaAtenciones" class="table table-danger">
             <thead>
               <tr>
                 <th>ID</th>
@@ -57,7 +57,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody  id="cuerpoAtenciones">
 
             </tbody>
           </table>
@@ -328,6 +328,9 @@
   const antecedenteOtros = document.querySelector("#antecedenteOtros");
   const antecedenteFamiliar = document.querySelector("#antecedenteFamiliar");
   const alergia = document.querySelector("#alergias");
+  //TRIAJE
+  const tablaAtenciones = document.querySelector("#tablaAtenciones");
+  const cuerpotabla = tablaAtenciones.querySelector("#cuerpoAtenciones");
   //modal de registro de triaje
   const abrirmodalRegistro = document.querySelector("#abrirmodalRegistro");
   const modalTriaje = new bootstrap.Modal(document.querySelector("#registrar-D-historia"));
@@ -487,6 +490,7 @@
       buscarDetalles.value = dnihistoriaSeleccionada;
       console.log(dnihistoriaSeleccionada.value);
       listarDetalleHistoria();
+      listarAtencionesPaciente();
     }
     });
   }
@@ -533,6 +537,37 @@
         toast("No hay historial del paciente");
       }
     });
+  }
+
+  function listarAtencionesPaciente(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "listarParaTriaje");
+    parametros.append("numeroDocumento",buscarDetalles.value);
+    fetch("../controllers/atencion.php",{
+      method:"POST",
+      body: parametros
+    })
+    .then(response => response.json())
+    .then(datos=>{
+      if(datos.length > 0){
+        console.log(datos);
+        cuerpotabla.innerHTML = "";
+        datos.forEach(element => {
+          let nuevaFila = `
+            <tr>
+                <td>${element.idAtencion}</td>
+                <td>${element.nombreServicio}</td>
+                <td>${element.dia}</td>
+                <td>
+                    <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>  
+            `;
+            cuerpotabla.innerHTML += nuevaFila;
+
+        })
+      }
+    })
   }
 
   function registrarHitoria(){
