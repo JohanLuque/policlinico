@@ -8,6 +8,25 @@
                 <div class="card-body">
                     <div class="row g-2 mb-3">
                         <div class="col-md-3">
+                            <label for="dni">N° Doc:</label>          
+                        </div>
+                        <div class="col-md-3">                                  
+                        <input class="form-control form-control-sm" id="dni" placeholder="dni" maxlength="10" type="tel" required>
+                        <div class="invalid-feedback">
+                        Complete este campo para continuar
+                        </div>       
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3">
+                            <label for="">Nombre completo:</label>   
+                        </div>
+                        <div class="col-md-9"> 
+                        <input class="form-control form-control-sm bg-light" id="nombre" type="text" readonly>
+                        </div>    
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-3">
                             <label for="">Método de pago:</label>
                         </div>
                         <div class="col-md-4">
@@ -49,16 +68,20 @@
                 <table class="table table-sm " id="tabla-lista-gastos">
                 <colgroup>
                     <col width="10%"> <!-- # -->
+                    <col width="40%"> <!-- descripcion-->
                     <col width="10%"> <!-- monto-->
-                    <col width="60%"> <!-- descripcion-->
                     <col width="20%"> <!-- fechaHora-->
+                    <col width="10%"> <!-- persona-->
+                    <col width="10%"> <!-- medio gasto-->
                 </colgroup>
                 <thead class="thead-danger">
                     <tr>
                     <th>#</th>
-                    <th>Monto</th>
                     <th>Descripción</th>
+                    <th>Monto</th>
                     <th>Fecha/Hora</th>
+                    <th>Persona</th>
+                    <th>medio de gasto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,6 +99,9 @@
     const descripcion = document.querySelector("#descripcion");
     const btGuardar = document.querySelector("#guardar");
     const btCancelar = document.querySelector("#cancelar");
+    const dni = document.querySelector("#dni");    
+    const nombrePersona = document.querySelector("#nombre");   
+    let idPersona = 0;
     // tabla
     const tabla = document.querySelector("#tabla-lista-gastos");
     const cuerpoTabla = document.querySelector("tbody");
@@ -100,15 +126,37 @@
         });
     })
     }
+    function consultarPaciente(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "getData");
+        parametros.append("numeroDocumento", dni.value);
+        fetch("../controllers/persona.php", {
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.length>0){
+
+            datos.forEach(element => {
+                idPersona = element.idPersona;
+                nombre.value = element.ApellidosNombres;
+            });
+            }else{
+                console.log("no hay")
+            }
+        })
+    }
     
     function registrarGasto() {
         const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarGasto");
         parametros.append("idMedioPago", metodosPago.value);
-        parametros.append("descripcion", descripcion.value);
-        parametros.append("monto", monto.value);
+        parametros.append("descripcionGasto", descripcion.value);
+        parametros.append("montoGasto", monto.value);
+        parametros.append("idPersona", idPersona);
 
-        fetch("../controllers/pago.php", {
+        fetch("../controllers/gasto.php", {
             method: "POST",
             body: parametros
         })
@@ -132,7 +180,7 @@
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listarGastos");
 
-        fetch("../controllers/pago.php", {
+        fetch("../controllers/gasto.php", {
             method: "POST",
             body: parametros
         })
@@ -145,9 +193,11 @@
                     `
                     <tr>
                         <td>${nro}</td>
-                        <td>${element.monto}</td>
                         <td>${element.descripcionGasto}</td>
-                        <td>${element.fechaHora}</td>
+                        <td>${element.montoGasto}</td>
+                        <td>${element.fechaHoraGasto}</td>
+                        <td>${element.personas}</td>
+                        <td>${element.nombrePago}</td>
                     </tr>
                     `;
                 cuerpoTabla.innerHTML += fila;
@@ -180,5 +230,8 @@
     listarGastosTabla();
     btGuardar.addEventListener("click", validar);
     btCancelar.addEventListener("click", reset);
+    dni.addEventListener("keypress", (evt) => {
+        if (evt.charCode == 13) consultarPaciente();
+    });
 
 </script>

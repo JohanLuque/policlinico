@@ -23,18 +23,6 @@ if(isset($_POST['operacion'])){
       $respuesta = $pago->cambiarEstado($parametros);
       echo json_encode($respuesta);
       break;
-    case 'registrarGasto':
-      $parametros = [
-        "idMedioPago"         => $_POST['idMedioPago'],
-        "descripcion"          => $_POST['descripcion'],
-        "monto"               => $_POST['monto']
-    ];
-      $respuesta = $pago->registrarGasto($parametros);
-      echo json_encode($respuesta);
-      break;
-    case "listarGastos":
-      echo json_encode($pago->listarGastos());
-      break;
     case 'registrarDevolucion':
       $parametros = [
         "idAtencion"         => $_POST['idAtencion'],

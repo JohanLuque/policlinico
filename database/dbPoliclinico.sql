@@ -194,6 +194,7 @@ CONSTRAINT fk_idmep_dev	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (
 CREATE TABLE Gastos
 (
 idGasto						INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+descripcionGasto				VARCHAR(200) NOT NULL,
 montoGasto					DECIMAL(6,2) 	NOT NULL,
 fechaHoraGasto				DATETIME			NOT NULL DEFAULT NOW(),
 idPersona					INT 		NOT NULL,
