@@ -213,15 +213,16 @@ BEGIN
 END $$
 
 DELIMITER $$
-CREATE PROCEDURE spu_gastos_pagos
+CREATE PROCEDURE spu_registrar_gastos
 (
-IN _medioPago		INT,
-IN _descripcion	VARCHAR(200),
-IN _monto			DECIMAL(7,2)
+IN _montoGasto		DECIMAL(6,2),
+IN _descripcionGasto	VARCHAR(200),
+IN _idPersona		INT, 
+IN _idMedioPago 	INT
 )
 BEGIN
-	INSERT INTO pagos(tipoMovimiento, idMedioPago, descripcionGasto, monto) VALUES
-	('E', _medioPago, _descripcion, _monto);
+	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago) VALUES
+	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago);
 END $$
 
 -- Triaje
@@ -435,9 +436,13 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_listarGastos_pagos()
 BEGIN 
-	SELECT * 
-	FROM pagos
-	WHERE tipoMovimiento = 'E' AND DATE(fechaHora) = CURDATE();
+	SELECT idGasto, descripcionGasto, montoGasto, fechaHoraGasto,
+	 CONCAT(personas.ApellidoPaterno, ' ', personas.Nombres) AS personas ,
+	  Medio_Pagos.nombrePago
+	FROM gastos
+	INNER JOIN personas ON personas.idPersona = gastos.idPersona
+	INNER JOIN Medio_Pagos ON Medio_Pagos.idMedioPago = gastos.idMedioPago
+	WHERE DATE(fechaHoraGasto) = CURDATE();
 END $$
 
 -- registrar devolucion
