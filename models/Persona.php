@@ -12,7 +12,7 @@ class Persona extends Conexion{
 
   public function getData($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_buscar_personas(?)");
+      $query = $this->connection->prepare("CALL spu_atenciones_buscar_personas(?)");
       $query->execute(
         array(
             $data['numeroDocumento']
@@ -30,7 +30,7 @@ class Persona extends Conexion{
       "mensaje" => ""
     ];
     try{
-      $consulta = $this->connection->prepare("CALL spu_registrar_persona(?,?,?,?,?,?,?,?)");
+      $consulta = $this->connection->prepare("CALL spu_atenciones_registrar_persona(?,?,?,?,?,?,?,?)");
       $respuesta["status"]=$consulta->execute(
         array(
           $data["nombres"],

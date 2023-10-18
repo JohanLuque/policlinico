@@ -12,7 +12,7 @@ class DetalleServicio extends Conexion{
 
   public function create($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_servicios_detalles(?)");
+      $query = $this->connection->prepare("CALL spu_atenciones_registrar_detallesServicios(?)");
       $query->execute(
         array(
             $data['idServicioDetalle']
@@ -25,7 +25,7 @@ class DetalleServicio extends Conexion{
   }
   public function resumen($idatencion){
     try{
-      $query = $this->connection->prepare("CALL spu_detalle_pagos(?)");
+      $query = $this->connection->prepare("CALL spu_caja_detalle_pagos(?)");
       $query->execute(array($idatencion));
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
@@ -35,7 +35,7 @@ class DetalleServicio extends Conexion{
 
   public function detalle_servicio($idatencion){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_detalle_servicio(?)");
+      $query = $this->connection->prepare("CALL spu_caja_listar_detalle_servicio(?)");
       $query->execute(array($idatencion));
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

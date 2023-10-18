@@ -12,7 +12,7 @@ class Especialista extends Conexion{
 
   public function getData($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_especialistas(?)");
+      $query = $this->connection->prepare("CALL spu_atenciones_listar_especialistas(?)");
       $query->execute(
         array(
             $data['estado']

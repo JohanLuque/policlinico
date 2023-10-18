@@ -12,7 +12,7 @@ class Servicio extends Conexion{
 
   public function getData(){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_servicios()");
+      $query = $this->connection->prepare("CALL spu_atenciones_listar_servicios()");
       $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
@@ -22,7 +22,7 @@ class Servicio extends Conexion{
 
   public function filtroServicios($datos = []){
     try{
-      $query = $this->connection->prepare("CALL spu_filtro_servicios(?)");
+      $query = $this->connection->prepare("CALL spu_atenciones_filtro_servicios(?)");
       $query->execute(array(
         $datos["idServicio"]
       ));
@@ -35,7 +35,7 @@ class Servicio extends Conexion{
 
   public function listarEspecialidades(){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_especialidades()");
+      $query = $this->connection->prepare("CALL spu_atenciones_listar_especialidades()");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
@@ -45,7 +45,7 @@ class Servicio extends Conexion{
   
   public function filtroDoctores($datos = []){
       try{
-        $query = $this->connection->prepare("CALL spu_filtro_doctores(?)");
+        $query = $this->connection->prepare("CALL spu_atenciones_filtro_doctores(?)");
         $query->execute(array(
           $datos["idServicio"]
         ));
