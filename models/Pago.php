@@ -12,7 +12,7 @@ class Pago extends Conexion{
 
   public function RegistrarPago($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_pagar_pagos(?,?,?)");
+      $query = $this->connection->prepare("CALL spu_caja_registrar_pago(?,?,?)");
       $query->execute(
         array(
             $data['idatencion'],
@@ -28,7 +28,7 @@ class Pago extends Conexion{
 
   public function cambiarEstado($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_estadoCambiar_Pagos(?)");
+      $query = $this->connection->prepare("CALL spu_caja_cambiar_estado_pagos(?)");
       $query->execute(
         array(
             $data['idatencion']
@@ -41,7 +41,7 @@ class Pago extends Conexion{
   }
   public function registrarDevolucion($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_devolucion_pagos(?,?)");
+      $query = $this->connection->prepare("CALL spu_caja_registrar_devolucion(?,?)");
       $query->execute(
         array(
             $data['idAtencion'],
@@ -55,7 +55,7 @@ class Pago extends Conexion{
   }
   public function traerDatosDevolucion($idAtencion = 0){
     try{
-      $query = $this->connection->prepare("CALL spu_obtenerDevolucion_pagos(?)");
+      $query = $this->connection->prepare("CALL spu_caja_obtener_datos_devolucion(?)");
       $query->execute(array($idAtencion));
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
