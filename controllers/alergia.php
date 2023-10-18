@@ -11,7 +11,7 @@ if(isset($_POST['operacion'])){
       $parametros = [
         "idHistoriaClinica"     => $_POST['idHistoriaClinica'],
         "idAlergia"             => $_POST['idAlergia']
-    ];
+      ];
       $respuesta = $alergia->create($parametros);
       echo json_encode($respuesta);
       break;

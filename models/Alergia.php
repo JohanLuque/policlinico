@@ -23,7 +23,7 @@ class Alergia extends Conexion{
             $data['idAlergia']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+       // return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
       $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
     }
@@ -31,7 +31,7 @@ class Alergia extends Conexion{
   }
   public function listarAlergias(){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_alergias()");
+      $query = $this->connection->prepare("CALL spu_triaje_listar_alergias()");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

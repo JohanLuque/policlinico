@@ -55,7 +55,7 @@ END $$
 
 -- REGISTRAR DETALLE DE HISTORIA(DOCTOR)
 DELIMITER $$
-CREATE PROCEDURE spu_doctor_agregar
+CREATE PROCEDURE spu_triaje_doctor_agregar
 (
 IN _idDetalleatencion INT,
 IN _examenGeneral VARCHAR(2000),
@@ -70,7 +70,7 @@ END$$
 
 -- REGISTRAR ENFERMEDADES
 DELIMITER $$
-CREATE PROCEDURE spu_doctor_agregar_enfermedad
+CREATE PROCEDURE spu_triaje_doctor_agregar_enfermedad
 (
 IN _idEnfermedad INT,
 IN _idDetalleatencion INT
@@ -82,7 +82,7 @@ END$$
 
 -- BUSCAR HISTORIAS CLINICAS
 DELIMITER $$
-CREATE PROCEDURE spu_listar_historias_clinicas
+CREATE PROCEDURE spu_triaje_buscar_historias
 (
 IN _numeroDocumento VARCHAR(12)
 )
@@ -95,7 +95,7 @@ END $$
 
 -- LISTAR TODAS LAS HISTORIAS CLINICAS
 DELIMITER $$
-CREATE PROCEDURE spu_listar_historiasClinicasTodo()
+CREATE PROCEDURE spu_triaje_listar_historias()
 BEGIN
 	SELECT historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
 	FROM historias_clinicas
@@ -105,7 +105,7 @@ END$$
 
 -- LISTAR ALERGIAS
 DELIMITER $$
-CREATE PROCEDURE spu_listar_alergias()
+CREATE PROCEDURE spu_triaje_listar_alergias()
 BEGIN 
 	SELECT * FROM alergias;
 END $$
@@ -113,7 +113,7 @@ END $$
 
 -- LISTAR ATENCIONES POR ESPECIALIDAD Y QUE YA ESTEN PAGADOS 
 DELIMITER $$
-CREATE PROCEDURE spu_listar_Atenciones_triaje_dni(IN _numeroDocumento VARCHAR(12))
+CREATE PROCEDURE spu_triaje_Atenciones_dni(IN _numeroDocumento VARCHAR(12))
 BEGIN
 	SELECT atenciones.idAtencion, servicios.nombreServicio, atenciones.fechaAtencion AS 'dia'
 	FROM atenciones
