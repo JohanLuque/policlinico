@@ -22,5 +22,8 @@ if(isset($_POST['operacion'])){
     case 'list':
       echo json_encode($historiaClininca->listar());
       break;
+    case 'getData':
+      echo json_encode($historiaClininca->buscarHistorias($_POST['nroDocumento']));
+      break;
   }
 }

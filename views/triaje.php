@@ -336,11 +336,11 @@
 
     }
   });
-  function comprobar(){
+  function buscarHistoria(){
     const parametros = new URLSearchParams();
-    parametros.append("operacion", "listarHistoriasClinicas");
+    parametros.append("operacion", "getData");
     parametros.append("nroDocumento", buscar.value);
-    fetch("../controllers/detalleAtencion.php",{
+    fetch("../controllers/historiaClinica.php",{
       method:"POST",
       body: parametros
     })
@@ -581,7 +581,7 @@
 
   buscar.addEventListener("keypress", (evt) => {
     if(evt.charCode == 13){
-      comprobar();
+      buscarHistoria();
     } 
   });
   

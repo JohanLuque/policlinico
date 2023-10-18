@@ -19,15 +19,7 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   } 
-  public function listarHistoriasClinicas($dni=0){
-    try{
-      $query = $this->connection->prepare("CALL spu_listar_historias_clinicas(?)");
-      $query->execute(array($dni));
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }catch(Exception $e){
-      die($e->getCode());
-    }
-  }
+  
   public function create($data=[]){
     try{
       $query = $this->connection->prepare("CALL spu_triaje_agregar_triaje(?,?,?,?,?,?,?,?,?,?)");
