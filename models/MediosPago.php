@@ -12,7 +12,7 @@ class MediosPago extends Conexion{
 
   public function listarMediosPago(){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_metodospago()");
+      $query = $this->connection->prepare("CALL spu_caja_listar_metodos_pago()");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

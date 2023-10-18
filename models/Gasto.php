@@ -12,7 +12,7 @@ class Gasto extends Conexion{
 
   public function registrarGasto($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_registrar_gastos(?,?,?,?)");
+      $query = $this->connection->prepare("CALL spu_caja_registrar_gastos(?,?,?,?)");
       $query->execute(
         array(
             $data['montoGasto'],
@@ -28,7 +28,7 @@ class Gasto extends Conexion{
   }
   public function listarGastos(){
     try{
-      $query = $this->connection->prepare("CALL spu_listarGastos_pagos()");
+      $query = $this->connection->prepare("CALL spu_caja_listar_gastos()");
       $query->execute(array());
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

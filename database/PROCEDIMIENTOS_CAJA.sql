@@ -1,7 +1,7 @@
 -- CAJA
 -- REGISTRAR PAGOS
 DELIMITER $$
-CREATE PROCEDURE spu_pagar_pagos
+CREATE PROCEDURE spu_caja_registrar_pago
 (
 IN _idatencion 	INT,
 IN _idmediopago	INT,
@@ -14,7 +14,7 @@ END $$
 
 -- CAMBIAR A ESTADO (PAGADO)
 DELIMITER $$
-CREATE PROCEDURE spu_estadoCambiar_Pagos
+CREATE PROCEDURE spu_caja_cambiar_estado_pagos
 (
 IN _idatencion INT
 )
@@ -27,7 +27,7 @@ END $$
 
 -- REGISTAR GASTOS
 DELIMITER $$
-CREATE PROCEDURE spu_registrar_gastos
+CREATE PROCEDURE spu_caja_registrar_gastos
 (
 IN _montoGasto		DECIMAL(6,2),
 IN _descripcionGasto	VARCHAR(200),
@@ -41,7 +41,7 @@ END $$
 
 -- LISTAR METODOS DE PAGO
 DELIMITER $$ 
-CREATE PROCEDURE spu_listar_metodospago()
+CREATE PROCEDURE spu_caja_listar_metodos_pago()
 BEGIN
 	SELECT *
 	FROM Medio_Pagos;
@@ -49,7 +49,7 @@ END $$
 
 -- INFROMACION PARA EL CARD CUANDO SE VA A PAGAR (RESUMEN)
 DELIMITER $$ 
-CREATE PROCEDURE spu_detalle_pagos( IN _idatencion INT)
+CREATE PROCEDURE spu_caja_detalle_pagos( IN _idatencion INT)
 BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
 	personas.nombres,personas.apellidoMaterno, personas.apellidoPaterno,
@@ -65,9 +65,10 @@ BEGIN
 	WHERE Detalle_Servicios.idAtencion = _idatencion
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 END $$
-		-- PARA EL RESUMEN DE QUE SE VINO A ATENDER
+
+-- PARA EL RESUMEN DE QUE SE VINO A ATENDER
 DELIMITER $$ 
-CREATE PROCEDURE spu_listar_detalle_servicio( IN _idatencion INT)
+CREATE PROCEDURE spu_caja_listar_detalle_servicio( IN _idatencion INT)
 BEGIN
 	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
 	personas.telefono,servicios_detalle.precio AS 'total'
@@ -80,29 +81,10 @@ BEGIN
 	WHERE detalle_servicios.idAtencion = _idatencion;
 END $$
 
--- CONSULTAR PARA QUE SE USA ESTE PROCEDIMIENTO
-DELIMITER $$ 
-CREATE PROCEDURE spu_detalle_atencion( IN _idatencion INT)
-BEGIN
-	SELECT Detalle_Servicios.idAtencion,servicios.idServicio, servicios.nombreServicio,
-	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
-	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`, atenciones.`fechaAtencion`
-	FROM Detalle_Servicios
-	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	--  INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE Detalle_Servicios.idAtencion = _idatencion
-	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
-END $$
-
 
 -- LISTAR GASTOS
 DELIMITER $$
-CREATE PROCEDURE spu_listarGastos_pagos()
+CREATE PROCEDURE spu_caja_listar_gastos()
 BEGIN 
 	SELECT idGasto, descripcionGasto, montoGasto, fechaHoraGasto,
 	 CONCAT(personas.ApellidoPaterno, ' ', personas.Nombres) AS personas ,
@@ -115,7 +97,7 @@ END $$
 
 -- REGISTRAR DEVOLUCION
 DELIMITER $$ 
-CREATE PROCEDURE spu_devolucion_pagos
+CREATE PROCEDURE spu_caja_registrar_devolucion
 (
 IN _idAtencion INT,
 IN _descripcion VARCHAR(200)
@@ -128,18 +110,10 @@ BEGIN
 	WHERE idAtencion = _idAtencion;
 END $$
 
--- LISTAR DEVOLUCIONES
-DELIMITER $$
-CREATE PROCEDURE spu_listarDevolucion_pagos()
-BEGIN 
-	SELECT * 
-	FROM pagos
-	WHERE tipoMovimiento = 'D' AND DATE(fechaDevolucion) = CURDATE();
-END $$
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION
 DELIMITER $$
-CREATE PROCEDURE spu_listarDevolucion_pagos
+CREATE PROCEDURE spu_caja_obtener_datos_devolucion
 (
 IN _idAtencion INT
 )
