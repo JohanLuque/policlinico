@@ -33,7 +33,9 @@ INSERT INTO servicios (tipo, nombreServicio) VALUES
 ('E', 'Psicología'),
 ('E', 'Otorrinolaringología'),
 ('E', 'Medicina complementaria'),
-('E', 'Odontología');
+('E', 'Odontología'),
+('E', 'Odontopediatria');
+
 
 INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
 ('Juan', 'Quispe', 'Acevedo', 'N', '98745632', '2003-01-01', 'M', NULL),
@@ -83,18 +85,6 @@ INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
 (3,10),
 (1,11);
 
-INSERT INTO Detalle_Servicios (idAtencion ,idservicios_detalle) VALUES 
-(1,1),
-(1,2),
-(1,3),
-(1,4),
-(2,5),
-(3,6),
-(4,5),
-(5,9),
-(6,10),
-(10,16),
-(11,15);
 
 INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 -- LABORATORIO
@@ -430,7 +420,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (26, 'BLANCAMIENTO','350.00'),
 (26, 'EXTRACION DE DIENTE','80.00'),
 (26, 'PULPOTOMIA','100.00'),
-(26, 'VARNIZ FLORADO - FLUOR','40.00');
+(26, 'VARNIZ FLORADO - FLUOR','40.00'),
 -- ODONTOPEDIATRIA
 (27, 'CONSULTA','40.00'),
 (27, 'LIMPIEZA DENTAL','100.00'),
@@ -438,7 +428,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (27, 'BLANCAMIENTO','350.00'),
 (27, 'EXTRACION DE DIENTE','80.00'),
 (27, 'PULPOTOMIA','100.00'),
-(27, 'VARNIZ FLORADO - FLUOR','40.00'),
+(27, 'VARNIZ FLORADO - FLUOR','40.00');
 -- TOMOGRAFIAS
 -- (28, 'CEREBRAL TAC SIN CONTRASTE','330.00'),
 -- (28, 'CEREBRAL TAC CON CONTRASTE','430.00'),
@@ -466,6 +456,8 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 -- (28, '','.00'),
 -- (28, '','.00'),
 -- (28, '','.00');
+
+-- CON GÉNERO
 INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 -- GINECOLOGIA
 (2,'ECO 4D','100.00', 'F'),
