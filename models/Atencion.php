@@ -16,7 +16,7 @@ class Atencion extends Conexion{
       "message" => ""
     ];
     try{
-      $query = $this->connection->prepare("CALL spu_admision_atenciones(?,?,?,?,?,?,?)");
+      $query = $this->connection->prepare("CALL spu_atenciones_registrar(?,?,?,?,?,?,?)");
       $respuesta["status"] =$query->execute(
         array(
             $data['turno'],
@@ -38,7 +38,7 @@ class Atencion extends Conexion{
 
   public function listarAtenciones(){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_atenciones()");
+      $query = $this->connection->prepare("CALL spu_atenciones_listar()");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
@@ -57,7 +57,7 @@ class Atencion extends Conexion{
   }
   public function listarParaTriaje($numeroDocumento){
     try{
-      $query = $this->connection->prepare("CALL spu_listar_Atenciones_triaje_dni(?)");
+      $query = $this->connection->prepare("CALL spu_triaje_Atenciones_dni(?)");
       $query->execute(array($numeroDocumento));
       return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

@@ -1,7 +1,7 @@
 -- ADMISIÓN
--- REGISTRAR ATENCIÓN
+-- REGISTRAR ATENCIÓN spu_admision_atenciones
 DELIMITER $$
-CREATE PROCEDURE spu_admision_atenciones
+CREATE PROCEDURE spu_atenciones_registrar
 (
 IN _turno		CHAR(1),
 IN _idusuario 	INT,
@@ -38,9 +38,9 @@ BEGIN
 	(_turno, _numAtencion, _parentesco, _orden, _idusuario, _idfamiliar, _idpersona,_fechaAtencion);
 END $$
 
--- REGISTRAR DETALLE DE SERVICIOS(PROCEDIMIENTO + ATENCION)
+-- REGISTRAR DETALLE DE SERVICIOS(PROCEDIMIENTO + ATENCION) spu_servicios_detalles
 DELIMITER $$
-CREATE PROCEDURE spu_servicios_detalles
+CREATE PROCEDURE spu_atenciones_registrar_detallesServicios
 (
 IN _idservicios_detalle INT
 )
@@ -53,9 +53,9 @@ BEGIN
     (_idservicios_detalle, _idatencion);
 END $$
 
--- BUSCADOR DE PACIENTES (PERSONAS)
+-- BUSCADOR DE PACIENTES (PERSONAS) spu_buscar_personas
 DELIMITER $$
-CREATE PROCEDURE spu_buscar_personas
+CREATE PROCEDURE spu_atenciones_buscar_personas
 (
 IN _numeroDocumento VARCHAR(12)
 )
@@ -68,9 +68,9 @@ BEGIN
 	WHERE `numeroDocumento` = _numeroDocumento;
 END $$
 
--- REGISTRAR PACIENTE (PERSONAS)
+-- REGISTRAR PACIENTE (PERSONAS) spu_registrar_persona
 DELIMITER $$
-CREATE PROCEDURE spu_registrar_persona
+CREATE PROCEDURE spu_atenciones_registrar_persona
 (
 	IN _nombres 			VARCHAR(100),
 	IN _apellidoPaterno 	VARCHAR(50),
@@ -86,9 +86,9 @@ BEGIN
 	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
 END$$
 
--- LISTADO DE DOCTORES(ACTIVOS)
+-- LISTADO DE DOCTORES(ACTIVOS) spu_listar_especialistas
 DELIMITER $$
-CREATE PROCEDURE spu_listar_especialistas
+CREATE PROCEDURE spu_atenciones_listar_especialistas
 (
 IN _estado CHAR(1)
 )
@@ -102,17 +102,17 @@ BEGIN
 	WHERE especialistas.estado = _estado;
 END $$
 
--- LISTAR SERVICIOS (SOLO ESPECIALIDADES)
+-- LISTAR SERVICIOS (SOLO ESPECIALIDADES) spu_listar_especialidades
 DELIMITER $$
-CREATE PROCEDURE spu_listar_especialidades()
+CREATE PROCEDURE spu_atenciones_listar_especialidades()
 BEGIN
 	SELECT * FROM Servicios
 	WHERE tipo = "E";
 END$$
 
--- DUDASSSSSS
+-- FILTRA DOCTORES POR SERVICIO (DUDASSSSSS) spu_filtro_doctores
 DELIMITER$$
-CREATE PROCEDURE spu_filtro_doctores
+CREATE PROCEDURE spu_atenciones_filtro_doctores
 (
 	IN _idServicio INT
 )	
@@ -127,35 +127,17 @@ BEGIN
 	WHERE especialistas_servicios.`idServicio` =_idservicio;
 END$$
 
--- LISTAR ESPECIALISTAS POR SERVICIO(ESPECIALIDADES)
-DELIMITER $$
-CREATE PROCEDURE spu_listar_espcialistas_servicios
-( 
-IN _idservicio INT 
-)
-BEGIN 
-	SELECT idEspecialistasServicios,
-	CONCAT(servicios.nombreservicio, ' - ',
-	personas.apellidoPaterno, ' ',
-	personas.nombres) AS 'Nombre Completo'
-	FROM especialistas_servicios
-	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
-	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
-	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
-	WHERE especialistas_servicios.`idServicio` = _idservicio;
-END $$
-
 -- LISTAR SERVICIOS 
 DELIMITER $$
-CREATE PROCEDURE spu_listar_servicios()
+CREATE PROCEDURE spu_atenciones_listar_servicios()
 BEGIN 
 	SELECT *
 	FROM Servicios;
 END $$
 
--- FILTRO DE DETALLE DE SEVICIOS 
+-- FILTRO DE DETALLE DE SEVICIOS spu_filtro_servicios
 DELIMITER $$
-CREATE PROCEDURE spu_filtro_servicios
+CREATE PROCEDURE spu_atenciones_filtro_servicios
 (
 	IN _idServicio INT 
 )
@@ -166,9 +148,9 @@ BEGIN
 	WHERE Servicios.idServicio = _idServicio;
 END $$
 
--- LISTAR ATENCIONES
+-- LISTAR ATENCIONES spu_listar_atenciones
 DELIMITER $$
-CREATE PROCEDURE spu_listar_atenciones()
+CREATE PROCEDURE spu_atenciones_listar()
 BEGIN 
 	SELECT
 		atenciones.idAtencion,
