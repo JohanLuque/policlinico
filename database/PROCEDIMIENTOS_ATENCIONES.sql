@@ -170,7 +170,7 @@ BEGIN
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()-- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia DESC;
+	ORDER BY atenciones.`estado` ;
 END $$
 
 -- OBTENIENDO INFORMACIÓN POR ATENCIÓN 
