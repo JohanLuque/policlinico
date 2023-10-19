@@ -8,8 +8,8 @@ IN _idmediopago	INT,
 IN _monto			DECIMAL(7,2)
 )
 BEGIN 
-	INSERT INTO pagos (idatencion, idMedioPago, monto, tipoMovimiento) VALUES
-	(_idatencion, _idmediopago, _monto, 'I');
+	INSERT INTO pagos (idatencion, idMedioPago, monto) VALUES
+	(_idatencion, _idmediopago, _monto);
 END $$
 
 -- CAMBIAR A ESTADO (PAGADO)
@@ -118,10 +118,7 @@ CREATE PROCEDURE spu_caja_obtener_datos_devolucion
 IN _idAtencion INT
 )
 BEGIN 
-	SELECT CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
-		per.numeroDocumento,
-	       ser.nombreServicio AS 'Servicio',
-	       SUM(pag.monto) AS 'MontoTotal'
+	SELECT *
 	FROM Pagos pag
 	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
 	INNER JOIN Personas per ON ate.idPersona = per.idPersona

@@ -45,7 +45,7 @@ class DetalleServicio extends Conexion{
 
   public function resumenAtencion($idatencion){
     try{
-      $query = $this->connection->prepare("CALL spu_detalle_atencion(?)");
+      $query = $this->connection->prepare("CALL spu_caja_obtener_datos_devolucion(?)");
       $query->execute(array($idatencion));
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){

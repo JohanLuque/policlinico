@@ -11,19 +11,24 @@ class Pago extends Conexion{
   }
 
   public function RegistrarPago($data =[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
     try{
       $query = $this->connection->prepare("CALL spu_caja_registrar_pago(?,?,?)");
-      $query->execute(
+      $respuesta["status"] = $query->execute(
         array(
             $data['idatencion'],
             $data['idMedioPago'],
             $data['monto']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        
     }catch(Exception $e){
-      die($e->getCode());
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
     }
+    return $respuesta;
   }
 
   public function cambiarEstado($data =[]){
