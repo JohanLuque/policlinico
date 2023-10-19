@@ -64,4 +64,19 @@ class Atencion extends Conexion{
       die($e->getCode());
     }
   }
+
+  public function editarFechaAtencion($datos=[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_atenciones_editar_fecha(?,?)");
+      $query->execute(
+        array(
+          $datos['fechaAtencion'],
+          $datos['idatencion']
+        )
+      );
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getMessage());
+    }
+  } 
 }
