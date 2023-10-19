@@ -367,7 +367,6 @@
                 </div>
               </div>
             </div> 
-           
             `;
         cardHistoria.innerHTML +=nuevoCard;
       });
@@ -429,7 +428,6 @@
                 </div>
               </div>
             </div> 
-           
             `;
         cardHistoria.innerHTML +=nuevoCard;
       });
