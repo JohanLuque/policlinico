@@ -48,11 +48,11 @@
               <div class="col-md-1">                                  
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
+              <div class="col-md-2">                                  
+                <label class="form-control form-control-sm bg-light" id="mesesAños" ></label>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="mostrarFamiliar" type="button">Agregar Familiar</button>
+                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
               </div>
             </div>
             
@@ -328,6 +328,7 @@ const divOrden = document.querySelector("#ordenM");
 const mostrarOrden = document.querySelector("#ordenMedica");
 const divFamiliar = document.querySelector("#familiar");
 const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
+const añosMeses = document.querySelector("#mesesAños");
 
 // Pacientes
 const dniPersonas = document.querySelector("#DNI_personas");    
@@ -756,7 +757,21 @@ function consultarPaciente(){
       datos.forEach(element => {
         idpersona = element.idPersona;
         nombrePaciente.value = element.ApellidosNombres;
-        edadPaciente.value = element.Edad;
+        if(element.Edad == 1){
+          edadPaciente.value = element.Edad ;
+          añosMeses.innerHTML = "Año";
+        }else if(element.Edad > 1){
+          edadPaciente.value = element.Edad ;
+          añosMeses.innerHTML = "Años";
+        }else if(element.Edad == 0){
+          if(element.meses == 1){
+            edadPaciente.value = element.meses;
+          añosMeses.innerHTML = "Mes";
+          }else{
+            edadPaciente.value = element.meses;
+          añosMeses.innerHTML = "Meses";
+          }
+        }
         generoPaciente = element.genero;
       });
     }else{
