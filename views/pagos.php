@@ -361,6 +361,7 @@ cardresumen.addEventListener("click", (event) => {
     }
 });
 
+// suma del total a pagar en detalle atencion
 function calcularTotalResumen() {
   const tablaFilas = detalle.rows;
   let total = 0;
@@ -370,32 +371,29 @@ function calcularTotalResumen() {
     const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
     //console.log(precioCelda);
     total += precioCelda;   
-
-
   }
   
   totalResumen.value = total.toFixed(2);
   totalRestante.value = totalResumen.value;
 }
 
-function calcularRestante(){
-    const filaPagos = detallepagos.rows;
+// function calcularRestante(){
+//     const filaPagos = detallepagos.rows;
+//     let restante = totalResumen.value;
+//     let totaltablapagos = 0;
+//     for(let i = 1; i<filaPagos.length; i++){
+//         const precioCelda = parseFloat(filaPagos[i].cells[2].innerText);
+//         totaltablapagos +=precioCelda;
+//         //console.log(precioCelda);
+//         if(restante >= 0){
+//             restante = restante - precioCelda;
+//         }
+        
+//     }
     
-    let restante = totalResumen.value;
-    let totaltablapagos = 0;
-    for(let i = 1; i<filaPagos.length; i++){
-        const precioCelda = parseFloat(filaPagos[i].cells[2].innerText);
-        totaltablapagos +=precioCelda;
-        //console.log(precioCelda);
-        restante = restante - precioCelda;
-        if(totalMedioPago == 0){
-            toast("ya no puede agregar datos el pago esta completo");
-        }
-    }
-    
-    totalRestante.value = restante;
-    //console.log(restante);
-}
+//     totalRestante.value = restante;
+//     //console.log(totalRestante.value);
+// }
 function agregarPagoTabla(){
     if(totalMedioPago.value > 0){  
         const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
@@ -411,17 +409,20 @@ function agregarPagoTabla(){
     
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
-                    totalMedioPago +=  precioCelda;                
-                    break;
+                    totaltablapagos +=  precioCelda;                
+                    //break;
                 }
+                console.log(totaltablapagos);
                 
             }
-            //console.log(metodosPago.text);
-            if(totalMedioPago.value > totalRestante.value){
-                toast("excede el monto restante");
-            }else{
-                if(!medioRepetido){
-                    
+            if(medioRepetido){
+                toast("No puede repetir dos métodos de pago");
+            }else{ 
+                if(totalMedioPago.value >= totalRestante.value){
+                    toast("excede el monto restante");
+                       
+                }
+                else{
                     let nuevaFila = `
                     <tr>
                         <td>${medioSeleccionado.value}</td>
@@ -433,12 +434,9 @@ function agregarPagoTabla(){
                     </tr>  
                     `;
                     detallepagos.innerHTML += nuevaFila;
-                    totalMedioPago.value = 0;
+                    totalMedioPago.value = "";
                     listarMetodosPago();
-                    calcularRestante();   
-                }
-                else{
-                    toast("No puede repetir dos métodos de pago");
+                    //calcularRestante();
                 }
                 
             }
@@ -446,22 +444,20 @@ function agregarPagoTabla(){
      }else{
         toast("Monto inválido");
         totalMedioPago.value = 0;
-    }
-    
-        
-   
+    }  
+    //calcularRestante();
 }
 
 detallepagos.addEventListener("click", (e) => {
     if(e.target.closest(".eliminar")){
         const row = e.target.closest("tr");
         row.remove();
-        calcularRestante();
+        //calcularRestante();
     }
 });
 
 
-calcularRestante();
+//calcularRestante();
 
 function registrarPagos(){
     const filaspagos = detallepagos.rows;
