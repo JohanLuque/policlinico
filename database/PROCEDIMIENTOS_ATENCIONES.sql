@@ -196,3 +196,16 @@ BEGIN
 END $$
 
 
+-- EDITAR FECHA DE ATENCION
+DELIMITER$$
+CREATE PROCEDURE spu_atenciones_editar_fecha
+(
+ IN _fechaAtencion DATE,
+ IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones 
+	SET fechaAtencion = _fechaAtencion,
+	    fechaActualizacion = NOW()
+	WHERE idatencion = _idatencion;
+END$$
