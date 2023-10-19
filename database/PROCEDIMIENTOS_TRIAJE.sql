@@ -87,16 +87,17 @@ CREATE PROCEDURE spu_triaje_buscar_historias
 IN _numeroDocumento VARCHAR(12)
 )
 BEGIN
-	SELECT atenciones.idAtencion, personas.numeroDocumento,
+	SELECT atenciones.idAtencion, personas.numeroDocumento,atenciones.`idPersona`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
-	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia'
+	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia',
+	    IF(historias_clinicas.idHistoriaClinica IS NOT NULL, 'si', 'no') AS 'historiaClinica', historias_clinicas.idHistoriaClinica
 	FROM atenciones
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
 	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NULL
+	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE()
 	GROUP BY Detalle_Servicios.idatencion
 	ORDER BY dia DESC;
 END $$

@@ -154,16 +154,20 @@ function listarCardsAtencion(){
                 <div class="card">
                     <div class="card-content">
                         <div class="card-header bg-info"></div>
-                        <div class="card-body" style="text-align: center;">
+                        <div class="card-body bg-light-info" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <div class="servicio">${element.nombreServicio}</div>
                             <div class='mt-2 row g-2'>
-                                <div class='col-md-8'>
+                                <div class='col-md-6'>
+                                    <h6>${element.nombreServicio}</h6>
+                                </div>
+                                <div class='col-md-6'>
                                     <h6>S/${element.Total}</h6>
                                 </div>
-                                <div class="card col-md-4" id="">
-                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}'>ver</a>
-                                </div>
+                            </div>
+                            <div class"row mt-2 g-2">
+                                <button class='btn btn-info  m-1' type='button'>
+                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
+                                </button>
                             </div>
                         </div>
                     </div>

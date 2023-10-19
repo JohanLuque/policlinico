@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="row g-2 mb-3">
-          <table id="resumenAlergias" class="bg-light">
+          <table id="tabla-Alergias" class="bg-light">
             <thead>
               <tr>
                 <th>ID</th>
@@ -104,9 +104,10 @@
   const antecedenteOtros = document.querySelector("#antecedenteOtros");
   const antecedenteFamiliar = document.querySelector("#antecedenteFamiliar");
   const alergia = document.querySelector("#alergias");
-  const tablaAlergias = document.querySelector("#resumenAlergias");
+  const tablaAlergias = document.querySelector("#tabla-Alergias");
   const agregarAlergia = document.querySelector("#agregarAlergia");
-
+  let idhistoria;
+  let idPersona;
   function buscarHistoria(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "getData");
@@ -118,11 +119,19 @@
     .then(response => response.json())
     .then(datos =>{
       //console.log(datos)
-      if(datos.length == 0){
-        toastCheck("El paciente ya tiene historia");        
+      if(datos.length > 0){
+        datos.forEach(element => {
+          if(element.historiaClinica == 'si'){
+            toastCheck("El Paciente ya tiene historia clinica");
+          }else{
+            toast("El paciente no tiene historia");
+            nombreCompleto.value = element.ApellidosNombres;
+            idPersona = element.idPersona;
+          } 
+        });
       }
       else{
-        toast("el paciente no tiene historia")  
+        toast("solicitud invalida")
       }
     })
   }
@@ -143,9 +152,7 @@
     .then(response => response.json())
     .then(datos=>{
       if(datos.status){
-        toastCheck("Guardado correctamente");
-        modal.toggle();
-        //listarHistoriaClinicaTodos();
+        capturandoIdhistoria();
       }
     })
   }
@@ -153,35 +160,10 @@
     mostrarPregunta("REGISTRAR", "¿Está seguro de guardar?").then((result) => {
       if(result.isConfirmed){
         registrarHitoria();
-      
-        
       }
     });  
   });
 
-  // function buscarPaciente(){
-  //   const parametros = new URLSearchParams();
-  //   parametros.append("operacion", "getData");
-  //   parametros.append("numeroDocumento", dni.value);
-  //   fetch("../controllers/persona.php", {
-  //     method : "POST",
-  //     body: parametros
-  //   })
-  //   .then(response => response.json())
-  //   .then(datos => {
-  //     console.log(datos);
-  //     if(datos.length>0){
-  //       datos.forEach(element => {
-  //         idPersona = element.idPersona;
-  //         dni.value = dni.value;
-  //         nombreCompleto.value = element.ApellidosNombres;
-          
-  //       });
-  //     }else{
-  //       toast("No se encontro registro de Paciente");
-  //     }
-  //   })
-  // }
   function listarAlergias(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "listar");
@@ -202,7 +184,6 @@
       })
     })
   }
-  listarAlergias();
   function agregarAlergiaTabla (){
     if(alergia.value > 0){
       const alergiaSeleccionada = alergia.options[alergias.selectedIndex];
@@ -210,7 +191,7 @@
       if(alergiaSeleccionada.value != ""){
         let alergiaRepetida = false;
         const filas  = tablaAlergias.rows;
-
+        
         for(let i=1; i < filas.length; i++){
           const alergiaCelda = filas[i].cells[1].innerText;
           console.log(alergiaCelda);
@@ -250,11 +231,68 @@
   agregarAlergia.addEventListener("click", () => {    
     agregarAlergiaTabla();
   })
+  listarAlergias();
+  function capturandoIdhistoria(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "getData");
+    parametros.append("nroDocumento", dni.value);
+    fetch("../controllers/historiaClinica.php",{
+      method:"POST",
+      body: parametros
+    })
+    .then(response => response.json())
+    .then(datos =>{
+      //console.log(datos)
+      if(datos.length > 0){
+        datos.forEach(element => {
+          if(element.historiaClinica == 'si'){
+            idhistoria = element.idHistoriaClinica;
+            console.log(idhistoria);
+            registrarAlergiasHistoria(idhistoria);
+          }
+        });
+      }
+      else{
+        toast("solicitud invalida")
+      }
+    })
+  }
+  function registrarAlergiasHistoria(idhistoria){
+    const filaAlergia  = tablaAlergias.rows;
+    for (let i = 1; i < filaAlergia.length; i++){
+      const idAlergia = parseInt(filaAlergia[i].cells[0].innerText);
+      const parametros = new URLSearchParams();
+      parametros.append("operacion", "add");
+      parametros.append("idHistoriaClinica", idhistoria);
+      parametros.append("idAlergia", idAlergia);
 
+      fetch("../controllers/alergia.php", {
+        method: "POST",
+        body: parametros
+      })
+      .then(response => response.json())
+      .then(datos => {
+        if(datos.status){
+          toastCheck("Guardado correctamente");
+          resetdata();
+        }
+      })
+    }
+  }
 
+  function resetdata(){
+    dni.value = "";
+    nombreCompleto.value = "";
+    antecedentePersonal.value = "";
+    antecedenteQuirurgico.value = "";
+    antecedenteOtros.value = "";
+    antecedenteFamiliar.value = "";
+    tablaAlergias.reset();
+  }
   dni.addEventListener("keypress", (evt) => {
     if(evt.charCode == 13){
       buscarHistoria();
+      
     } 
   });
 </script>
