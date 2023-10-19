@@ -30,5 +30,13 @@ if(isset($_POST['operacion'])){
     case 'listarParaTriaje':
       echo json_encode($atencion->listarParaTriaje($_POST['numeroDocumento']));
       break;
+    case 'editarFechaAtencion':
+      $datos = [
+        "idatencion"      => $_POST['idatencion'],
+        "fechaAtencion"   => $_POST['fechaAtencion']
+      ];
+      $respuesta = $atencion->editarFechaAtencion($datos);
+      echo json_encode($respuesta);
+      break;
   }
 }
