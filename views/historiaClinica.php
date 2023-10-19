@@ -104,6 +104,8 @@
   const antecedenteOtros = document.querySelector("#antecedenteOtros");
   const antecedenteFamiliar = document.querySelector("#antecedenteFamiliar");
   const alergia = document.querySelector("#alergias");
+  const tablaAlergias = document.querySelector("#resumenAlergias");
+  const agregarAlergia = document.querySelector("#agregarAlergia");
 
   function buscarHistoria(){
     const parametros = new URLSearchParams();
@@ -116,37 +118,139 @@
     .then(response => response.json())
     .then(datos =>{
       //console.log(datos)
-      if(datos.length>0){
-        toast("El paciente ya tiene historia");        
+      if(datos.length == 0){
+        toastCheck("El paciente ya tiene historia");        
       }
       else{
-        buscarPaciente();        
+        toast("el paciente no tiene historia")  
       }
     })
   }
-  function buscarPaciente(){
+
+  function registrarHitoria(){
     const parametros = new URLSearchParams();
-    parametros.append("operacion", "getData");
-    parametros.append("numeroDocumento", dni.value);
-    fetch("../controllers/persona.php", {
+    parametros.append("operacion", "add");
+    parametros.append("idpersona", idPersona);
+    parametros.append("idusuario", 1);
+    parametros.append("antecedentePersonal", antecedentePersonal.value);
+    parametros.append("antecedenteFamiliar", antecedenteFamiliar.value);
+    parametros.append("antecedenteQuirurgico", antecedenteQuirurgico.value);
+    parametros.append("antecedenteOtro", antecedenteOtros.value);
+    fetch("../controllers/historiaClinica.php",{
+      method:"POST",
+      body: parametros
+    })
+    .then(response => response.json())
+    .then(datos=>{
+      if(datos.status){
+        toastCheck("Guardado correctamente");
+        modal.toggle();
+        //listarHistoriaClinicaTodos();
+      }
+    })
+  }
+  registrarHistoria.addEventListener("click", () => {
+    mostrarPregunta("REGISTRAR", "¿Está seguro de guardar?").then((result) => {
+      if(result.isConfirmed){
+        registrarHitoria();
+      
+        
+      }
+    });  
+  });
+
+  // function buscarPaciente(){
+  //   const parametros = new URLSearchParams();
+  //   parametros.append("operacion", "getData");
+  //   parametros.append("numeroDocumento", dni.value);
+  //   fetch("../controllers/persona.php", {
+  //     method : "POST",
+  //     body: parametros
+  //   })
+  //   .then(response => response.json())
+  //   .then(datos => {
+  //     console.log(datos);
+  //     if(datos.length>0){
+  //       datos.forEach(element => {
+  //         idPersona = element.idPersona;
+  //         dni.value = dni.value;
+  //         nombreCompleto.value = element.ApellidosNombres;
+          
+  //       });
+  //     }else{
+  //       toast("No se encontro registro de Paciente");
+  //     }
+  //   })
+  // }
+  function listarAlergias(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "listar");
+    fetch("../controllers/alergia.php", {
       method : "POST",
       body: parametros
     })
     .then(response => response.json())
     .then(datos => {
       console.log(datos);
-      if(datos.length>0){
-        datos.forEach(element => {
-          idPersona = element.idPersona;
-          dni.value = dni.value;
-          nombreCompleto.value = element.ApellidosNombres;
-          
-        });
-      }else{
-        toast("No se encontro registro de Paciente");
-      }
+      alergia.innerHTML = "<option value=''>Seleccione</option>";
+
+      datos.forEach(element => {
+        const optionTag = document.createElement("option");
+        optionTag.value = element.idAlergia;
+        optionTag.text = element.alergia
+        alergia.appendChild(optionTag);
+      })
     })
   }
+  listarAlergias();
+  function agregarAlergiaTabla (){
+    if(alergia.value > 0){
+      const alergiaSeleccionada = alergia.options[alergias.selectedIndex];
+      
+      if(alergiaSeleccionada.value != ""){
+        let alergiaRepetida = false;
+        const filas  = tablaAlergias.rows;
+
+        for(let i=1; i < filas.length; i++){
+          const alergiaCelda = filas[i].cells[1].innerText;
+          console.log(alergiaCelda);
+          if(alergiaCelda === alergiaSeleccionada.text){
+            alergiaRepetida = true;
+            break;
+          }          
+        } 
+        if(!alergiaRepetida){
+            let filanueva =            
+            `
+            <tr>
+              <td>${alergiaSeleccionada.value}</td>
+              <td>${alergiaSeleccionada.text}</td>
+              <td>
+                <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+              </td>
+            </tr>
+            `;
+            tablaAlergias.innerHTML += filanueva;
+            alergia.value = 0;
+            listarAlergias();
+        }
+        else{
+          toast("No se puede repetir las alergias");
+        }
+      }
+    }
+  }
+  tablaAlergias.addEventListener("click", (e) => {
+    if(e.target.closest(".eliminar")){
+      const row = e.target.closest("tr");
+      row.remove();
+
+    }
+  });
+  agregarAlergia.addEventListener("click", () => {    
+    agregarAlergiaTabla();
+  })
+
 
   dni.addEventListener("keypress", (evt) => {
     if(evt.charCode == 13){
