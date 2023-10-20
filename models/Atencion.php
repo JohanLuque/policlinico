@@ -79,4 +79,13 @@ class Atencion extends Conexion{
       die($e->getMessage());
     }
   } 
+  public function listarEspera(){
+    try{
+      $query = $this->connection->prepare("CALL spu_atenciones_listar_espera()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
