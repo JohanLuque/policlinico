@@ -199,8 +199,53 @@
                                     <label for="" id="monto"></label>
                                 </div>
                             </div>  
-                            <textarea type="text" id="descripcion" class="form-control form-control-sm" cols="10" rows="5" placeholder="Motivo de devolucion"></textarea>
-
+                            <div class="row g-2 mb-3">
+                                <label class="fw-bolder" for="">Motivo de devolución</label>
+                                <select name="" class="form-select form-select-sm" id="motivoDevolucion">
+                                    <option value="">Seleccione</option>
+                                    <option value="Emergencia">Emergencia</option>
+                                    <option value="Urgencia">Urgencia</option>
+                                    <option value="Demora en atención">Demora en atención</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+                            <div class="row g-2 mb-3" id="otroMotivoDevolucion" style="display: none;">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control form-control-sm" id="otroMotivo" placeholder="Especificar otro motivo" maxlength="400">
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="">Método de devolución:</label>
+                                </div>
+                                <div class="col-md-4">
+                                    
+                                    <select name="" class="form-select form-select-sm" id="devMetodosPago"></select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control form-control-sm bg-light" placeholder="0" id="montoIngresado" >
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-sm" id="devAgregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <table id="devDetallepagos" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>método</th>
+                                        <th>Cantidad</th>
+                                        <th></th>
+                                      </tr>
+                                </thead>
+                                <tbody id="devcuerpoPagos">
+                                    <!-- traer datos  -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -244,8 +289,13 @@ const devNroDocumento = document.querySelector("#nroDocumento");
 const devEspecialidad = document.querySelector("#detEspecialidad");
 const devMonto = document.querySelector("#monto");
 const devGuardar = document.querySelector("#devGuardar");
-const descripcion =document.querySelector("#descripcion");
-
+const motivoDevolucion = document.querySelector("#motivoDevolucion");
+const otroMotivoDevolucion = document.querySelector("#otroMotivoDevolucion");
+const otroMotivo = document.querySelector("#otroMotivo");
+const devMetodoPago = document.querySelector("#devMetodosPago");
+const devDetallepagos = document.querySelector("#devDetallepagos");
+const devbtAgregarPago = document.querySelector("#devAgregarPago");
+const devMontoIngresado = document.querySelector("#montoIngresado");
 let idatencion;
 function listarCards(){
     const parametros = new URLSearchParams();
@@ -299,7 +349,9 @@ function listarCards(){
                         </div>
                     </div>
                 </div>
-            </div>            
+
+            </div> 
+        
             `;
             cardresumen.innerHTML += nuevoCard;
         })
@@ -340,7 +392,7 @@ cardresumen.addEventListener("click", (event) => {
         parametros.append("operacion", "traerDatosDevolucion");
         parametros.append("idAtencion", idatencion);
 
-        fetch("../controllers/pago.php",{
+        fetch("../controllers/devolucion.php",{
             method: 'POST',
             body: parametros
         })
@@ -365,11 +417,12 @@ function calcularTotalResumen() {
 
     for (let i = 1; i < tablaFilas.length; i++) {
 
-    const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
-    //console.log(precioCelda);
-    total += precioCelda;   
-    }
 
+        const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
+        //console.log(precioCelda);
+        total += precioCelda;   
+    }
+    
     totalResumen.value = total.toFixed(2);
     totalRestante.value = total;
 }
@@ -404,7 +457,11 @@ function agregarPagoTabla(){
             
             for(let i=1; i< filaMedios.length; i++){
                 const medioCelda = filaMedios[i].cells[1].innerText;
-                const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);              
+
+                const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);
+            
+
+               
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
                     totaltablapagos  +=  precioCelda;                
@@ -442,7 +499,7 @@ function agregarPagoTabla(){
                 
             }
         }
-     }else{
+    }else{
         toast("Monto inválido");
         totalMedioPago.value = 0;
     }  
@@ -457,7 +514,10 @@ detallepagos.addEventListener("click", (e) => {
     }
 });
 
-//calcularRestante();
+
+
+calcularRestante();
+
 
 function registrarPagos(){
     const filaspagos = detallepagos.rows;
@@ -520,7 +580,7 @@ function cambiarEstadoPago(){
         toastCheck("estado cambiado");  
         
         listarCards();    
-  })
+})
 }
 
 function pagar(){
@@ -529,7 +589,7 @@ function pagar(){
     paramettro.append("idatencion", idatencion);
 }
 
-function listarMetodosPago(){
+function listarMetodosPago(select){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "listar");
     fetch("../controllers/mediosPago.php",{
@@ -538,32 +598,75 @@ function listarMetodosPago(){
     })
     .then(response => response.json())
     .then(datos => {
-        metodosPago.innerHTML = "<option value=''>Seleccione</option>";
+        select.innerHTML = "<option value=''>Seleccione</option>";
         datos.forEach(element => {
         const optionTag = document.createElement("option");
         optionTag.value = element.idMedioPago;
         optionTag.text = element.nombrePago;
-        metodosPago.appendChild(optionTag);
+        select.appendChild(optionTag);
     });
-  })
+})
 }
 
-function GuardarDevolucion(){
-    const parametros = new URLSearchParams();
-    parametros.append("operacion", "registrarDevolucion");
-    parametros.append("idAtencion", idatencion);
-    parametros.append("descripcion", descripcion.value);
-    fetch("../controllers/pago.php",{
-        method: "POST",
-        body: parametros
-    })
-    .then(response => response.json())
-    .then(datos=>{
+function agregarMontoDevolucion() {
+    const medioSeleccionado = devMetodoPago.options[devMetodoPago.selectedIndex];
+    const montoIngresado = devMontoIngresado.value;
+
+    const detallesDevoluciones = devDetallepagos.rows;
+    let metodoRepetido = false;
+    detallesDevoluciones.forEach(fila => {
+        const metodoExistente = fila.cells[0].innerText;
+        if (metodoExistente === medioSeleccionado.value) {
+            metodoRepetido = true;
+            toast("No puede repetir dos métodos de pago");
+            return;
+        }
+    });
+
+    if (!metodoRepetido) {
+        let nuevaFila = `
+            <tr>
+                <td>${medioSeleccionado.value}</td>
+                <td>${medioSeleccionado.text}</td>
+                <td>${montoIngresado}</td>
+                <td>
+                    <a class="eliminar btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>  
+        `;
+        devDetallepagos.innerHTML += nuevaFila;
+        devMontoIngresado.value = null;
+    }
+}
+
+function GuardarDevolucion() {
+    let motivoSeleccionado = motivoDevolucion.value;
+    const filas = devDetallepagos.rows;
+    const promesas = [];
+    const motivo = motivoSeleccionado === "Otros" ? otroMotivo.value : motivoSeleccionado;
+    filas.forEach(fila => {
         
-    })
+            const idmediopago = parseInt(fila.cells[0].innerText);
+            const monto = parseFloat(fila.cells[2].innerText);
+
+            const parametros = new URLSearchParams();
+            parametros.append("operacion", "registrarDevolucion");
+            parametros.append("motivoDevolucion", motivo);
+            parametros.append("montoDevolucion", monto);
+            parametros.append("idAtencion", idatencion);
+            parametros.append("idMedioPago", idmediopago);
+
+            const fecthPromesa = fetch("../controllers/devolucion.php", {
+                method: "POST",
+                body: parametros
+            });
+            promesas.push(fecthPromesa);
+        
+});
 }
 
-listarMetodosPago();
+listarMetodosPago(metodosPago);
+listarMetodosPago(devMetodoPago);
 listarCards();
 agregarPago.addEventListener("click", () => {
     if(metodosPago.value > 0 ){
@@ -575,15 +678,33 @@ agregarPago.addEventListener("click", () => {
 
 guardarPago.addEventListener("click", () => {
     mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-      if(result.isConfirmed){
+    if(result.isConfirmed){
         registrarPagos();
         cambiarEstadoPago();
         modal.toggle();
         
-      }
-      listarCards();
+    }
+    listarCards();
     })
 });
 
+devbtAgregarPago.addEventListener("click", () => {
+    if(devMetodoPago.value > 0 ){
+        agregarMontoDevolucion();
+    }else{
+        toast("Seleccion un metodo de pago");
+    }
+});
+
 devGuardar.addEventListener("click", GuardarDevolucion);
+motivoDevolucion.addEventListener("change", function () {
+    const selectedValue = motivoDevolucion.value;
+    if (selectedValue === "Otros") {
+        otroMotivoDevolucion.style.display = "block";
+        console.log("si")
+    } else {
+        otroMotivoDevolucion.style.display = "none";
+        console.log("no")
+    }
+});
 </script>

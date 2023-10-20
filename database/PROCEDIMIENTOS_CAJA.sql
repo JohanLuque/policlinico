@@ -25,20 +25,6 @@ BEGIN
 		WHERE idAtencion = _idatencion;
 END $$
 
--- REGISTAR GASTOS
-DELIMITER $$
-CREATE PROCEDURE spu_caja_registrar_gastos
-(
-IN _montoGasto		DECIMAL(6,2),
-IN _descripcionGasto	VARCHAR(200),
-IN _idPersona		INT, 
-IN _idMedioPago 	INT
-)
-BEGIN
-	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago) VALUES
-	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago);
-END $$
-
 -- LISTAR METODOS DE PAGO
 DELIMITER $$ 
 CREATE PROCEDURE spu_caja_listar_metodos_pago()
@@ -81,7 +67,6 @@ BEGIN
 	WHERE detalle_servicios.idAtencion = _idatencion;
 END $$
 
-
 -- LISTAR GASTOS
 DELIMITER $$
 CREATE PROCEDURE spu_caja_listar_gastos()
@@ -95,21 +80,33 @@ BEGIN
 	WHERE DATE(fechaHoraGasto) = CURDATE();
 END $$
 
+-- REGISTAR GASTOS
+DELIMITER $$
+CREATE PROCEDURE spu_caja_registrar_gastos
+(
+IN _montoGasto		DECIMAL(6,2),
+IN _descripcionGasto	VARCHAR(200),
+IN _idPersona		INT, 
+IN _idMedioPago 	INT
+)
+BEGIN
+	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago) VALUES
+	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago);
+END $$
+
 -- REGISTRAR DEVOLUCION
 DELIMITER $$ 
 CREATE PROCEDURE spu_caja_registrar_devolucion
 (
-IN _idAtencion INT,
-IN _descripcion VARCHAR(200)
+IN _motivoDevolucion		VARCHAR(400),
+IN _montoDevolucion		DECIMAL(6,2),
+IN _idAtencion			INT,
+IN _idMedioPago 		INT
 )
 BEGIN 
-	UPDATE pagos SET
-		tipoMovimiento = 'D', -- DEVOLUCION
-		descripcionGasto = _descripcion,
-		fechaDevolucion = NOW()
-	WHERE idAtencion = _idAtencion;
+	INSERT INTO Devoluciones(motivoDevolucion, montoDevolucion, idAtencion, idMedioPago) VALUES
+	(_motivoDevolucion, _montoDevolucion, _idAtencion, _idMedioPago);
 END $$
-
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION
 DELIMITER $$
@@ -118,7 +115,10 @@ CREATE PROCEDURE spu_caja_obtener_datos_devolucion
 IN _idAtencion INT
 )
 BEGIN 
-	SELECT *
+	SELECT CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+		per.numeroDocumento,
+	       ser.nombreServicio AS 'Servicio',
+	       SUM(pag.monto) AS 'MontoTotal'
 	FROM Pagos pag
 	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
 	INNER JOIN Personas per ON ate.idPersona = per.idPersona
