@@ -172,7 +172,6 @@ CREATE TABLE Pagos
 (
 idPago						INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 monto							DECIMAL(6,2) 	NOT NULL,
-estado						CHAR(1)			NOT NULL DEFAULT '0',
 fechaHoraPago				DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
@@ -184,7 +183,7 @@ CREATE TABLE Devoluciones
 (
 idDevolucion				INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 montoDevolucion			DECIMAL(6,2) 	NOT NULL,
-estado						CHAR(1)			NOT NULL DEFAULT '0',
+motivoDevolucion		VARCHAR(400) NOT NULL,
 fechaHoraDevolucion		DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
