@@ -170,7 +170,7 @@ BEGIN
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()-- Filtrar por la fecha actual
 	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia DESC;
+	ORDER BY atenciones.`estado` ;
 END $$
 
 -- OBTENIENDO INFORMACIÓN POR ATENCIÓN 
@@ -195,4 +195,41 @@ BEGIN
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, PP.nombres,PP.numeroDocumento;
 END $$
 
+-- LISTA DE ESPERA PARA ATENCIONES
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_listar_espera()
+BEGIN 
+	SELECT
+		atenciones.idAtencion,
+		 atenciones.fechaCreacion AS Dia,
+		 PP.nombres,
+		 PP.apellidoPaterno,
+		 PP.apellidoMaterno,
+		 servicios.idServicio,
+		 servicios.nombreServicio,
+		 SUM(servicios_detalle.precio) AS Total,
+		 atenciones.estado
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
+	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
+	WHERE DATE(atenciones.fechaAtencion) = CURDATE()-- Filtrar por la fecha actual
+	GROUP BY Dia, atenciones.idAtencion
+	ORDER BY atenciones.idAtencion DESC;
+END $$
 
+-- EDITAR FECHA DE ATENCION
+DELIMITER$$
+CREATE PROCEDURE spu_atenciones_editar_fecha
+(
+ IN _fechaAtencion DATE,
+ IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones 
+	SET fechaAtencion = _fechaAtencion,
+	    fechaActualizacion = NOW()
+	WHERE idatencion = _idatencion;
+END$$

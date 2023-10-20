@@ -310,10 +310,8 @@ function listarCards(){
         //console.log(datos);
         cardresumen.innerHTML = ""; // Limpiar el contenido de la fila de tarjetas
         
-        for(let i = datos.length - 1; i >= 0; i--){
-            const element = datos[i];
+        datos.forEach(element =>{
             idatencion = element.idAtencion;
-
             console.log(idatencion);
             let color;
             if(element.estado == 0){
@@ -323,10 +321,10 @@ function listarCards(){
                 colorFondo = "bg-light-danger";
                 clase="pagar"
             }else{
-                color = "bg-primary";
+                color = "bg-info";
                 nombreBoton = "Devolución";
-                colorBoton = "btn-primary";
-                colorFondo = "bg-light-primary";
+                colorBoton = "btn-info";
+                colorFondo = "bg-light-info";
                 clase = "devolucion"
             }
 
@@ -351,11 +349,12 @@ function listarCards(){
                         </div>
                     </div>
                 </div>
+
             </div> 
         
             `;
             cardresumen.innerHTML += nuevoCard;
-        }
+        })
     })
     .catch(error => {
         alert("No se pudieron obtener los datos.");
@@ -418,6 +417,7 @@ function calcularTotalResumen() {
 
     for (let i = 1; i < tablaFilas.length; i++) {
 
+
         const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
         //console.log(precioCelda);
         total += precioCelda;   
@@ -457,8 +457,11 @@ function agregarPagoTabla(){
             
             for(let i=1; i< filaMedios.length; i++){
                 const medioCelda = filaMedios[i].cells[1].innerText;
+
                 const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);
             
+
+               
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
                     totaltablapagos  +=  precioCelda;                
@@ -512,7 +515,9 @@ detallepagos.addEventListener("click", (e) => {
 });
 
 
+
 calcularRestante();
+
 
 function registrarPagos(){
     const filaspagos = detallepagos.rows;

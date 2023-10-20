@@ -48,11 +48,11 @@
               <div class="col-md-1">                                  
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
+              <div class="col-md-2">                                  
+                <label class="form-control form-control-sm bg-light" id="mesesAños" ></label>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="mostrarFamiliar" type="button">Agregar Familiar</button>
+                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
               </div>
             </div>
             
@@ -328,6 +328,7 @@ const divOrden = document.querySelector("#ordenM");
 const mostrarOrden = document.querySelector("#ordenMedica");
 const divFamiliar = document.querySelector("#familiar");
 const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
+const añosMeses = document.querySelector("#mesesAños");
 
 // Pacientes
 const dniPersonas = document.querySelector("#DNI_personas");    
@@ -375,7 +376,7 @@ const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
 //limpiar
 const limpiar = document.querySelector("#limpiar");
-
+let fechaHoy;
 function obtenerFecha(){
   const fechaAhora = new Date();
   const año = fechaAhora.getFullYear();
@@ -384,7 +385,8 @@ function obtenerFecha(){
 
   const fechaTotal = `${año}-${mes}-${dia}`;
   fecha.value = fechaTotal;
-  console.log(fechaTotal);
+  fechaHoy = fechaTotal;
+  console.log(fecha.value);
 }
 obtenerFecha();
 
@@ -462,20 +464,17 @@ function validar(){
 
 function validarFecha(){
   const fechaActual = new Date();
-  console.log(fechaActual);
-  //const fechaIngresada = new Date(fecha.value);
-  console.log(fecha.value);
   const fechaQuince = new Date(fechaActual);
   fechaQuince.setDate(fechaQuince.getDate() + 15);
-   if(fecha.value < fechaActual){
+  if(fecha.value < fechaHoy){
       notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser menor a la fecha Actual", 3000);
   
-   }else if(fecha.value > fechaQuince){
+  }else if(fecha.value > fechaQuince){
     notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser mayor a dentro de 15 dias", 3000);
     
-   }else{
+  }else{
     registrarAtencion();
-   }
+  }
 }
 
 function registrarAtencion(){
@@ -758,7 +757,21 @@ function consultarPaciente(){
       datos.forEach(element => {
         idpersona = element.idPersona;
         nombrePaciente.value = element.ApellidosNombres;
-        edadPaciente.value = element.Edad;
+        if(element.Edad == 1){
+          edadPaciente.value = element.Edad ;
+          añosMeses.innerHTML = "Año";
+        }else if(element.Edad > 1){
+          edadPaciente.value = element.Edad ;
+          añosMeses.innerHTML = "Años";
+        }else if(element.Edad == 0){
+          if(element.meses == 1){
+            edadPaciente.value = element.meses;
+          añosMeses.innerHTML = "Mes";
+          }else{
+            edadPaciente.value = element.meses;
+          añosMeses.innerHTML = "Meses";
+          }
+        }
         generoPaciente = element.genero;
       });
     }else{

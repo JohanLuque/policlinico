@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h1 class="text-center">Lista de Atenciones - Admisión</h1>
+            <h1 class="text-center">Lista de Espera</h1>
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2" id="cardAtencion">         
@@ -70,24 +70,11 @@
                                             <label class="fw-bolder" for="">Fecha Atención:</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <label for="" id="fechaAtencion"></label>
+                                            <input type="date" class="form-control form-control-sm" id="fechaAtencion" >
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-3">
-                                        <div class="col-md-3">
-                                            <label class="" for="">Servicio:</label>
-                                        </div>
-                                        <div class="col-md-6">                                  
-                                            <select name="" id="listaServicios" class="form-select form-select-sm">
-                                              <option value="">Seleccione</option>
-                                            </select> 
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <table id="detallemodal" class="">
+                                        <table id="detallemodalEspera" class="">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -106,7 +93,7 @@
                                             <label class="fw-bolder" for="">Total:</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control form-control-sm bg-light" id="total" >
+                                            <input type="text" class="form-control form-control-sm bg-light" id="total" readonly>
                                         </div>
                                     </div>  
                                     
@@ -123,7 +110,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary "   id="md-guardar">Guardar</button>
+          <button type="button" class="btn btn-primary "   id="md-actualizar">Actualizar</button>
         </div>
       </div>
     </div>
@@ -133,12 +120,12 @@
 
 //MODAL
 const modalAtencion = new bootstrap.Modal(document.querySelector("#modalAtenciones"));
-const detalle = document.querySelector("#detallemodal");
+const detalle = document.querySelector("#detallemodalEspera");
 const cuerpomodal = document.querySelector("#cuerpomodal");
-const agregarServicio = document.querySelector("#agregarServicio");
+const totalTabla = document.querySelector("#total");
+const btActualizar = document.querySelector("#md-actualizar");
 //CARDS
 const cardAtencion = document.querySelector("#cardAtencion");
-const listaServicios = document.querySelector("#listaServicios");
 const nombrePaciente = document.querySelector("#nombreCompleto");
 const dniPaciente = document.querySelector("#dni");
 const edad = document.querySelector("#edad");
@@ -150,7 +137,7 @@ let idatencion;
 let genero= "";
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
-    parametros.append("operacion","listarAtenciones");
+    parametros.append("operacion","listarEspera");
 
     fetch("../controllers/atencion.php", {
       method: "POST",
@@ -167,16 +154,20 @@ function listarCardsAtencion(){
                 <div class="card">
                     <div class="card-content">
                         <div class="card-header bg-info"></div>
-                        <div class="card-body" style="text-align: center;">
+                        <div class="card-body bg-light-info" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <div class="servicio">${element.nombreServicio}</div>
                             <div class='mt-2 row g-2'>
-                                <div class='col-md-8'>
+                                <div class='col-md-6'>
+                                    <h6>${element.nombreServicio}</h6>
+                                </div>
+                                <div class='col-md-6'>
                                     <h6>S/${element.Total}</h6>
                                 </div>
-                                <div class="card col-md-4" id="">
-                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}'>ver</a>
-                                </div>
+                            </div>
+                            <div class"row mt-2 g-2">
+                                <button class='btn btn-info  m-1' type='button'>
+                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -195,7 +186,7 @@ function listarCardsAtencion(){
         idServicioModal = e.target.dataset.idservicio;
         console.log(idServicioModal);
         const parametros = new URLSearchParams();
-        parametros.append("operacion", "resumenAtencion");
+        parametros.append("operacion", "resumen");
         parametros.append("idatencion", idatencionmodal);
 
         fetch("../controllers/detalleServicio.php",{
@@ -207,14 +198,16 @@ function listarCardsAtencion(){
 
             datos.forEach(element => {
                 console.log(element);
-                nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
+                nombrePaciente.innerHTML= element.apellidoPaterno+" "+element.apellidoMaterno+ ", " +element.nombres;
                 dniPaciente.innerHTML = element.numeroDocumento;
                 edad.innerHTML = element.Edad;
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
-                fechaAtencion.innerHTML = element.fechaAtencion;
+                //const inputFecha = document.getElementById('inputFecha');
+                fechaAtencion.value = element.fechaAtencion;
+                //fechaAtencion.innerHTML = element.fechaAtencion;
                 detalleServicios(idatencionmodal);
-                listarServiciosFiltro(idServicioModal);
+                //listarServiciosFiltro(idServicioModal);
                 //totalMedioPago.value = 0;
             })
         })
@@ -223,29 +216,51 @@ function listarCardsAtencion(){
     }
   });
 
-  function listarServiciosFiltro(idServicioModal){
+function validarFecha(){
+    const fechaActual = new Date().toISOString().split('T')[0];
+    const fechaIngresada = fechaAtencion.value;
+    const fechaLimite = new Date();
+    fechaLimite.setDate(fechaLimite.getDate() + 15);
+    const fechaLimiteISO = fechaLimite.toISOString().split('T')[0];
+
+    if(fechaIngresada < fechaActual){
+        notificar("POLICLINICO SOLIDARIO CHINCHA", "No puedes registrar fechas anteriores al día actual", 3000);
+    }else if(fechaIngresada > fechaLimiteISO){
+    notificar("POLICLINICO SOLIDARIO CHINCHA", "No puedes registrar fechas que estén más de 15 días en el futuro.", 3000);
+    
+   }else{
+    editarFecha();
+   }
+}
+
+function editarFecha(){
     const parametros = new URLSearchParams();
-    parametros.append("operacion", "filtroServicios");
-    parametros.append("idServicio",idServicioModal);
-    fetch("../controllers/servicio.php",{
-      method : "POST",
-      body: parametros
+    parametros.append("operacion","editarFechaAtencion");
+    parametros.append("idatencion", idatencionmodal);
+    parametros.append("fechaAtencion", fechaAtencion.value);
+    fetch("../controllers/atencion.php",{
+        method: 'POST',
+        body: parametros
     })
     .then(response => response.json())
     .then(datos => {
-      listaServicios.innerHTML = "<option value=''>Seleccione</option>";
-      datos.forEach(element => {
-      const optionTag = document.createElement("option");
-      optionTag.value = element.idservicios_detalle;
-      optionTag.text = element.descripcion;
-      optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
-      optionTag.dataset.genero = element.genero;
-      listaServicios.appendChild(optionTag);
-      });
-      
+        console.log("prueba");
     })
-  }
+}
 
+  function calcularTotal(){
+    const filas = detalle.rows;
+    let montoTotal = 0;
+
+    for(let i =1; i < filas.length; i++){
+
+        const precioCeldas = parseFloat(filas[i].cells[2].innerText);
+        console.log(precioCeldas);
+        montoTotal += precioCeldas;
+    }
+    totalTabla.value = montoTotal.toFixed(2);
+    console.log(montoTotal.toFixed(2));
+}
 function detalleServicios(idatencionmodal){
     const parametros = new URLSearchParams();
     parametros.append("operacion","detalle");
@@ -266,67 +281,21 @@ function detalleServicios(idatencionmodal){
                     <td>${element.idservicios_detalle}</td>
                     <td>${element.descripcion}</td>
                     <td>${element.total}</td>
-                    <td><a class="eliminar btn btn-sm btn-primary">Eliminar</a></td>
                 </tr>
                 `;
             cuerpomodal.innerHTML += datos;
-            });
-            const btnEliminar = document.querySelectorAll('.eliminar');
-            btnEliminar.forEach(boton => {
-                //boton.addEventListener('click', eliminarFila);
-        });
+            })
+        calcularTotal();
     })
 }
-
-
-
-function añadirServicio(){
-    const servicioSelect = listaServicios.options[listaServicios.selectedIndex];
-    if(servicioSelect.value !== ""){
-        precio = parseFloat(servicioSelect.dataset.precio);
-
-        const filasTabla = detalle.rows;
-        let servicioRepetido = false;
-
-        for(let i = 1; i<filasTabla.length; i++){
-            const descripcion = filasTabla[i].cells[2].innerText;
-            if(descripcion === servicioSelect.text){
-                servicioRepetido = true;
-                break;
-            }
-        }
-        
-        if(!servicioRepetido){
-            let nuevaFila = `
-                <tr>
-                    <td>${listaServicios.value}</td>
-                    <td>${servicioSelect.text}</td>
-                    <td>${precio}</td>
-                    <td>
-                        <a class ="eliminar btn btn-sm btn-primary">Eliminar</a>
-                    </td>
-                </tr>
-            `;
-            detalle.innerHTML += nuevaFila;
-        }else{
-            toast("El servicio ya ha sido agregado a la tabla.");
-        }
-    }else{
-        console.log("hay problemas");
-    }
-}
-
-agregarServicio.addEventListener("click",()=>{
-    if(listaServicios.value>0){
-        añadirServicio();
-    }
-});
-detalle.addEventListener("click", (e)=> {
-    if(e.target.closest(".eliminar")){
-        const row = e.target.closest("tr");
-        row.remove();
-    }
-})
 listarCardsAtencion();
-
+btActualizar.addEventListener("click",()=>{
+    mostrarPregunta("ACTUALIZAR", "¿Está seguro de actualizar?").then((result) => {
+      if(result.isConfirmed){
+        validarFecha();
+        modalAtencion.toggle();
+      }
+      listarCardsAtencion();
+    })
+})
 </script>
