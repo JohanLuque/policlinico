@@ -119,4 +119,14 @@ class HistoriaClinica extends Conexion{
     return $respuesta;
   }
 
+  public function listarTriajeHistorias(){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_historia()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
 }

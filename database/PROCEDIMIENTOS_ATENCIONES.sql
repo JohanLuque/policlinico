@@ -63,7 +63,9 @@ BEGIN
 	SELECT `idPersona`, CONCAT(`apellidoPaterno`, 
 		' ', `apellidoMaterno`, 
 		', ' , nombres) AS 'ApellidosNombres',
-		YEAR(CURDATE()) - YEAR(`fechaNacimiento`) AS 'Edad', genero
+		YEAR(CURDATE())-YEAR(fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, fechaNacimiento, CURDATE()) AS 'meses', `genero`
 	FROM personas
 	WHERE `numeroDocumento` = _numeroDocumento;
 END $$
