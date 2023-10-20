@@ -38,5 +38,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $atencion->editarFechaAtencion($datos);
       echo json_encode($respuesta);
       break;
+    case 'listarEspera':
+      echo json_encode($atencion->listarEspera());
+      break;
   }
 }

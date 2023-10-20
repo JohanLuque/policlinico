@@ -137,7 +137,7 @@ let idatencion;
 let genero= "";
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
-    parametros.append("operacion","listarAtenciones");
+    parametros.append("operacion","listarEspera");
 
     fetch("../controllers/atencion.php", {
       method: "POST",
