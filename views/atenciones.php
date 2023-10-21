@@ -49,7 +49,7 @@
                 <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
               </div>
               <div class="col-md-2">                                  
-                <label class="form-control form-control-sm bg-light" id="mesesAños" ></label>
+                <input class="form-control form-control-sm bg-light" id="mesesAños" type="text" readonly></input>
               </div>
               <div class="col-md-2">
                 <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
@@ -86,8 +86,19 @@
               <div class="col-md-2">
                 <label for="">Parentesco:</label>          
               </div>
-              <div class="col-md-3">                                  
-                <input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>
+              <div class="col-md-3">
+                <select name="" id="parentescoFamilar" class="form-select form-select-sm">
+                  <option value="">Seleccione</option>
+                  <option value="Mamá">Mamá</option>
+                  <option value="Papá">Papá</option>
+                  <option value="Hermano/a">Hermano/a</option>
+                  <option value="Tio/a">Tio/a</option>
+                  <option value="Otro">Otro</option>
+                </select>                                 
+                <!--<input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>-->
+              </div>
+              <div class="col-md-3" id="divOtroFamiliar" style="display: none;">
+                <input type="text" class="form-control form-control-sm" id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
               </div>
             </div>
             </div>
@@ -340,6 +351,8 @@ let idpersona = 0;
 const dniFamiliar = document.querySelector("#DNI_familiar");
 const nombreFamiliar = document.querySelector("#nombreFamiliar");
 const parentesco = document.querySelector("#parentescoFamilar");
+const divOtroFamiliar = document.querySelector("#divOtroFamiliar");
+const otroFamiliar = document.querySelector("#otroFamiliar");
 let idfamiliar = 0;
 
 //Orden Doctor
@@ -369,7 +382,7 @@ const fechanacimiento = document.querySelector("#fechaNacimiento");
 const telefono = document.querySelector("#telefono");
 const buscar = document.querySelector("#buscar");
 const guardarRegistro = document.querySelector("#md-guardar");
-
+const formPaciente = document.querySelector("#form-paciente");
 //Guardar atención
 const fecha = document.querySelector("#FechaActual");
 const agregarAtencion = document.querySelector("#agregarAtencion");
@@ -431,6 +444,7 @@ function registrarPaciente(){
     if(datos.status){
       toastCheck("Guardado Correctamente");   
       modalRegistrarPersonas.toggle();
+      formPaciente.reset();
     }else{
       alert(datos.mensaje);
     }
@@ -452,7 +466,7 @@ function validar(){
     } else {
       mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
         if(result.isConfirmed){
-          validarFecha();        
+          validarFecha();  
         }
         else{
           console.log("validar fecha error");
@@ -478,13 +492,16 @@ function validarFecha(){
 }
 
 function registrarAtencion(){
+  let listaParentesco = parentesco.value;
+  const parentescoF = listaParentesco === "Otro" ? otroFamiliar.value : listaParentesco;
+
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
   parametros.append("turno", "T");
   parametros.append("idusuario", 1);
   parametros.append("idfamiliar", idfamiliar);
   parametros.append("idpersona", idpersona);
-  parametros.append("parentesco", parentesco.value);
+  parametros.append("parentesco", parentescoF);
   parametros.append("orden", listaOrdenDoctor.value);
   parametros.append("fechaAtencion", fecha.value); // arreglar
   fetch("../controllers/atencion.php", {
@@ -496,7 +513,8 @@ function registrarAtencion(){
       registrarServiciosDetalles();
       toastCheck("Guardado correctamente"); 
       form.reset();
-      limpiarTabla();    
+      limpiarTabla();
+      obtenerFecha();
   })
 }
 
@@ -542,6 +560,7 @@ function limpiarTodo(){
   limpiarSelect();
   limpiarTabla();
   form.reset();
+  obtenerFecha();
 }
 
 function limpiarSelect(){
@@ -557,7 +576,7 @@ function limpiarTabla() {
 
   calcularTotal(); 
 }
-
+// div orden doctor
 function listarEspecialidades(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "listarEspecialidades");
@@ -595,7 +614,7 @@ function listarEspecialistas(){
     });
   })
 }
-
+//Agregar servicios a la tabla
 function listarServicios(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "getData");
@@ -759,17 +778,17 @@ function consultarPaciente(){
         nombrePaciente.value = element.ApellidosNombres;
         if(element.Edad == 1){
           edadPaciente.value = element.Edad ;
-          añosMeses.innerHTML = "Año";
+          añosMeses.value = "Año";
         }else if(element.Edad > 1){
           edadPaciente.value = element.Edad ;
-          añosMeses.innerHTML = "Años";
+          añosMeses.value = "Años";
         }else if(element.Edad == 0){
           if(element.meses == 1){
             edadPaciente.value = element.meses;
-          añosMeses.innerHTML = "Mes";
+          añosMeses.value = "Mes";
           }else{
             edadPaciente.value = element.meses;
-          añosMeses.innerHTML = "Meses";
+          añosMeses.value = "Meses";
           }
         }
         generoPaciente = element.genero;
@@ -877,6 +896,14 @@ tabla_servicios.addEventListener("click", (e)=>{
       }
 });
 
+parentesco.addEventListener("change", function(){
+  const valorSeleccionado = parentesco.value;
+  if(valorSeleccionado ==="Otro"){
+    divOtroFamiliar.style.display = "block";
+  } else{
+    divOtroFamiliar.style.display ="none";
+  }
+});
 listarEspecialistas();
 listarServicios();
 calcularTotal();
