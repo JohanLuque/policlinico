@@ -210,7 +210,8 @@ BEGIN
 		 servicios.idServicio,
 		 servicios.nombreServicio,
 		 SUM(servicios_detalle.precio) AS Total,
-		 atenciones.estado
+		 atenciones.estado,
+		 atenciones.numeroAtencion
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle

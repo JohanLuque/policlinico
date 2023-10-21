@@ -1,7 +1,14 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h1 class="text-center">Lista de Espera</h1>
+            <div class="row">
+                <div class="col-md-9">
+                    <h1 class="text-center">Lista de Espera</h1>
+                </div>
+                <div class="col-md-3">
+                    <h2  id="fechaHoy"></h2>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2" id="cardAtencion">         
@@ -74,8 +81,8 @@
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-3">
-                                        <table id="detallemodalEspera" class="">
-                                            <thead>
+                                        <table class="table-sm" id="detallemodalEspera" class="">
+                                            <thead class="table bg-light-info">
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Servicio</th>
@@ -132,9 +139,25 @@ const edad = document.querySelector("#edad");
 const telefono = document.querySelector("#telefono");
 const especialidad = document.querySelector("#especialidad");
 const fechaAtencion = document.querySelector("#fechaAtencion");
+const fecha = document.querySelector("#fechaHoy");
 let precio = 0;
 let idatencion;
 let genero= "";
+
+let fechaHoy;
+function obtenerFecha(){
+  const fechaAhora = new Date();
+  const año = fechaAhora.getFullYear();
+  const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
+  const dia = fechaAhora.getDate().toString().padStart(2, "0");
+
+  const fechaTotal = `${año}-${mes}-${dia}`;
+  fecha.innerHTML = fechaTotal;
+  fechaHoy = fechaTotal;
+  //console.log(fecha.innerHTML);
+}
+obtenerFecha();
+
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
     parametros.append("operacion","listarEspera");
@@ -153,15 +176,12 @@ function listarCardsAtencion(){
         <div class="col-md-3" >
                 <div class="card">
                     <div class="card-content">
-                        <div class="card-header bg-info"></div>
+                        <div class="card-header bg-info text-white text-center">${element.numeroAtencion}</div>
                         <div class="card-body bg-light-info" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
                             <div class='mt-2 row g-2'>
-                                <div class='col-md-6'>
+                                <div class='col-md-12'>
                                     <h6>${element.nombreServicio}</h6>
-                                </div>
-                                <div class='col-md-6'>
-                                    <h6>S/${element.Total}</h6>
                                 </div>
                             </div>
                             <div class"row mt-2 g-2">
@@ -200,15 +220,21 @@ function listarCardsAtencion(){
                 console.log(element);
                 nombrePaciente.innerHTML= element.apellidoPaterno+" "+element.apellidoMaterno+ ", " +element.nombres;
                 dniPaciente.innerHTML = element.numeroDocumento;
-                edad.innerHTML = element.Edad;
+                if(element.Edad == 1){
+                    edad.innerHTML = `${element.Edad}  Año`;
+                }else if(element.Edad > 1){
+                    edad.innerHTML = `${element.Edad}  Años`;
+                }else if(element.Edad == 0){
+                    if(element.meses == 1){
+                        edad.innerHTML = `${element.Edad}  Mes`;
+                    }else{
+                        edad.innerHTML = `${element.Edad}  Meses`;
+                    }
+                }                
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
-                //const inputFecha = document.getElementById('inputFecha');
-                fechaAtencion.value = element.fechaAtencion;
-                //fechaAtencion.innerHTML = element.fechaAtencion;
+                fechaAtencion.value = element.fechaAtencion;;
                 detalleServicios(idatencionmodal);
-                //listarServiciosFiltro(idServicioModal);
-                //totalMedioPago.value = 0;
             })
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
