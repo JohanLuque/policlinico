@@ -49,6 +49,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <label for="" id="edad"></label>
+                                            <label class="bg-light" id="mesesAños" ></label>
                                         </div>
                                     </div>  
                                     <div class="row g-2 mb-3">
@@ -232,6 +233,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-2">
+                            <div class="col-md-4">
+                                <label for="">Restante:</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm bg-light" readonly  id="restante" >
+                            </div>
+                        </div>
                         <div class="row g-2 mb-3">
                             <table id="devDetallepagos" class="table">
                                 <thead>
@@ -283,6 +292,7 @@ const especialidad = document.querySelector("#especialidad");
 const fechaAtencion = document.querySelector("#fechaAtencion");
 const totalResumen = document.querySelector("#total");
 const metodosPago = document.querySelector("#metodosPago");
+const añosMeses= document.querySelector("#mesesAños");
 //modal devolucion
 const devPaciente = document.querySelector("#paciente");
 const devNroDocumento = document.querySelector("#nroDocumento");
@@ -296,6 +306,7 @@ const devMetodoPago = document.querySelector("#devMetodosPago");
 const devDetallepagos = document.querySelector("#devDetallepagos");
 const devbtAgregarPago = document.querySelector("#devAgregarPago");
 const devMontoIngresado = document.querySelector("#montoIngresado");
+const devTotalRestante = document.querySelector("#restante");
 let idatencion;
 function listarCards(){
     const parametros = new URLSearchParams();
@@ -360,7 +371,6 @@ function listarCards(){
         alert("No se pudieron obtener los datos.");
     });
 }
-
 cardresumen.addEventListener("click", (event) => {
     idatencion = parseInt(event.target.dataset.idatencion);
     if (event.target.classList[0] == 'pagar') {
@@ -378,7 +388,22 @@ cardresumen.addEventListener("click", (event) => {
                 console.log(element.nombres);
                 nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
                 dniPaciente.innerHTML = element.numeroDocumento;
-                edad.innerHTML = element.Edad;
+                //edad.innerHTML = element.Edad;
+                if(element.Edad == 1){
+                    edad.innerHTML = element.Edad ;
+                    añosMeses.innerHTML = "Año";
+                }else if(element.Edad > 1){
+                    edad.innerHTML = element.Edad ;
+                    añosMeses.innerHTML = "Años";
+                }else if(element.Edad == 0){
+                if(element.meses == 1){
+                    edad.innerHTML = element.meses;
+                    añosMeses.innerHTML = "Mes";
+                }else{
+                    edad.innerHTML = element.meses;
+                    añosMeses.innerHTML = "Meses";
+                }
+                }
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
                 fechaAtencion.innerHTML = element.fechaAtencion;
@@ -403,7 +428,7 @@ cardresumen.addEventListener("click", (event) => {
                 devPaciente.innerHTML = element.Paciente;
                 devNroDocumento.innerHTML = element.numeroDocumento;
                 devEspecialidad.innerHTML = element.Servicio;
-                devMonto.innerHTML = element.MontoTotal;
+                devTotalRestante.innerHTML = element.MontoTotal;
             })
         })
         modalDevolucion.toggle();
@@ -426,6 +451,19 @@ function calcularTotalResumen() {
     totalResumen.value = total.toFixed(2);
     totalRestante.value = total;
 }
+// Suma del total a devolver en la devolucion
+function calcularTotalDevolucion() {
+    const tablaFilas = devDetallepagos.rows;
+    let totalDevolver = 0;
+    for (let i = 1; i < tablaFilas.length; i++) {
+    const cantidadCelda = parseFloat(tablaFilas[i].cells[2].innerText);
+    console.log(cantidadCelda)
+    totalDevolver += cantidadCelda;   
+    }
+    devTotalRestante.value = total.toFixed(2);
+    devTotalRestante.value = 0;
+}
+
 
 function calcularRestante(){
     const filaPagos = detallepagos.rows;
@@ -444,6 +482,8 @@ function calcularRestante(){
     totalRestante.value = restante;
     //console.log(totalRestante.value);
 }
+
+
 function agregarPagoTabla(){
     const montoIngresado = parseFloat(totalMedioPago.value);
     const restante = parseFloat(totalRestante.value);
@@ -461,7 +501,7 @@ function agregarPagoTabla(){
                 const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);
             
 
-               
+            
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
                     totaltablapagos  +=  precioCelda;                
@@ -510,14 +550,35 @@ detallepagos.addEventListener("click", (e) => {
     if(e.target.closest(".eliminar")){
         const row = e.target.closest("tr");
         row.remove();
-        //calcularRestante();
+        calcularRestante();
     }
 });
 
-
-
 calcularRestante();
+function validarPagos(){
+    if(parseFloat(totalRestante.value)===0){
+        mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+        if(result.isConfirmed){
+            registrarPagos();
+            cambiarEstadoPago();
+            modal.toggle();
+            
+        }
+        listarCards();
+        })
+    }else{
+        notificar("POLICLINICO SOLIDARIO", "la cantidad total no coincide con el monto del pago", 2)
+    }
+}
+function limpiarPagos(){
+    totalMedioPago.value = 0;
+    totalRestante.value = 0; 
+    const filas = detallepagos.rows;
 
+    for (let i = filas.length - 1; i > 0; i--) {
+        detallepagos.deleteRow(i);
+    }
+}
 
 function registrarPagos(){
     const filaspagos = detallepagos.rows;
@@ -537,7 +598,7 @@ function registrarPagos(){
         });
         promesas.push(fetchPromesa);
     }
-
+    limpiarPagos();
 }
 
 function tablaDetalle(idatencion){
@@ -676,17 +737,7 @@ agregarPago.addEventListener("click", () => {
     }
 });
 
-guardarPago.addEventListener("click", () => {
-    mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-    if(result.isConfirmed){
-        registrarPagos();
-        cambiarEstadoPago();
-        modal.toggle();
-        
-    }
-    listarCards();
-    })
-});
+guardarPago.addEventListener("click",validarPagos);
 
 devbtAgregarPago.addEventListener("click", () => {
     if(devMetodoPago.value > 0 ){
@@ -701,10 +752,8 @@ motivoDevolucion.addEventListener("change", function () {
     const selectedValue = motivoDevolucion.value;
     if (selectedValue === "Otros") {
         otroMotivoDevolucion.style.display = "block";
-        console.log("si")
     } else {
         otroMotivoDevolucion.style.display = "none";
-        console.log("no")
     }
 });
 </script>

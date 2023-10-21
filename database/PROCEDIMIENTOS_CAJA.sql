@@ -39,7 +39,10 @@ CREATE PROCEDURE spu_caja_detalle_pagos( IN _idatencion INT)
 BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
 	personas.nombres,personas.apellidoMaterno, personas.apellidoPaterno,
-	personas.numeroDocumento,YEAR(CURDATE()) - YEAR(personas.fechaNacimiento) AS 'Edad',
+	personas.numeroDocumento,
+		YEAR(CURDATE())-YEAR(fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, fechaNacimiento, CURDATE()) AS 'meses',
 	personas.telefono, atenciones.fechaAtencion
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
@@ -48,7 +51,7 @@ BEGIN
 	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
 	-- INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE Detalle_Servicios.idAtencion = _idatencion
+	WHERE Detalle_Servicios.idAtencion = 8
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
 END $$
 
