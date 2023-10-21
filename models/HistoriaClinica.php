@@ -79,7 +79,15 @@ class HistoriaClinica extends Conexion{
       die($e->getCode());
     }
   }
-  
+  public function obtenerDatosTriaje($idAtencion=0){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_obtenerDatos(?)");
+      $query->execute(array($idAtencion));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
   public function updatDoctorTriajeEnfermedad($data =[]){
     $respuesta = [
       "status" => false,

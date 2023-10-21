@@ -149,20 +149,20 @@ CONSTRAINT fk_idServicios_detalle_dpr FOREIGN KEY Detalle_Servicios (idservicios
 CREATE TABLE Detalle_Atenciones
 (
 idDetalleAtenciones 		INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-peso							DECIMAL(5,2) 	NOT NULL,
-talla							INT 				NOT NULL,
-frecuenciaCardiaca		VARCHAR(5) 		NOT NULL,
-frecuenciaRespiratoria	VARCHAR(5) 		NOT NULL,
+peso				DECIMAL(5,2) 	NOT NULL,
+talla				DECIMAL(4,2)	NOT NULL,
+frecuenciaCardiaca		VARCHAR(5)	NOT NULL,
+frecuenciaRespiratoria		VARCHAR(5) 	NOT NULL,
 presionArterial			VARCHAR(10) 	NOT NULL,
-temperatura					DECIMAL(4,2) 	NOT NULL,
-saturacionOxigeno			TINYINT 			NOT NULL,
-examemGeneral 				VARCHAR(2000) 	NULL,
-frecuencia					CHAR(1) 			NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
-fechaCreacion 				DATETIME			NOT NULL DEFAULT NOW(),
-fechaActualizacion		DATETIME			NULL,
-idHistoria					INT 				NOT NULL,
-idAtencion					INT 				NOT NULL,
-idUsuario					INT 				NOT NULL,
+temperatura			DECIMAL(4,2) 	NOT NULL,
+saturacionOxigeno		TINYINT 	NOT NULL,
+examemGeneral 			VARCHAR(2000) 	NULL,
+frecuencia			CHAR(1) 	NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
+fechaCreacion 			DATETIME	NOT NULL DEFAULT NOW(),
+fechaActualizacion		DATETIME	NULL,
+idHistoria			INT 		NOT NULL,
+idAtencion			INT 		NOT NULL,
+idUsuario			INT 		NOT NULL,
 CONSTRAINT fk_idHistoria_das FOREIGN KEY Detalle_Atenciones (idHistoria) REFERENCES Historias_Clinicas (idHistoriaClinica), 
 CONSTRAINT fk_idAtencion_das FOREIGN KEY Detalle_Atenciones (idAtencion) REFERENCES Atenciones (idAtencion), 
 CONSTRAINT fk_idusuario_das FOREIGN KEY Detalle_Atenciones (idUsuario) REFERENCES Usuarios (idUsuario)
@@ -172,6 +172,7 @@ CREATE TABLE Pagos
 (
 idPago						INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 monto							DECIMAL(6,2) 	NOT NULL,
+estado						CHAR(1)			NOT NULL DEFAULT '0',
 fechaHoraPago				DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
@@ -183,7 +184,7 @@ CREATE TABLE Devoluciones
 (
 idDevolucion				INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 montoDevolucion			DECIMAL(6,2) 	NOT NULL,
-motivoDevolucion		VARCHAR(400) NOT NULL,
+estado						CHAR(1)			NOT NULL DEFAULT '0',
 fechaHoraDevolucion		DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
