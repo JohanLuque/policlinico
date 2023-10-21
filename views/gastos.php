@@ -1,5 +1,5 @@
 <div class="row mt-2 mb-3">                
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="card">
             <form id="form-gastos" class="needs-validation">
                 <div class="card-header">
@@ -61,11 +61,11 @@
             </form>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <h2>Lista de gastos por dia</h2>
         <div class="row mt-5">
             <div class="col-md-12 mb-2">
-                <table class="table table-sm " id="tabla-lista-gastos">
+                <table class=" table table-sm" id="tabla-lista-gastos">
                 <colgroup>
                     <col width="10%"> <!-- # -->
                     <col width="40%"> <!-- descripcion-->
@@ -74,14 +74,14 @@
                     <col width="10%"> <!-- persona-->
                     <col width="10%"> <!-- medio gasto-->
                 </colgroup>
-                <thead class="thead-danger">
+                <thead class="table-danger">
                     <tr>
                     <th>#</th>
                     <th>Descripción</th>
                     <th>Monto</th>
                     <th>Fecha/Hora</th>
                     <th>Persona</th>
-                    <th>medio de gasto</th>
+                    <th>Medio P.</th>
                     </tr>
                 </thead>
                 <tbody>

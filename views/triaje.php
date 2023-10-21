@@ -80,12 +80,9 @@
                         <div class="col-md-2">
                           <input type="number" id="f-cardiaca1"class="form-control form-control-sm" required>         
                         </div>
-                        <div class="ms-3 col-md-1">
-                          <label> X </label>          
+                        <div class="ms-3 col-md-2">
+                          <label> X 1 min</label>          
                         </div>
-                        <div class="col-md-2">
-                          <input type="number" id="f-cardiaca2"class="form-control form-control-sm" required>         
-                        </div> 
                       </div>
                       <div class="row g-2 mb-3">
                         <div class="col-md-3">
@@ -94,12 +91,9 @@
                         <div class="col-md-2">
                           <input type="number" id="f-respiratoria1"class="form-control form-control-sm" required>         
                         </div> 
-                        <div class="ms-3 col-md-1">
-                          <label> X </label>          
+                        <div class="ms-3 col-md-2">
+                          <label> X 1 min</label>          
                         </div> 
-                        <div class="col-md-2">
-                          <input type="number" id="f-respiratoria2"class="form-control form-control-sm" required>         
-                        </div>
                       </div>
                       <div class="row mb-3 g-2">
                         <div class="col-md-3">
@@ -230,8 +224,8 @@
   }
   
   function registrarTriaje(){
-    const frecuenciaCardiaca =`${cardiaca1.value}x${cardiaca2.value}`;
-    const frecuenciaRespiratoria =`${respiratoria1.value}x${respiratoria2.value}`;
+    const frecuenciaCardiaca =`${cardiaca1.value}x1`;
+    const frecuenciaRespiratoria =`${respiratoria1.value}x1`;
     const presionArterial =`${presionArterial1.value}/${presionArterial2.value}`;
     console.log(frecuenciaRespiratoria);
     const parametros =new URLSearchParams();
