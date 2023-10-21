@@ -24,7 +24,7 @@
                 <label for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-              <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
+                <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
                 <div class="invalid-feedback">
                   Complete este campo para continuar
                 </div>       

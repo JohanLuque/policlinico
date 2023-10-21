@@ -21,9 +21,13 @@ class DetalleAtencion extends Conexion{
   } 
   
   public function create($data=[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
     try{
       $query = $this->connection->prepare("CALL spu_triaje_agregar_triaje(?,?,?,?,?,?,?,?,?,?)");
-      $query->execute(array(
+      $respuesta["status"] = $query->execute(array(
         $data['idatencion'],
         $data['idhistoria'],
         $data['peso'],
@@ -35,9 +39,10 @@ class DetalleAtencion extends Conexion{
         $data['saturacionOxigeno'],
         $data['idusuario']
       ));
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        //return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
-      die($e->getCode());
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
     }
+    return $respuesta;
   } 
 }
