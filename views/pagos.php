@@ -385,7 +385,7 @@ cardresumen.addEventListener("click", (event) => {
         .then(response => response.json())
         .then(datos => {
             datos.forEach(element => {
-                console.log(element.nombres);
+                console.log(datos);
                 nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
                 dniPaciente.innerHTML = element.numeroDocumento;
                 //edad.innerHTML = element.Edad;
@@ -424,16 +424,17 @@ cardresumen.addEventListener("click", (event) => {
         .then(response => response.json())
         .then(datos =>{
             datos.forEach(element => {
-                console.log(datos);
                 devPaciente.innerHTML = element.Paciente;
                 devNroDocumento.innerHTML = element.numeroDocumento;
                 devEspecialidad.innerHTML = element.Servicio;
-                devTotalRestante.innerHTML = element.MontoTotal;
+                devMonto.innerHTML = element.MontoTotal;
+                //devTotalRestante.value = devMonto.value;
             })
         })
         modalDevolucion.toggle();
     }
 });
+
 
 // suma del total a pagar en detalle atencion
 function calcularTotalResumen() {
