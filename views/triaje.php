@@ -249,6 +249,7 @@
     .then(datos =>{
       if(datos.status){
         toastCheck("Guardado correctamente");
+        listarTriaje();
       }else{
         toast("Error al guardar");
       }      
@@ -264,8 +265,45 @@
       registrarTriaje();
     }
   }
+  function validarInput(input) {
+    if (input.value < 0) {
+        input.value = 0;
+    }
+  }
   registrarDetalle.addEventListener("click", validar);
+  peso.addEventListener("input", function() {
+    validarInput(peso);
+  });
+  talla.addEventListener("input", function() {
+    validarInput(talla);
+  });
 
+  cardiaca1.addEventListener("input", function() {
+    validarInput(cardiaca1);
+  });
+
+  respiratoria1.addEventListener("input", function() {
+    validarInput(respiratoria1);
+  });
+
+  presionArterial1.addEventListener("input", function() {
+    validarInput(presionArterial1);
+  });
+
+  presionArterial2.addEventListener("input", function() {
+    validarInput(presionArterial2);
+  });
+
+  temperatura.addEventListener("input", function() {
+    validarInput(temperatura);
+  });
+
+  saturacionOxigeno.addEventListener("input", function() {
+    if(saturacionOxigeno.value>100){
+      saturacionOxigeno.value = 0;
+    }
+    validarInput(saturacionOxigeno);
+  });
   listarTriaje();
 
 
