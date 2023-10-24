@@ -460,6 +460,16 @@ function validar(){
       event.stopPropagation()
       form.classList.add('was-validated');
   }else{
+    if(edadPaciente.value <18){
+      if(!dniFamiliar.value){
+        toast("Por favor, ingrese el DNI del familiar");
+        return;
+      }
+      if(!parentesco.value || parentesco.value === "Seleccione"){
+        toast("Por favor, seleccione el parentesco del familiar.");
+        return;
+      }
+    }
     const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
     if (filasDatos.length < 1) {
       toast('Agregue al menos un servicio.');
