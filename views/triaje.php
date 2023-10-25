@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-6 d-flex align-items-strech">
+    <div class="col-lg-12 d-flex align-items-strech">
         <div class="card w-100">
             <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
@@ -29,115 +29,128 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 d-flex align-items-strech">
-        <div class="card w-100">
-            <div class="card-header bg-danger text-white text-center fs-5 fw-bolder">Registrar Triaje</div>
-            <div class="card-body">
-                <div>                    
-                    <form id="form-triaje" >
-                      <div class="mb-3 row g-2">
-                        <div class="col-md-3">
-                          <label class="form-label">N° Doc:</label>          
+</div>
+<!-- modal de registro de triaje -->
+<div class="modal fade" id="modalTriaje" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"> Registrar Triaje:</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row mt-2 mb-3">                
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                          <div>                    
+                            <form id="form-triaje" >
+                              <div class="mb-3 row g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label">N° Doc:</label>          
+                                </div>
+                                <div class="col-md-4">
+                                  <input type="text" id="dni_paciente"class="form-control form-control-sm bg-light" readonly>
+                                  <div class="invalid-feedback">
+                                    Seleccione paciente para realizar triaje
+                                  </div> 
+                                </div> 
+                              </div>
+                              <div class="mb-3 row g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label">Paciente:</label>          
+                                </div>
+                                <div class="col-md-8">
+                                  <input type="text" id="nombre_paciente" class="form-control form-control-sm bg-light" readonly>
+                                </div> 
+                              </div>
+                              <div class="mb-3 row g-2">                  
+                                <div class="col-md-3">
+                                    <label class="form-label">Peso:</label>          
+                                </div> 
+                                <div class="col-md-3">
+                                  <input type="number" step="any" id="triaje-peso"class="form-control form-control-sm" required>         
+                                </div>
+                              </div>
+                              <div class="mb-3 row g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label">Talla:</label>          
+                                </div> 
+                                <div class="col-md-3">
+                                  <input type="number" step="any" id="triaje-talla"class="form-control form-control-sm" required>         
+                                </div> 
+                              </div>
+                              <div class="row mb-3 g-2">
+                                <label class="fs-7" for="">FRECUENCIAS:</label>
+                              </div>
+                              <div class="mb-3 row g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label">Cardiaca:</label>          
+                                </div> 
+                                <div class="col-md-2">
+                                  <input type="number" id="f-cardiaca1"class="form-control form-control-sm" required>         
+                                </div>
+                                <div class="ms-3 col-md-2">
+                                  <label> X 1 min</label>          
+                                </div>
+                              </div>
+                              <div class="row g-2 mb-3">
+                                <div class="col-md-3">
+                                  <label class="form-label">Respiratoria:</label>          
+                                </div> 
+                                <div class="col-md-2">
+                                  <input type="number" id="f-respiratoria1"class="form-control form-control-sm" required>         
+                                </div> 
+                                <div class="ms-3 col-md-2">
+                                  <label> X 1 min</label>          
+                                </div> 
+                              </div>
+                              <div class="row mb-3 g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label">Presión Arterial:</label>          
+                                </div> 
+                                <div class="col-md-2">
+                                  <input type="number" id="presionArterial1"class="form-control form-control-sm" required>         
+                                </div> 
+                                <div class="ms-3 col-md-1">
+                                  <label> / </label>          
+                                </div> 
+                                <div class="col-md-2">
+                                  <input type="number" id="presionArterial2"class="form-control form-control-sm" required>         
+                                </div>
+                              </div>
+                              <div class="row mb-3 g-2">
+                                <div class="col-md-4">
+                                  <label class="form-label" for="">Temperatura(C°):</label>
+                                </div>
+                                <div class="col-md-2">
+                                  <input type="text" id="temperatura"class="form-control form-control-sm" required>
+                                </div>
+                              </div>
+                              <div class="row mb-3 g-2">
+                                <div class="col-md-3">
+                                  <label class="form-label" for="">Saturación Oxígeno:</label>
+                                </div>
+                                <div class="col-md-2">
+                                  <input type="text" id="saturacionOxigeno"class="form-control form-control-sm " required>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                        <div class="col-md-4">
-                          <input type="text" id="dni_paciente"class="form-control form-control-sm bg-light" readonly>
-                          <div class="invalid-feedback">
-                            Seleccione paciente para realizar triaje
-                          </div> 
-                        </div> 
-                      </div>
-                      <div class="mb-3 row g-2">
-                        <div class="col-md-3">
-                          <label class="form-label">Paciente:</label>          
-                        </div>
-                        <div class="col-md-8">
-                          <input type="text" id="nombre_paciente" class="form-control form-control-sm bg-light" readonly>
-                        </div> 
-                      </div>
-                      <div class="mb-3 row g-2">                  
-                        <div class="col-md-3">
-                            <label class="form-label">Peso:</label>          
-                        </div> 
-                        <div class="col-md-3">
-                          <input type="number" step="any" id="triaje-peso"class="form-control form-control-sm" required>         
-                        </div>
-                      </div>
-                      <div class="mb-3 row g-2">
-                        <div class="col-md-3">
-                          <label class="form-label">Talla:</label>          
-                        </div> 
-                        <div class="col-md-3">
-                          <input type="number" step="any" id="triaje-talla"class="form-control form-control-sm" required>         
-                        </div> 
-                      </div>
-                      <div class="row mb-3 g-2">
-                        <label class="fs-7" for="">FRECUENCIAS:</label>
-                      </div>
-                      <div class="mb-3 row g-2">
-                        <div class="col-md-3">
-                          <label class="form-label">Cardiaca:</label>          
-                        </div> 
-                        <div class="col-md-2">
-                          <input type="number" id="f-cardiaca1"class="form-control form-control-sm" required>         
-                        </div>
-                        <div class="ms-3 col-md-2">
-                          <label> X 1 min</label>          
-                        </div>
-                      </div>
-                      <div class="row g-2 mb-3">
-                        <div class="col-md-3">
-                          <label class="form-label">Respiratoria:</label>          
-                        </div> 
-                        <div class="col-md-2">
-                          <input type="number" id="f-respiratoria1"class="form-control form-control-sm" required>         
-                        </div> 
-                        <div class="ms-3 col-md-2">
-                          <label> X 1 min</label>          
-                        </div> 
-                      </div>
-                      <div class="row mb-3 g-2">
-                        <div class="col-md-3">
-                          <label class="form-label">Presión Arterial:</label>          
-                        </div> 
-                        <div class="col-md-2">
-                          <input type="number" id="presionArterial1"class="form-control form-control-sm" required>         
-                        </div> 
-                        <div class="ms-3 col-md-1">
-                          <label> / </label>          
-                        </div> 
-                        <div class="col-md-2">
-                          <input type="number" id="presionArterial2"class="form-control form-control-sm" required>         
-                        </div>
-                      </div>
-                      <div class="row mb-3 g-2">
-                        <div class="col-md-4">
-                          <label class="form-label" for="">Temperatura(C°):</label>
-                        </div>
-                        <div class="col-md-2">
-                          <input type="text" id="temperatura"class="form-control form-control-sm" required>
-                        </div>
-                      </div>
-                      <div class="row mb-3 g-2">
-                        <div class="col-md-3">
-                          <label class="form-label" for="">Saturación Oxígeno:</label>
-                        </div>
-                        <div class="col-md-2">
-                          <input type="text" id="saturacionOxigeno"class="form-control form-control-sm " required>
-                        </div>
-                      </div>
-                      <div class="row mb-3 g-2">
-                        <div class="d-grid">
-                          <button id="registrar-triaje" class="btn btn-danger  mt-1" type="button">Guardar</button>
-                        </div> 
-                      </div>
-                    </form>
-                </div>
+                    </div>
+                </div>           
             </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary "   id="registrar-triaje">Guardar</button>
+        </div>
+      </div>
     </div>
 </div>
 <script>
-
+  const modal = new bootstrap.Modal(document.querySelector("#modalTriaje"));
   const dniPaciente = document.querySelector("#dni_paciente");
   const nombrePaciente = document.querySelector("#nombre_paciente");
   const peso = document.querySelector("#triaje-peso");
@@ -201,7 +214,7 @@
       idhistoria = parseInt(event.target.dataset.idhistoria);
 
       obtenerDatos(idAtencion);
-      
+      modal.toggle();
     }
   });
   function obtenerDatos(idAtencion){
@@ -250,6 +263,8 @@
       if(datos.status){
         toastCheck("Guardado correctamente");
         listarTriaje();
+        formulario.reset();
+        modal.toggle();
       }else{
         toast("Error al guardar");
       }      
@@ -262,48 +277,56 @@
       event.stopPropagation();
       formulario.classList.add('was-validated');
     }else{
+      comprobar();
+    }
+  }
+  function comprobar() {
+    const valorPeso = parseFloat(peso.value);
+    const valorTalla = parseFloat(talla.value);
+    const valorCardiaca = parseFloat(cardiaca1.value);
+    const valorRespiratoria = parseFloat(respiratoria1.value);
+    const valorPresionArterial1 = parseFloat(presionArterial1.value);
+    const valorPresionArterial2 = parseFloat(presionArterial2.value);
+    const valorTemperatura = parseFloat(temperatura.value);
+    const valorSaturacion = parseFloat(saturacionOxigeno.value);
+
+    if(valorPeso<=0){
+      toast("Peso invalido");
+      peso.focus()
+      return;
+    }else if(valorTalla<=0){
+      toast("talla invalida");
+      talla.focus();
+      return;
+    }else if(valorCardiaca<=0){
+      toast("F. Cardiaca invalida");
+      cardiaca1.focus();
+      return;
+    }else if(valorRespiratoria<=0){
+      toast("F. Respiratoria invalida");
+      respiratoria1.focus();
+      return;
+    }else if(valorPresionArterial1<=0 ||valorPresionArterial2<=0){
+      toast("P. Arterial invalida");
+      if(valorPresionArterial1 <= 0){
+        presionArterial1.focus();
+      } else {
+        presionArterial2.focus();
+      }
+      return;
+    }else if(valorTemperatura<=0){
+      toast("Temperatura  invalida");
+      temperatura.focus();
+      return;
+    }else if(valorSaturacion<0 || valorSaturacion >100){
+      toast("Saturación de oxigeno invalida");
+      saturacionOxigeno.focus();
+      return;
+    }else{
       registrarTriaje();
     }
   }
-  function validarInput(input) {
-    if (input.value < 0) {
-        input.value = 0;
-    }
-  }
   registrarDetalle.addEventListener("click", validar);
-  peso.addEventListener("input", function() {
-    validarInput(peso);
-  });
-  talla.addEventListener("input", function() {
-    validarInput(talla);
-  });
-
-  cardiaca1.addEventListener("input", function() {
-    validarInput(cardiaca1);
-  });
-
-  respiratoria1.addEventListener("input", function() {
-    validarInput(respiratoria1);
-  });
-
-  presionArterial1.addEventListener("input", function() {
-    validarInput(presionArterial1);
-  });
-
-  presionArterial2.addEventListener("input", function() {
-    validarInput(presionArterial2);
-  });
-
-  temperatura.addEventListener("input", function() {
-    validarInput(temperatura);
-  });
-
-  saturacionOxigeno.addEventListener("input", function() {
-    if(saturacionOxigeno.value>100){
-      saturacionOxigeno.value = 0;
-    }
-    validarInput(saturacionOxigeno);
-  });
   listarTriaje();
 
 
