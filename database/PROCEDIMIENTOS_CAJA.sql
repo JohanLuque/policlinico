@@ -131,4 +131,19 @@ BEGIN
 	WHERE ate.idAtencion = _idAtencion;
 END $$
 
+-- OBTENIENDO EL INGRESO TOTAL DEL DIA
+DELIMITER $$
+CREATE PROCEDURE spu_caja_obtener_ingresos()
+BEGIN 
+	SELECT SUM(monto) AS 'MontoTotal'
+	FROM Pagos;
+END $$
+
+-- OBTENIENDO LA DEVOLUCIÓN TOTAL DEL DIA
+DELIMITER $$
+CREATE PROCEDURE spu_caja_obtener_devolucion()
+BEGIN 
+	SELECT SUM(montoDevolucion) AS 'MontoTotal'
+	FROM devoluciones;
+END $$
 

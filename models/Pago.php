@@ -44,4 +44,14 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+
+  public function ingresos(){
+    try{
+      $query = $this->connection->prepare("CALL spu_caja_obtener_ingresos()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

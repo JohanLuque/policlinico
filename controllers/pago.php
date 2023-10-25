@@ -23,5 +23,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $pago->cambiarEstado($parametros);
       echo json_encode($respuesta);
       break;
+    case 'ingresos':
+      echo json_encode($pago->ingresos());
+      break;
   }
 }

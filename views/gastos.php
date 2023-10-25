@@ -106,7 +106,8 @@
     const tabla = document.querySelector("#tabla-lista-gastos");
     const cuerpoTabla = document.querySelector("tbody");
     const form = document.querySelector("#form-gastos");
-
+    //capturando ingresos;
+    let totalingresos;
 
     function listarMetodosPago(){
         const parametros = new URLSearchParams();
@@ -119,13 +120,32 @@
         .then(datos => {
             metodosPago.innerHTML = "<option value=''>Seleccione</option>";
             datos.forEach(element => {
-            const optionTag = document.createElement("option");
-            optionTag.value = element.idMedioPago;
-            optionTag.text = element.nombrePago;
-            metodosPago.appendChild(optionTag);
-        });
-    })
+                const optionTag = document.createElement("option");
+                optionTag.value = element.idMedioPago;
+                optionTag.text = element.nombrePago;
+                metodosPago.appendChild(optionTag);
+            });
+        })
     }
+    
+    function ingresos(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "ingresos");
+        fetch("../controllers/pago.php", {
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            if(datos.length){
+                datos.forEach(element => {
+                    totalingresos =  element.MontoTotal;
+                    console.log(totalingresos);
+                })
+            }
+        })
+    }
+
     function consultarPaciente(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -147,7 +167,7 @@
             }
         })
     }
-    
+    ingresos();
     function registrarGasto() {
         const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarGasto");
@@ -167,6 +187,10 @@
                 toastCheck("Guardado Correctamente");
                 // Después de guardar con éxito, actualiza la tabla
                 listarGastosTabla();
+                totalingresos = monto.value - totalingresos;
+                console.log(totalingresos);
+                //ingresos();
+
             } else {
                 console.log("Algo salió mal");
             }
@@ -215,6 +239,7 @@
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                 registrarGasto(); 
+                
                 }
             })
         }
