@@ -531,7 +531,7 @@ function agregarPagoTabla(){
                     `;
                     detallepagos.innerHTML += nuevaFila;
                     totalMedioPago.value = "";
-                    listarMetodosPago();
+                    listarMetodosPago(metodosPago);
                     calcularRestante();   
                 }
                 else{

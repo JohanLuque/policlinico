@@ -403,6 +403,8 @@ function obtenerFecha(){
 }
 obtenerFecha();
 
+
+
 var presionar=1;
 function mostrardivOrden(){
   if(presionar == 1){
@@ -491,11 +493,10 @@ function validarFecha(){
   const fechaQuince = new Date(fechaActual);
   fechaQuince.setDate(fechaQuince.getDate() + 15);
   if(fecha.value < fechaHoy){
-      notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser menor a la fecha Actual", 3000);
+    notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser menor a la fecha Actual", 3000);
   
   }else if(fecha.value > fechaQuince){
     notificar("POLICLINICO SOLIDARIO CHINCHA", "La fecha ingresada no puede ser mayor a dentro de 15 dias", 3000);
-    
   }else{
     registrarAtencion();
   }
@@ -504,7 +505,6 @@ function validarFecha(){
 function registrarAtencion(){
   let listaParentesco = parentesco.value;
   const parentescoF = listaParentesco === "Otro" ? otroFamiliar.value : listaParentesco;
-
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
   parametros.append("turno", "T");
@@ -531,10 +531,8 @@ function registrarAtencion(){
 function registrarServiciosDetalles() {
   const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
   const filas = tabla_servicios.rows;
-
   // Crear un array de promesas para almacenar las solicitudes fetch
   const promesasFetch = [];
-
   for (let i = 1; i < filas.length; i++) {
   const fila = filas[i];
   const idservicios_detalle = fila.cells[1].innerHTML;
