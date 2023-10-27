@@ -180,11 +180,14 @@ CONSTRAINT fk_idate_pag FOREIGN KEY Pagos (idAtencion) REFERENCES Atenciones (id
 CONSTRAINT fk_idmep_pag	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
 )ENGINE = INNODB;
 
+DROP TABLE Devoluciones
+
 CREATE TABLE Devoluciones
 (
 idDevolucion				INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 montoDevolucion			DECIMAL(6,2) 	NOT NULL,
 estado						CHAR(1)			NOT NULL DEFAULT '0',
+motivoDevolucion		VARCHAR(100)	NOT NULL,
 fechaHoraDevolucion		DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,

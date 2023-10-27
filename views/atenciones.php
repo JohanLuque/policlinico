@@ -360,7 +360,7 @@ const listaEspecialidades = document.querySelector("#listaEspecialidades");
 const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
 
 //Servicios
-const listaServicios = document.querySelector("#listaServicios");
+const listaServicios = document.getElementById("listaServicios");
 const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
 
 //Tabla de Resusmen de Servicios
@@ -623,48 +623,70 @@ function listarEspecialistas(){
   })
 }
 //Agregar servicios a la tabla
-function listarServicios(){
+function listarServicios() {
+  const choiselistaServicios = new Choices(listaServicios, {
+    searchEnabled: true,
+    itemSelectText: '',
+  });
+
   const parametros = new URLSearchParams();
   parametros.append("operacion", "getData");
-  fetch("../controllers/servicio.php",{
-    method : "POST",
+
+  fetch("../controllers/servicio.php", {
+    method: "POST",
     body: parametros
   })
-  .then(response => response.json())
-  .then(datos => {
-    listaServicios.innerHTML = "<option value=''>Seleccione</option>";
-    datos.forEach(element => {
-      const optionTag = document.createElement("option");
-      optionTag.value = element.idServicio;
-      optionTag.text = element.nombreServicio;
-      listaServicios.appendChild(optionTag);
+    .then(response => response.json())
+    .then(datos => {
+      listaServicios.innerHTML = "<option value=''>Seleccione</option>";
+
+      datos.forEach(element => {
+        const optionTag = document.createElement("option");
+        optionTag.value = element.idServicio;
+        optionTag.text = element.nombreServicio;
+        listaServicios.appendChild(optionTag);
+      });
+
+      choiselistaServicios.setChoices([], 'value', 'label', true); // Vacía las opciones
+      choiselistaServicios.setChoices(datos, 'idServicio', 'nombreServicio', true); // Agrega las nuevas opciones
     });
-  })
 }
 
-function listarServiciosFiltro(){
+function listarServiciosFiltro() {
+  const choiseFiltro = new Choices(listaServiciosFiltro, {
+    searchEnabled: true,
+    itemSelectText: '',
+  });
+
   const parametros = new URLSearchParams();
   parametros.append("operacion", "filtroServicios");
-  parametros.append("idServicio",listaServicios.value);
-  fetch("../controllers/servicio.php",{
-    method : "POST",
+  parametros.append("idServicio", listaServicios.value);
+
+  fetch("../controllers/servicio.php", {
+    method: "POST",
     body: parametros
   })
-  .then(response => response.json())
-  .then(datos => {
-    listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option>";
-    datos.forEach(element => {
-    const optionTag = document.createElement("option");
-    optionTag.value = element.idservicios_detalle;
-    optionTag.text = element.descripcion;
-    optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
-    optionTag.dataset.genero = element.genero;
-    listaServiciosFiltro.appendChild(optionTag);
+    .then(response => response.json())
+    .then(datos => {
+      listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option";
+      choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
+
+      datos.forEach(element => {
+        const optionTag = document.createElement("option");
+        optionTag.value = element.idservicios_detalle;
+        optionTag.text = element.descripcion;
+        optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
+        optionTag.dataset.genero = element.genero;
+        listaServiciosFiltro.appendChild(optionTag);
+      });
+
+      choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
+      choiseFiltro.setChoices(datos, 'idservicios_detalle', 'descripcion', true); // Agrega las nuevas opciones
     });
-    
-  })
 }
 
+listarServicios();
+listaServicios.addEventListener("change", listarServiciosFiltro);
 function validarGenero(){
   const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
   generoObtenido = servicioSeleccionado.dataset.genero;
@@ -880,7 +902,6 @@ dniFamiliar.addEventListener("keypress", (evt) => {
 
 
 listaEspecialidades.addEventListener("change", listarEspecialistas);
-listaServicios.addEventListener("change", listarServiciosFiltro);
 
 btnagregarServicio.addEventListener("click", () => {
   if(listaServiciosFiltro.value >0){
@@ -913,7 +934,7 @@ parentesco.addEventListener("change", function(){
   }
 });
 listarEspecialistas();
-listarServicios();
+
 calcularTotal();
 listarEspecialidades();
 guardarRegistro.addEventListener("click", registrarPaciente);

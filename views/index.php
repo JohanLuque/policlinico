@@ -7,6 +7,7 @@
   <title>Policlinico</title>
   <!-- <link rel="shortcut icon" type="image/png" href="images/logos/" /> -->
   <link rel="stylesheet" href="css/styles.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <script src="https://kit.fontawesome.com/f4286f5039.js" crossorigin="anonymous"></script>
   <!-- Boostrap-->
@@ -171,6 +172,10 @@
   <script src="libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="libs/simplebar/dist/simplebar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <!-- Boostrap-->
