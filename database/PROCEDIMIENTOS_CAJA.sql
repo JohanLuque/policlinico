@@ -113,7 +113,7 @@ END $$
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION
 DELIMITER $$
-CREATE PROCEDURE spu_caja_obtener_datos_devolucion
+create PROCEDURE spu_caja_obtener_datos_devolucion
 (
 IN _idAtencion INT
 )

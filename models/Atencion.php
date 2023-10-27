@@ -17,7 +17,7 @@ class Atencion extends Conexion{
     ];
     try{
       $query = $this->connection->prepare("CALL spu_atenciones_registrar(?,?,?,?,?,?,?)");
-      $respuesta["status"] =$query->execute(
+      $respuesta["status"] = $query->execute(
         array(
             $data['turno'],
             $data['idusuario'],
