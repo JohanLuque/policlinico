@@ -113,23 +113,52 @@ END $$
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION
 DELIMITER $$
-CREATE PROCEDURE spu_caja_obtener_datos_devolucion
+create PROCEDURE spu_caja_obtener_datos_devolucion
 (
 IN _idAtencion INT
 )
 BEGIN 
-	SELECT CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
-		per.numeroDocumento,
-	       ser.nombreServicio AS 'Servicio',
-	       SUM(pag.monto) AS 'MontoTotal'
-	FROM Pagos pag
+	SELECT	    CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+	    per.numeroDocumento,
+	    especialidad.nombreServicio AS 'Servicio',
+	    SUM(pag.monto) AS 'MontoTotal'
+	FROM    pagos pag
 	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
-	INNER JOIN Personas per ON ate.idPersona = per.idPersona
-	INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
-	INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
-	INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
-	WHERE ate.idAtencion = _idAtencion;
+	INNER JOIN  Personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN (
+	    SELECT ate.idAtencion,ser.nombreServicio
+	    FROM   atenciones ate
+	    INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+	    INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+	    INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+	    WHERE ate.idAtencion = _idAtencion
+	    GROUP BY ser.nombreServicio   
+	) AS especialidad ON ate.idAtencion = especialidad.idAtencion
+	WHERE ate.idAtencion = _idAtencion
+	GROUP BY ate.idAtencion;
 END $$
+
+call spu_caja_obtener_datos_devolucion(5);
+
+SELECT
+    CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+    per.numeroDocumento,
+    especialidad.nombreServicio AS 'Servicio',
+    SUM(pag.monto) AS 'MontoTotal'
+FROM    pagos pag
+INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+INNER JOIN  Personas per ON per.idPersona = ate.idPersona
+LEFT JOIN (
+    SELECT ate.idAtencion,ser.nombreServicio
+    FROM   atenciones ate
+    INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+    INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+    INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+    where ate.idAtencion = 1
+    group by ser.nombreServicio   
+) AS especialidad ON ate.idAtencion = especialidad.idAtencion
+WHERE ate.idAtencion = 1
+GROUP BY ate.idAtencion;
 
 -- OBTENIENDO EL INGRESO TOTAL DEL DIA
 DELIMITER $$

@@ -106,7 +106,7 @@
                                                 <select name="" class="form-select form-select-sm" id="metodosPago"></select>
                                             </div>
                                             <div class="col-md-3">
-                                                <input type="text" class="form-control form-control-sm bg-light" placeholder="a pagar" id="totalMedioPago" >
+                                                <input type="text" class="form-control form-control-sm bg-light" placeholder="0" id="totalMedioPago" >
                                             </div>
                                             <div class="col-md-2">
                                                 <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
@@ -308,6 +308,7 @@ const devbtAgregarPago = document.querySelector("#devAgregarPago");
 const devMontoIngresado = document.querySelector("#montoIngresado");
 const devTotalRestante = document.querySelector("#restante");
 let idatencion;
+let montoTotalDevolucion;
 function listarCards(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "listarAtenciones");
@@ -408,7 +409,7 @@ cardresumen.addEventListener("click", (event) => {
                 especialidad.innerHTML = element.nombreServicio;
                 fechaAtencion.innerHTML = element.fechaAtencion;
                 tablaDetalle(idatencion);
-                totalMedioPago.value = 0;
+                totalMedioPago.value = "";
             })
         })   
         modal.toggle();
@@ -423,12 +424,14 @@ cardresumen.addEventListener("click", (event) => {
         })
         .then(response => response.json())
         .then(datos =>{
-            datos.forEach(element => {
+            datos.forEach(element => {            
                 devPaciente.innerHTML = element.Paciente;
                 devNroDocumento.innerHTML = element.numeroDocumento;
                 devEspecialidad.innerHTML = element.Servicio;
                 devMonto.innerHTML = element.MontoTotal;
-                //devTotalRestante.value = devMonto.value;
+                devTotalRestante.value =element.MontoTotal;
+                montoTotalDevolucion = element.MontoTotal
+                console.log(devTotalRestante.value);
             })
         })
         modalDevolucion.toggle();
@@ -442,29 +445,13 @@ function calcularTotalResumen() {
     let total = 0;
 
     for (let i = 1; i < tablaFilas.length; i++) {
-
-
         const precioCelda = parseFloat(tablaFilas[i].cells[1].innerText);
-        //console.log(precioCelda);
         total += precioCelda;   
     }
     
     totalResumen.value = total.toFixed(2);
     totalRestante.value = total;
 }
-// Suma del total a devolver en la devolucion
-function calcularTotalDevolucion() {
-    const tablaFilas = devDetallepagos.rows;
-    let totalDevolver = 0;
-    for (let i = 1; i < tablaFilas.length; i++) {
-    const cantidadCelda = parseFloat(tablaFilas[i].cells[2].innerText);
-    console.log(cantidadCelda)
-    totalDevolver += cantidadCelda;   
-    }
-    devTotalRestante.value = total.toFixed(2);
-    devTotalRestante.value = 0;
-}
-
 
 function calcularRestante(){
     const filaPagos = detallepagos.rows;
@@ -488,6 +475,7 @@ function calcularRestante(){
 function agregarPagoTabla(){
     const montoIngresado = parseFloat(totalMedioPago.value);
     const restante = parseFloat(totalRestante.value);
+
     if(totalMedioPago.value > 0){  
         const medioSeleccionado = metodosPago.options[metodosPago.selectedIndex];
     
@@ -542,7 +530,7 @@ function agregarPagoTabla(){
         }
     }else{
         toast("Monto inválido");
-        totalMedioPago.value = 0;
+        totalMedioPago.value = "";
     }  
     //calcularRestante();
 }
@@ -670,61 +658,111 @@ function listarMetodosPago(select){
 })
 }
 
-function agregarMontoDevolucion() {
-    const medioSeleccionado = devMetodoPago.options[devMetodoPago.selectedIndex];
-    const montoIngresado = devMontoIngresado.value;
+function calcularRestanteDev(){
+    const filaDevo = devDetallepagos.rows;
+    let devrestante =montoTotalDevolucion;
+    //console.log(devrestante);
+    let totaltabladev = 0;
+    for(let i = 1; i<filaDevo.length; i++){
+        const precios = parseFloat(filaDevo[i].cells[2].innerText);
+        totaltabladev +=precios;
+        console.log(precios);
 
-    const detallesDevoluciones = devDetallepagos.rows;
-    let metodoRepetido = false;
-    detallesDevoluciones.forEach(fila => {
-        const metodoExistente = fila.cells[0].innerText;
-        if (metodoExistente === medioSeleccionado.value) {
-            metodoRepetido = true;
-            toast("No puede repetir dos métodos de pago");
-            return;
+        if(devrestante >= 0){
+            devrestante -= precios;
         }
-    });
-
-    if (!metodoRepetido) {
-        let nuevaFila = `
-            <tr>
-                <td>${medioSeleccionado.value}</td>
-                <td>${medioSeleccionado.text}</td>
-                <td>${montoIngresado}</td>
-                <td>
-                    <a class="eliminar btn btn-sm btn-danger">Eliminar</a>
-                </td>
-            </tr>  
-        `;
-        devDetallepagos.innerHTML += nuevaFila;
-        devMontoIngresado.value = null;
+        
     }
+    
+    devTotalRestante.value = devrestante;
+    console.log(devTotalRestante.value);
+}
+calcularRestanteDev();
+function agregarMontoDevolucion() {
+    const montoIngresado = parseFloat(devMontoIngresado.value);
+    const restante = parseFloat(devTotalRestante.value);
+    console.log(restante);
+
+    if(devMontoIngresado.value > 0){  
+        const medioSeleccionado = devMetodoPago.options[devMetodoPago.selectedIndex];    
+        if(medioSeleccionado.value != ""){
+            let medioRepetido = false;
+            let totaltabladevo = 0;
+            const filaMedios = devDetallepagos.rows;
+            
+            for(let i=1; i< filaMedios.length; i++){
+                const medioCelda = filaMedios[i].cells[1].innerText;
+                const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);        
+                if(medioCelda === medioSeleccionado.text){
+                    medioRepetido = true;
+                   // totaltabladevo  = totaltabladevo +  precioCelda;                
+                    //break;
+                    console.log(precioCelda);
+                }
+                
+                
+            }
+           // console.log(totaltabladevo);
+            calcularRestanteDev();
+            if(montoIngresado > restante){
+                toast("excede el monto restante");
+            }else{
+                if(!medioRepetido){
+                    
+                    let nuevaFila = `
+                    <tr>
+                        <td>${medioSeleccionado.value}</td>
+                        <td>${medioSeleccionado.text}</td>
+                        <td>${devMontoIngresado.value}</td>
+                        <td>
+                            <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+                        </td>
+                    </tr>  
+                    `;
+                    devDetallepagos.innerHTML += nuevaFila;
+                    devMontoIngresado.value = "";
+                    listarMetodosPago(devMetodoPago);
+                    calcularRestanteDev();   
+                }
+                else{
+                    toast("No puede repetir dos métodos de pago");
+                }
+                
+            }
+        }
+    }else{
+        toast("Monto inválido");
+        devMetodoPago.value = 0;
+    } 
 }
 
 function GuardarDevolucion() {
     let motivoSeleccionado = motivoDevolucion.value;
     const filas = devDetallepagos.rows;
-    const promesas = [];
     const motivo = motivoSeleccionado === "Otros" ? otroMotivo.value : motivoSeleccionado;
-    filas.forEach(fila => {
-        
-            const idmediopago = parseInt(fila.cells[0].innerText);
-            const monto = parseFloat(fila.cells[2].innerText);
-
-            const parametros = new URLSearchParams();
-            parametros.append("operacion", "registrarDevolucion");
-            parametros.append("motivoDevolucion", motivo);
-            parametros.append("montoDevolucion", monto);
-            parametros.append("idAtencion", idatencion);
-            parametros.append("idMedioPago", idmediopago);
-
-            const fecthPromesa = fetch("../controllers/devolucion.php", {
-                method: "POST",
-                body: parametros
-            });
-            promesas.push(fecthPromesa);
-        
-});
+    for(let i = 1; i < filas.length; i++){
+        const idmediopago = parseInt(filas[i].cells[0].innerText);
+        console.log(idmediopago);
+        const monto = parseFloat(filas[i].cells[2].innerText);
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "registrarDevolucion");
+        parametros.append("motivoDevolucion", motivo);
+        parametros.append("montoDevolucion", monto);
+        parametros.append("idAtencion", idatencion);
+        parametros.append("idMedioPago", idmediopago);
+        fetch("../controllers/devolucion.php", {
+            method: "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.status){
+                toastCheck("Registrado correctamente");
+            }else{
+                toast("Error al registrar");
+            }
+        })
+    }
 }
 
 listarMetodosPago(metodosPago);
@@ -748,6 +786,12 @@ devbtAgregarPago.addEventListener("click", () => {
     }
 });
 
+totalResumen.addEventListener("keypress", (evt) =>{
+    if (evt.charCode == 13){
+        totalRestante.value = totalResumen.value;
+    };
+});
+
 devGuardar.addEventListener("click", GuardarDevolucion);
 motivoDevolucion.addEventListener("change", function () {
     const selectedValue = motivoDevolucion.value;
@@ -757,4 +801,5 @@ motivoDevolucion.addEventListener("change", function () {
         otroMotivoDevolucion.style.display = "none";
     }
 });
+
 </script>

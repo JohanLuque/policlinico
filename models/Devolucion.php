@@ -11,9 +11,13 @@ class Devolucion extends Conexion{
   }
 
   public function registrarDevolucion($data =[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
     try{
       $query = $this->connection->prepare("CALL spu_caja_registrar_devolucion(?,?,?,?)");
-      $query->execute(
+      $respuesta["status"] = $query->execute(
         array(
             $data['motivoDevolucion'],
             $data['montoDevolucion'],
@@ -21,10 +25,11 @@ class Devolucion extends Conexion{
             $data['idMedioPago']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+        //return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
-      die($e->getCode());
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
     }
+    return $respuesta;
   }
   public function traerDatosDevolucion($idAtencion = 0){
     try{
