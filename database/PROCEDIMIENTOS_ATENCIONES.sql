@@ -236,3 +236,17 @@ BEGIN
 	    fechaActualizacion = NOW()
 	WHERE idatencion = _idatencion;
 END$$
+
+-- buscar precio y genero
+DELIMITER$$
+CREATE PROCEDURE spu_atenciones_obtenerPrecio_genero
+(
+ IN _idservicios_detalle INT
+)
+BEGIN
+	SELECT idservicios_detalle,descripcion, precio, genero
+	FROM servicios_detalle
+	WHERE idservicios_detalle = _idservicios_detalle;
+
+END$$
+
