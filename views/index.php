@@ -103,6 +103,12 @@
                           </li>
                         </ul>
                       </li>
+                      <li class='sidebar-item'>
+                        <a class='sidebar-link' href='index.php?view=vistaDoctores.php' id="gastos" aria-expanded='false'>        
+                          <i class="ti ti-stethoscope nav-small-cap-icon"></i>
+                          <span class='hide-menu'>Vista Doctor</span>
+                        </a>
+                      </li>
                       <li class='sidebar-item '>
                         <a class='sidebar-link' href='index.php?view=configuracionAtencion.php' id="pagos" aria-expanded='false'>        
                           <i class="ti ti-settings nav-small-cap-icon"></i>
