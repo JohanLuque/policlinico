@@ -123,6 +123,7 @@
         datos.forEach(element => {
           if(element.historiaClinica == 'si'){
             toastCheck("El Paciente ya tiene historia clinica");
+            nombreCompleto.value = "";
           }else{
             toast("El paciente no tiene historia");
             nombreCompleto.value = element.ApellidosNombres;
@@ -131,7 +132,8 @@
         });
       }
       else{
-        toast("solicitud invalida")
+        toast("No existe atención")
+
       }
     })
   }
@@ -160,6 +162,7 @@
     mostrarPregunta("REGISTRAR", "¿Está seguro de guardar?").then((result) => {
       if(result.isConfirmed){
         registrarHitoria();
+        window.location.href ="index.php?view=triaje.php";
       }
     });  
   });
