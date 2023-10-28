@@ -35,7 +35,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"> Registrar Triaje:</h1>
+          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel"> Triaje:</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -51,9 +51,6 @@
                                 </div>
                                 <div class="col-md-4">
                                   <input type="text" id="dni_paciente"class="form-control form-control-sm bg-light" readonly>
-                                  <div class="invalid-feedback">
-                                    Seleccione paciente para realizar triaje
-                                  </div> 
                                 </div> 
                               </div>
                               <div class="mb-3 row g-2">
@@ -71,6 +68,9 @@
                                 <div class="col-md-3">
                                   <input type="number" step="any" id="triaje-peso"class="form-control form-control-sm" required>         
                                 </div>
+                                <div class="ms-3 col-md-2">
+                                  <label>kg</label>          
+                                </div>
                               </div>
                               <div class="mb-3 row g-2">
                                 <div class="col-md-3">
@@ -78,7 +78,10 @@
                                 </div> 
                                 <div class="col-md-3">
                                   <input type="number" step="any" id="triaje-talla"class="form-control form-control-sm" required>         
-                                </div> 
+                                </div>
+                                <div class="ms-3 col-md-2">
+                                  <label>m</label>          
+                                </div>
                               </div>
                               <div class="row mb-3 g-2">
                                 <label class="fs-7" for="">FRECUENCIAS:</label>
