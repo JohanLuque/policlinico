@@ -171,6 +171,9 @@
               <div class="col-md-1">                                  
                 <input type="text"  class="form-control form-control-sm" id="precioProce" readonly >
               </div>
+              <div class="col-md-1">                                  
+                <input type="text"  class="form-control form-control-sm" id="generoProce" readonly >
+              </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
               </div>
@@ -375,6 +378,7 @@ const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
 const listaServicios = document.getElementById("listaServicios");
 const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
 const precioProce = document.querySelector("#precioProce");
+const generoProce = document.querySelector("#generoProce");
 
 //Tabla de Resusmen de Servicios
 const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
@@ -416,10 +420,8 @@ function obtenerFecha(){
 }
 obtenerFecha();
 
-
-
-var presionar=1;
 function mostrardivOrden(){
+  var presionar=1;
   if(presionar == 1){
     divOrden.style.display = "";
     presionar = presionar+1;
@@ -585,7 +587,7 @@ function limpiarTodo(){
 }
 
 function limpiarSelect(){
-  listaServiciosFiltro.selectedIndex = 0;
+  listaServiciosFiltro.value = 0;
 }
 
 function limpiarTabla() {
@@ -673,7 +675,7 @@ const choiseFiltro = new Choices(listaServiciosFiltro, {
     allowHTML: true
   });
 
-let precioProcedimiento;
+//let precioProcedimiento;
 function listarServiciosFiltro() {
   const parametros = new URLSearchParams();
   parametros.append("operacion", "filtroServicios");
@@ -687,18 +689,11 @@ function listarServiciosFiltro() {
     .then(datos => {
       listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option>";
       choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
-
-      datos.forEach(element => {
-        precioProcedimiento= element.precio;
-        
-      });
-      choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
       choiseFiltro.setChoices(datos, 'idservicios_detalle', 'descripcion','precio', true); // Agrega las nuevas opciones
-
+      
     });
     
 }
-
 
 listarServicios();
 listaServicios.addEventListener("change", () => {
@@ -707,21 +702,35 @@ listaServicios.addEventListener("change", () => {
   
 });
 listaServiciosFiltro.addEventListener("change", () => {
-  //precioProce.value = precioProcedimiento;
-  const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
-
-  console.log(servicioSeleccionado.text)
-  console.log(precioProcedimiento)
+  generoPrecio();
 });
 
+
+function generoPrecio(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "precioGenero");
+  parametros.append("idservicios_detalle", listaServiciosFiltro.value);
+
+  fetch("../controllers/serviciosDetalle.php", {
+    method: "POST",
+    body: parametros
+  })
+    .then(response => response.json())
+    .then(datos => {
+      precioProce.value = "";
+
+      datos.forEach(element => {
+        precioProce.value = element.precio;
+        generoProce.value = element.genero;
+      });
+    });
+}
+
 function validarGenero(){
-  const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
-
-  generoObtenido = servicioSeleccionado.dataset.genero;
-  console.log(generoObtenido);
   console.log(generoPaciente);
+  console.log(generoProce.value);
 
-  if(generoObtenido == generoPaciente || generoObtenido == "null"){
+  if(generoProce.value == generoPaciente || generoProce.value == ""){
     validarEspecialidadServicio();
   }else{
     notificar("POLICLINICO SOLIDARIO DE CHINCHA","SERVICIO NO DISPONIBLE", 3000 );
@@ -760,8 +769,6 @@ function agregarServicio() {
 
   if (servicioSeleccionado.value !== "") {
     // Obtener el precio del servicio seleccionado desde el atributo de datos
-    precio = parseFloat(servicioSeleccionado.dataset.precio);
-
     // Verificar si el servicio ya está en la tabla
     const tablaFilas = tabla_servicios.rows;
     let servicioRepetido = false;
@@ -781,7 +788,7 @@ function agregarServicio() {
           <td>${listaServicios.value}</td>
           <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
-          <td>${precio}</td>
+          <td>${precioProce.value}</td>
           <td>
             <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
           </td>

@@ -11,5 +11,11 @@ if(isset($_POST['operacion'])){
       ];
     echo json_encode($servicioDetalle->filtroServicios($parametros));
     break;
+    case 'precioGenero':
+      $parametros = [
+        "idservicios_detalle" => $_POST['idservicios_detalle']
+      ];
+    echo json_encode($servicioDetalle->precioGenero($parametros));
+    break;
   }
 }
