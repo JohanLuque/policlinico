@@ -145,19 +145,31 @@
                 <label for="" class="card-title" style="color:#ff7619 ;">SERVICIOS:</label>
               </div>                                                               
             </div>
-            <div class="mb-3 row g-2">
-              <div class="col-md-2">
+            <div class="row g-2">
+              <div class="col-md-3">
                 <label for="">Servicio:</label>          
               </div>
+              <div class="col-md-5">
+                <label for="">Procedimiento:</label>          
+              </div>
+              <div class="col-md-3">
+                <label for="">Precio:</label>          
+              </div>
+            </div>
+
+            <div class="mb-3 row g-2">              
               <div class="col-md-3">                                  
                 <select name="" id="listaServicios" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
                 </select> 
               </div>
-              <div class="col-md-4">                                  
+              <div class="col-md-5">                                  
                 <select name="" id="listaServiciosFiltro" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
                 </select> 
+              </div>
+              <div class="col-md-1">                                  
+                <input type="text"  class="form-control form-control-sm" id="precioProce" readonly >
               </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
@@ -362,6 +374,7 @@ const listaOrdenDoctor = document.querySelector("#listaOrdenDoctor");
 //Servicios
 const listaServicios = document.getElementById("listaServicios");
 const listaServiciosFiltro = document.querySelector("#listaServiciosFiltro");
+const precioProce = document.querySelector("#precioProce");
 
 //Tabla de Resusmen de Servicios
 const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
@@ -627,6 +640,7 @@ function listarServicios() {
   const choiselistaServicios = new Choices(listaServicios, {
     searchEnabled: true,
     itemSelectText: '',
+    allowHTML: true
   });
 
   const parametros = new URLSearchParams();
@@ -649,15 +663,18 @@ function listarServicios() {
 
       choiselistaServicios.setChoices([], 'value', 'label', true); // Vacía las opciones
       choiselistaServicios.setChoices(datos, 'idServicio', 'nombreServicio', true); // Agrega las nuevas opciones
+      
     });
 }
 
-function listarServiciosFiltro() {
-  const choiseFiltro = new Choices(listaServiciosFiltro, {
+const choiseFiltro = new Choices(listaServiciosFiltro, {
     searchEnabled: true,
     itemSelectText: '',
+    allowHTML: true
   });
 
+let precioProcedimiento;
+function listarServiciosFiltro() {
   const parametros = new URLSearchParams();
   parametros.append("operacion", "filtroServicios");
   parametros.append("idServicio", listaServicios.value);
@@ -668,25 +685,32 @@ function listarServiciosFiltro() {
   })
     .then(response => response.json())
     .then(datos => {
-      listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option";
+      listaServiciosFiltro.innerHTML = "<option value=''>Seleccione</option>";
       choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
 
       datos.forEach(element => {
-        const optionTag = document.createElement("option");
-        optionTag.value = element.idservicios_detalle;
-        optionTag.text = element.descripcion;
-        optionTag.dataset.precio = element.precio; // Agregar el precio como atributo de datos
-        optionTag.dataset.genero = element.genero;
-        listaServiciosFiltro.appendChild(optionTag);
+        precioProcedimiento= element.precio;
+        
       });
-
       choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
       choiseFiltro.setChoices(datos, 'idservicios_detalle', 'descripcion', true); // Agrega las nuevas opciones
+
     });
+    
 }
 
+
 listarServicios();
-listaServicios.addEventListener("change", listarServiciosFiltro);
+listaServicios.addEventListener("change", () => {
+  choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
+  listarServiciosFiltro();
+  
+});
+listaServiciosFiltro.addEventListener("change", () => {
+  //precioProce.value = precioProcedimiento;
+  console.log(precioProcedimiento)
+});
+
 function validarGenero(){
   const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
   generoObtenido = servicioSeleccionado.dataset.genero;
@@ -753,7 +777,7 @@ function agregarServicio() {
           <td>${listaServicios.value}</td>
           <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
-          <td>${precio}</td>
+          <td>${precioProce.value}</td>
           <td>
             <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
           </td>
