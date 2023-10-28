@@ -693,7 +693,7 @@ function listarServiciosFiltro() {
         
       });
       choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
-      choiseFiltro.setChoices(datos, 'idservicios_detalle', 'descripcion', true); // Agrega las nuevas opciones
+      choiseFiltro.setChoices(datos, 'idservicios_detalle', 'descripcion','precio', true); // Agrega las nuevas opciones
 
     });
     
@@ -708,11 +708,15 @@ listaServicios.addEventListener("change", () => {
 });
 listaServiciosFiltro.addEventListener("change", () => {
   //precioProce.value = precioProcedimiento;
+  const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
+
+  console.log(servicioSeleccionado.text)
   console.log(precioProcedimiento)
 });
 
 function validarGenero(){
   const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
+
   generoObtenido = servicioSeleccionado.dataset.genero;
   console.log(generoObtenido);
   console.log(generoPaciente);
@@ -777,7 +781,7 @@ function agregarServicio() {
           <td>${listaServicios.value}</td>
           <td>${listaServiciosFiltro.value}</td>
           <td>${servicioSeleccionado.text}</td>
-          <td>${precioProce.value}</td>
+          <td>${precio}</td>
           <td>
             <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
           </td>
