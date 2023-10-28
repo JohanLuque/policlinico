@@ -113,7 +113,7 @@ END $$
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION
 DELIMITER $$
-create PROCEDURE spu_caja_obtener_datos_devolucion
+CREATE PROCEDURE spu_caja_obtener_datos_devolucion
 (
 IN _idAtencion INT
 )
@@ -137,8 +137,6 @@ BEGIN
 	WHERE ate.idAtencion = _idAtencion
 	GROUP BY ate.idAtencion;
 END $$
-
-CALL spu_caja_obtener_datos_devolucion(5);
 
 SELECT
     CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
