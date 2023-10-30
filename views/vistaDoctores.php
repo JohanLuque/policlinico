@@ -22,86 +22,131 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder text-danger text-center mb-4">Historia clínica</h5>
+                            <h3 class=" fw-bolder text-danger text-center mb-4">HISTORIA CLÍNICA</h3>
+                            <div class="row g-2 mb-3">
+                                <h5 class="fw-bolder">ENFERMEDAD ACTUAL</h5>
+                            </div>
                             <div class="row mt-2 mb-3">
                                 <div class="col-md-12">                
-                                    
                                     <div class="row g-2 mb-3">                             
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Nombre completo: </label>
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">INICIO: </label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="nombreCompleto"></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text">
                                         </div>
                                     </div>      
                                     <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">DNI:</label>
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">CURSO:</label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="dni"></label>
+                                        <div class="col-md-10">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text">
                                         </div>
                                     </div>   
                                     <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Edad:</label>
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">RELATO:</label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="edad"></label>
-                                        </div>
-                                    </div>  
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Teléfono:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="telefono"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Especialidad:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="especialidad"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Fecha Atención:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="date" class="form-control form-control-sm" id="fechaAtencion" >
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <table class="table-sm" id="detallemodalEspera" class="">
-                                            <thead class="table bg-light-info">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Servicio</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="cuerpomodal">
-                                                <!-- traer datos  -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Total:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control form-control-sm bg-light" id="total" readonly>
+                                        <div class="col-md-10">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text">
                                         </div>
                                     </div>  
-                                    
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">EXAMEN GENERAL</h5>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-12">
+                                        <textarea class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">IMPRESIÓN DIAGNOSTICA</h5>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">CIE-10:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbP" value="P">
+                                                <label class="form-check-label">P</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbD"  value="D">
+                                                <label class="form-check-label">D</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbR"  value="R">
+                                                <label class="form-check-label">R</label>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">DESCRIP:</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                        <input class="form-control form-control-sm bg-light" id="" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">PROCEDIMIENTO/INTERVENCIÓN</h5>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-12">
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">TRATAMIENTO</h5>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">OBSERVACIONES</h5>
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-12">
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <h5 class="fw-bolder">DATOS DEL PROFESIONAL</h5>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-4">
+                                            <label class="fw-bolder" for="">PROFESIONAL:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">COD:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control form-control-sm bg-light" id="" type="text" readonly>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">TURNO:</label>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbMañana" value="M">
+                                                <label class="form-check-label">M</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbTarde"  value="T">
+                                                <label class="form-check-label">T</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>                      
                             </div>
-                            
-
                         </div>
                     </div>
                 </div>
@@ -135,7 +180,7 @@ const cardListado = document.querySelector("#cardListado");
                     <div class="col-md-3" >
                         <div class="card">
                             <div class="card-content">
-                                <div class="card-header bg-danger" >${element.numeroAtencion}</div>
+                                <div class="card-header bg-danger text-center text-white" >${element.numeroAtencion}</div>
                                 <div class="card-body bg-light-danger" style="text-align: center;">
                                 <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
                                     <div class='mt-2 row g-2'>
