@@ -45,4 +45,13 @@ class DetalleAtencion extends Conexion{
     }
     return $respuesta;
   } 
+  public function listarAtencionesEspecialidades(){
+    try{
+      $query = $this->connection->prepare("CALL SPU_DOCTORES_LISTAR()");
+      $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  } 
 }
