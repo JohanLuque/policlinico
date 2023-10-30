@@ -26,5 +26,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $detalleAtencion->create($parametros);
       echo json_encode($respuesta);
       break;
+    case 'listaDoctores':
+      echo json_encode($detalleAtencion->listarAtencionesEspecialidades());
+      break ;
   }
 }

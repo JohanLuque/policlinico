@@ -117,13 +117,13 @@
     </div>
 </div>
 <script>
-const modalHC = new bootstrap.Modal(document.querySelector("#modalHC"));
-const cardListado = document.querySelector("#cardListado");
+    const modalHC = new bootstrap.Modal(document.querySelector("#modalHC"));
+    const cardListado = document.querySelector("#cardListado");
     function listar(){
         const parametros = new URLSearchParams();
-        parametros.append("operacion", "listarEspera");
+        parametros.append("operacion", "listaDoctores");
 
-        fetch("../controllers/atencion.php",{
+        fetch("../controllers/detalleAtencion.php",{
             method: "POST",
             body:parametros
         })
@@ -137,7 +137,7 @@ const cardListado = document.querySelector("#cardListado");
                             <div class="card-content">
                                 <div class="card-header bg-danger" >${element.numeroAtencion}</div>
                                 <div class="card-body bg-light-danger" style="text-align: center;">
-                                <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                                <h5>${element.ApellidosNombres}</h5>
                                     <div class='mt-2 row g-2'>
                                         <div class='col-md-6'>
                                         </div>
