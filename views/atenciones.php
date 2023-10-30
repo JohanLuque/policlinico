@@ -174,7 +174,7 @@
               <div class="col-md-1">                                  
                 <input type="text"  class="form-control form-control-sm" id="generoProce" readonly >
               </div>
-              <div class="col-md-3">
+              <div class="col-md-1">
                 <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
               </div>
             </div>

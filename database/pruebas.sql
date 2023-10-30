@@ -1,14 +1,30 @@
-SELECT detAte.idDetalleAtenciones, 
+-- consulta para vista de doctores
+SELECT detAte.`idDetalleAtenciones`,
+	CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
 FROM detalle_atenciones detAte
 INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
+INNER JOIN personas per ON per.idPersona = ate.idPersona
 LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
 INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
 INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
-WHERE ate.estado = 1 AND ser.tipo = 'E' AND ser.idServicio = 21
+WHERE ate.estado = 1 AND ser.tipo = 'E' AND ser.idServicio = 12
 ORDER BY  ate.idAtencion
 
+-- cantidad de atenciones por dia: INGRESO TOTAL 
+SELECT 
+    (SELECT COUNT(p.idPago) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS pagados,
+    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS totalPago,
+    COUNT(d.idDevolucion) AS devueltos, SUM(d.montoDevolucion) AS totalDevoluciones,
+    (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS totalGasto,
+    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) - SUM(d.montoDevolucion) - (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS IngresoDia
+FROM atenciones a
+LEFT JOIN devoluciones d ON d.idAtencion = a.idAtencion
+WHERE DATE(d.fechaHoraDevolucion) = CURDATE();
 
-SELECT * FROM atenciones
+
+SELECT * FROM devoluciones
+
+SELECT * FROM detalle_atenciones
 
 SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
