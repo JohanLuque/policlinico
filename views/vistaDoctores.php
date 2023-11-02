@@ -11,7 +11,7 @@
 </div>
 
 <div class="modal fade" id="modalHC" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -33,7 +33,7 @@
                                             <label class="fw-bolder" for="">INICIO: </label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text">
+                                            <input class="form-control form-control-m bg-light" id="" type="text">
                                         </div>
                                     </div>      
                                     <div class="row g-2 mb-3">
@@ -41,7 +41,7 @@
                                             <label class="fw-bolder" for="">CURSO:</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text">
+                                            <input class="form-control form-control-m bg-light" id="" type="text">
                                         </div>
                                     </div>   
                                     <div class="row g-2 mb-3">
@@ -49,7 +49,7 @@
                                             <label class="fw-bolder" for="">RELATO:</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text">
+                                            <input class="form-control form-control-m bg-light" id="" type="text">
                                         </div>
                                     </div>  
                                     <div class="row g-2 mb-2">
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="row g-2 mb-3">
                                         <div class="col-md-12">
-                                        <textarea class="form-control"></textarea>
+                                        <textarea class="form-control form-control-m"></textarea>
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
@@ -68,7 +68,7 @@
                                             <label class="fw-bolder" for="">CIE-10:</label>
                                         </div>
                                         <div class="col-md-5">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text">
+                                            <input class="form-control form-control-m bg-light" id="" type="text">
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-check form-check-inline">
@@ -87,10 +87,10 @@
                                     </div> 
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-2">
-                                            <label class="fw-bolder" for="">DESCRIP:</label>
+                                            <label class="fw-bolder" for="">DESCRIPCIÓN:</label>
                                         </div>
                                         <div class="col-md-10">
-                                        <input class="form-control form-control-sm bg-light" id="" type="text">
+                                        <input class="form-control form-control-m bg-light" id="" type="text">
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
@@ -116,22 +116,22 @@
                                         <h5 class="fw-bolder">DATOS DEL PROFESIONAL</h5>
                                     </div>
                                     <div class="row g-2 mb-2">
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <label class="fw-bolder" for="">PROFESIONAL:</label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text" readonly>
+                                        <div class="col-md-10">
+                                            <input class="form-control form-control-m bg-light" id="" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
                                         <div class="col-md-2">
-                                            <label class="fw-bolder" for="">COD:</label>
+                                            <label class="fw-bolder" for="">CÓDIGO:</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input class="form-control form-control-sm bg-light" id="" type="text" readonly>
+                                            <input class="form-control form-control-m bg-light" id="" type="text" readonly>
                                         </div>
                                         <div class="col-md-1"></div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <label class="fw-bolder" for="">TURNO:</label>
                                         </div>
                                         <div class="col-md-5">
