@@ -158,6 +158,10 @@ temperatura			DECIMAL(4,2) 	NOT NULL,
 saturacionOxigeno		TINYINT 	NOT NULL,
 examemGeneral 			VARCHAR(2000) 	NULL,
 frecuencia			CHAR(1) 	NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
+
+procedimiento			VARCHAR(200)	NULL,
+observaciones			VARCHAR(200)	NULL,
+
 fechaCreacion 			DATETIME	NOT NULL DEFAULT NOW(),
 fechaActualizacion		DATETIME	NULL,
 idHistoria			INT 		NOT NULL,
@@ -213,4 +217,18 @@ idEnfermedad				INT NOT NULL,
 idDetalleAtencion 		INT NOT NULL,
 CONSTRAINT fk_enf_epp FOREIGN KEY Enfermedad_Pacientes (idEnfermedad) REFERENCES Enfermedades (idEnfermedad),
 CONSTRAINT fk_det_epp FOREIGN KEY Enfermedad_Pacientes (idDetalleAtencion) REFERENCES Detalle_Atenciones (idDetalleAtenciones)
+)ENGINE = INNODB;
+
+CREATE TABLE Tratamiento_paciente
+(
+idTratamiento 			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+idDetalleAtencion 		INT NOT NULL,
+medicamento			VARCHAR(100)	NOT NULL,
+presentacion			VARCHAR(100)	NOT NULL,
+cantidad			TINYINT		NOT NULL,
+dosis				VARCHAR(100)	NOT NULL,
+dias				VARCHAR(50)	NOT NULL,
+fechaCreacion 			DATETIME	NOT NULL DEFAULT NOW(),
+fechaActualizacion		DATETIME	NULL,
+CONSTRAINT fk_det_tp FOREIGN KEY Enfermedad_Pacientes (idDetalleAtencion) REFERENCES Detalle_Atenciones (idDetalleAtenciones)
 )ENGINE = INNODB;

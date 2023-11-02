@@ -17,3 +17,17 @@ BEGIN
 	AND ate.fechaAtencion = CURDATE()
 	ORDER BY  ate.idAtencion;
 END $$
+
+DELIMITER$$
+CREATE SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA
+(
+IN _idDetalleatencion 	INT,
+IN _procedimiento	VARCHAR(200)	NULL,
+IN _observaciones	VARCHAR(200)	NULL,
+)
+BEGIN
+	UPDATE Detalle_Atenciones SET
+		procedimiento = _procedimiento,
+		observaciones = _observaciones
+	WHERE idDetalleAtenciones = _idDetalleatencion;
+END$$

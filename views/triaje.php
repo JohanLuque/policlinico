@@ -90,7 +90,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Cardiaca:</label>          
                                 </div> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="number" id="f-cardiaca1"class="form-control form-control-sm" required>         
                                 </div>
                                 <div class="ms-3 col-md-2">
@@ -101,7 +101,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Respiratoria:</label>          
                                 </div> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="number" id="f-respiratoria1"class="form-control form-control-sm" required>         
                                 </div> 
                                 <div class="ms-3 col-md-2">
@@ -112,7 +112,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label">Presión Arterial:</label>          
                                 </div> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="number" id="presionArterial1"class="form-control form-control-sm" required>         
                                 </div> 
                                 <div class="ms-3 col-md-1">
@@ -126,7 +126,7 @@
                                 <div class="col-md-4">
                                   <label class="form-label" for="">Temperatura(C°):</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="text" id="temperatura"class="form-control form-control-sm" required>
                                 </div>
                               </div>
@@ -134,7 +134,7 @@
                                 <div class="col-md-3">
                                   <label class="form-label" for="">Saturación Oxígeno:</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="text" id="saturacionOxigeno"class="form-control form-control-sm " required>
                                 </div>
                               </div>
