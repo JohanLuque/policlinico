@@ -88,4 +88,13 @@ class Atencion extends Conexion{
       die($e->getCode());
     }
   }
+  public function contador(){
+    try{
+      $query = $this->connection->prepare("CALL spu_contadores()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

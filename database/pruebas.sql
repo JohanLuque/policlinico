@@ -13,14 +13,22 @@ ORDER BY  ate.idAtencion
 -- cantidad de atenciones por dia: INGRESO TOTAL 
 SELECT 
     (SELECT COUNT(p.idPago) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS pagados,
-    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS totalPago,
-    COUNT(d.idDevolucion) AS devueltos, SUM(d.montoDevolucion) AS totalDevoluciones,
+    COUNT(d.idDevolucion) AS devueltos, SUM(d.montoDevolucion) AS Devoluciones,
+    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS totalPago,    
     (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS totalGasto,
     (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) - SUM(d.montoDevolucion) - (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS IngresoDia
 FROM atenciones a
 LEFT JOIN devoluciones d ON d.idAtencion = a.idAtencion
 WHERE DATE(d.fechaHoraDevolucion) = CURDATE();
 
+-- DATOS DE INDEX
+SELECT 
+    (SELECT COUNT(p.idPersona) FROM personas p ) AS pacientes,
+    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'E') AS especialidades,
+    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'S') AS servicios,
+    COUNT(e.idEspecialista) AS medicos, 
+    (SELECT COUNT(a.idAtencion) FROM atenciones a) AS atenciones  
+FROM Especialistas e
 
 SELECT * FROM devoluciones
 
