@@ -159,12 +159,12 @@
 
             <div class="mb-3 row g-2">              
               <div class="col-md-3">                                  
-                <select name="" id="listaServicios" class="form-select form-select-sm">
+                <select name="" id="listaServicios" class="">
                   <option value="">Seleccione</option>
                 </select> 
               </div>
               <div class="col-md-5">                                  
-                <select name="" id="listaServiciosFiltro" class="form-select form-select-sm">
+                <select name="" id="listaServiciosFiltro" class="">
                   <option value="">Seleccione</option>
                 </select> 
               </div>
@@ -538,6 +538,8 @@ function registrarAtencion(){
       registrarServiciosDetalles();
       toastCheck("Guardado correctamente"); 
       form.reset();
+      listarServicios();
+      listarServiciosFiltro();
       limpiarTabla();
       obtenerFecha();
   })
@@ -587,7 +589,8 @@ function limpiarTodo(){
 }
 
 function limpiarSelect(){
-  listaServiciosFiltro.value = 0;
+  listarServiciosFiltro();
+  listarServicios();
 }
 
 function limpiarTabla() {
