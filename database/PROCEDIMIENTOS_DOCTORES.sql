@@ -18,16 +18,43 @@ BEGIN
 	ORDER BY  ate.idAtencion;
 END $$
 
-DELIMITER$$
-CREATE SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA
+DELIMITER $$
+CREATE PROCEDURE SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA
 (
 IN _idDetalleatencion 	INT,
-IN _procedimiento	VARCHAR(200)	NULL,
-IN _observaciones	VARCHAR(200)	NULL,
+IN _inicio		VARCHAR(2000),
+IN _curso		VARCHAR(2000),
+IN _relato		VARCHAR(2000),
+IN _procedimiento 	VARCHAR(200),
+IN _observaciones 	VARCHAR(200),
+IN _examenGeneral 	VARCHAR(2000),
+IN _frecuencia 		CHAR(1)
 )
 BEGIN
 	UPDATE Detalle_Atenciones SET
+		inicio = _inicio,
+		curso = _curso,
+		relato = _relato,
 		procedimiento = _procedimiento,
-		observaciones = _observaciones
+		observaciones = _observaciones,
+		examenGeneral = _examenGeneral,
+		frecuencia = _frecuencia
 	WHERE idDetalleAtenciones = _idDetalleatencion;
 END$$
+
+-- CALL SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA(1,'tos','dolor de cabeza','inicio esta semana', 'no se', 'no se x2','Descanso 2 dias', '')
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_detalle_tratamiento
+(
+IN _idDetalleAtencion	INT,
+IN _medicamento		VARCHAR(100),
+IN _presentacion	VARCHAR(100),
+IN _cantidad		TINYINT,
+IN _dosis		VARCHAR(100),
+IN _dias		VARCHAR(50)
+)
+BEGIN
+	INSERT INTO Tratamiento_paciente (idDetalleAtencion, medicamento, presentacion, cantidad, dosis, dias)VALUES
+	(_idDetalleAtencion, _medicamento, _presentacion, _cantidad, _dosis, _dias);
+END$$
+-- select * from Detalle_Atenciones

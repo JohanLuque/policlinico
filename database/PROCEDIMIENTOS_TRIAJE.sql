@@ -53,21 +53,6 @@ BEGIN
 	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END $$
 
--- REGISTRAR DETALLE DE HISTORIA(DOCTOR)
-DELIMITER $$
-CREATE PROCEDURE spu_triaje_doctor_agregar
-(
-IN _idDetalleatencion INT,
-IN _examenGeneral VARCHAR(2000),
-IN _frecuencia CHAR(1)
-)
-BEGIN
-	UPDATE Detalle_Atenciones SET
-		examenGeneral = _examenGeneral,
-		frecuencia = _frecuencia
-	WHERE idDetalleAtenciones = _idDetalleatencion;
-END$$
-
 -- REGISTRAR ENFERMEDADES
 DELIMITER $$
 CREATE PROCEDURE spu_triaje_doctor_agregar_enfermedad

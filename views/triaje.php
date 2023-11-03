@@ -118,7 +118,7 @@
                                 <div class="ms-3 col-md-1">
                                   <label> / </label>          
                                 </div> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                   <input type="number" id="presionArterial2"class="form-control form-control-sm" required>         
                                 </div>
                               </div>
