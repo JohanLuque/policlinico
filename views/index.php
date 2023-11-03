@@ -25,7 +25,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="" class="text-nowrap logo-img mt-3">
+          <a href="index.php" class="text-nowrap logo-img mt-3">
             <img src="./images/logos/LOGO POLICLINICO.png" style="padding:15px ;" width="210" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -133,8 +133,8 @@
     <!--  Main wrapper -->
     <div class="body-wrapper">
       <!--  Header Start -->
-      <header class="app-header bg-danger">
-        <nav class="navbar navbar-expand-lg navbar-light">
+      <header class="app-header ">
+        <nav class="navbar shadow-sm navbar-expand-lg navbar-light">
           <ul class="navbar-nav">
             <li class="nav-item d-block d-xl-none">
               <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
@@ -145,7 +145,7 @@
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label class="text-white">Hola!</label>
+              <label class="">Hola!</label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -163,7 +163,73 @@
       </header>
       <!--  Header End -->
       <div class="container-fluid" id="contenedor-vistas">
-        
+        <div class="row">
+          <div class="col-md">
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-info shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="./images/products/1.png" width="50" height="50" class="md-3">
+                    <p class="fw-semibold fs-3 text-info mb-1 mt-1">PACIENTES</p>
+                    <h5 class="fw-semibold mb-0 " id="cpacientes"></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-danger shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="./images/products/medico.png" width="50" height="50" class="md-3">
+                    <p class="fw-semibold fs-3 text-danger mb-1 mt-1">MÉDICOS</p>
+                    <h5 class="fw-semibold mb-0" id="cmedicos"></h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-warning shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="./images/products/registros-medicos.png" width="50" height="50" class="md-3">
+                    <p class="fw-semibold fs-3 text-warning mb-1 mt-1">ATENCIONES</p>
+                    <h5 class="fw-semibold mb-0" id="catenciones">1500</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-success shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="./images/products/consulta.png" width="50" height="50" class="md-3">
+                    <p class="fw-semibold fs-3 text-success mb-1 mt-1">ESPECIALIDADES</p>
+                    <h5 class="fw-semibold mb-0" id="cespecialidades">15</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="item">
+              <div class="card border-0 zoom-in bg-light-primary shadow-none">
+                <div class="card-body">
+                  <div class="text-center">
+                    <img src="./images/products/examen-de-orina.png" width="50" height="50" class="md-3">
+                    <p class="fw-semibold fs-3 text-primary mb-1 mt-1">SERVICIOS</p>
+                    <h5 class="fw-semibold mb-0" id="cservicios">15</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <!--  Row 1 -->
         
@@ -206,7 +272,34 @@
           });
         }
       }  
+      
+      function contadores(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "contador");
+        fetch("../controllers/atencion.php", {
+          method: "POST",
+          body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+          const pacientes = document.querySelector("#cpacientes");
+          const medicos = document.querySelector("#cmedicos");
+          const atenciones = document.querySelector("#catenciones");
+          const especialidades = document.querySelector("#cespecialidades");
+          const servicios = document.querySelector("#cservicios");
+          datos.forEach(element => {
+            pacientes.innerHTML = element.pacientes;
+            medicos.innerHTML = element.medicos;
+            atenciones.innerHTML = element.atenciones;
+            especialidades.innerHTML = element.especialidades;
+            servicios.innerHTML = element.servicios;
+            console.log(element.pacientes)
+          });
+          
+        })
+      }
       getURL();
+      contadores();
     });
 
   </script>

@@ -41,5 +41,8 @@ if(isset($_POST['operacion'])){
     case 'listarEspera':
       echo json_encode($atencion->listarEspera());
       break;
+    case 'contador':
+      echo json_encode($atencion->contador());
+      break;
   }
 }
