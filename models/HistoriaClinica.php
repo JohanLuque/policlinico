@@ -137,4 +137,28 @@ class HistoriaClinica extends Conexion{
     }
   }
 
+  public function detalleHistoriaClinica($data =[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA(?,?,?,?,?,?,?,?)");
+      $respuesta["status"] =$query->execute(
+        array(
+            $data['idDetalleatencion'],
+            $data['inicio'],
+            $data['curso'],
+            $data['relato'],
+            $data['procedimiento'],
+            $data['observaciones'],
+            $data['examenGeneral'],
+            $data['frecuencia']
+        )
+      );
+    }catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
 }

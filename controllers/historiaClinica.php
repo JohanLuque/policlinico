@@ -31,5 +31,18 @@ if(isset($_POST['operacion'])){
     case 'obtenerDatosTriaje':
       echo json_encode($historiaClininca->obtenerDatosTriaje($_POST['idatencion']));
       break;
+    case 'detalleHC':
+      $parametros = [
+        "idDetalleatencion"   => $_POST['idDetalleatencion'],
+        "inicio"              => $_POST['inicio'],
+        "curso"               => $_POST['curso'],
+        "relato"              => $_POST['relato'],
+        "procedimiento"       => $_POST['procedimiento'],
+        "observaciones"       => $_POST['observaciones'],
+        "examenGeneral"       => $_POST['examenGeneral'],
+        "frecuencia"          => $_POST['frecuencia']
+    ];
+      $respuesta = $historiaClininca->detalleHistoriaClinica($parametros);
+      echo json_encode($respuesta);
   }
 }

@@ -156,11 +156,14 @@ frecuenciaRespiratoria		VARCHAR(5) 	NOT NULL,
 presionArterial			VARCHAR(10) 	NOT NULL,
 temperatura			DECIMAL(4,2) 	NOT NULL,
 saturacionOxigeno		TINYINT 	NOT NULL,
-examemGeneral 			VARCHAR(2000) 	NULL,
+examenGeneral 			VARCHAR(2000) 	NULL,
 frecuencia			CHAR(1) 	NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
 
-procedimiento			VARCHAR(200)	NULL,
-observaciones			VARCHAR(200)	NULL,
+inicio				VARCHAR(2000)   NULL,
+curso 				VARCHAR(2000)	NULL,
+relato				VARCHAR(2000)	NULL,
+procedimiento			VARCHAR(2000)	NULL,
+observaciones			VARCHAR(2000)	NULL,
 
 fechaCreacion 			DATETIME	NOT NULL DEFAULT NOW(),
 fechaActualizacion		DATETIME	NULL,
