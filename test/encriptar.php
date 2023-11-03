@@ -1,6 +1,6 @@
 <?php
 
-$claveBase = "1234";      //Clave ORIGINAL
+$claveBase = "123456";      //Clave ORIGINAL
 $claveEncriptada = password_hash($claveBase, PASSWORD_BCRYPT); //
 
 var_dump($claveEncriptada);
