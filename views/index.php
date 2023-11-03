@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
+    header("Location:../");
+}
+?>
 <!doctype html>
 <html lang="es">
 
@@ -145,7 +151,7 @@
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label class="">Hola!</label>
+              <label class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -153,7 +159,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                   <div class="message-body">
-                    <a href="../index.html" class="btn btn-primary mx-3 mt-2 d-block">Cerrar Sesión</a>
+                    <a href="../controllers/usuario.php?operacion=destroy" class="btn btn-primary mx-3 mt-2 d-block">Cerrar Sesión</a>
                   </div>
                 </div>
               </li>
@@ -197,7 +203,7 @@
                   <div class="text-center">
                     <img src="./images/products/registros-medicos.png" width="50" height="50" class="md-3">
                     <p class="fw-semibold fs-3 text-warning mb-1 mt-1">ATENCIONES</p>
-                    <h5 class="fw-semibold mb-0" id="catenciones">1500</h5>
+                    <h5 class="fw-semibold mb-0" id="catenciones"></h5>
                   </div>
                 </div>
               </div>
@@ -210,7 +216,7 @@
                   <div class="text-center">
                     <img src="./images/products/consulta.png" width="50" height="50" class="md-3">
                     <p class="fw-semibold fs-3 text-success mb-1 mt-1">ESPECIALIDADES</p>
-                    <h5 class="fw-semibold mb-0" id="cespecialidades">15</h5>
+                    <h5 class="fw-semibold mb-0" id="cespecialidades"></h5>
                   </div>
                 </div>
               </div>
@@ -223,7 +229,7 @@
                   <div class="text-center">
                     <img src="./images/products/examen-de-orina.png" width="50" height="50" class="md-3">
                     <p class="fw-semibold fs-3 text-primary mb-1 mt-1">SERVICIOS</p>
-                    <h5 class="fw-semibold mb-0" id="cservicios">15</h5>
+                    <h5 class="fw-semibold mb-0" id="cservicios"></h5>
                   </div>
                 </div>
               </div>

@@ -1,11 +1,8 @@
 <?php
-//Iniciamos/heredamos la sesión
 session_start();
-
-//La sesión contendrá datos del login en formato de arreglo
 $_SESSION["login"] = [];
 
-require_once '../models/usuario.php';
+require_once '../models/Usuario.php';
 
 
 if(isset($_POST['operacion'])){
@@ -15,27 +12,24 @@ if(isset($_POST['operacion'])){
   if($_POST['operacion'] == 'inicioSesion'){
     $resultado = [
       "acceso" => false,
+      "idUsuario" => 0,
       "mensaje" => "",
       "nombres" => "",
-      "apellidos" => "",
       "nivelacceso" => ""
     ];
 
-    $data = $usuario->login($_POST['usuario']);
+    $data = $usuario->login($_POST['nombreUsuario']);
 
     
     if($data){
 
       $claveIngresada = $_POST['clave'];
       if (password_verify($claveIngresada, $data['clave'])){
-
-        //Enviamos toda la info del usuario
         $resultado["acceso"] =  true;
         $resultado["mensaje"] = "Bienvenido a las olimpiadas";
-        $resultado["nombres"] = $data["nombres"];
-        $resultado["apellidos"] = $data["apellidos"];
-        $resultado["nivelacceso"] = $data["nivelacceso"];
-
+        $resultado["nombres"] = $data["ApellidosNombres"];
+        $resultado["idUsuario"] = $data["idUsuario"];
+        $resultado["nivelacceso"] = $data["nivelAcceso"];
       }else{
         $resultado["mensaje"] = "La contraseña es incorrecta";
       }
