@@ -333,7 +333,7 @@ function listarCards(){
                 colorFondo = "bg-light-danger";
                 clase="pagar"
             }else if(element.estado == 1){
-                color = "bg-success";
+                color = "bg-info";
                 nombreBoton = "Devolución";
                 colorBoton = "btn-info";
                 colorFondo = "bg-light-info";
@@ -352,7 +352,7 @@ function listarCards(){
                     <div class="card-content">
                         <div class="card-header ${color}" >
                             <div class='col-md-6'>
-                                <button class='btn ${colorBoton} rounded-pill m-1' type='button'>
+                                <button class='btn btn-danger rounded-pill m-1' type='button'>
                                     <a class='ticket' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
                                 </button>
                             </div>
@@ -425,7 +425,8 @@ cardresumen.addEventListener("click", (event) => {
             })
         })   
         modal.toggle();
-    }else if(event.target.classList[0] == 'devolucion'){
+    }
+    else if(event.target.classList[0] == 'devolucion'){
         const parametros =new URLSearchParams();
         parametros.append("operacion", "traerDatosDevolucion");
         parametros.append("idAtencion", idatencion);
@@ -447,6 +448,17 @@ cardresumen.addEventListener("click", (event) => {
             })
         })
         modalDevolucion.toggle();
+    }
+    else if(event.target.classList[0] == 'ticket'){
+        console.log(idatencion)
+        if(idatencion > 0){
+            const parametros = new URLSearchParams();
+            parametros.append("idAtencion", idatencion);
+            parametros.append("titulo", idatencion);
+            window.open(`../reports/ticketcaja.report.php?${parametros}`, '_blank');
+        }else{
+            console.log(idAtencion)
+        }
     }
 });
 

@@ -68,4 +68,22 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+  public function ticket1($idatencion){
+    try{
+      $query = $this->connection->prepare("CALL spu_ticket_1(?)");
+      $query->execute(array($idatencion));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+  public function ticket2($idatencion){
+    try{
+      $query = $this->connection->prepare("CALL spu_ticket_2(?)");
+      $query->execute(array($idatencion));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
