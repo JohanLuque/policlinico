@@ -53,18 +53,6 @@ BEGIN
 	(_idatencion, _idhistoria, _peso, _talla, _frecuenciaCardiaca, _frecuenciaRespiratoria, _presionArterial, _temperatura, _saturacionOxigeno, _idusuario);
 END $$
 
--- REGISTRAR ENFERMEDADES
-DELIMITER $$
-CREATE PROCEDURE spu_triaje_doctor_agregar_enfermedad
-(
-IN _idEnfermedad INT,
-IN _idDetalleatencion INT
-)
-BEGIN
-	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
-	(_idEnfermedad, _idDetalleatencion);
-END$$
-
 -- BUSCAR HISTORIAS CLINICAS
 DELIMITER $$
 CREATE PROCEDURE spu_triaje_buscar_historias

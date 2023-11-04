@@ -38,7 +38,8 @@ BEGIN
 		procedimiento = _procedimiento,
 		observaciones = _observaciones,
 		examenGeneral = _examenGeneral,
-		frecuencia = _frecuencia
+		frecuencia = _frecuencia,
+		fechaActualizacion = NOW()
 	WHERE idDetalleAtenciones = _idDetalleatencion;
 END$$
 
@@ -58,3 +59,27 @@ BEGIN
 	(_idDetalleAtencion, _medicamento, _presentacion, _cantidad, _dosis, _dias);
 END$$
 -- select * from Detalle_Atenciones
+
+-- BUSCAR ENFERMEDAD
+DELIMITER$$
+CREATE PROCEDURE spu_doctores_buscar_enfermedad
+(
+IN _codigoCie_10 VARCHAR(10)
+)
+BEGIN
+	SELECT idEnfermedad,codigoCie_10, descripcion FROM enfermedades
+	WHERE Enfermedades.codigoCie_10 = _codigoCie_10;
+END$$
+-- CALL spu_doctores_buscar_enfermedad('C00-D48');
+
+-- REGISTRAR ENFERMEDADES
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_doctor_agregar_enfermedad
+(
+IN _idEnfermedad INT,
+IN _idDetalleatencion INT
+)
+BEGIN
+	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
+	(_idEnfermedad, _idDetalleatencion);
+END$$
