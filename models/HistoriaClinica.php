@@ -161,4 +161,35 @@ class HistoriaClinica extends Conexion{
     }
     return $respuesta;
   }
+  public function agregarEnfermedad($data =[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_doctor_agregar_enfermedad(?,?)");
+      $respuesta["status"] =$query->execute(
+        array(
+            $data['idDetalleatencion'],
+            $data['idEnfermedad']
+        )
+      );
+    }catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
+  public function obtenerEnfermedad($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_doctores_buscar_enfermedad(?)");
+      $query->execute(
+        array(
+            $data['codigoCie_10']
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

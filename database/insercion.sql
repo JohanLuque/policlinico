@@ -85,6 +85,12 @@ INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
 (3,10),
 (1,11);
 
+INSERT INTO Enfermedades(codigoCie_10, descripcion)VALUES
+('A00-B99','Ciertas enfermedades infecciosas y parasitarias'),
+('C00-D48','Neoplasias'),
+('D50-D89','Enfermedades de la sangre y de los órganos hematopoyéticos y otros trastornos que afectan el mecanismo de la inmunidad'),
+('E00-E90','Enfermedades endocrinas, nutricionales y metabólicas'),
+('F00-F99','Trastornos mentales y del comportamiento');
 
 INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 -- LABORATORIO
