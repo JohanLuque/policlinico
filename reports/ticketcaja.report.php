@@ -10,12 +10,13 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     $pago = new Pago ();
-    $datos = $pago->reporte2($_GET['idolimpiada']);
+    $datosObtenidos = $pago->ticket1($_GET['idAtencion']);
+    $datos = $pago->ticket2($_GET['idAtencion']);
     $titulo = $_GET['titulo'];
     ob_start();
 
     include './estilos.html';
-    include './ganadores.data.php';
+    include './ticketcaja.data.php';
 
     $content = ob_get_clean();
 
