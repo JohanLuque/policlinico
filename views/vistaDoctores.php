@@ -110,6 +110,43 @@
                                         <h5 class="fw-bolder">TRATAMIENTO</h5>
                                     </div>
                                     <div class="row g-2 mb-2">
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">MEDICAMENTO:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control form-control-m bg-light" id="medicamento" type="text">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="fw-bolder" for="">PRESENTACIÓN:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control form-control-m bg-light" id="presentacion" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
+                                    <div class="col-md-2">
+                                            <label class="fw-bolder" for="">DOSIS:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input class="form-control form-control-m bg-light" id="dosis" type="text">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="fw-bolder" for="">CANTIDAD:</label>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <input type="number" class="form-control form-control-m bg-light" id="cantidad" type="text">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label class="fw-bolder" for="">DÍAS:</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control form-control-m bg-light" id="dias" type="text">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-sm" id="agregarTratamiento" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="row g-2 mb-2">
                                         <h5 class="fw-bolder">OBSERVACIONES</h5>
                                     </div>
                                     <div class="row g-2 mb-3">
