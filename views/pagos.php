@@ -353,7 +353,7 @@ function listarCards(){
                         <div class="card-header ${color}" >
                             <div class='col-md-6'>
                                 <button class='btn btn-danger rounded-pill m-1' type='button'>
-                                    <a class='ticket' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
+                                    <a class='ticket' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >ticket</a>
                                 </button>
                             </div>
                         </div>
