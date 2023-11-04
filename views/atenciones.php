@@ -4,7 +4,7 @@
     <div class="card-body border-0">
       <div class="row">
         <div class="col-md-11">
-          <h3 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h3>
+          <h2 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h2>
         </div>
         <div class="col-md-1">
           <button type="button" class="btn btn-sm" id="limpiar"><i class="fa-solid fa-trash-can fa-2xl" style="color: #f96f12;"></i></button>

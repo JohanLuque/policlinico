@@ -73,7 +73,7 @@ if (isset($_SESSION['login']) && $_SESSION['login']['acceso']){
             .then(datos => {
               if(datos.acceso){
                 notificar("BIENVENIDO POLICLINICO SOLIDARIO DE CHINCHA", datos.mensaje, 50000)
-                window.location.href = './views/index.php';
+                window.location.href = './views/index.php?view=dashboart.php';
               }else{
                 toast(datos.mensaje);                  
               }

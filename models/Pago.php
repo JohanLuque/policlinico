@@ -45,6 +45,20 @@ class Pago extends Conexion{
     }
   }
 
+  public function cambiarEstadoDevolucion($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_caja_cambiar_estado_Devolucion(?)");
+      $query->execute(
+        array(
+            $data['idatencion']
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
   public function ingresos(){
     try{
       $query = $this->connection->prepare("CALL spu_caja_obtener_ingresos()");

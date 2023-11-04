@@ -32,7 +32,8 @@ FROM Especialistas e
 
 SELECT * FROM devoluciones
 
-SELECT * FROM detalle_atenciones
+SELECT * FROM Detalle_Servicios
+
 
 SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
@@ -47,3 +48,43 @@ SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() 
 	GROUP BY Detalle_Servicios.idatencion
 	ORDER BY dia DESC;
+	
+SELECT ate.numeroAtencion, pag.fechaHoraPago,
+    CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+    per.numeroDocumento,per.`telefono`, YEAR(CURDATE())-YEAR(per.fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(per.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+    especialidad.nombreServicio AS 'Servicio',
+    SUM(pag.monto) AS 'MontoTotal'
+FROM    pagos pag
+INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+INNER JOIN  Personas per ON per.idPersona = ate.idPersona
+LEFT JOIN (
+    SELECT ate.idAtencion,ser.nombreServicio
+    FROM   atenciones ate
+    INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+    INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+    INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+    WHERE ate.idAtencion = 4
+    GROUP BY ser.nombreServicio   
+) AS especialidad ON ate.idAtencion = especialidad.idAtencion
+WHERE ate.idAtencion = 4
+GROUP BY ate.idAtencion;
+
+SELECT ate.idAtencion, pag.`idMedioPago`,med.nombrePago, pag.`monto` 
+FROM    pagos pag
+INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+INNER JOIN Medio_Pagos med ON pag.idMedioPago = med.idMedioPago
+WHERE ate.idAtencion = 4
+GROUP BY pag.`idMedioPago`;
+
+
+SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
+personas.telefono,servicios_detalle.precio AS 'total'
+FROM Detalle_Servicios
+LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+WHERE detalle_servicios.idAtencion = 4;
+
+

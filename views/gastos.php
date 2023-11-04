@@ -2,7 +2,7 @@
     <div class="col-md-5">
         <div class="card">
             <form id="form-gastos" class="needs-validation">
-                <div class="card-header">
+                <div class="card-header bg-white">
                     <h1 class="text-center">Gastos</h1>
                 </div>
                 <div class="card-body">

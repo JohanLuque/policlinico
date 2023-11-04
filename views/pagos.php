@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="card">
-        <div class="card-header">
-            <h1 class="text-center">Lista de Atenciones</h1>
+        <div class="card-header bg-white">
+            <h1 class="text-center text-danger">Lista de Atenciones</h1>
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2" id="cardresumen">         
@@ -15,7 +15,7 @@
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header ">
           <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Pago:</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -249,7 +249,7 @@
                                         <th>método</th>
                                         <th>Cantidad</th>
                                         <th></th>
-                                      </tr>
+                                    </tr>
                                 </thead>
                                 <tbody id="devcuerpoPagos">
                                     <!-- traer datos  -->
@@ -261,8 +261,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary "   id="devGuardar">Guardar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary "   id="devGuardar">Guardar</button>
         </div>
       </div>
     </div>
@@ -332,19 +332,31 @@ function listarCards(){
                 colorBoton = "btn-danger";
                 colorFondo = "bg-light-danger";
                 clase="pagar"
-            }else{
-                color = "bg-info";
+            }else if(element.estado == 1){
+                color = "bg-success";
                 nombreBoton = "Devolución";
                 colorBoton = "btn-info";
                 colorFondo = "bg-light-info";
                 clase = "devolucion"
+            }else{
+                color = "bg-warning";
+                nombreBoton = "Resumen";
+                colorBoton = "btn-warning";
+                colorFondo = "bg-light-warning";
+                clase = "resumen"
             }
 
             const nuevoCard = `
             <div class="col-md-3" >
                 <div class="card">
                     <div class="card-content">
-                        <div class="card-header ${color}" ></div>
+                        <div class="card-header ${color}" >
+                            <div class='col-md-6'>
+                                <button class='btn ${colorBoton} rounded-pill m-1' type='button'>
+                                    <a class='ticket' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
+                                </button>
+                            </div>
+                        </div>
                         <div class="card-body ${colorFondo}" style="text-align: center;">
                             <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
                             <h6>${element.nombreServicio}</h6>
@@ -353,7 +365,7 @@ function listarCards(){
                                     <h6>S/${element.Total}</h6>
                                 </div>
                                 <div class='col-md-6'>
-                                    <button class='btn ${colorBoton} m-1' type='button'>
+                                    <button class='btn ${colorBoton} rounded-pill m-1' type='button'>
                                         <a class='${clase}' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >${nombreBoton}</a>
                                     </button>
                                 </div>
@@ -559,6 +571,22 @@ function validarPagos(){
         notificar("POLICLINICO SOLIDARIO", "la cantidad total no coincide con el monto del pago", 2)
     }
 }
+
+function validarDevoluciones(){
+    if(parseFloat(totalRestante.value)===0){
+        mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+        if(result.isConfirmed){
+            GuardarDevolucion();
+            cambiarEstadoDevolucion();
+            modalDevolucion.toggle();
+            
+        }
+        listarCards();
+        })
+    }else{
+        notificar("POLICLINICO SOLIDARIO", "la cantidad total no coincide con el monto de la devolucion", 2)
+    }
+}
 function limpiarPagos(){
     totalMedioPago.value = 0;
     totalRestante.value = 0; 
@@ -617,6 +645,22 @@ function tablaDetalle(idatencion){
         })
 }
 
+function cambiarEstadoDevolucion(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "devolucion");
+    parametros.append("idatencion", idatencion);
+    fetch("../controllers/pago.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {  
+        toastCheck("estado cambiado");  
+        
+        listarCards();    
+    })
+}
+
 function cambiarEstadoPago(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "cambiarEstado");
@@ -630,7 +674,7 @@ function cambiarEstadoPago(){
         toastCheck("estado cambiado");  
         
         listarCards();    
-})
+    })
 }
 
 function pagar(){
@@ -792,7 +836,7 @@ totalResumen.addEventListener("keypress", (evt) =>{
     };
 });
 
-devGuardar.addEventListener("click", GuardarDevolucion);
+devGuardar.addEventListener("click", validarDevoluciones);
 motivoDevolucion.addEventListener("change", function () {
     const selectedValue = motivoDevolucion.value;
     if (selectedValue === "Otros") {
