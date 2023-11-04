@@ -12,6 +12,7 @@ try {
     $pago = new Pago ();
     $datosObtenidos = $pago->ticket1($_GET['idAtencion']);
     $datos = $pago->ticket2($_GET['idAtencion']);
+    $pago = $pago->ticket3($_GET['idAtencion']);
     $titulo = $_GET['titulo'];
     ob_start();
 
@@ -20,7 +21,9 @@ try {
 
     $content = ob_get_clean();
 
-    $html2pdf = new Html2Pdf('P', 'A4', 'es');
+    //$html2pdf = new Html2Pdf('P', '80X80', 'es');
+    $html2pdf = new Html2Pdf('P', 'A4', 'fr', true, 'UTF-8', 0);
+    $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content);
     $html2pdf->output('ticket.pdf');
 } catch (Html2PdfException $e) {

@@ -96,7 +96,7 @@ BEGIN
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE detalle_servicios.idAtencion =_idAtencion;
+	WHERE detalle_servicios.idAtencion =1;
 END $$
 
 
