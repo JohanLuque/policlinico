@@ -585,7 +585,7 @@ function validarPagos(){
 }
 
 function validarDevoluciones(){
-    if(parseFloat(totalRestante.value)===0){
+    if(parseFloat(devTotalRestante.value)===0){
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
         if(result.isConfirmed){
             GuardarDevolucion();
