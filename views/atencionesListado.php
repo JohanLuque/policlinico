@@ -1,13 +1,11 @@
 <div class="container-fluid">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-white">
             <div class="row">
-                <div class="col-md-9">
-                    <h1 class="text-center">Lista de Espera</h1>
-                </div>
-                <div class="col-md-3">
-                    <h2  id="fechaHoy"></h2>
-                </div>
+                <h6 class="text-end" id="fechaHoy"></h6>
+            </div>
+            <div class="row">                
+                <h1 class="text-center text-danger">Lista de Espera</h1>                
             </div>
         </div>
         <div class="card-body">
@@ -19,107 +17,101 @@
 
 <div class="modal fade" id="modalAtenciones" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="row mt-2 mb-3">                
-                <div class="col-md-12">
-                    <div class="card">
-
-                        <div class="card-body">
-                            <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
-                            <div class="row mt-2 mb-3">
-                                <div class="col-md-12">                                    
-                                    <div class="row g-2 mb-3">                             
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Nombre completo: </label>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-2 mb-3">                
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
+                                <div class="row mt-2 mb-3">
+                                    <div class="col-md-12">                                    
+                                        <div class="row g-2 mb-3">                             
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Nombre completo: </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="nombreCompleto"></label>
+                                            </div>
+                                        </div>      
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">DNI:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="dni"></label>
+                                            </div>
+                                        </div>   
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Edad:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="edad"></label>
+                                            </div>
+                                        </div>  
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Teléfono:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="telefono"></label>
+                                            </div>
+                                        </div> 
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Especialidad:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="especialidad"></label>
+                                            </div>
+                                        </div> 
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Fecha Atención:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="date" class="form-control form-control-sm" id="fechaAtencion" >
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="nombreCompleto"></label>
+                                        <div class="row g-2 mb-3">
+                                            <table class="table-sm" id="detallemodalEspera" class="">
+                                                <thead class="table bg-light-info">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Servicio</th>
+                                                        <th>Total</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="cuerpomodal">
+                                                    <!-- traer datos  -->
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    </div>      
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">DNI:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="dni"></label>
-                                        </div>
-                                    </div>   
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Edad:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="edad"></label>
-                                        </div>
-                                    </div>  
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Teléfono:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="telefono"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Especialidad:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="especialidad"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Fecha Atención:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="date" class="form-control form-control-sm" id="fechaAtencion" >
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <table class="table-sm" id="detallemodalEspera" class="">
-                                            <thead class="table bg-light-info">
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Servicio</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="cuerpomodal">
-                                                <!-- traer datos  -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Total:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control form-control-sm bg-light" id="total" readonly>
-                                        </div>
-                                    </div>  
-                                    
-                                </div>                      
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Total:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control form-control-sm bg-light" id="total" readonly>
+                                            </div>
+                                        </div>                                          
+                                    </div>                      
+                                </div>                                
                             </div>
-                            
-
                         </div>
-                    </div>
+                    </div>               
                 </div>
-                
-                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary "   id="md-actualizar">Actualizar</button>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary "   id="md-actualizar">Actualizar</button>
-        </div>
-      </div>
     </div>
 </div>
 
@@ -145,62 +137,79 @@ let idatencion;
 let genero= "";
 
 let fechaHoy;
-function obtenerFecha(){
-  const fechaAhora = new Date();
-  const año = fechaAhora.getFullYear();
-  const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
-  const dia = fechaAhora.getDate().toString().padStart(2, "0");
+function obtenerFechaFormateada() {
+    const diasSemana = ["DOMINGO", "LUNES", "MARTES", "MIÉRCOLES", "JUEVES", "VIERNES", "SÁBADO"];
+    const meses = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 
-  const fechaTotal = `${año}-${mes}-${dia}`;
-  fecha.innerHTML = fechaTotal;
-  fechaHoy = fechaTotal;
-  //console.log(fecha.innerHTML);
+    const fechaAhora = new Date();
+    const diaSemana = diasSemana[fechaAhora.getDay()];
+    const dia = fechaAhora.getDate().toString().padStart(2, "0");
+    const mes = meses[fechaAhora.getMonth()];
+    const año = fechaAhora.getFullYear();
+
+    const fechaFormateada = `${diaSemana} ${dia} DE ${mes} DEL ${año}`;
+    
+    return fechaFormateada;
 }
-obtenerFecha();
+
+const fechaFormateada = obtenerFechaFormateada();
+fecha.innerHTML = fechaFormateada;
+// function obtenerFecha(){
+//   const fechaAhora = new Date();
+//   const año = fechaAhora.getFullYear();
+//   const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
+//   const dia = fechaAhora.getDate().toString().padStart(2, "0");
+
+//   const fechaTotal = `${año}-${mes}-${dia}`;
+//   fecha.innerHTML = fechaTotal;
+//   fechaHoy = fechaTotal;
+//   //console.log(fecha.innerHTML);
+// }
+// obtenerFecha();
 
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
     parametros.append("operacion","listarEspera");
 
     fetch("../controllers/atencion.php", {
-      method: "POST",
-      body: parametros
+        method: "POST",
+        body: parametros
     })
     .then(response => response.json())
     .then(datos => {
-      cardAtencion.innerHTML= "";
-      datos.forEach(element => {
-        idatencion = element.idAtencion;
-        console.log(datos);
-        const nuevoCard = `
-        <div class="col-md-3" >
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-header bg-info text-white text-center">${element.numeroAtencion}</div>
-                        <div class="card-body bg-light-info" style="text-align: center;">
-                            <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                            <div class='mt-2 row g-2'>
-                                <div class='col-md-12'>
-                                    <h6>${element.nombreServicio}</h6>
+        cardAtencion.innerHTML= "";
+        datos.forEach(element => {
+            idatencion = element.idAtencion;
+            console.log(datos);
+            const nuevoCard = `
+            <div class="col-md-3" >
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header bg-info text-white text-center">${element.numeroAtencion}</div>
+                            <div class="card-body bg-light-info" style="text-align: center;">
+                                <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                                <div class='mt-2 row g-2'>
+                                    <div class='col-md-12'>
+                                        <h6>${element.nombreServicio}</h6>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class"row mt-2 g-2">
-                                <button class='btn btn-info  m-1' type='button'>
-                                    <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
-                                </button>
+                                <div class"row mt-2 g-2">
+                                    <button class='btn btn-info  m-1' type='button'>
+                                        <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> 
-        `;
-        cardAtencion.innerHTML +=nuevoCard;
-      });
+                </div> 
+            `;
+            cardAtencion.innerHTML +=nuevoCard;
+        });
     })
-  }
-  let idServicioModal;
-  let idatencionmodal;
-  cardAtencion.addEventListener("click", (e) => {
+}
+let idServicioModal;
+let idatencionmodal;
+cardAtencion.addEventListener("click", (e) => {
     if(e.target.classList[0] === ("resume")){
         idatencionmodal = parseInt(e.target.dataset.idatencion);
         idServicioModal = e.target.dataset.idservicio;
@@ -240,7 +249,7 @@ function listarCardsAtencion(){
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
         modalAtencion.toggle();  
     }
-  });
+});
 
 function validarFecha(){
     const fechaActual = new Date().toISOString().split('T')[0];
@@ -252,11 +261,11 @@ function validarFecha(){
     if(fechaIngresada < fechaActual){
         notificar("POLICLINICO SOLIDARIO CHINCHA", "No puedes registrar fechas anteriores al día actual", 3000);
     }else if(fechaIngresada > fechaLimiteISO){
-    notificar("POLICLINICO SOLIDARIO CHINCHA", "No puedes registrar fechas que estén más de 15 días en el futuro.", 3000);
+        notificar("POLICLINICO SOLIDARIO CHINCHA", "No puedes registrar fechas que estén más de 15 días en el futuro.", 3000);
     
-   }else{
-    editarFecha();
-   }
+    }else{
+        editarFecha();
+    }
 }
 
 function editarFecha(){
@@ -274,7 +283,7 @@ function editarFecha(){
     })
 }
 
-  function calcularTotal(){
+function calcularTotal(){
     const filas = detalle.rows;
     let montoTotal = 0;
 
@@ -317,11 +326,11 @@ function detalleServicios(idatencionmodal){
 listarCardsAtencion();
 btActualizar.addEventListener("click",()=>{
     mostrarPregunta("ACTUALIZAR", "¿Está seguro de actualizar?").then((result) => {
-      if(result.isConfirmed){
+    if(result.isConfirmed){
         validarFecha();
         modalAtencion.toggle();
-      }
-      listarCardsAtencion();
+    }
+        listarCardsAtencion();
     })
 })
 </script>

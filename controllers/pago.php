@@ -19,8 +19,15 @@ if(isset($_POST['operacion'])){
     case 'cambiarEstado':
       $parametros = [
         "idatencion"          => $_POST['idatencion']
-    ];
+      ];
       $respuesta = $pago->cambiarEstado($parametros);
+      echo json_encode($respuesta);
+      break;
+    case 'devolucion':
+      $parametros = [
+        "idatencion"          => $_POST['idatencion']
+      ];
+      $respuesta = $pago->cambiarEstadoDevolucion($parametros);
       echo json_encode($respuesta);
       break;
     case 'ingresos':
