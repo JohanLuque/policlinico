@@ -90,7 +90,8 @@ INSERT INTO Enfermedades(codigoCie_10, descripcion)VALUES
 ('C00-D48','Neoplasias'),
 ('D50-D89','Enfermedades de la sangre y de los órganos hematopoyéticos y otros trastornos que afectan el mecanismo de la inmunidad'),
 ('E00-E90','Enfermedades endocrinas, nutricionales y metabólicas'),
-('F00-F99','Trastornos mentales y del comportamiento');
+('F00-F99','Trastornos mentales y del comportamiento'),
+('F00-F100','Enfermedades del sistema nervioso');
 
 INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 -- LABORATORIO

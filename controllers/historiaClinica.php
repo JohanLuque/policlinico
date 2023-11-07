@@ -47,8 +47,8 @@ if(isset($_POST['operacion'])){
       break;
     case 'agregarEnfermedad':
       $parametros = [
-        "idDetalleatencion"  => $_POST['idDetalleatencion'],
-        "idEnfermedad"  => $_POST['idEnfermedad']
+        "idEnfermedad"  => $_POST['idEnfermedad'],
+        "idDetalleAtencion"  => $_POST['idDetalleAtencion']
     ];
       $respuesta = $historiaClininca->agregarEnfermedad($parametros);
       echo json_encode($respuesta);

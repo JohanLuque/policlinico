@@ -301,7 +301,8 @@
         if(datos.status){
             toastCheck("Guardado correctamente");
             modalHC.toggle();
-            formHC.reset()
+            formHC.reset();
+            registrarEnfermedad();
         }else{
             alert(datos.mensaje);
         }
@@ -310,6 +311,7 @@
         alert("Error al guardar")
     })
   }
+  let idEnfermedad;
   function consultarEnfermedad(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "obtenerEnfermedad");
@@ -322,12 +324,31 @@
     .then(datos => {
         if(datos.length>0){
             datos.forEach(element =>{
+            idEnfermedad = element.idEnfermedad;
+            console.log(idEnfermedad);
             descripcion.value = element.descripcion;
         });
         }
     })
   }
 
+  function registrarEnfermedad(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "agregarEnfermedad");
+    parametros.append("idEnfermedad",idEnfermedad);
+    parametros.append("idDetalleAtencion",idDetalleModal);
+    fetch("../controllers/historiaClinica.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response=> response.json())
+    .then(datos => {
+        console.log("guardado correctamente");
+    })
+    .catch(error => {
+        alert("Error al guardar")
+    })
+  }
   cie10.addEventListener("keypress", (evt) => {
    if (evt.charCode == 13) consultarEnfermedad();
 });

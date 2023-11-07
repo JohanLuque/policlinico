@@ -74,12 +74,20 @@ END$$
 
 -- REGISTRAR ENFERMEDADES
 DELIMITER $$
-CREATE PROCEDURE spu_triaje_doctor_agregar_enfermedad
+CREATE PROCEDURE spu_doctor_agregar_enfermedad
 (
 IN _idEnfermedad INT,
-IN _idDetalleatencion INT
+IN _idDetalleAtencion INT
 )
 BEGIN
-	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
-	(_idEnfermedad, _idDetalleatencion);
+	INSERT INTO Enfermedad_Pacientes(idEnfermedad, idDetalleAtencion) VALUES
+	(_idEnfermedad, _idDetalleAtencion);
 END$$
+-- CALL spu_doctor_agregar_enfermedad(6,2)
+SELECT * FROM Enfermedad_Pacientes
+SELECT idDetalleAtencion, per.apellidoPaterno, per.apellidoMaterno, per.nombres, Enfermedades.descripcion  FROM Enfermedad_Pacientes
+INNER JOIN Detalle_Atenciones ON Detalle_Atenciones.idDetalleAtenciones = Enfermedad_Pacientes.idEnfermedadPaciente
+INNER JOIN atenciones ate ON ate.idAtencion = Detalle_Atenciones.idAtencion
+INNER JOIN personas per ON per.idPersona = ate.idPersona
+INNER JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
+-- select * from enfermedades
