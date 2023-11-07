@@ -143,8 +143,24 @@
                                             <input class="form-control form-control-m bg-light" id="dias" type="text">
                                         </div>
                                         <div class="col-md-1">
-                                            <button class="btn btn-sm" id="agregarTratamiento" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+                                            <button class="btn btn-sm" id="agregarTratamiento" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
                                         </div>
+                                    </div>
+                                    <div class="row g-2 mb-2 mt-3">
+                                    <table class=" table table-sm" id="tabla-tratamiento">
+                                        <thead class="table-info">
+                                            <tr>
+                                                <th>Medicamento</th>
+                                                <th>Presentación</th>
+                                                <th>Dosis</th>
+                                                <th>Cantidad</th>
+                                                <th>Días</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!--Inyecta datos-->
+                                        </tbody>
+                                        </table>
                                     </div>
                                     <div class="row g-2 mb-2">
                                         <h5 class="fw-bolder">OBSERVACIONES</h5>
@@ -212,7 +228,15 @@
     const btnActualizar = document.querySelector("#md-actualizar");
     const cie10 = document.querySelector("#cie-10");
     const descripcion = document.querySelector("#descripcion");
-
+    const tabla = document.querySelector("#tabla-tratamiento");
+    //TRATAMIENTO
+    const medicamento = document.querySelector("#medicamento");
+    const presentacion = document.querySelector("#presentacion");
+    const dosis = document.querySelector("#dosis");
+    const cantidad = document.querySelector("#cantidad");
+    const dias = document.querySelector("#dias");
+    const btnTratamiento = document.querySelector("#agregarTratamiento");
+    
     const modalHC = new bootstrap.Modal(document.querySelector("#modalHC"));
     const formHC = document.querySelector("#form-hc");
     const cardListado = document.querySelector("#cardListado");
@@ -332,6 +356,31 @@
     })
   }
 
+  function agregarTratamiento(){
+    if(medicamento.value !== "" && presentacion.value !== "" && dosis.value !== "" && cantidad.value !== "" && dias.value !== ""){
+        let nuevaFila = `
+            <tr>
+                <td>${medicamento.value}</td>
+                <td>${presentacion.value}</td>
+                <td>${dosis.value}</td>
+                <td>${cantidad.value}</td>
+                <td>${dias.value}</td>
+            </tr>
+        `;
+        tabla.innerHTML += nuevaFila;
+
+        //Limpiar campos
+        medicamento.value = "";
+        presentacion.value = "";
+        dosis.value = "";
+        cantidad.value = "";
+        dias.value = "";
+    }else{
+        toast("Por favor, complete los campos anteriores");
+        console.log("Por favor, complete los campos anteriores");
+    }
+    
+  }
   function registrarEnfermedad(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "agregarEnfermedad");
@@ -353,5 +402,6 @@
    if (evt.charCode == 13) consultarEnfermedad();
 });
     listar();
-btnActualizar.addEventListener("click", agregarDetalleHistoria);
+    btnTratamiento.addEventListener("click",agregarTratamiento);
+    btnActualizar.addEventListener("click", agregarDetalleHistoria);
 </script>
