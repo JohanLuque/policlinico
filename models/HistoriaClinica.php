@@ -170,8 +170,8 @@ class HistoriaClinica extends Conexion{
       $query = $this->connection->prepare("CALL spu_doctor_agregar_enfermedad(?,?)");
       $respuesta["status"] =$query->execute(
         array(
-            $data['idDetalleAtencion'],
-            $data['idEnfermedad']
+            $data['idEnfermedad'],
+            $data['idDetalleAtencion']
         )
       );
     }catch(Exception $e){
