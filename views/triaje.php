@@ -181,6 +181,16 @@
   let idAtencion;
   let numeroDocumento;
   let idhistoria = 0;
+
+  //comprobar valores
+  let valorPeso;
+  let valorTalla;
+  let valorCardiaca;
+  let valorRespiratoria;
+  let valorPresionArterial1;
+  let valorPresionArterial2;
+  let valorTemperatura;
+  let valorSaturacion;
   
   function listarTriaje(){
     const parametros = new URLSearchParams();
@@ -284,14 +294,14 @@
     }
   }
   function comprobar() {
-    const valorPeso = parseFloat(peso.value);
-    const valorTalla = parseFloat(talla.value);
-    const valorCardiaca = parseFloat(cardiaca1.value);
-    const valorRespiratoria = parseFloat(respiratoria1.value);
-    const valorPresionArterial1 = parseFloat(presionArterial1.value);
-    const valorPresionArterial2 = parseFloat(presionArterial2.value);
-    const valorTemperatura = parseFloat(temperatura.value);
-    const valorSaturacion = parseFloat(saturacionOxigeno.value);
+    valorPeso = parseFloat(peso.value);
+    valorTalla = parseFloat(talla.value);
+    valorCardiaca = parseFloat(cardiaca1.value);
+    valorRespiratoria = parseFloat(respiratoria1.value);
+    valorPresionArterial1 = parseFloat(presionArterial1.value);
+    valorPresionArterial2 = parseFloat(presionArterial2.value);
+    valorTemperatura = parseFloat(temperatura.value);
+    valorSaturacion = parseFloat(saturacionOxigeno.value);
 
     if(valorPeso<=0){
       toast("Peso invalido");
@@ -326,9 +336,41 @@
       saturacionOxigeno.focus();
       return;
     }else{
+      revisar();
+    } 
+  }
+  function revisar() {
+    let revisado = false;
+
+    if (valorCardiaca < 60 || valorCardiaca > 110) {
+      revisado = true;
+    }
+    else if (valorRespiratoria < 16 || valorRespiratoria > 20) {
+      revisado = true;
+    }
+    else if (valorPresionArterial1 < 120 || valorPresionArterial1 > 140) {
+      revisado = true;
+    }
+    else if (valorPresionArterial2 < 80 || valorPresionArterial2 > 90) {
+      revisado = true;
+    }
+    else if (valorTemperatura < 27 || valorTemperatura > 40) {
+      revisado = true;
+    }
+    else if (valorSaturacion < 60 || valorSaturacion > 100) {
+      revisado = true;
+    }
+    if (revisado) {
+      mostrarPregunta("¿Está seguro de Guardar?", "tiene información que no es tan común").then((result) => {
+        if(result.isConfirmed){
+          registrarTriaje();
+        }
+        })
+    } else {
       registrarTriaje();
     }
-  }
+}
+
   registrarDetalle.addEventListener("click", validar);
   listarTriaje();
 
