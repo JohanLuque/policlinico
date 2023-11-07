@@ -11,8 +11,8 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 try {
     $pago = new Pago ();
     $datosObtenidos = $pago->ticket1($_GET['idAtencion']);
-    $datos = $pago->ticket2($_GET['idAtencion']);
-    $pago = $pago->ticket3($_GET['idAtencion']);
+    $datos1 = $pago->ticket2($_GET['idAtencion1']);
+    $datos2 = $pago->ticket3($_GET['idAtencion2']);
     $titulo = $_GET['titulo'];
     ob_start();
 
