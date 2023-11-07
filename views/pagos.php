@@ -454,6 +454,8 @@ cardresumen.addEventListener("click", (event) => {
         if(idatencion > 0){
             const parametros = new URLSearchParams();
             parametros.append("idAtencion", idatencion);
+            parametros.append("idAtencion1", idatencion);
+            parametros.append("idAtencion2", idatencion);
             parametros.append("titulo", idatencion);
             window.open(`../reports/ticketcaja.report.php?${parametros}`, '_blank');
         }else{
