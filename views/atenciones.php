@@ -944,7 +944,7 @@ listaEspecialidades.addEventListener("change", listarEspecialistas);
 btnagregarServicio.addEventListener("click", () => {
   if(listaServiciosFiltro.value >0){
     validarGenero();
-    limpiarSelect();
+    //limpiarSelect();
   }
   else{
     notificar("Seleccione el servicio", "Ingrese un valor", 2);
