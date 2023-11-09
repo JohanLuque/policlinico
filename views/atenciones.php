@@ -538,8 +538,6 @@ function registrarAtencion(){
       registrarServiciosDetalles();
       toastCheck("Guardado correctamente"); 
       form.reset();
-      listarServicios();
-      listarServiciosFiltro();
       limpiarTabla();
       obtenerFecha();
   })
@@ -582,7 +580,7 @@ function registrarServiciosDetalles() {
 }
 
 function limpiarTodo(){
-  limpiarSelect();
+  //limpiarSelect();
   limpiarTabla();
   form.reset();
   obtenerFecha();

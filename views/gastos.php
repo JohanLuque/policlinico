@@ -1,95 +1,107 @@
 <div class="row mt-2 mb-3">                
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="card">
             <form id="form-gastos" class="needs-validation">
-                <div class="card-header bg-white">
-                    <h1 class="text-center">Gastos</h1>
-                </div>
                 <div class="card-body">
-                    <div class="row g-2 mb-3">
-                        <div class="col-md-3">
-                            <label for="dni">N° Doc:</label>          
-                        </div>
-                        <div class="col-md-3">                                  
-                        <input class="form-control form-control-sm" id="dni" placeholder="dni" maxlength="10" type="tel" required>
+                    <div class="card-header bg-white">
+                        <h1 class="text-center text-danger">Gastos</h1>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control border " id="dni" placeholder="N° Documento" maxlength="10" type="tel" required>
+                        <label for="">
+                            <i class="ti ti-user me-2 fs-4"></i>
+                            N° Documento
+                        </label>
                         <div class="invalid-feedback">
-                        Complete este campo para continuar
-                        </div>       
-                        </div>
+                            Complete este campo para continuar
+                        </div>  
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control border "  placeholder="Nombre Completo" id="nombre" type="text"  readonly>
+                        <label for="">
+                            <i class="ti ti-user me-2 fs-4"></i>
+                            Nombre Completo
+                        </label> 
                     </div>
                     <div class="row g-2 mb-3">
-                        <div class="col-md-3">
-                            <label for="">Nombre completo:</label>   
-                        </div>
-                        <div class="col-md-9"> 
-                        <input class="form-control form-control-sm bg-light" id="nombre" type="text" readonly>
-                        </div>    
+                        <label class="fw-bolder text-dark" for="">Método de pago:</label>                        
                     </div>
                     <div class="row g-2 mb-3">
-                        <div class="col-md-3">
-                            <label for="">Método de pago:</label>
-                        </div>
-                        <div class="col-md-4">
-                            <select name="" class="form-select form-select-sm" id="metodosPago" required></select>
-                            <div class="invalid-feedback">
-                            Complete este campo para continuar
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm bg-light" placeholder="monto" id="monto" required>
-                            <div class="invalid-feedback">
-                            Complete este campo para continuar
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-3">
-                            <label for="">Descripcion:</label>
-                        </div>
                         <div class="col-md-8">
-                            <textarea type="text" id="descripcion" class="form-control form-control-sm" cols="10" rows="5" required></textarea>
+                            <select name="" class="form-select border " id="metodosPago" required></select>
+                            <div class="invalid-feedback">
+                            Complete este campo para continuar
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control border" placeholder="monto" id="monto" required>
                             <div class="invalid-feedback">
                             Complete este campo para continuar
                             </div>
                         </div>
                     </div>
+                    <div class="row g-2 mb-3">
+                        <label class="fw-bolder text-dark" for="">Descripcion:</label>
+                    </div>
                     <div class="row mt-3">
-                        <button type="button" class="btn btn-danger mb-3" id="cancelar">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="guardar">Guardar</button>
+                        <div class="col-md-12">
+                            <textarea type="text" id="descripcion" class="form-control border " cols="10" rows="5" required></textarea>
+                            <div class="invalid-feedback">
+                            Complete este campo para continuar
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 align-items-center">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-danger font-medium rounded-pill px-4" id="guardar">
+                                <div class="d-flex align-items-center">
+                                    <i class="ti ti-send me-2 fs-4"></i>
+                                    Guardar
+                                </div>
+                            </button>
+                        </div>
+                        <div class="col-md-4"></div>
+
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="col-md-7">
-        <h2>Lista de gastos por dia</h2>
-        <div class="row mt-5">
-            <div class="col-md-12 mb-2">
-                <table class=" table table-sm" id="tabla-lista-gastos">
-                <colgroup>
-                    <col width="10%"> <!-- # -->
-                    <col width="40%"> <!-- descripcion-->
-                    <col width="10%"> <!-- monto-->
-                    <col width="20%"> <!-- fechaHora-->
-                    <col width="10%"> <!-- persona-->
-                    <col width="10%"> <!-- medio gasto-->
-                </colgroup>
-                <thead class="table-danger">
-                    <tr>
-                    <th>#</th>
-                    <th>Descripción</th>
-                    <th>Monto</th>
-                    <th>Fecha/Hora</th>
-                    <th>Persona</th>
-                    <th>Medio P.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--Inyecta datos-->
-                </tbody>
-                </table>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="text-center text-danger">Lista de gastos por dia</h1>
+                <div class="row mt-5">
+                    <div class="col-md">
+                        <table class=" table rounded-2" id="tabla-lista-gastos">
+                        <colgroup>
+                            <col width="10%"> <!-- # -->
+                            <col width="35%"> <!-- descripcion-->
+                            <col width="10%"> <!-- monto-->
+                            <col width="20%"> <!-- fechaHora-->
+                            <col width="10%"> <!-- persona-->
+                            <col width="15%"> <!-- medio gasto-->
+                        </colgroup>
+                        <thead class="table-danger">
+                            <tr>
+                            <th>#</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Fecha/Hora</th>
+                            <th>Persona</th>
+                            <th>Medio P.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--Inyecta datos-->
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </div>        
     </div>
 </div>
 
@@ -184,12 +196,13 @@
         .then(datos => {
             if (datos) {
                 reset();
+                form.reset();
                 toastCheck("Guardado Correctamente");
                 // Después de guardar con éxito, actualiza la tabla
                 listarGastosTabla();
-                totalingresos = monto.value - totalingresos;
+                totalingresos = totalingresos - monto.value;
                 console.log(totalingresos);
-                //ingresos();
+                ingresos();
 
             } else {
                 console.log("Algo salió mal");
@@ -229,6 +242,18 @@
             })
         })
     }
+
+    function validarGasto(){
+        const gasto = parseFloat(monto.value);
+        if(gasto > totalingresos){
+            toast("El monto ingresado no puede ser mayor al ingreso");
+        }else if(gasto < 0){
+            toast("El monto es inválido");
+        }else{
+            registrarGasto();
+
+        }
+    }
     
     function validar(){
         if (!form.checkValidity()) {
@@ -238,7 +263,7 @@
         }else{
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
-                registrarGasto(); 
+                validarGasto();
                 
                 }
             })
