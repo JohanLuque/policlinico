@@ -162,8 +162,13 @@ GROUP BY ate.idAtencion;
 DELIMITER $$
 CREATE PROCEDURE spu_caja_obtener_ingresos()
 BEGIN 
-	SELECT SUM(monto) AS 'MontoTotal'
-	FROM Pagos;
+	SELECT 
+	(SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) AS totalDevo,
+	(SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) AS totalgasto,
+	SUM(monto) AS  totalpagos,
+	(SUM(monto) - ((SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) + (SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) )) AS MontoTotal
+	FROM Pagos
+	WHERE DATE(fechaHoraPago) = CURDATE();
 END $$
 
 -- OBTENIENDO LA DEVOLUCIÓN TOTAL DEL DIA
