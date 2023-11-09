@@ -59,7 +59,8 @@ BEGIN
 	(_idDetalleAtencion, _medicamento, _presentacion, _cantidad, _dosis, _dias);
 END$$
 -- select * from Detalle_Atenciones
-
+-- select * from Tratamiento_paciente
+-- CALL spu_doctores_detalle_tratamiento(1,'Amoxicilina','Jarabe','2','5 cucharadas','2');
 -- BUSCAR ENFERMEDAD
 DELIMITER$$
 CREATE PROCEDURE spu_doctores_buscar_enfermedad
@@ -84,10 +85,11 @@ BEGIN
 	(_idEnfermedad, _idDetalleAtencion);
 END$$
 -- CALL spu_doctor_agregar_enfermedad(6,2)
-SELECT * FROM Enfermedad_Pacientes
+-- select * from Tratamiento_paciente
+/*SELECT * FROM Enfermedad_Pacientes
 SELECT idDetalleAtencion, per.apellidoPaterno, per.apellidoMaterno, per.nombres, Enfermedades.descripcion  FROM Enfermedad_Pacientes
 INNER JOIN Detalle_Atenciones ON Detalle_Atenciones.idDetalleAtenciones = Enfermedad_Pacientes.idEnfermedadPaciente
 INNER JOIN atenciones ate ON ate.idAtencion = Detalle_Atenciones.idAtencion
 INNER JOIN personas per ON per.idPersona = ate.idPersona
-INNER JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
+INNER JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad*/
 -- select * from enfermedades

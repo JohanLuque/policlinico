@@ -293,6 +293,7 @@
         .then(response => response.json())
         .then(datos => {
             datos.forEach(element =>{
+                console.log(element.apellidoPaterno);
                 nombrepaciente.innerHTML=element.apellidoPaterno+" "+element.apellidoMaterno+ ", " +element.nombres;
             })
         })
@@ -323,10 +324,12 @@
     .then(response=> response.json())
     .then(datos => {
         if(datos.status){
+            registrarDetalleTratamiento();
             toastCheck("Guardado correctamente");
             modalHC.toggle();
             formHC.reset();
             registrarEnfermedad();
+            limpiarTabla();
         }else{
             alert(datos.mensaje);
         }
@@ -356,6 +359,37 @@
     })
   }
 
+function registrarDetalleTratamiento(){
+    const filas = tabla.rows;
+    const promesas = [];
+    for(let i = 1; i < filas.length; i++){
+        const medicamentoTabla = filas[i].cells[0].innerText;
+        const presentacionTabla = filas[i].cells[1].innerText;
+        const dosisTabla = filas[i].cells[2].innerText;
+        const cantidadTabla = filas[i].cells[3].innerText;
+        const diasTabla = filas[i].cells[4].innerText;
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "detalleTratamiento");
+        parametros.append("idDetalleAtencion", idDetalleModal);
+        parametros.append("medicamento", medicamentoTabla);
+        parametros.append("presentacion", presentacionTabla);
+        parametros.append("cantidad", cantidadTabla);
+        parametros.append("dosis", dosisTabla);
+        parametros.append("dias", diasTabla);
+
+        const fetchPromesa = fetch("../controllers/historiaClinica.php",{
+            method: "POST",
+            body: parametros
+        });
+        promesas.push(fetchPromesa);
+    }
+}
+function limpiarTabla(){
+    const datosFilas = tabla.querySelectorAll('tbody tr');
+    datosFilas.forEach((filas)=>{
+        filas.remove();
+    });
+}
   function agregarTratamiento(){
     if(medicamento.value !== "" && presentacion.value !== "" && dosis.value !== "" && cantidad.value !== "" && dias.value !== ""){
         let nuevaFila = `
@@ -377,7 +411,7 @@
         dias.value = "";
     }else{
         toast("Por favor, complete los campos anteriores");
-        console.log("Por favor, complete los campos anteriores");
+        //console.log("Por favor, complete los campos anteriores");
     }
     
   }
