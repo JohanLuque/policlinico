@@ -107,6 +107,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                               <span class='hide-menu'>Triaje</span>
                             </a>
                           </li>
+                          <li class="sidebar-item">                  
+                            <a href="index.php?view=impresos.php" class="sidebar-link">
+                              <div class="round-16 d-flex align-items-center justify-content-center">
+                                <i class="ti ti-heartbeat nav-small-cap-icon"></i>
+                              </div>
+                              <span class='hide-menu'>Impresiones</span>
+                            </a>
+                          </li>
                         </ul>
                       </li>
                       <li class='sidebar-item'>

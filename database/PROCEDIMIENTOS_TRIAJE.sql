@@ -146,3 +146,52 @@ BEGIN
 	ORDER BY dia DESC;
 END $$
 
+-- triaje realizados 
+-- Atrapar alergias por historia clinica
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_atraparAlergias_xid
+(
+IN _idHistoria INT
+)
+BEGIN
+	SELECT idDetalleAlergia, idHistoriaClinica,
+	alergias.alergia
+	FROM detalle_alergias
+	INNER JOIN alergias ON alergias.idAlergia = detalle_alergias.idAlergia
+	WHERE idHistoriaClinica = _idHistoria;
+END $$
+
+-- listar los triajes realizados por dias
+DELIMITER $$
+DROP PROCEDURE spu_triaje_listar_hecho()
+BEGIN
+	SELECT 
+		idDetalleAtenciones, idHistoriaClinica,
+		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente,
+		servicios.nombreServicio
+		FROM detalle_atenciones
+		INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
+		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
+		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+		INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE() AND servicios.tipo = 'E'
+		ORDER BY idDetalleAtenciones DESC;
+END $$
+
+-- listar triaje del dia para reporte
+DELIMITER $$
+CREATE PROCEDURE spu_triaje_reporte
+BEGIN
+	SELECT 
+		idDetalleAtenciones,
+		peso, talla, frecuenciaCardiaca, FrecuenciaRespiratoria, PresionArterial, temperatura, SaturacionOxigeno,
+		Historias_Clinicas.antecedentePersonal, Historias_Clinicas.antecedenteFamiliar, Historias_Clinicas.antecedenteQuirurgico, Historias_Clinicas.antecedenteOtro,
+		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente
+		FROM detalle_atenciones
+		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
+		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN Detalle_Alergias ON Detalle_Alergias.idHistoriaClinica = Historias_Clinicas.idHistoriaClinica
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE()
+END $$

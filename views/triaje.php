@@ -203,10 +203,11 @@
     .then(response => response.json())
     .then(datos => {
       cuerpoTriaje.innerHTML = "";
+      let numero = 1;
       datos.forEach(element => {
         let filanueva = `
         <tr>
-          <td>${element.idAtencion}</td>
+          <td>${numero}</td>
           <td>${element.ApellidosNombres}</td>
           <td>${element.nombreServicio}</td>
           <td>
@@ -217,6 +218,7 @@
         </tr>
         `;
         cuerpoTriaje.innerHTML += filanueva;
+        numero++
 
       });
     })

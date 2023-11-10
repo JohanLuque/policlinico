@@ -53,5 +53,14 @@ class DetalleAtencion extends Conexion{
     }catch(Exception $e){
       die($e->getCode());
     }
+  }
+  public function listarTriajeRealizado(){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_listar_hecho()");
+      $query->execute(array());
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
   } 
 }
