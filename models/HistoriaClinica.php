@@ -192,4 +192,26 @@ class HistoriaClinica extends Conexion{
       die($e->getCode());
     }
   }
+  public function detalleTratamiento($data =[]){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL spu_doctores_detalle_tratamiento(?,?,?,?,?,?)");
+      $respuesta["status"] =$query->execute(
+        array(
+            $data['idDetalleAtencion'],
+            $data['medicamento'],
+            $data['presentacion'],
+            $data['cantidad'],
+            $data['dosis'],
+            $data['dias']
+        )
+      );
+    }catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
 }

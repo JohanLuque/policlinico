@@ -277,6 +277,7 @@
         if(datos.status){
           toastCheck("Guardado correctamente");
           window.location.href = "index.php?view=triaje.php"
+
         }
       })
     }

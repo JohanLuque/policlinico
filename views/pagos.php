@@ -1,10 +1,12 @@
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header bg-white">
-            <h1 class="text-center text-danger">Lista de Atenciones</h1>
-        </div>
-        <div class="card-body">
-            <div class="mb-2 row g-2" id="cardresumen">         
+    <div class="row">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h1 class="text-center text-danger">Lista de Atenciones</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-2 row g-2" id="cardresumen">         
+                </div>
             </div>
         </div>
     </div>
@@ -109,7 +111,7 @@
                                                 <input type="text" class="form-control form-control-sm bg-light" placeholder="0" id="totalMedioPago" >
                                             </div>
                                             <div class="col-md-2">
-                                                <button class="btn btn-sm" id="agregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                                <button class="btn btn-sm" id="agregarPago"  type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
                                             </div>
                                     </div>
                                     <div class="row mt-2">
@@ -326,14 +328,17 @@ function listarCards(){
             idatencion = element.idAtencion;
             console.log(idatencion);
             let color;
+            let activo;
             if(element.estado == 0){
                 color = " bg-danger";
                 nombreBoton = "Pagar";
+                activo = "disabled";
                 colorBoton = "btn-danger";
                 colorFondo = "bg-light-danger";
                 clase="pagar"
             }else if(element.estado == 1){
                 color = "bg-info";
+                activo = "";
                 nombreBoton = "Devolución";
                 colorBoton = "btn-info";
                 colorFondo = "bg-light-info";
@@ -351,18 +356,20 @@ function listarCards(){
                 <div class="card">
                     <div class="card-content">
                         <div class="card-header ${color}" >
-                            <div class='col-md-6'>
-                                <button class='btn btn-danger rounded-pill m-1' type='button'>
-                                    <a class='ticket' type='button' style='text-decoration: none;color: white;' data-idatencion='${element.idAtencion}' >ticket</a>
-                                </button>
-                            </div>
                         </div>
                         <div class="card-body ${colorFondo}" style="text-align: center;">
-                            <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                            <h5>${element.apellidoPaterno} ${element.apellidoMaterno}, ${element.nombres}</h5>
                             <h6>${element.nombreServicio}</h6>
                             <div class='mt-2 row g-2'>
-                                <div class='col-md-6'>
                                     <h6>S/${element.Total}</h6>
+                            </div>
+                            <div class='mt-2 row g-2'>
+                                <div class='col-md-6'>
+                                    <button class=' btn btn-secondary rounded-pill m-1' type='button'${activo} >
+                                        <a class='ticket' style='text-decoration: none;color: white;' type='button'  data-idatencion='${element.idAtencion}'>
+                                            ticket
+                                        </a>
+                                    </button>
                                 </div>
                                 <div class='col-md-6'>
                                     <button class='btn ${colorBoton} rounded-pill m-1' type='button'>

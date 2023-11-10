@@ -185,8 +185,9 @@ function listarCardsAtencion(){
             <div class="col-md-3" >
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-header bg-info text-white text-center">${element.numeroAtencion}</div>
+                            <div class="card-header bg-info text-white text-center"></div>
                             <div class="card-body bg-light-info" style="text-align: center;">
+                                <h6>${element.numeroAtencion}</h6>
                                 <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
                                 <div class='mt-2 row g-2'>
                                     <div class='col-md-12'>

@@ -31,7 +31,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="index.php" class="text-nowrap logo-img mt-3">
+          <a href="index.php?view=dashboart.php" class="text-nowrap logo-img mt-3">
             <img src="./images/logos/LOGO POLICLINICO.png" style="padding:15px ;" width="210" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -68,7 +68,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                           <span class='hide-menu'>Lista de atenciones</span>
                         </a>
                       </li>
-          
+
+                      <li class='sidebar-item'>
+                        <a class='sidebar-link' href='index.php?view=dashboartCaja.php' id="Dashboartpagos" aria-expanded='false'>        
+                          <i class="ti ti-shopping-cart-plus nav-small-cap-icon"></i>
+                          <span class='hide-menu'>Inicio Caja</span>
+                        </a>
+                      </li>
+
                       <li class='sidebar-item'>
                         <a class='sidebar-link' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
                           <i class="ti ti-shopping-cart-plus nav-small-cap-icon"></i>
@@ -84,7 +91,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                       </li>
           
                       <li class='sidebar-item '>
-                        <a class='sidebar-link has-arrow' href='#' id="pagos" aria-expanded='false'>        
+                        <a class='sidebar-link has-arrow' href='#' id="AtencionMedica" aria-expanded='false'>        
                           <span class='d-flex'>
                             <i class="ti ti-heart-plus nav-small-cap-icon"></i>                
                           </span>

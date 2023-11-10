@@ -32,8 +32,9 @@ FROM Especialistas e
 
 SELECT * FROM devoluciones
 
-SELECT * FROM Detalle_Servicios
+SELECT * FROM detalle_alergias
 
+DELETE atenciones s
 
 SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
@@ -53,9 +54,9 @@ DELIMITER $$
 CREATE PROCEDURE spu_ticket_1(IN _idAtencion INT)
 BEGIN 
 	SELECT ate.numeroAtencion, pag.fechaHoraPago,
-	CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+	UPPER(CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno)) AS 'Paciente',
 	per.numeroDocumento,per.`telefono`, YEAR(CURDATE())-YEAR(per.fechaNacimiento) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(per.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
-	especialidad.nombreServicio AS 'Servicio',
+	UPPER(especialidad.nombreServicio) AS 'Servicio',
 	SUM(pag.monto) AS 'MontoTotal',TRUNCATE(SUM(pag.monto)*0.18,2) AS 'IGV' , TRUNCATE(SUM(pag.monto)-SUM(pag.monto)*0.18,2)   AS 'subtotal'
 	FROM    pagos pag
 	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
@@ -72,6 +73,8 @@ BEGIN
 	WHERE ate.idAtencion = _idAtencion
 	GROUP BY ate.idAtencion;
 END $$
+
+CALL spu_ticket_1(10);
 
 DELIMITER $$
 CREATE PROCEDURE spu_ticket_2(IN _idAtencion INT)

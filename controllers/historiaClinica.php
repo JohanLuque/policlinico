@@ -61,5 +61,17 @@ if(isset($_POST['operacion'])){
       $respuesta = $historiaClininca->obtenerEnfermedad($parametros);
       echo json_encode($respuesta);
       break;
+    case 'detalleTratamiento':
+        $parametros = [
+          "idDetalleAtencion"   => $_POST['idDetalleAtencion'],
+          "medicamento"         => $_POST['medicamento'],
+          "presentacion"        => $_POST['presentacion'],
+          "cantidad"            => $_POST['cantidad'],
+          "dosis"               => $_POST['dosis'],
+          "dias"                => $_POST['dias']
+      ];
+        $respuesta = $historiaClininca->detalleTratamiento($parametros);
+        echo json_encode($respuesta);
+        break;
   }
 }
