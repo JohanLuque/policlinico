@@ -24,7 +24,7 @@
                 <label for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-                <input class="form-control form-control-sm" id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
+                <input class="form-control " id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
                 <div class="invalid-feedback">
                   Complete este campo para continuar
                 </div>       
@@ -38,7 +38,7 @@
                 <label for="">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
-                <input class="form-control form-control-sm bg-light" id="nombrePaciente" type="text" readonly>
+                <input class="form-control  bg-light" id="nombrePaciente" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2">
@@ -46,13 +46,13 @@
                 <label for="">Edad:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm bg-light" id="edadPaciente" type="text" readonly>
+                <input class="form-control  bg-light" id="edadPaciente" type="text" readonly>
               </div>
               <div class="col-md-2">                                  
-                <input class="form-control form-control-sm bg-light" id="mesesAños" type="text" readonly></input>
+                <input class="form-control " id="mesesAños" type="text" readonly></input>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-sm" style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
+                <button class="btn " style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
               </div>
             </div>
             
@@ -68,7 +68,7 @@
                 <label for="DNI_familiar">N° Doc: </label>
               </div>
               <div class="col-md-3">
-                <input type="text" class="form-control form-control-sm" id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
+                <input type="text" class="form-control " id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
               </div>
               <div class="col-md-3">
                 <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
@@ -79,7 +79,7 @@
                 <label for="nombreFamiliar">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
-                <input class="form-control form-control-sm bg-light" id="nombreFamiliar" type="text" readonly>
+                <input class="form-control  bg-light" id="nombreFamiliar" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2">
@@ -87,7 +87,7 @@
                 <label for="">Parentesco:</label>          
               </div>
               <div class="col-md-3">
-                <select name="" id="parentescoFamilar" class="form-select form-select-sm">
+                <select name="" id="parentescoFamilar" class="form-select ">
                   <option value="">Seleccione</option>
                   <option value="Mamá">Mamá</option>
                   <option value="Papá">Papá</option>
@@ -98,7 +98,7 @@
                 <!--<input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>-->
               </div>
               <div class="col-md-3" id="divOtroFamiliar" style="display: none;">
-                <input type="text" class="form-control form-control-sm" id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
+                <input type="text" class="form-control " id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
               </div>
             </div>
             </div>
@@ -114,12 +114,12 @@
                   <label for="">Doctor:</label>          
                 </div>
                 <div class="col-md-3">                                  
-                  <select name="" id="listaEspecialidades" class="form-select form-select-sm" >
+                  <select name="" id="listaEspecialidades" class="form-select " >
                     <option value="">Seleccione</option>
                   </select> 
                 </div>
                 <div class="col-md-4">                                  
-                  <select name="" id="listaOrdenDoctor" class="form-select form-select-sm" >
+                  <select name="" id="listaOrdenDoctor" class="form-select " >
                     <option value="">Seleccione</option>
                   </select> 
                 </div>
@@ -136,7 +136,7 @@
                 <label for="">Fecha atención:</label>          
               </div>
               <div class="col-md-3">                                  
-                <input type="date" class="form-control form-control-sm" id="FechaActual" >
+                <input type="date" class="form-control" id="FechaActual" >
               </div>
             </div>
             <!-- servicio -->
@@ -152,8 +152,11 @@
               <div class="col-md-5">
                 <label for="">Procedimiento:</label>          
               </div>
-              <div class="col-md-3">
+              <div class="col-md-1">
                 <label for="">Precio:</label>          
+              </div>
+              <div class="col-md-2">
+                <label for="">Genéro:</label>          
               </div>
             </div>
 
@@ -169,10 +172,10 @@
                 </select> 
               </div>
               <div class="col-md-1">                                  
-                <input type="text"  class="form-control form-control-sm" id="precioProce" readonly >
+                <input type="text"  class="form-control " id="precioProce" readonly >
               </div>
               <div class="col-md-1">                                  
-                <input type="text"  class="form-control form-control-sm" id="generoProce" readonly >
+                <input type="text"  class="form-control " id="generoProce" readonly >
               </div>
               <div class="col-md-1">
                 <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
@@ -183,14 +186,15 @@
                 <table class="table table-sm " id="tabla_atenciones_procedimientos">
                   <colgroup>
                     <col width="10%"> <!-- # -->
-                    <col width="60%"> <!-- titulo -->
+                    <col width="10%"> <!-- titulo -->
+                    <col width="50%"> <!-- titulo -->
                     <col width="20%"> <!-- precio-->
                     <col width="10%"> <!-- eliminar-->
                   </colgroup>
                   <thead class="thead-danger">
                     <tr>
-                      <th>Servicio</th>
-                      <th>id</th>
+                      <th>ID </th>
+                      <th>ID P.</th>
                       <th>Descripción</th>
                       <th>Precio</th>
                       <th>Eliminar</th>
@@ -225,12 +229,14 @@
                 <input class="form-control form-control-sm bg-light" id="total" type="text" readonly>
               </div>
             </div>                          
-            <div class="mb-3 row g-2">
-              <div class="col-md">
+            <div class="mb-3 row g-2 align-items-center">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
                 <div class="d-grid">
-                  <button id="agregarAtencion" class="btn btn-danger btn-sm mt-1" type="button">Guardar</button>
+                  <button id="agregarAtencion" class="btn btn-danger font-medium rounded-pill px-4" type="button">Guardar</button>
                 </div> 
               </div>
+              <div class="col-md-3"></div>
             </div>                
           </form>
 
@@ -269,23 +275,27 @@
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">N° Doc:</label>          
-                  </div>                  
-                  <div class="col-md-3">                                  
-                    <input class="form-control form-control-sm" id="DNIp" type="text" placeholder="88888888">
-                  </div>
-                  <div class="col-md-3">                                  
-                    <button class="btn btn-sm" id="buscar" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+                  <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
+                      <label for="">
+                          <i class="ti ti-user me-2 fs-4"></i>
+                          N° Documento
+                      </label>
+                      <div class="invalid-feedback">
+                          Complete este campo para continuar
+                      </div>  
+                    </div>
                   </div>
                 </div>
                 
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">Nombres:</label>          
-                  </div>
-                  <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="nombrePersona" type="text" >
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control border" id="nombrePersona" type="text">
+                    <label for="">
+                        <i class="ti ti-search me-2 fs-4"></i>
+                        Nombres
+                    </label>
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
@@ -805,8 +815,6 @@ function agregarServicio() {
   }
 }
 
-
-
 function calcularTotal() {
   const tablaFilas = tabla_servicios.rows;
   let total = 0, tigv = 0;tsubTotal = 0 ;
@@ -924,18 +932,18 @@ function consultarDNI() {
     });
 }
 
-buscar.addEventListener("click", consultarDNI);
+dni.addEventListener("keypress", (evt) => {
+  if (evt.charCode == 13) consultarDNI();
+});
 
 dniPersonas.addEventListener("keypress", (evt) => {
     if (evt.charCode == 13) consultarPaciente();
 });
 
-
 dniFamiliar.addEventListener("keypress", (evt) => {
   if(evt.charCode == 13) consultarFamiliar();
     parentesco.disabled = false;
 });
-
 
 listaEspecialidades.addEventListener("change", listarEspecialistas);
 
