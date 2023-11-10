@@ -151,11 +151,13 @@
         .then(datos =>{
             if(datos.length){
                 datos.forEach(element => {
-                    totalingresos =  element.MontoTotal;
-                    if(totalingresos == null){
+                    if(element.MontoTotal == null){
                         totalingresos = 0;
-                        console.log(totalingresos);
+                    }else{
+                        totalingresos =  element.MontoTotal;
                     }
+                    console.log(totalingresos);
+                
                 })
             }
         })
