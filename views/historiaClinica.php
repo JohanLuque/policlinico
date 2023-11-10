@@ -162,7 +162,6 @@
     mostrarPregunta("REGISTRAR", "¿Está seguro de guardar?").then((result) => {
       if(result.isConfirmed){
         registrarHitoria();
-       
       }
     });  
   });
@@ -277,8 +276,8 @@
       .then(datos => {
         if(datos.status){
           toastCheck("Guardado correctamente");
-          //resetdata();
-          window.location.href ="index.php?view=triaje.php";
+          window.location.href = "index.php?view=triaje.php"
+
         }
       })
     }
