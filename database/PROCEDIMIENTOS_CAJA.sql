@@ -163,10 +163,11 @@ DELIMITER $$
 CREATE PROCEDURE spu_caja_obtener_ingresos()
 BEGIN 
 	SELECT 
-	(SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) AS totalDevo,
-	(SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) AS totalgasto,
-	SUM(monto) AS  totalpagos,
-	(SUM(monto) - ((SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) + (SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) )) AS MontoTotal
+    (SELECT IFNULL(SUM(d.montoDevolucion), 0) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) AS totalDevo,
+    (SELECT IFNULL(SUM(g.montoGasto), 0) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) AS totalgasto,
+    SUM(monto) AS totalpagos,
+    (SUM(monto) - IFNULL((SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()), 0)
+	    + IFNULL((SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()), 0)) AS MontoTotal
 	FROM Pagos
 	WHERE DATE(fechaHoraPago) = CURDATE();
 END $$
