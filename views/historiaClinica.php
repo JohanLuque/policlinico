@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-lg-6 d-flex align-items-strech">
     <div class="card w-100">
+      <div class="card-header bg-white mt-4">
+        <h2 class="text-center ">HISTORIA CLÍNICA</h2>
+      </div>
       <div class="card-body">
-        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
-          <div class="mb-3 mb-sm-0">
-            <h5 class="card-title fw-semibold">Historias clinicas:</h5>
+        <div class="d-sm-flex d-block align-items-center justify-content-between ">
+          <div class="mb-sm-0 text-center">
           </div>
         <div>
       </div>
@@ -12,59 +14,66 @@
     <div>
       <form id="form-historiaClinica" >
         <div class="mb-3 row g-2">
-          <div class="col-md-2">
-            <label for="">N° Doc:</label>          
-          </div>                  
-          <div class="col-md-3">                                  
-            <input class="form-control form-control-sm" id="dni" type="text" placeholder="88888888" required>
-          </div>
-        </div>                
-        <div class="mb-3 row g-2">
-          <div class="col-md-3">
-            <label for="">Nombre Completo:</label>          
-          </div>
-          <div class="col-md-8">                                  
-            <input class="form-control form-control-sm" id="nombrePaciente" type="text" >
+          <div class="form-floating col-md-5">
+              <input type="text" class="form-control border " id="dni" placeholder="N° Documento" maxlength="10" type="tel" required>
+              <label for="">
+                  <i class="ti ti-user me-2 fs-4"></i>
+                  N° Documento
+              </label>
+              <div class="invalid-feedback">
+                  Complete este campo para continuar
+              </div>  
           </div>
         </div>
         <div class="mb-3 row g-2">
-          <div class="col-md-3">
+          <div class="col-md-6">
+            <label for="">Nombre Completo:</label>          
+          </div>
+        </div>
+        <div class="mb-3 row g-2">
+          <div class="col-md-12">                                  
+            <input class="form-control bg-light" id="nombrePaciente" type="text" >
+          </div>
+        </div>
+        
+        <div class="mb-3 row g-2">
+          <div class="col-md-4">
             <label for="">Antecedente Personal:</label>          
           </div>
           <div class="col-md-8">                                  
-            <input class="form-control form-control-sm" id="antecedentePersonal" type="text" >
+            <input class="form-control " id="antecedentePersonal" type="text" >
           </div>
         </div>
         <div class="mb-3 row g-2">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <label for="">Antecedente Familiar:</label>          
           </div>
           <div class="col-md-8">                                  
-            <input class="form-control form-control-sm" id="antecedenteFamiliar" type="text" >
+            <input class="form-control " id="antecedenteFamiliar" type="text" >
           </div>
         </div>
         <div class="mb-3 row g-2">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <label for="">Antecedente Quirurgico:</label>          
           </div>
           <div class="col-md-8">                                  
-            <input class="form-control form-control-sm" id="antecedenteQuirurgico" type="text"  >
+            <input class="form-control " id="antecedenteQuirurgico" type="text"  >
           </div>
         </div>
         <div class="mb-3 row g-2">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <label for="">Antecedente Otros:</label>          
           </div>
           <div class="col-md-8">                                  
-            <input class="form-control form-control-sm" id="antecedenteOtros" type="text" >
+            <input class="form-control " id="antecedenteOtros" type="text" >
           </div>
         </div>                
         <div class="mb-3 row g-2">
-          <div class="col-md-2">
+          <div class="col-md-4">
             <label for="">Alergias:</label>           
           </div>
-          <div class="col-md-5">                                  
-            <select name="" id="alergias" class="form-select form-select-sm">
+          <div class="col-md-6">                                  
+            <select name="" id="alergias" class="form-select ">
                 <option value=""></option>
             </select>
           </div>
@@ -73,7 +82,7 @@
           </div>
         </div>
         <div class="row g-2 mb-3">
-          <table id="tabla-Alergias" class="bg-light">
+          <table id="tabla-Alergias" class="table">
             <thead>
               <tr>
                 <th>ID</th>

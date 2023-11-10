@@ -17,7 +17,7 @@
                         </div>  
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border "  placeholder="Nombre Completo" id="nombre" type="text"  readonly>
+                        <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" type="text"  readonly>
                         <label for="">
                             <i class="ti ti-user me-2 fs-4"></i>
                             Nombre Completo
@@ -152,7 +152,10 @@
             if(datos.length){
                 datos.forEach(element => {
                     totalingresos =  element.MontoTotal;
-                    console.log(totalingresos);
+                    if(totalingresos == null){
+                        totalingresos = 0;
+                        console.log(totalingresos);
+                    }
                 })
             }
         })
@@ -245,6 +248,7 @@
 
     function validarGasto(){
         const gasto = parseFloat(monto.value);
+        
         if(gasto > totalingresos){
             toast("El monto ingresado no puede ser mayor al ingreso");
         }else if(gasto < 0){
@@ -279,7 +283,7 @@
     listarMetodosPago();
     listarGastosTabla();
     btGuardar.addEventListener("click", validar);
-    btCancelar.addEventListener("click", reset);
+    //btCancelar.addEventListener("click", reset);
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPaciente();
     });
