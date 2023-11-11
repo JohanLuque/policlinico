@@ -141,3 +141,43 @@ BEGIN
 	GROUP BY ate.idAtencion;
 END $$
 
+
+SELECT 
+    ((SELECT IFNULL(SUM(p.monto), 0) FROM pagos p INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 1 ) - 
+    (SELECT IFNULL(SUM(d.montoDevolucion), 0) FROM Devoluciones d INNER JOIN Medio_Pagos med ON d.idMedioPago = med.idMedioPago WHERE DATE(fechaHoraDevolucion) = CURDATE() AND med.idMedioPago = 1)) AS totalDevo
+	FROM gastos
+
+-- YAPE
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+FROM pagos p 
+INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 1 ;
+
+-- TRANSFERENCIA
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+FROM pagos p 
+INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 2 ;
+
+-- EFECTIVO
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+FROM pagos p 
+INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 3;
+
+-- PLIN
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+FROM pagos p 
+INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 4;
+
+-- POS
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+FROM pagos p 
+INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 5;
