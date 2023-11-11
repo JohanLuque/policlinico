@@ -26,6 +26,8 @@
 <script>
   const tablaTriaje = document.querySelector("#tabla-triaje");
   const cuerpoTriaje = tablaTriaje.querySelector("#cuerpoTriaje");
+  let idhistoria = 0;
+  let iddetalleHistoria = 0;
 
   function listarTriajes(){
     const parametros = new URLSearchParams()
@@ -39,13 +41,14 @@
         cuerpoTriaje.innerHTML = "";
         let numero = 1;
         datos.forEach(element => {
+          console.log(element)
           let filaNueva = `
-          <tr data-id="${element.idDetalleAtenciones}">
+          <tr>
             <td>${numero}</td>
             <td>${element.paciente}</td>
             <td>${element.nombreServicio}</td>
             <td>
-              <a class ="triaje btn btn-sm btn-danger">
+              <a class ="triaje btn btn-sm btn-danger" data-idhistoria='${element.idHistoriaClinica}' data-iddetalle='${element.idDetalleAtenciones}'>
                 Imprimir
               </a>
             </td>
@@ -57,8 +60,17 @@
       })
   }
   cuerpoTriaje.addEventListener("click", (event) => {
+    idhistoria =  parseInt(event.target.dataset.idhistoria)
+    iddetalleHistoria =  parseInt(event.target.dataset.iddetalle)
+
     if(event.target.classList[0] == 'triaje'){
-      window.open(`../reports/triajeImpreso.report.php`, '_blank');
+      if(idhistoria>0){
+        const parametros = new URLSearchParams();
+        parametros.appemd("idHistoria",idhistoria);
+        parametros.appemd("idDetalleHistoria",iddetalleHistoria);
+        
+        window.open(`../reports/triajeImpreso.report.php`, '_blank');
+      }
     }
   })
   listarTriajes();
