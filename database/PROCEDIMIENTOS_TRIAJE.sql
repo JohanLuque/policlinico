@@ -163,7 +163,7 @@ END $$
 
 -- listar los triajes realizados por dias
 DELIMITER $$
-DROP PROCEDURE spu_triaje_listar_hecho()
+CREATE PROCEDURE spu_triaje_listar_hecho()
 BEGIN
 	SELECT 
 		idDetalleAtenciones, idHistoriaClinica,
@@ -182,7 +182,7 @@ END $$
 
 -- listar triaje del dia para reporte
 DELIMITER $$
-CREATE PROCEDURE spu_triaje_reporte
+CREATE PROCEDURE spu_triaje_reporte()
 BEGIN
 	SELECT 
 		idDetalleAtenciones,
@@ -193,5 +193,5 @@ BEGIN
 		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
 		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
 		LEFT JOIN Detalle_Alergias ON Detalle_Alergias.idHistoriaClinica = Historias_Clinicas.idHistoriaClinica
-		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE()
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE();
 END $$
