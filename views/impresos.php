@@ -45,7 +45,9 @@
             <td>${element.paciente}</td>
             <td>${element.nombreServicio}</td>
             <td>
-
+              <a class ="triaje btn btn-sm btn-danger">
+                Imprimir
+              </a>
             </td>
           </tr>
           `;
@@ -54,5 +56,10 @@
         })
       })
   }
+  cuerpoTriaje.addEventListener("click", (event) => {
+    if(event.target.classList[0] == 'triaje'){
+      window.open(`../reports/triajeImpreso.report.php`, '_blank');
+    }
+  })
   listarTriajes();
 </script>
