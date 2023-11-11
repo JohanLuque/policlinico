@@ -63,4 +63,23 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   } 
+
+  public function impresiones($idHistoria){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_reporte(?)");
+      $query->execute(array($idHistoria));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+  public function impresionesAlergias($idDetalle){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_atraparAlergias_xid(?)");
+      $query->execute(array($idDetalle));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  } 
 }
