@@ -182,16 +182,32 @@ END $$
 
 -- listar triaje del dia para reporte
 DELIMITER $$
-CREATE PROCEDURE spu_triaje_reporte()
+CREATE PROCEDURE spu_triaje_reporte
+(
+IN _iddetalle INT
+)
 BEGIN
 	SELECT 
 		idDetalleAtenciones,
+		CONCAT(fam.apellidoPaterno, ' ', fam.apellidoMaterno, ' ', fam.nombres) AS familiar, atenciones.parentesco, fam.numeroDocumento AS dniFam,
 		peso, talla, frecuenciaCardiaca, FrecuenciaRespiratoria, PresionArterial, temperatura, SaturacionOxigeno,
 		Historias_Clinicas.antecedentePersonal, Historias_Clinicas.antecedenteFamiliar, Historias_Clinicas.antecedenteQuirurgico, Historias_Clinicas.antecedenteOtro,
-		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente
+		CONCAT(pac.apellidoPaterno, ' ', pac.apellidoMaterno, ' ', pac.nombres) AS paciente,
+		pac.numeroDocumento,
+		pac.genero,
+		servicios.nombreServicio,
+		YEAR(CURDATE())-YEAR(pac.fechaNacimiento) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(pac.fechaNacimiento,'%m-%d'), 0 , -1 )AS edad, 
+		CURDATE() AS fecha
 		FROM detalle_atenciones
+		INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
 		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
-		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+		INNER JOIN personas pac ON pac.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN personas fam ON fam.idPersona = atenciones.idfamiliar
 		LEFT JOIN Detalle_Alergias ON Detalle_Alergias.idHistoriaClinica = Historias_Clinicas.idHistoriaClinica
-		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE();
+		LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+		INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE()
+		AND idDetalleAtenciones = _iddetalle
+		GROUP BY idDetalleAtenciones;
 END $$
