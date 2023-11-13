@@ -46,19 +46,29 @@
                           <div>                    
                             <form id="form-triaje" >
                               <div class="mb-3 row g-2">
+                                <div class="form-floating">
+                                  <input type="text" class="form-control border bg-light " id="dni_paciente" type="tel" placeholder="88888888" required>
+                                  <label for="">
+                                      <i class="ti ti-id-badge me-2 fs-4"></i>
+                                      N° Documento
+                                  </label>
+                                  <div class="invalid-feedback">
+                                      Complete este campo para continuar
+                                  </div>  
+                                </div>
                                 <div class="col-md-3">
                                   <label class="form-label">N° Doc:</label>          
                                 </div>
                                 <div class="col-md-4">
-                                  <input type="text" id="dni_paciente"class="form-control form-control-sm bg-light" readonly>
+                                  <input type="text" id="dni_paciente"class="form-control bg-light" readonly>
                                 </div> 
                               </div>
                               <div class="mb-3 row g-2">
                                 <div class="col-md-3">
                                   <label class="form-label">Paciente:</label>          
                                 </div>
-                                <div class="col-md-8">
-                                  <input type="text" id="nombre_paciente" class="form-control form-control-sm bg-light" readonly>
+                                <div class="col-md-9">
+                                  <input type="text" id="nombre_paciente" class="form-control bg-light" readonly>
                                 </div> 
                               </div>
                               <div class="mb-3 row g-2">                  
@@ -66,7 +76,7 @@
                                     <label class="form-label">Peso:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" step="any" id="triaje-peso"class="form-control form-control-sm" required>         
+                                  <input type="number" step="any" id="triaje-peso"class="form-control" required>         
                                 </div>
                                 <div class="ms-3 col-md-2">
                                   <label>kg</label>          
@@ -77,7 +87,7 @@
                                   <label class="form-label">Talla:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" step="any" id="triaje-talla"class="form-control form-control-sm" required>         
+                                  <input type="number" step="any" id="triaje-talla"class="form-control" required>         
                                 </div>
                                 <div class="ms-3 col-md-2">
                                   <label>m</label>          
@@ -91,7 +101,7 @@
                                   <label class="form-label">Cardiaca:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="f-cardiaca1"class="form-control form-control-sm" required>         
+                                  <input type="number" id="f-cardiaca1"class="form-control" required>         
                                 </div>
                                 <div class="ms-3 col-md-2">
                                   <label> X 1 min</label>          
@@ -102,7 +112,7 @@
                                   <label class="form-label">Respiratoria:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="f-respiratoria1"class="form-control form-control-sm" required>         
+                                  <input type="number" id="f-respiratoria1"class="form-control" required>         
                                 </div> 
                                 <div class="ms-3 col-md-2">
                                   <label> X 1 min</label>          
@@ -113,13 +123,13 @@
                                   <label class="form-label">Presión Arterial:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="presionArterial1"class="form-control form-control-sm" required>         
+                                  <input type="number" id="presionArterial1"class="form-control" required>         
                                 </div> 
                                 <div class="ms-3 col-md-1">
                                   <label> / </label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="presionArterial2"class="form-control form-control-sm" required>         
+                                  <input type="number" id="presionArterial2"class="form-control" required>         
                                 </div>
                               </div>
                               <div class="row mb-3 g-2">
@@ -127,7 +137,7 @@
                                   <label class="form-label" for="">Temperatura(C°):</label>
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" id="temperatura"class="form-control form-control-sm" required>
+                                  <input type="text" id="temperatura"class="form-control" required>
                                 </div>
                               </div>
                               <div class="row mb-3 g-2">
@@ -135,7 +145,7 @@
                                   <label class="form-label" for="">Saturación Oxígeno:</label>
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" id="saturacionOxigeno"class="form-control form-control-sm " required>
+                                  <input type="text" id="saturacionOxigeno"class="form-control" required>
                                 </div>
                               </div>
                             </form>

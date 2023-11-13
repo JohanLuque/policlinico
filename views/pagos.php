@@ -16,233 +16,250 @@
 <!-- modal de registro de pagos -->
 <div class="modal fade" id="modalPagos" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
-      <div class="modal-content">
-        <div class="modal-header ">
-          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Pago:</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="row mt-2 mb-3">                
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
-                            <div class="row mt-2 mb-3">
-                                <div class="col-md-12">                                    
-                                    <div class="row g-2 mb-3">                             
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Nombre completo: </label>
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Pago:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <div class="row mt-2 mb-3">                
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bolder text-danger text-center mb-2">RESUMEN</h5>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-12">
+                                                <label class="fw-bolder" for="">Nombre completo: </label>
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="nombreCompleto"></label>
-                                        </div>
-                                    </div>      
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">DNI:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="dni"></label>
-                                        </div>
-                                    </div>   
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Edad:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="edad"></label>
-                                            <label class="bg-light" id="mesesAños" ></label>
-                                        </div>
-                                    </div>  
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Teléfono:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="telefono"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Especialidad:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="especialidad"></label>
-                                        </div>
-                                    </div> 
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Fecha Atención:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label for="" id="fechaAtencion"></label>
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <table id="detallemodal" class="bg-light">
-                                            <thead>
-                                                <tr>
-                                                    <th>Servicio</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="cuerpomodal">
-                                                <!-- traer datos  -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-md-4">
-                                            <label class="fw-bolder" for="">Total:</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control form-control-sm bg-light" id="total" >
-                                        </div>
-                                    </div>  
-                                    <div class="row g-2 mb-3">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="">Método de pago:</label>
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-12 text-center">
+                                                <label for="" id="nombreCompleto"></label>
+                                            </div>
+                                        </div>      
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-2">
+                                                <label class="fw-bolder" for="">DNI:</label>
                                             </div>
                                             <div class="col-md-4">
-                                                <select name="" class="form-select form-select-sm" id="metodosPago"></select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" class="form-control form-control-sm bg-light" placeholder="0" id="totalMedioPago" >
+                                                <label for="" id="dni"></label>
                                             </div>
                                             <div class="col-md-2">
-                                                <button class="btn btn-sm" id="agregarPago"  type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                                <label class="fw-bolder" for="">Edad:</label>
                                             </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-4">
-                                            <label for="">Restante:</label>
+                                            <div class="col-md-4">
+                                                <label for="" id="edad"></label>
+                                                <label class="" id="mesesAños" ></label>
+                                            </div>
+                                            
+                                        </div>   
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-3">
+                                                <label class="fw-bolder" for="">Teléfono:</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="" id="telefono"></label>
+                                            </div>
+                                        </div> 
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Especialidad:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="especialidad"></label>
+                                            </div>
+                                        </div> 
+                                        <div class="row g-2 mb-2">
+                                            <div class="col-md-4">
+                                                <label class="fw-bolder" for="">Fecha Atención:</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="" id="fechaAtencion"></label>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control form-control-sm bg-light" readonly  id="totalRestante" >
+                                        <div class="row g-2 mb-2">
+                                            <table id="detallemodal" class="table table-sm table-striped table-bordered">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center">Servicio</th>
+                                                        <th class="text-center">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="cuerpomodal">
+                                                    <!-- traer datos  -->
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <div class="row g-2 mt-2">
+                                            <div class="col-md-6 text-end">
+                                                <label class="fw-bolder fs-4" for="">Total:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control form-control-sm" id="total" >
+                                            </div>
+                                        </div> 
                                     </div>
-                                    <div class="row g-2 mb-3">
-                                        <table id="detallepagos" class="table-danger">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>método</th>
-                                                    <th>Cantidad</th>
-                                                    <th></th>
-                                                  </tr>
-                                            </thead>
-                                            <tbody id="cuerpoPagos">
-                                                <!-- traer datos  -->
-                                            </tbody>
-                                        </table>
-                                    </div> 
-                                
-                                </div>                      
+                                </div>                                        
                             </div>
-                            </div>
-
+                        </div>
+                    </div>
+                </div>   
+                <div class="row g-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-7 fw-bolder">
+                            <label for="">Método de pago:</label>
+                        </div>
+                        <div class="col-md-4 fw-bolder">
+                            <label for="">Monto:</label>
+                        </div>
+                    </div>
+                </div>    
+                <div class="row g-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <select name="" class="form-select" id="metodosPago"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control  bg-light" placeholder="0" id="totalMedioPago" >
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-sm" id="agregarPago"  type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
                         </div>
                     </div>
                 </div>
-                
-                
+                <div class="row g-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-7 fw-bolder">
+                            <label for="">Restante:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control  bg-light" readonly  id="totalRestante" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="row ">
+                        <table id="detallepagos" class="table ">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>método</th>
+                                    <th>Cantidad</th>
+                                    <th>Operación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoPagos">
+                                <!-- traer datos  -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary "   id="md-guardar">Guardar</button>
-        </div>
-      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary "   id="md-guardar">Guardar</button>
+            </div>
+        </div>        
     </div>
 </div>
 <!-- modal de registro de devoluciones -->
 <div class="modal fade" id="modalDevoluciones" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Devolucion:</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="row mt-2 mb-3">                
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bolder text-danger text-center mb-4">Resumen de atención</h5>
-                            <div class="row g-2 mb-3">                             
-                                <div class="col-md-4">
-                                    <label class="fw-bolder" for="">Nombre completo: </label>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Devolucion:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-2 mb-3">                
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bolder text-danger text-center mb-2">RESUMEN:</h5>
+                                <div class="row g-2 mb-2">                             
+                                    <div class="col-md-12">
+                                        <label class="fw-bolder" for="">Nombre completo: </label>
+                                    </div>
+                                </div> 
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-12 text-center">
+                                        <label for="" id="paciente"></label>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <label for="" id="paciente"></label>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
+                                        <label class="fw-bolder" for="">DNI:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="" id="nroDocumento"></label>
+                                    </div>
+                                </div>                            
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
+                                        <label class="fw-bolder" for="">Especialidad:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="" id="detEspecialidad"></label>
+                                    </div>
+                                </div>                                 
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
+                                        <label class="fw-bolder" for="">Total:</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label for="" id="monto"></label>
+                                    </div>
                                 </div>
-                            </div>      
-                            <div class="row g-2 mb-3">
-                                <div class="col-md-4">
-                                    <label class="fw-bolder" for="">DNI:</label>
+                                <div class="row g-2 mb-2">
+                                    <label class="fw-bolder" for="">Motivo de devolución: </label>
+                                </div>    
+                                <div class="row g-2 mb-3">
+                                    <select name="" class="form-select" id="motivoDevolucion">
+                                        <option value="">Seleccione</option>
+                                        <option value="Emergencia">Emergencia</option>
+                                        <option value="Urgencia">Urgencia</option>
+                                        <option value="Demora en atención">Demora en atención</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-8">
-                                    <label for="" id="nroDocumento"></label>
+                                <div class="row g-2 mb-3" id="otroMotivoDevolucion" style="display: none;">
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" id="otroMotivo" placeholder="Especificar otro motivo" maxlength="400">
+                                    </div>
+                                </div>  
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-6">
+                                        <label class="fw-bolder" for="">Método de devolución: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="fw-bolder" for="">Monto: </label>
+                                    </div>
+                                </div>   
+                                <div class="row g-2 mb-3">
+                                    <div class="col-md-6">                                            
+                                        <select name="" class="form-select" id="devMetodosPago"></select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control bg-light" placeholder="0" id="montoIngresado" >
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-sm" id="devAgregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+                                    </div>                                    
                                 </div>
-                            </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-md-4">
-                                    <label class="fw-bolder" for="">Especialidad:</label>
+                                <div class="row g-2 mb-2">
+                                    <label class="fw-bolder" for="">Restante: </label>
+                                </div>                          
+                                <div class="row mt-2">
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control  bg-light" readonly  id="restante" >
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <label for="" id="detEspecialidad"></label>
-                                </div>
-                            </div> 
-                            <div class="row g-2 mb-3">
-                                <div class="col-md-4">
-                                    <label class="fw-bolder" for="">Total:</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <label for="" id="monto"></label>
-                                </div>
-                            </div>  
-                            <div class="row g-2 mb-3">
-                                <label class="fw-bolder" for="">Motivo de devolución</label>
-                                <select name="" class="form-select form-select-sm" id="motivoDevolucion">
-                                    <option value="">Seleccione</option>
-                                    <option value="Emergencia">Emergencia</option>
-                                    <option value="Urgencia">Urgencia</option>
-                                    <option value="Demora en atención">Demora en atención</option>
-                                    <option value="Otros">Otros</option>
-                                </select>
-                            </div>
-                            <div class="row g-2 mb-3" id="otroMotivoDevolucion" style="display: none;">
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control form-control-sm" id="otroMotivo" placeholder="Especificar otro motivo" maxlength="400">
-                                </div>
-                            </div>  
-                        </div>
-                        <div class="row g-2 mb-3">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="">Método de devolución:</label>
-                                </div>
-                                <div class="col-md-4">
-                                    
-                                    <select name="" class="form-select form-select-sm" id="devMetodosPago"></select>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" class="form-control form-control-sm bg-light" placeholder="0" id="montoIngresado" >
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-sm" id="devAgregarPago" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                                <label for="">Restante:</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm bg-light" readonly  id="restante" >
-                            </div>
-                        </div>
                         <div class="row g-2 mb-3">
                             <table id="devDetallepagos" class="table">
                                 <thead>
@@ -416,13 +433,13 @@ cardresumen.addEventListener("click", (event) => {
                     edad.innerHTML = element.Edad ;
                     añosMeses.innerHTML = "Años";
                 }else if(element.Edad == 0){
-                if(element.meses == 1){
-                    edad.innerHTML = element.meses;
-                    añosMeses.innerHTML = "Mes";
-                }else{
-                    edad.innerHTML = element.meses;
-                    añosMeses.innerHTML = "Meses";
-                }
+                    if(element.meses == 1){
+                        edad.innerHTML = element.meses;
+                        añosMeses.innerHTML = "Mes";
+                    }else{
+                        edad.innerHTML = element.meses;
+                        añosMeses.innerHTML = "Meses";
+                    }
                 }
                 telefono.innerHTML = element.telefono;
                 especialidad.innerHTML = element.nombreServicio;
@@ -743,6 +760,7 @@ function calcularRestanteDev(){
     console.log(devTotalRestante.value);
 }
 calcularRestanteDev();
+
 function agregarMontoDevolucion() {
     const montoIngresado = parseFloat(devMontoIngresado.value);
     const restante = parseFloat(devTotalRestante.value);
@@ -801,6 +819,72 @@ function agregarMontoDevolucion() {
     } 
 }
 
+let cantmontoMedioPago;
+function montoMedioPago(){
+    const mediopago = devMetodoPago.options[devMetodoPago.selectedIndex];    
+    const parametros = new URLSearchParams();
+    parametros.append("operacion" , "montoMedioPago");
+    parametros.append("idmedio" , mediopago.value);
+
+    fetch("../controllers/pago.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+        datos.forEach(element => {
+            if(mediopago.value == 1){
+                cantmontoMedioPago = element.total;
+                if(devMontoIngresado.value <= cantmontoMedioPago){
+                    console.log("yape");
+                }else{
+                    toast("Monto insuficiente en YAPE");
+                }
+            }else if (mediopago.value == 2){
+                cantmontoMedioPago = element.total;
+                if(devMontoIngresado.value <= cantmontoMedioPago){
+                    console.log("TRANSFERENCIA");
+                    agregarMontoDevolucion();
+                }else{
+                    toast("Monto insuficiente en TRANSFERENCIA");
+                }
+            }else if (mediopago.value == 3){
+                cantmontoMedioPago = element.total;
+                if(devMontoIngresado.value <= cantmontoMedioPago){
+                    console.log("EFECTIVO");
+                    agregarMontoDevolucion();
+                }else{
+                    toast("Monto insuficiente en EFECTIVO");
+                }
+            }else if (mediopago.value == 4){
+                cantmontoMedioPago = element.total;
+                if(devMontoIngresado.value <= cantmontoMedioPago){
+                    console.log("PLIN");
+                    agregarMontoDevolucion();
+                }else{
+                    toast("Monto insuficiente en PLIN");
+                }
+            }else if (mediopago.value == 5){
+                cantmontoMedioPago = element.total;
+                if(devMontoIngresado.value <= cantmontoMedioPago){
+                    console.log("POS");
+                    agregarMontoDevolucion();
+                }else{
+                    toast("Monto insuficiente en POS");
+                }
+            }
+        });
+    })
+}
+
+function validarMontoMP(){
+    if(devMetodoPago.value > 0){
+        montoMedioPago();
+    }
+}
+
+
+
 function GuardarDevolucion() {
     let motivoSeleccionado = motivoDevolucion.value;
     const filas = devDetallepagos.rows;
@@ -845,7 +929,8 @@ guardarPago.addEventListener("click",validarPagos);
 
 devbtAgregarPago.addEventListener("click", () => {
     if(devMetodoPago.value > 0 ){
-        agregarMontoDevolucion();
+        //agregarMontoDevolucion();
+        validarMontoMP();
     }else{
         toast("Seleccion un metodo de pago");
     }
