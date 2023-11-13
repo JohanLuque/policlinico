@@ -64,7 +64,7 @@ class DetalleAtencion extends Conexion{
     }
   } 
 
-  public function impresiones($idHistoria){
+  public function impresionesTriaje($idHistoria){
     try{
       $query = $this->connection->prepare("CALL spu_triaje_reporte(?)");
       $query->execute(array($idHistoria));

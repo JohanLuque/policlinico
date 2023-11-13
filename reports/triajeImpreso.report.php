@@ -1,7 +1,7 @@
 <?php
 
 require_once '../vendor/autoload.php';
-//require_once '../models/Pago.php';
+require_once '../models/DetalleAtencion.php';
 
 
 use Spipu\Html2Pdf\Html2Pdf; 
@@ -9,6 +9,9 @@ use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
+    $detalleAtencion = new DetalleAtencion();
+    $datosTriaje = $detalleAtencion->impresionesTriaje($_GET['idDetalleHistoria']);
+    $datosAlergias = $detalleAtencion->impresionesAlergias($_GET['idHistoria']);
     ob_start();
 
     include './estilos.html';
