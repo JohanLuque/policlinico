@@ -1,5 +1,22 @@
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-5">
+            <div class="card   bg-light-danger ">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="round rounded  d-flex align-items-center justify-content-center">
+                            <button class="btn ">
+                                <img src="./images/products/ingresos.png" alt="" width="40px">
+                            </button>
+                        </div>
+                        <h6 class="mb-0 ms-3 text-danger" id="">Total Ingresos:</h6>
+                        <h4 class="mb-0 ms-3 text-danger" id="ingresos"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md">
             <div class="card  ">
                 <div class="card-body p-4">
@@ -78,7 +95,8 @@
     const pos = document.querySelector("#mPOS");
     const yape = document.querySelector("#mYape");
     const plin = document.querySelector("#mPlin");
-
+    let totalingresos;
+    const tIngresos = document.querySelector("#ingresos");
     function montoMedioPago(idmedio){
         const parametros = new URLSearchParams();
         parametros.append("operacion" , "montoMedioPago");
@@ -105,6 +123,25 @@
             });
         })
     }
+    function ingresos(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "ingresos");
+        fetch("../controllers/pago.php", {
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            if(datos.length){
+                datos.forEach(element => {
+                    tIngresos.innerHTML = `S/ ${element.MontoTotal}`;
+                    console.log(totalingresos);
+                
+                })
+            }
+        })
+    }
+    ingresos();
     montoMedioPago(1);
     montoMedioPago(2);
     montoMedioPago(3);
