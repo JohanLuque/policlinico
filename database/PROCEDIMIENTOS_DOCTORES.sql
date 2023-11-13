@@ -86,10 +86,4 @@ BEGIN
 END$$
 -- CALL spu_doctor_agregar_enfermedad(6,2)
 -- select * from Tratamiento_paciente
-/*SELECT * FROM Enfermedad_Pacientes
-SELECT idDetalleAtencion, per.apellidoPaterno, per.apellidoMaterno, per.nombres, Enfermedades.descripcion  FROM Enfermedad_Pacientes
-INNER JOIN Detalle_Atenciones ON Detalle_Atenciones.idDetalleAtenciones = Enfermedad_Pacientes.idEnfermedadPaciente
-INNER JOIN atenciones ate ON ate.idAtencion = Detalle_Atenciones.idAtencion
-INNER JOIN personas per ON per.idPersona = ate.idPersona
-INNER JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad*/
 -- select * from enfermedades

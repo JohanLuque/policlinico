@@ -20,7 +20,7 @@
                 <div class="row mt-2 mb-3">                
                     <div class="col-md-12">
                         <div class="card">
-                            <form action="" id="form-hc">
+                            <form action="" id="form-hc" class="needs-validation">
                                 <div class="card-body">
                                     <h3 class=" fw-bolder text-danger text-center mb-4">HISTORIA CLÍNICA</h3>
                                     <div class="row g-2 mb-2">
@@ -36,7 +36,10 @@
                                                     <label class="fw-bolder" for="">INICIO: </label>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <input class="form-control form-control-m bg-light" id="mdInicio" type="text">
+                                                    <input class="form-control form-control-m bg-light" id="mdInicio" type="text" required>
+                                                    <div class="invalid-feedback">
+                                                        Complete este campo
+                                                    </div>   
                                                 </div>
                                             </div>
                                         </div> 
@@ -46,7 +49,10 @@
                                             <label class="fw-bolder" for="">CURSO:</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-m bg-light" id="mdCurso" type="text">
+                                            <input class="form-control form-control-m bg-light" id="mdCurso" type="text" required>
+                                            <div class="invalid-feedback">
+                                                Complete este campo
+                                            </div> 
                                         </div>
                                     </div>   
                                     <div class="row g-2 mb-3">
@@ -54,7 +60,10 @@
                                             <label class="fw-bolder" for="">RELATO:</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-m bg-light" id="mdRelato" type="text">
+                                            <input class="form-control form-control-m bg-light" id="mdRelato" type="text" required>
+                                            <div class="invalid-feedback">
+                                                Complete este campo
+                                            </div> 
                                         </div>
                                     </div>  
                                     <div class="row g-2 mb-2">
@@ -62,7 +71,10 @@
                                     </div>
                                     <div class="row g-2 mb-3">
                                         <div class="col-md-12">
-                                            <textarea class="form-control form-control-m" id="examenGeneral"></textarea>
+                                            <textarea class="form-control form-control-m" id="examenGeneral" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Complete este campo
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
@@ -77,7 +89,7 @@
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbP" value="P">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbP" value="P">
                                                 <label class="form-check-label">P</label>
                                             </div>
                                             <div class="form-check form-check-inline">
@@ -103,7 +115,10 @@
                                     </div>
                                     <div class="row g-2 mb-3">
                                         <div class="col-md-12">
-                                            <textarea class="form-control" id="procedimiento"></textarea>
+                                            <textarea class="form-control" id="procedimiento" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Complete este campo
+                                            </div> 
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
@@ -301,14 +316,40 @@
         modalHC.toggle();  
     }
   });
-  function agregarDetalleHistoria(){
-    const frecuencia = document.querySelector('input[name="inlineRadioOptions"]:checked');
-    if(!frecuencia){
-        alert("Por favor, seleccione una frecuencia.");
-        return;
+
+  function validarForm(){
+    if(!formHC.checkValidity()){
+        event.preventDefault()
+        event.stopPropagation()
+        formHC.classList.add('was-validated');
+    }else{
+        agregarDetalleHistoria();
+    }
+  }
+  function agregarDetalleHistoria() {
+    const frecuencia = document.querySelectorAll('input[name="inlineRadioOptions"]');
+    let valorRadio = '';
+    if(descripcion.value.trim() === ""){
+        valorRadio;
+    }else{
+        frecuencia.forEach(radio => {
+            if (radio.checked) {
+                //console.log(`El radio con id ${radio.id} está seleccionado.`);
+                if (radio.id === 'rbP') {
+                    valorRadio = 'P';
+                } else if (radio.id === 'rbD') {
+                    valorRadio = 'D';
+                } else if (radio.id === 'rbR') {
+                    valorRadio = 'R';
+                }else{
+                    valorRadio;
+                }
+            }
+        });
     }
     const parametros = new URLSearchParams();
-    parametros.append("operacion","detalleHC");
+
+    parametros.append("operacion", "detalleHC");
     parametros.append("idDetalleatencion", idDetalleModal);
     parametros.append("inicio", inicio.value);
     parametros.append("curso", curso.value);
@@ -316,28 +357,31 @@
     parametros.append("procedimiento", procedimiento.value);
     parametros.append("observaciones", observaciones.value);
     parametros.append("examenGeneral", examenGeneral.value);
-    parametros.append("frecuencia", frecuencia.value);
-    fetch("../controllers/historiaClinica.php",{
-        method : "POST",
-        body : parametros
+    parametros.append("frecuencia", valorRadio);
+
+
+    fetch("../controllers/historiaClinica.php", {
+        method: "POST",
+        body: parametros
     })
-    .then(response=> response.json())
-    .then(datos => {
-        if(datos.status){
-            registrarDetalleTratamiento();
-            toastCheck("Guardado correctamente");
-            modalHC.toggle();
-            formHC.reset();
-            registrarEnfermedad();
-            limpiarTabla();
-        }else{
-            alert(datos.mensaje);
-        }
-    })
-    .catch(error => {
-        alert("Error al guardar")
-    })
-  }
+        .then(response => response.json())
+        .then(datos => {
+            if (datos.status) {
+                registrarDetalleTratamiento();
+                toastCheck("Guardado correctamente");
+                modalHC.toggle();
+                formHC.reset();
+                registrarEnfermedad();
+                limpiarTabla();
+            } else {
+                alert(datos.mensaje);
+            }
+        })
+        .catch(error => {
+            toast("Error al guardar");
+        });
+}
+
   let idEnfermedad;
   function consultarEnfermedad(){
     const parametros = new URLSearchParams();
@@ -357,6 +401,9 @@
         });
         }
     })
+    .catch(error => {
+        toast("Error al guardar");
+    });
   }
 
 function registrarDetalleTratamiento(){
@@ -433,9 +480,15 @@ function limpiarTabla(){
     })
   }
   cie10.addEventListener("keypress", (evt) => {
-   if (evt.charCode == 13) consultarEnfermedad();
-});
+        if (evt.charCode === 13){
+            consultarEnfermedad();
+            if (descripcion.value) {
+                toast("Por favor, seleccione una frecuencia.");
+                return;
+            }
+        }
+    });
     listar();
     btnTratamiento.addEventListener("click",agregarTratamiento);
-    btnActualizar.addEventListener("click", agregarDetalleHistoria);
+    btnActualizar.addEventListener("click", validarForm);
 </script>
