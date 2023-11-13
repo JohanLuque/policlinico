@@ -95,4 +95,13 @@ class Pago extends Conexion{
       die($e->getCode());
     }
   }
+  public function montoMedioPago($idmedio){
+    try{
+      $query = $this->connection->prepare("CALL spu_monto_medioPago(?)");
+      $query->execute(array($idmedio));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

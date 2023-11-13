@@ -100,46 +100,6 @@ BEGIN
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	WHERE detalle_servicios.idAtencion =_idAtencion;
 END $$
-CALL spu_ticket_3(25)
-DELIMITER $$
-CREATE PROCEDURE spu_ticket(IN _idAtencion INT)
-BEGIN 
-	SELECT ate.idAtencion, pag.`idMedioPago`,med.nombrePago, pag.`monto` 
-	FROM    pagos pag
-	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
-	INNER JOIN Medio_Pagos med ON pag.idMedioPago = med.idMedioPago
-	WHERE ate.idAtencion = _idAtencion
-	GROUP BY pag.`idMedioPago`;
-	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
-	personas.telefono,servicios_detalle.precio AS 'total'
-	FROM Detalle_Servicios
-	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE detalle_servicios.idAtencion =_idAtencion;
-
-	SELECT ate.numeroAtencion, pag.fechaHoraPago,
-	CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
-	per.numeroDocumento,per.`telefono`, YEAR(CURDATE())-YEAR(per.fechaNacimiento) + 
-		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(per.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
-	especialidad.nombreServicio AS 'Servicio',
-	SUM(pag.monto) AS 'MontoTotal'
-	FROM    pagos pag
-	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
-	INNER JOIN  Personas per ON per.idPersona = ate.idPersona
-	LEFT JOIN (
-		 SELECT ate.idAtencion,ser.nombreServicio
-		 FROM   atenciones ate
-		 INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
-		 INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
-		 INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
-		 WHERE ate.idAtencion = _idAtencion
-		 GROUP BY ser.nombreServicio   
-	) AS especialidad ON ate.idAtencion = especialidad.idAtencion
-	WHERE ate.idAtencion = _idAtencion
-	GROUP BY ate.idAtencion;
-END $$
 
 
 SELECT 
@@ -147,37 +107,50 @@ SELECT
     (SELECT IFNULL(SUM(d.montoDevolucion), 0) FROM Devoluciones d INNER JOIN Medio_Pagos med ON d.idMedioPago = med.idMedioPago WHERE DATE(fechaHoraDevolucion) = CURDATE() AND med.idMedioPago = 1)) AS totalDevo
 	FROM gastos
 
+DELIMITER $$
+CREATE PROCEDURE spu_monto_medioPago(IN _idmedio INT)
+BEGIN 
+	SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+	(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = _idmedio) AS totalDevo, 
+	(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = _idmedio) + (SELECT IFNULL(SUM(montoGasto),0) FROM gastos WHERE DATE(fechaHoraGasto) = CURDATE() AND idMedioPago = _idmedio)) AS total
+	FROM pagos p 
+	INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+	WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = _idmedio;
+END $$
+
+CALL spu_monto_medioPago(1);
 -- YAPE
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
-FROM pagos p 
-INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 1 ;
+
 
 -- TRANSFERENCIA
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 2) AS totalDevo, 
+(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 2)) AS total
 FROM pagos p 
 INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 2 ;
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 2;
 
 -- EFECTIVO
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 3) AS totalDevo, 
+(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 3)) AS total
 FROM pagos p 
 INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 3;
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 3 ;
+
 
 -- PLIN
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 4) AS totalDevo, 
+(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 4)) AS total
 FROM pagos p 
 INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 4;
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 4;
 
 -- POS
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, IFNULL(SUM(devo.montoDevolucion),0) AS totalDevo, (IFNULL(SUM(p.monto), 0))-(IFNULL(SUM(devo.montoDevolucion),0)) AS total
+SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 5) AS totalDevo, 
+(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 5)) AS total
 FROM pagos p 
 INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-INNER JOIN devoluciones devo ON med.idMedioPago = devo.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 5;
+WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 5;

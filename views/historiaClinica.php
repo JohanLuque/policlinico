@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3 row g-2">
           <div class="col-md-6">
-            <label for="">Nombre Completo:</label>          
+            <label class="fw-bolder text-dark" for="">Nombre Completo:</label>          
           </div>
         </div>
         <div class="mb-3 row g-2">
@@ -38,7 +38,7 @@
         
         <div class="mb-3 row g-2">
           <div class="col-md-4">
-            <label for="">Antecedente Personal:</label>          
+            <label class="fw-bolder text-dark" for="">Antecedente Personal:</label>          
           </div>
           <div class="col-md-8">                                  
             <input class="form-control " id="antecedentePersonal" type="text" >
@@ -46,7 +46,7 @@
         </div>
         <div class="mb-3 row g-2">
           <div class="col-md-4">
-            <label for="">Antecedente Familiar:</label>          
+            <label class="fw-bolder text-dark" for="">Antecedente Familiar:</label>          
           </div>
           <div class="col-md-8">                                  
             <input class="form-control " id="antecedenteFamiliar" type="text" >
@@ -54,7 +54,7 @@
         </div>
         <div class="mb-3 row g-2">
           <div class="col-md-4">
-            <label for="">Antecedente Quirurgico:</label>          
+            <label class="fw-bolder text-dark" for="">Antecedente Quirurgico:</label>          
           </div>
           <div class="col-md-8">                                  
             <input class="form-control " id="antecedenteQuirurgico" type="text"  >
@@ -62,7 +62,7 @@
         </div>
         <div class="mb-3 row g-2">
           <div class="col-md-4">
-            <label for="">Antecedente Otros:</label>          
+            <label class="fw-bolder text-dark" for="">Antecedente Otros:</label>          
           </div>
           <div class="col-md-8">                                  
             <input class="form-control " id="antecedenteOtros" type="text" >
@@ -70,7 +70,7 @@
         </div>                
         <div class="mb-3 row g-2">
           <div class="col-md-4">
-            <label for="">Alergias:</label>           
+            <label class="fw-bolder text-dark"  for="">Alergias:</label>           
           </div>
           <div class="col-md-6">                                  
             <select name="" id="alergias" class="form-select ">

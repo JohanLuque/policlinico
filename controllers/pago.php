@@ -33,5 +33,8 @@ if(isset($_POST['operacion'])){
     case 'ingresos':
       echo json_encode($pago->ingresos());
       break;
+    case 'montoMedioPago':
+      echo json_encode($pago->montoMedioPago($_POST['idmedio']));
+      break;
   }
 }

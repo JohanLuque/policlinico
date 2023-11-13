@@ -228,6 +228,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
         }
       }  
       
+      
       getURL();
       
     });

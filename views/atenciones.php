@@ -16,12 +16,12 @@
           <form id="form-atenciones" class="needs-validation">
             <div class="mb-3 row g-2">
               <div class="col-md-10">
-                <label for="" class="card-title" style="color:#ff7619 ;">PACIENTE:</label>
+                <label for="" class="card-title fw-bolder" style="color:#ff7619 ;">PACIENTE:</label>
               </div>                                                               
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="DNI_personas">N° Doc:</label>          
+                <label class="fw-bolder text-dark"  for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
                 <input class="form-control " id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
@@ -35,7 +35,7 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="">Nombre completo:</label>          
+                <label class="fw-bolder text-dark"  for="">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
                 <input class="form-control  bg-light" id="nombrePaciente" type="text" readonly>
@@ -43,7 +43,7 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="">Edad:</label>          
+                <label class="fw-bolder text-dark"  for="">Edad:</label>          
               </div>
               <div class="col-md-1">                                  
                 <input class="form-control  bg-light" id="edadPaciente" type="text" readonly>
@@ -60,12 +60,12 @@
             <div id="familiar" style="display: none;">
             <div class="mb-3 row g-2">
               <div class="col-md-10">
-                <label for="" class="card-title" style="color:#ff7619 ;">FAMILIAR:</label>
+                <label for="" class="fw-bolder card-title" style="color:#ff7619 ;">FAMILIAR:</label>
               </div>                                                               
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="DNI_familiar">N° Doc: </label>
+                <label class="fw-bolder text-dark"  for="DNI_familiar">N° Doc: </label>
               </div>
               <div class="col-md-3">
                 <input type="text" class="form-control " id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
@@ -76,7 +76,7 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="nombreFamiliar">Nombre completo:</label>          
+                <label class="fw-bolder text-dark"  for="nombreFamiliar">Nombre completo:</label>          
               </div>
               <div class="col-md-9">                                  
                 <input class="form-control  bg-light" id="nombreFamiliar" type="text" readonly>
@@ -84,7 +84,7 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="">Parentesco:</label>          
+                <label class="fw-bolder text-dark"  for="">Parentesco:</label>          
               </div>
               <div class="col-md-3">
                 <select name="" id="parentescoFamilar" class="form-select ">
@@ -106,12 +106,12 @@
             <div id="ordenM" style="display: none;">
               <div class="mb-3 row g-2">
                 <div class="col-md-10">
-                  <label for="" class="card-title" style="color:#ff7619 ;">ORDEN MÉDICA:</label>
+                  <label for="" class="card-title fw-bolder" style="color:#ff7619 ;">ORDEN MÉDICA:</label>
                 </div>                                                               
               </div>
               <div class="mb-3 row g-2">
                 <div class="col-md-2">
-                  <label for="">Doctor:</label>          
+                  <label class="fw-bolder text-dark"  for="">Doctor:</label>          
                 </div>
                 <div class="col-md-3">                                  
                   <select name="" id="listaEspecialidades" class="form-select " >
@@ -128,12 +128,12 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-10">
-                <label for="" class="card-title" style="color:#ff7619 ;">FECHA:</label>
+                <label for="" class="card-title fw-bolder" style="color:#ff7619 ;">FECHA:</label>
               </div>                                                               
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-2">
-                <label for="">Fecha atención:</label>          
+                <label class="fw-bolder text-dark"  for="">Fecha atención:</label>          
               </div>
               <div class="col-md-3">                                  
                 <input type="date" class="form-control" id="FechaActual" >
@@ -142,28 +142,28 @@
             <!-- servicio -->
             <div class="mb-3 row g-2">
               <div class="col-md-10">
-                <label for="" class="card-title" style="color:#ff7619 ;">SERVICIOS:</label>
+                <label for="" class="card-title fw-bolder" style="color:#ff7619 ;">SERVICIOS:</label>
               </div>                                                               
             </div>
             <div class="row g-2">
               <div class="col-md-3">
-                <label for="">Servicio:</label>          
+                <label class="fw-bolder text-dark"  for="">Servicio:</label>          
               </div>
               <div class="col-md-5">
-                <label for="">Procedimiento:</label>          
+                <label class="fw-bolder text-dark"  for="">Procedimiento:</label>          
               </div>
               <div class="col-md-1">
-                <label for="">Precio:</label>          
+                <label class="fw-bolder text-dark"  for="">Precio:</label>          
               </div>
               <div class="col-md-2">
-                <label for="">Genéro:</label>          
+                <label class="fw-bolder text-dark"  for="">Genéro:</label>          
               </div>
             </div>
 
             <div class="mb-3 row g-2">              
               <div class="col-md-3">                                  
                 <select name="" id="listaServicios" class="">
-                  <option value="">Seleccione</option>
+                  <option  value="">Seleccione</option>
                 </select> 
               </div>
               <div class="col-md-5">                                  
@@ -183,7 +183,7 @@
             </div>
             <div class="row mt-5">
               <div class="col-md-12 mb-2">
-                <table class="table table-sm " id="tabla_atenciones_procedimientos">
+                <table class="table " id="tabla_atenciones_procedimientos">
                   <colgroup>
                     <col width="10%"> <!-- # -->
                     <col width="10%"> <!-- titulo -->
@@ -207,26 +207,26 @@
             </div>
             <div class="mb-3 row g-2 text-end">
               <div class="col-md-11">
-                <label for="">SubTotal:</label>          
+                <label class="fw-bolder text-dark"  for="">SubTotal:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm bg-light" id="subTotal" type="text" readonly>
+                <input class="form-control bg-light" id="subTotal" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
               <div class="col-md-11">
-                <label for="">I.G.V:</label>          
+                <label class="fw-bolder text-dark"  for="">I.G.V:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm bg-light" id="IGV" type="text" readonly>
+                <input class="form-control bg-light" id="IGV" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
               <div class="col-md-11">
-                <label for="">Total:</label>          
+                <label class="fw-bolder text-dark"  for="">Total:</label>          
               </div>
               <div class="col-md-1">                                  
-                <input class="form-control form-control-sm bg-light" id="total" type="text" readonly>
+                <input class="form-control bg-light" id="total" type="text" readonly>
               </div>
             </div>                          
             <div class="mb-3 row g-2 align-items-center">
@@ -251,7 +251,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Paciente</h1>
+        <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Paciente</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -259,11 +259,13 @@
           <div class="col-md-12">
             <div class="row g-2 mb-3">  
               <form action="" id="form-paciente">
-              <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">Tipo Doc.</label>          
+                <div class="mb-3 row g-2">
+                  <div class="col-md-4 fw-bolder">
+                    <label for="">Tipo Documento:</label>          
                   </div>
-                  <div class="col-md-9">
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-12">
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N">
                       <label class="form-check-label">DNI</label>
@@ -275,11 +277,11 @@
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-6">
-                    <div class="form-floating mb-3">
+                  <div class="col-md-6">                    
+                    <div class="form-floating">
                       <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
                       <label for="">
-                          <i class="ti ti-user me-2 fs-4"></i>
+                          <i class="ti ti-id-badge me-2 fs-4"></i>
                           N° Documento
                       </label>
                       <div class="invalid-feedback">
@@ -290,61 +292,71 @@
                 </div>
                 
                 <div class="mb-3 row g-2">
-                  <div class="form-floating mb-3">
-                    <input type="text" class="form-control border" id="nombrePersona" type="text">
+                  <div class="form-floating">
+                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text">
                     <label for="">
-                        <i class="ti ti-search me-2 fs-4"></i>
+                        <i class="ti ti-user me-2 fs-4"></i>
                         Nombres
-                    </label>
+                    </label> 
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">Apellido Paterno:</label>          
+                  <div class="form-floating ">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text">
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Apellido Paterno
+                    </label> 
                   </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="form-floating ">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text">
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Apellido Materno
+                    </label> 
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-4 fw-bolder">
+                    <label for="">Fecha Nacimiento:</label>          
+                  </div>
+                </div>
+                <div class="mb-3 row g-2 ">
                   <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="apellidosPaternoPersona" type="text" >
+                    <input class="form-control" id="fechaNacimiento" type="date">
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">Apellido Materno:</label>          
-                  </div>
-                  <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="apellidosMaternoPersona" type="text" >
+                  <div class="col-md-4 fw-bolder">
+                    <label for="">Género:</label>          
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">F. Nac:</label>          
-                  </div>
-                  <div class="col-md-9">                                  
-                    <input class="form-control form-control-sm" id="fechaNacimiento" type="date">
-                  </div>
-                </div>
+                  <div class="col-md-6">       
+                    <div class="form-check form-check-inline ">                           
+                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
+                      <label class="form-check-label">Femenino</label>
+                    </div>
+                    <div class="form-check form-check-inline ">
+                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
+                      <label class="form-check-label">Masculino</label>
+                    </div>
+                  </div> 
+                </div>                 
                 <div class="mb-3 row g-2">
-                  <div class="col-md-2">
-                    <label for="">Genero:</label>          
-                  </div>
-                  <div class="col-md-9">       
-                    <div class="form-check form-check-inline">                           
-                      <input class="form-check-input" type="radio" name="options" id="rbFemenino" value="F">
-                        <label class="form-check-label">Femenino</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="options" id="rbMasculino" value="M">
-                        <label class="form-check-label">Masculino</label>
-                    </div>
-                  </div>
-                  <div class="mb-3 row g-2">
-                    <div class="col-md-2">
-                      <label for="">Telefono:</label>          
-                    </div>
-                    <div class="col-md-9">                                  
-                      <input class="form-control form-control-sm"  maxlength="9" id="telefono" placeholder="999999999" type="text">
-                    </div>
+                  <div class="col-md-9">  
+                    <div class="form-floating ">
+                      <input type="text" class="form-control border"  placeholder="999999999" id="telefono" type="text">
+                      <label for="">
+                          <i class="ti ti-phone me-2 fs-4"></i>
+                          Teléfono
+                      </label> 
+                    </div>                                
                   </div>
                 </div>
+                
               </form>
               
             </div>          

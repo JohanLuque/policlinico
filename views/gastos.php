@@ -163,6 +163,73 @@
         })
     }
 
+let cantmontoMedioPago;
+function montoMedioPago(){
+    const mediopago = metodosPago.options[metodosPago.selectedIndex];    
+    const parametros = new URLSearchParams();
+    parametros.append("operacion" , "montoMedioPago");
+    parametros.append("idmedio" , mediopago.value);
+
+    fetch("../controllers/pago.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {
+        datos.forEach(element => {
+            const gasto = parseFloat(monto.value);
+            if(mediopago.value == 1){
+                cantmontoMedioPago = element.total;
+                if(gasto <= cantmontoMedioPago){
+                    console.log("yape");
+                    registrarGasto();
+                }else{
+                    toast("Monto insuficiente en YAPE");
+                }
+            }else if (mediopago.value == 2){
+                cantmontoMedioPago = element.total;
+                if(gasto <= cantmontoMedioPago){
+                    console.log("TRANSFERENCIA");
+                    registrarGasto();
+                }else{
+                    toast("Monto insuficiente en TRANSFERENCIA");
+                }
+            }else if (mediopago.value == 3){
+                cantmontoMedioPago = element.total;
+                if(gasto <= cantmontoMedioPago){
+                    console.log("EFECTIVO");
+                    registrarGasto();
+                }else{
+                    toast("Monto insuficiente en EFECTIVO");
+                }
+            }else if (mediopago.value == 4){
+                cantmontoMedioPago = element.total;
+                if(gasto <= cantmontoMedioPago){
+                    console.log("PLIN");
+                    registrarGasto();
+                }else{
+                    toast("Monto insuficiente en PLIN");
+                }
+            }else if (mediopago.value == 5){
+                cantmontoMedioPago = element.total;
+                if(gasto <= cantmontoMedioPago){
+                    console.log("POS");
+                    registrarGasto();
+                }else{
+                    toast("Monto insuficiente en POS");
+                }
+            }
+        });
+    })
+}
+
+function validarMontoMP(){
+    if(metodosPago.value > 0){
+        montoMedioPago();
+    }
+}
+
+
     function consultarPaciente(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -184,7 +251,7 @@
             }
         })
     }
-    ingresos();
+    //ingresos();
     function registrarGasto() {
         const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarGasto");
@@ -205,9 +272,9 @@
                 toastCheck("Guardado Correctamente");
                 // Después de guardar con éxito, actualiza la tabla
                 listarGastosTabla();
-                totalingresos = totalingresos - monto.value;
-                console.log(totalingresos);
-                ingresos();
+                // totalingresos = totalingresos - monto.value;
+                // console.log(totalingresos);
+                //ingresos();
 
             } else {
                 console.log("Algo salió mal");
@@ -248,18 +315,18 @@
         })
     }
 
-    function validarGasto(){
-        const gasto = parseFloat(monto.value);
+    // function validarGasto(){
+    //     const gasto = parseFloat(monto.value);
         
-        if(gasto > totalingresos){
-            toast("El monto ingresado no puede ser mayor al ingreso");
-        }else if(gasto < 0){
-            toast("El monto es inválido");
-        }else{
-            registrarGasto();
+    //     if(gasto > totalingresos){
+    //         toast("El monto ingresado no puede ser mayor al ingreso");
+    //     }else if(gasto < 0){
+    //         toast("El monto es inválido");
+    //     }else{
+    //         validarMontoMP();
 
-        }
-    }
+    //     }
+    // }
     
     function validar(){
         if (!form.checkValidity()) {
@@ -269,8 +336,7 @@
         }else{
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
-                validarGasto();
-                
+                    validarMontoMP();
                 }
             })
         }
