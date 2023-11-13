@@ -157,7 +157,7 @@ presionArterial			VARCHAR(10) 	NOT NULL,
 temperatura			DECIMAL(4,2) 	NOT NULL,
 saturacionOxigeno		TINYINT 	NOT NULL,
 examenGeneral 			VARCHAR(2000) 	NULL,
-frecuencia			CHAR(1) 	NULL DEFAULT 'p', -- p= primera vez, d = diario, r = recurrente
+frecuencia			CHAR(1) 	NULL, -- p= primera vez, d = diario, r = recurrente
 
 inicio				VARCHAR(2000)   NULL,
 curso 				VARCHAR(2000)	NULL,
