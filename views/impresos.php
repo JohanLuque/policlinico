@@ -66,8 +66,8 @@
     if(event.target.classList[0] == 'triaje'){
       if(idhistoria>0){
         const parametros = new URLSearchParams();
-        parametros.appemd("idHistoria",idhistoria);
-        parametros.appemd("idDetalleHistoria",iddetalleHistoria);
+        parametros.append("idHistoria",idhistoria);
+        parametros.append("idDetalleHistoria",iddetalleHistoria);
         
         window.open(`../reports/triajeImpreso.report.php`, '_blank');
       }
