@@ -88,6 +88,65 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">Reporte de Servicios</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-5">
+                            <div class="me-4">
+                                <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
+                                <span>Servicio:</span>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <select name="" class="form-select" id=""></select>                            
+                        </div>
+                    </div>
+                    <!-- <div class="d-flex align-items-center">
+                        <div class="me-4">
+                            <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
+                        </div>
+                        <div>
+                            <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
+                            <span class=fs-2"">sbvijs</span>
+                        </div>
+                    </div> -->
+                    <div class="row mt-4">
+                        <div class="col-md-9">
+                            <label for="">Por semana</label>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-secondary btn-circle btn-lg">
+                                <i class="fs-5 ti ti-file-description"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-9">
+                            <label for="">Por quincena</label>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-primary btn-circle btn-lg">
+                                <i class="fs-5 ti ti-file-description"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-9">
+                            <label for="">Por Mes</label>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-danger btn-circle btn-lg">
+                                <i class="fs-5 ti ti-file-description"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     const efectivo = document.querySelector("#mEfectivo");

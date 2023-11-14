@@ -930,13 +930,13 @@ function consultarDNI() {
     })
     .then(datos => {
       const resultado = JSON.parse(datos);
-      console.log(resultado);
+      //console.log(resultado);
       if (resultado.dni == documento) {
         apellidoPaterno.value = resultado.apellidoPaterno;
         apellidoMaterno.value = resultado.apellidoMaterno;
         nombres.value = resultado.nombres;
       } else {
-        alert(content.message);
+        toast(resultado.message);
       }
     })
     .catch( e => {
