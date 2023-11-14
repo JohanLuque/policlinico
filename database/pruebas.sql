@@ -46,10 +46,41 @@ SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
-	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() 
-	GROUP BY Detalle_Servicios.idatencion
+	WHERE atenciones.estado = '1' AND servicios.tipo = 'S'
 	ORDER BY dia DESC;
 	
+SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+FROM Detalle_Servicios
+INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND MONTH(atenciones.`fechaAtencion`) = 11
+
+SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+FROM Detalle_Servicios
+INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND WEEK(atenciones.`fechaAtencion`) = WEEK(CURDATE())
+
+
+SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+FROM Detalle_Servicios
+INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 1 AND 15
+    OR (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 16 AND 31 AND DAYOFMONTH(CURDATE()) <= 15)
+  );
+ 
+
+-- DATOS DE TICKET
 DELIMITER $$
 CREATE PROCEDURE spu_ticket_1(IN _idAtencion INT)
 BEGIN 
@@ -73,8 +104,6 @@ BEGIN
 	WHERE ate.idAtencion = _idAtencion
 	GROUP BY ate.idAtencion;
 END $$
-
-CALL spu_ticket_1(10);
 
 DELIMITER $$
 CREATE PROCEDURE spu_ticket_2(IN _idAtencion INT)
@@ -102,11 +131,7 @@ BEGIN
 END $$
 
 
-SELECT 
-    ((SELECT IFNULL(SUM(p.monto), 0) FROM pagos p INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago WHERE DATE(p.fechaHoraPago) = CURDATE() AND med.idMedioPago = 1 ) - 
-    (SELECT IFNULL(SUM(d.montoDevolucion), 0) FROM Devoluciones d INNER JOIN Medio_Pagos med ON d.idMedioPago = med.idMedioPago WHERE DATE(fechaHoraDevolucion) = CURDATE() AND med.idMedioPago = 1)) AS totalDevo
-	FROM gastos
-
+-- OBTENER INGRESOS POR MEDIO DE PAGO
 DELIMITER $$
 CREATE PROCEDURE spu_monto_medioPago(IN _idmedio INT)
 BEGIN 
@@ -118,39 +143,3 @@ BEGIN
 	WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = _idmedio;
 END $$
 
-CALL spu_monto_medioPago(1);
--- YAPE
-
-
--- TRANSFERENCIA
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
-(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 2) AS totalDevo, 
-(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 2)) AS total
-FROM pagos p 
-INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 2;
-
--- EFECTIVO
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
-(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 3) AS totalDevo, 
-(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 3)) AS total
-FROM pagos p 
-INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 3 ;
-
-
--- PLIN
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
-(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 4) AS totalDevo, 
-(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 4)) AS total
-FROM pagos p 
-INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 4;
-
--- POS
-SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
-(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 5) AS totalDevo, 
-(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = 5)) AS total
-FROM pagos p 
-INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
-WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = 5;
