@@ -348,7 +348,7 @@
                 <div class="mb-3 row g-2">
                   <div class="col-md-9">  
                     <div class="form-floating ">
-                      <input type="text" class="form-control border"  placeholder="999999999" id="telefono" type="text">
+                      <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
                       <label for="">
                           <i class="ti ti-phone me-2 fs-4"></i>
                           Teléfono
@@ -442,8 +442,8 @@ function obtenerFecha(){
 }
 obtenerFecha();
 
+var presionar=1;
 function mostrardivOrden(){
-  var presionar=1;
   if(presionar == 1){
     divOrden.style.display = "";
     presionar = presionar+1;
