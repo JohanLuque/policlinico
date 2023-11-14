@@ -833,16 +833,19 @@ function montoMedioPago(){
     .then(response => response.json())
     .then(datos => {
         datos.forEach(element => {
+            const cantidad = parseFloat(devMontoIngresado.value);
             if(mediopago.value == 1){
                 cantmontoMedioPago = element.total;
-                if(devMontoIngresado.value <= cantmontoMedioPago){
+                if(cantidad <= cantmontoMedioPago){
                     console.log("yape");
                 }else{
                     toast("Monto insuficiente en YAPE");
                 }
             }else if (mediopago.value == 2){
                 cantmontoMedioPago = element.total;
-                if(devMontoIngresado.value <= cantmontoMedioPago){
+                console.log(cantmontoMedioPago);
+                console.log(devMontoIngresado.value);
+                if(cantidad <= cantmontoMedioPago){
                     console.log("TRANSFERENCIA");
                     agregarMontoDevolucion();
                 }else{
@@ -850,7 +853,7 @@ function montoMedioPago(){
                 }
             }else if (mediopago.value == 3){
                 cantmontoMedioPago = element.total;
-                if(devMontoIngresado.value <= cantmontoMedioPago){
+                if(cantidad <= cantmontoMedioPago){
                     console.log("EFECTIVO");
                     agregarMontoDevolucion();
                 }else{
@@ -858,7 +861,7 @@ function montoMedioPago(){
                 }
             }else if (mediopago.value == 4){
                 cantmontoMedioPago = element.total;
-                if(devMontoIngresado.value <= cantmontoMedioPago){
+                if(cantidad <= cantmontoMedioPago){
                     console.log("PLIN");
                     agregarMontoDevolucion();
                 }else{
@@ -866,7 +869,7 @@ function montoMedioPago(){
                 }
             }else if (mediopago.value == 5){
                 cantmontoMedioPago = element.total;
-                if(devMontoIngresado.value <= cantmontoMedioPago){
+                if(cantidad <= cantmontoMedioPago){
                     console.log("POS");
                     agregarMontoDevolucion();
                 }else{
