@@ -55,4 +55,22 @@ class Servicio extends Conexion{
         die($e->getMessage());
       }
   }
+
+  public function agregarServicios($datos = []){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL spu_atenciones_agregar_Servicios(?,?)");
+      $respuesta["status"] = $query->execute(array(
+        $datos["tipo"],
+        $datos["nombreServicio"]
+      ));
+    }
+    catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
 }

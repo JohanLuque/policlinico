@@ -250,3 +250,28 @@ BEGIN
 
 END$$
 
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_agregar_Servicios
+(
+IN _tipo CHAR(1),
+IN _nombreServicio VARCHAR(100)
+)
+BEGIN
+	INSERT INTO Servicios(tipo, nombreServicio) VALUES
+	(_tipo, _nombreServicio);
+END $$
+DELIMITER $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_agregar_Servicio_Detalle
+(
+IN _idServicio 	INT,
+IN _descripcion VARCHAR(100),
+IN _precio	DECIMAL(7,2),
+IN _genero	CHAR(1)
+)
+BEGIN
+	IF _genero = "" THEN SET _genero = NULL; END IF;
+	INSERT INTO servicios_detalle(idservicio, descripcion, precio, genero) VALUES
+	(_idservicio, _descripcion, _precio, _genero);
+END $$

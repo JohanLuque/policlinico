@@ -25,5 +25,12 @@ if(isset($_POST['operacion'])){
         ];
         echo json_encode($servicio->filtroDoctores($parametros));
       break;
+    case 'agregarServicio':
+      $parametros = [
+        "tipo" => $_POST["tipo"],
+        "nombreServicio" => $_POST["nombreServicio"]
+        ];
+        echo json_encode($servicio->agregarServicios($parametros));
+      break;
   }
 }
