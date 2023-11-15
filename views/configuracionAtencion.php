@@ -124,6 +124,7 @@
     const nombreServicio = document.querySelector("#nombreServicio");
     const btGuardarServicio = document.querySelector("#guardarServicio");
     const formularioServicio = document.querySelector("#form-servicio");
+    let tipo;
 
     // para los detalles de los servicios
     const servicios = document.querySelector("#listaServicios");
@@ -141,6 +142,14 @@
             event.stopPropagation();
             formularioServicio.classList.add('was-validated');
         }else{
+            if(rbEspecialidad.checked){
+                tipo = rbEspecialidad.value;
+            }else if(rbServicio.checked){
+                tipo = rbServicio.value;
+            }else{
+                notificar("Seleccione", "el tipo de servicio",1)
+                return
+            }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                     guardarServicio();   
@@ -150,15 +159,7 @@
     }
 
     function guardarServicio() {
-        let tipo;
-        if(rbEspecialidad.checked){
-            tipo = rbEspecialidad.value;
-        }else if(rbServicio.checked){
-            tipo = rbServicio.value;
-        }else{
-            notificar("Seleccione", "el tipo de servicio",1)
-            return
-        }
+        
         const parametros = new URLSearchParams();
         parametros.append("operacion", "agregarServicio");
         parametros.append("tipo", tipo);

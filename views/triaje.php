@@ -351,10 +351,10 @@
   function revisar() {
     let revisado = false;
 
-    if (valorCardiaca < 60 || valorCardiaca > 110) {
+    if (valorCardiaca < 60 || valorCardiaca > 72) {
       revisado = true;
     }
-    else if (valorRespiratoria < 16 || valorRespiratoria > 20) {
+    else if (valorRespiratoria < 19 || valorRespiratoria > 22) {
       revisado = true;
     }
     else if (valorPresionArterial1 < 120 || valorPresionArterial1 > 140) {
@@ -363,10 +363,10 @@
     else if (valorPresionArterial2 < 80 || valorPresionArterial2 > 90) {
       revisado = true;
     }
-    else if (valorTemperatura < 27 || valorTemperatura > 40) {
+    else if (valorTemperatura < 35 || valorTemperatura > 37) {
       revisado = true;
     }
-    else if (valorSaturacion < 60 || valorSaturacion > 100) {
+    else if (valorSaturacion < 95 || valorSaturacion > 99) {
       revisado = true;
     }
     if (revisado) {

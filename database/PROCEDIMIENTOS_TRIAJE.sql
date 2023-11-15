@@ -196,7 +196,9 @@ BEGIN
 		pac.numeroDocumento,
 		pac.genero,
 		servicios.nombreServicio,
-		YEAR(CURDATE())-YEAR(pac.fechaNacimiento) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(pac.fechaNacimiento,'%m-%d'), 0 , -1 )AS edad, 
+		YEAR(CURDATE())-YEAR(pac.fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(pac.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, pac.fechaNacimiento, CURDATE()) AS 'meses',
 		CURDATE() AS fecha
 		FROM detalle_atenciones
 		INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion

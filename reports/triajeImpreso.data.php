@@ -1,40 +1,32 @@
 <page>
-    <div class=" row mb-5">
-        <table class="mt-1 table">
-            <colgroup>
-                <col width="15%">
-                <col width="60%">
-                <col width="25%">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src='../views/images/logos/ticket.png' style="width: 200px; margin-top: 3mm; margin-left: 15mm">
-                    </td>
-                    <td>
-                        <h1 class="text-center mt-5" style="font-size: 25;" >HISTORIA CLÍNICA</h1>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="container me-4 mb-3">
+    <page_header class="mb-5 mt-5">
+        <div class=" row">
+            <img src='../views/images/logos/ticket.png' style="width: 200px;" class="ml-5">
+            <h1 class="text-center" style="font-size: 25;text-decoration: underline ;" >HISTORIA CLÍNICA</h1>
+        </div>
+    </page_header>
+    <div class="" style="margin-bottom: 125px;"></div>
+
+    <div class="container me-5">
         <div class="row">
             <?php foreach ($datosTriaje as $datos):?>
                 <h4 class="text-end mb-2 ms-4">ESPECIALIDAD: <?=$datos['nombreServicio']?></h4>
             <?php endforeach?>
         </div>
         <div class="row text-end">
-            <h4>ALERGIAS: </h4>
-            <?php foreach ($datosAlergias as $datos):?>
-                <?=$datos['alergia']?>,
-            <?php endforeach?>
+            <h4>ALERGIAS: 
+                <p class="mb-3" style="text-decoration: underline ;">
+                    <?php foreach ($datosAlergias as $datos):?>
+                    <?=$datos['alergia']?>,
+                    <?php endforeach?> ______________________
+                </p>
+            </h4>
         </div>
     </div>
     <h2 class="mb-2 titulo">1.- FILIACIÓN</h2>
     <!--Tabla pacientes-->
     <?php foreach ($datosTriaje as $datos):?>
-        <table class="table table-border mt-3 mb-3">
+        <table class="table table-borde mt-3 mb-3">
             <colgroup>  
                 <col style="width: 49%">
                 <col style="width: 12%">
@@ -56,14 +48,25 @@
                     <td class="text-center"><?=$datos['paciente']?></td>
                     <td class="text-center"><?=$datos['numeroDocumento']?></td>
                     <td class="text-center"><?=$datos['genero']?></td>
-                    <td class="text-center"><?=$datos['edad']?></td>
+                    <td class="text-center">
+                        <?php if($datos["Edad"] == 1){
+                            echo $datos['Edad'] . " año";
+                        }else if($datos["Edad"] > 1){
+                            echo $datos['Edad'] . " años";
+                        }else if($datos["meses"] == 1){
+                            echo $datos['meses'] . " Mes";
+                        }else{
+                            echo $datos['meses'] . " Meses";
+                        }
+                            ?>
+                    </td>
                     <td class="text-center"><?=$datos['fecha']?></td>
                 </tr>
             </tbody>
         </table>
     <!--Tabla familiares-->
     <h4 class="mb-1 mt-1" style="font-size: 14;">FAMILIAR</h4>
-    <table class="table table-border mt-3">
+    <table class="table table-borde mt-3">
         <colgroup>  
             <col style="width: 50%">
             <col style="width: 30%">
@@ -87,7 +90,7 @@
     <?php endforeach?>
     <!--Enfermedad actual-->
     <h2 class="titulo mb-2" >2.- ENFERMEDAD ACTUAL</h2>
-    <table class='table table-border mt-3 '>
+    <table class='table table-borde mt-3 '>
         <thead>
             <tr>
                 <th>Inicio</th>
@@ -109,7 +112,7 @@
     <!--Antecedentes-->
     <h2 class="titulo mb-2" >3.- ANTECEDENTES</h2>
     <?php foreach ($datosTriaje as $datos):?>
-        <table class="table table-border mt-3">
+        <table class="table table-borde mt-3">
             <colgroup>  
                 <col style="width: 25%">
                 <col style="width: 25%">
@@ -138,7 +141,7 @@
     <h2 class="titulo mb-2" >4.- EXAMEN CLÍNICO</h2>
     <h4 class="mb-1 mt-1" style="font-size: 14;">FUNCIONES VITALES</h4>
     <?php foreach ($datosTriaje as $datos):?>
-        <table class="table table-border mt-3 mb-3">
+        <table class="table table-borde mt-3 mb-3">
             <colgroup>  
                 <col style="width: 14%">
                 <col style="width: 14%">
@@ -161,20 +164,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center"><?=$datos['peso']?></td>
-                    <td class="text-center"><?=$datos['talla']?></td>
+                    <td class="text-center"><?=$datos['peso']?> kg</td>
+                    <td class="text-center"><?=$datos['talla']?> cm</td>
                     <td class="text-center"><?=$datos['frecuenciaCardiaca']?></td>
                     <td class="text-center"><?=$datos['FrecuenciaRespiratoria']?></td>
-                    <td class="text-center"><?=$datos['PresionArterial']?></td>
-                    <td class="text-center"><?=$datos['temperatura']?></td>
-                    <td class="text-center"><?=$datos['SaturacionOxigeno']?></td>
+                    <td class="text-center"><?=$datos['PresionArterial']?> MmHg</td>
+                    <td class="text-center"><?=$datos['temperatura']?> Tc°</td>
+                    <td class="text-center"><?=$datos['SaturacionOxigeno']?> %</td>
                 </tr>
             </tbody>
         </table>
     <?php endforeach?>
 
     <h4 class="mb-1 mt-1" style="font-size: 14;">EXAMEN GENERAL</h4>
-    <table class="table table-border mt-3">
+    <table class="table table-borde mt-3">
         <thead>
             <tr>
                 <th class="tabla"></th>
@@ -192,7 +195,7 @@
 
     <!--Impresión diagnostica-->
     <h2 class="titulo mb-2" >5.- IMPRESIÓN DIAGNOSTICA</h2>
-    <table class="table table-border mt-3">
+    <table class="table table-borde mt-3">
         <colgroup>  
             <col style="width: 10%">
             <col style="width: 60%">
@@ -222,8 +225,8 @@
 </page>
 <page>
     <!--Procedimientos-->
-    <h2 class="mb-2 titulo">6.- PROCEDIMIENTOS</h2>
-    <table class="table table-border mt-3">
+    <h2 class="mb-2 titulo" style="margin-top: 40px; ">6.- PROCEDIMIENTOS</h2>
+    <table class="table table-borde mt-3">
         <thead>
             <tr>
                 <th class="tabla"></th>
@@ -246,7 +249,7 @@
     </table>
     <!--Tratamiento-->
     <h2 class="mb-2 titulo">7.- TRATAMIENTO</h2>
-    <table class="table table-border mt-3">
+    <table class="table table-borde mt-3">
         <colgroup>  
             <col style="width: 30%">
             <col style="width: 30%">
@@ -257,7 +260,7 @@
         <thead>
             <tr>
                 <th class="text-bold text-center">MEDICAMENTO</th>
-                <th class="text-bold text-center">PRECENTACION</th>
+                <th class="text-bold text-center">PRESENTACIÓN</th>
                 <th class="text-bold text-center">CANTIDAD</th>
                 <th class="text-bold text-center">DOSIS</th>
                 <th class="text-bold text-center">DIAS</th>
@@ -289,7 +292,7 @@
     </table>
     <!--Observaciones-->
     <h2 class="mb-2 titulo">8.- OBSERVACIONES(REFERENCIAS,CITAS,INTERCONSULTAS,OTROS)</h2>
-    <table class="table table-border mt-3">
+    <table class="table table-borde mt-3">
         <thead>
             <tr>
                 <th class="tabla"></th>
@@ -312,7 +315,7 @@
     </table>
     <!--Datos del profesional-->
     <h2 class="mb-2 titulo">9.- DATOS DEL PROFESIONAL</h2>
-    <table class="table table-border mt-3 mb-5">
+    <table class="table table-borde mt-3 mb-5">
         <colgroup>  
             <col style="width: 50%">
             <col style="width: 10%">
