@@ -12,13 +12,14 @@ class Gasto extends Conexion{
 
   public function registrarGasto($data =[]){
     try{
-      $query = $this->connection->prepare("CALL spu_caja_registrar_gastos(?,?,?,?)");
+      $query = $this->connection->prepare("CALL spu_caja_registrar_gastos(?,?,?,?,?)");
       $query->execute(
         array(
             $data['montoGasto'],
             $data['descripcionGasto'],
             $data['idPersona'],
-            $data['idMedioPago']
+            $data['idMedioPago'],
+            $data['idUsuario']
         )
       );
         return $query->fetchAll(PDO::FETCH_ASSOC);

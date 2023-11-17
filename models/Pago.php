@@ -16,12 +16,13 @@ class Pago extends Conexion{
       "message" => ""
     ];
     try{
-      $query = $this->connection->prepare("CALL spu_caja_registrar_pago(?,?,?)");
+      $query = $this->connection->prepare("CALL spu_caja_registrar_pago(?,?,?,?)");
       $respuesta["status"] = $query->execute(
         array(
             $data['idatencion'],
             $data['idMedioPago'],
-            $data['monto']
+            $data['monto'],
+            $data['idUsuario']
         )
       );
         

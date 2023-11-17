@@ -11,7 +11,8 @@ if(isset($_POST['operacion'])){
       $parametros = [
         "idatencion"          => $_POST['idatencion'],
         "idMedioPago"         => $_POST['idMedioPago'],
-        "monto"               => $_POST['monto']
+        "monto"               => $_POST['monto'],
+        "idUsuario"               => $_POST['idUsuario']
     ];
       $respuesta = $pago->RegistrarPago($parametros);
       echo json_encode($respuesta);

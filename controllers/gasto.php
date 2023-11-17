@@ -13,6 +13,7 @@ if(isset($_POST['operacion'])){
         "descripcionGasto"  => $_POST['descripcionGasto'],
         "idPersona"         => $_POST['idPersona'],
         "idMedioPago"       => $_POST['idMedioPago'],
+        "idUsuario"       => $_POST['idUsuario']
     ];
       $respuesta = $gasto->registrarGasto($parametros);
       echo json_encode($respuesta);

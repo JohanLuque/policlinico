@@ -13,7 +13,8 @@ $permisos = [
     "A" => ["atenciones.php","atencionesListado.php", "configuracionAtencion.php","dashboart.php"],
     "C" => ["dashboartCaja.php","pagos.php", "gastos.php"],
     "T" => ["historiaClinica.php","impresos.php", "triaje.php"],
-    "E" => ["vistaDoctores.php", "vistaServicios.php"]
+    "E" => ["vistaDoctores.php"],
+    "S" => ["vistaServicios.php"]
 ];
 
 $autorizado = false;

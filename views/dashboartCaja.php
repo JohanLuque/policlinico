@@ -95,8 +95,25 @@
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Reporte de Servicios</h5>
                     <div class="row mt-3">                        
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <select name="" class="form-select" id="servicios"></select>                            
+                        </div>
+                        <div class="col-md-4">
+                            <select name="" class="form-select"  id="mes">
+                                <option value="0">Seleccione</option>
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>                            
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -148,6 +165,7 @@
     const tIngresos = document.querySelector("#ingresos");
     // reporte de servicios
     const servicios = document.querySelector("#servicios");
+    const mes = document.querySelector("#mes");
     const reporteSemanal = document.querySelector("#Rsemana");
     const reporteQuincenal = document.querySelector("#RQuincena");
     const reporteMensual = document.querySelector("#RMensual");
@@ -221,6 +239,31 @@
         })
     }
     
+    reporteMensual.addEventListener("click",() => {
+        if(servicios.value > 0){
+            if(mes.value > 0){
+                const parametros = new URLSearchParams();
+                parametros.append("idservicio", servicios.value);
+                parametros.append("mes", mes.value);
+                window.open(`../reports/servicio.mensual.report.php?${parametros}`, '_blank');
+            }else{
+                toast("Seleccione un mes");
+            }
+        }else{
+            toast("Seleccione un servicio");
+        }
+    });
+
+    reporteQuincenal.addEventListener("click",() => {
+        if(servicios.value > 0){
+            const parametros = new URLSearchParams();
+            parametros.append("idservicio", servicios.value);
+            window.open(`../reports/servicio.quincenal.report.php?${parametros}`, '_blank');
+        }else{
+            toast("Seleccione un servicio");
+        }
+    });
+
     reporteSemanal.addEventListener("click",() => {
         if(servicios.value > 0){
             const parametros = new URLSearchParams();
