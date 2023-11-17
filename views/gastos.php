@@ -1,3 +1,4 @@
+<?php require_once 'permisos.php'; ?>
 <div class="row mt-2 mb-3">                
     <div class="col-md-4">
         <div class="card">
