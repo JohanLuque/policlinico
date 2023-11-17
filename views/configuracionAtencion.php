@@ -59,7 +59,7 @@
                                             <label for="">Servicio:</label>          
                                         </div>
                                         <div class="col-md-8">                                  
-                                            <select name="" id="listaServicios" class="form-select form-select-sm" required>
+                                            <select name="" id="listaServicios" class="" required>
                                             <option value="">Seleccione</option>
                                             </select> 
                                         </div>
@@ -105,7 +105,7 @@
                                             <button type="button" class="btn btn-primary" id="guardarDetalle">Guardar</button>
                                         </div>
                                         <div class="col-md-3">
-                                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                                            <button type="button" class="btn btn-danger" id="cancelarDetalle">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -113,6 +113,92 @@
                         </div>
                     </div>
                 </div>              
+            </div>
+            <div class="mb-2 row g-2">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS:</div>
+                            <div class="card-body">
+                                <form id="form-servicio" >
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-3">
+                                            <label for="">dni:</label>          
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-3">
+                                            <label for="">Persona:</label>          
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-3">
+                                            <label for="">Código medico:</label>          
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control border bg-light"  placeholder="Código medico" id="codigo">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="colmd-6"></div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-primary" id="guardarEspecialista">Guardar</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS A SERVICIOS:</div>
+                            <div class="card-body">
+                                <form id="form-servicio" >
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-3">
+                                            <label for="">ESPECIALISTAS:</label>          
+                                        </div>
+                                        <div class="col-md-9">                                  
+                                            <select name="" id="" class="" required>
+                                            <option value="">Seleccione</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-3">
+                                            <label for="">SERVICIOS:</label>          
+                                        </div>
+                                        <div class="col-md-9">                                  
+                                            <select name="" id="" class="" required>
+                                            <option value="">Seleccione</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="colmd-6"></div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-primary" id="guardarServicio">Guardar</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="reset" class="btn btn-danger" id="cancelarServicio">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
             </div>
         </div>
     </div>
@@ -134,8 +220,16 @@
     const rbFemenino = document.querySelector("#rbFemenino");
     const rbMasculino = document.querySelector("#rbMasculino");
     const btGuardarDetalle = document.querySelector("#guardarDetalle");
+    const btCancelarDetalle = document.querySelector("#cancelarDetalle");
     const formularioDetalles = document.querySelector("#form-detalles");
     
+    // para el registro de los especialistas
+    const dni = document.querySelector("#dni");
+    const nombre = document.querySelector("#nombre");
+    const codigo = document.querySelector("#codigo");
+    const btGuardarEspecialista = document.querySelector("#guardarEspecialista");
+    let idPersona;
+
     function validarServicio(){
         if(!formularioServicio.checkValidity()){
             event.preventDefault();
@@ -173,7 +267,6 @@
             if(datos.status){
                 toastCheck("Guardado correctamente");
                 formularioServicio.reset();
-                listarServicios();
             }else{
                 notificar("Error", "El servicio o especialidad ya existe",2)
             }
@@ -181,6 +274,12 @@
     }
 
     function listarServicios(){
+        const choiselistaServicios = new Choices(listaServicios, {
+            searchEnabled: true,
+            itemSelectText: '',
+            allowHTML: true
+        }); 
+
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
         fetch("../controllers/servicio.php",{
@@ -196,6 +295,8 @@
                 optionTag.text = element.nombreServicio;
                 servicios.appendChild(optionTag);
             });
+            choiselistaServicios.setChoices([], 'value', 'label', true); 
+            choiselistaServicios.setChoices(datos, 'idServicio', 'nombreServicio', true);
         })
     }
 
@@ -242,8 +343,67 @@
             }
         })
     }
+    
+    function limpiarDetalles(){
+        descripcionServicio.value = null;
+        precio.value = null;
+        rbAmbos.checked = true;
+    }
+    
+    function consultarPersonas(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "getData");
+        parametros.append("numeroDocumento", dni.value);
+        fetch("../controllers/persona.php", {
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.length>0){
+
+            datos.forEach(element => {
+                idPersona = element.idPersona;
+                nombre.value = element.ApellidosNombres;
+            });
+            }else{
+                toast("No existes la persona registrada");
+            }
+        })
+    }
+
+    function GuardarEspecialista(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "registrarEspecialista");
+        parametros.append("idPersona", idPersona);
+        parametros.append("codigo", codigo.value);
+
+        fetch("../controllers/especialista.php", {
+            method: "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            if(datos.status){
+                toastCheck("Guardado correctamente");
+            }else{
+                toast("Algo anda mal");
+            }
+        })
+        .catch(error =>{
+            console.log("Error al guardar")
+        })
+    }
 
     listarServicios();
+
     btGuardarServicio.addEventListener("click", validarServicio);
     btGuardarDetalle.addEventListener("click",validarDetalle);
+    btCancelarDetalle.addEventListener("click",limpiarDetalles);
+    btGuardarEspecialista.addEventListener("click",GuardarEspecialista);
+
+    dni.addEventListener("keypress", (evt) => {
+        if (evt.charCode == 13) consultarPersonas();
+    });
+    
 </script>

@@ -275,3 +275,15 @@ BEGIN
 	INSERT INTO servicios_detalle(idservicio, descripcion, precio, genero) VALUES
 	(_idservicio, _descripcion, _precio, _genero);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_agregar_Especialista
+(
+IN _idPersona 	INT,
+IN _codigo 	VARCHAR(10)
+)
+BEGIN
+	IF _codigo = "" THEN SET _codigo = NULL; END IF;
+	INSERT INTO Especialistas(idPersona, codigo) VALUES
+	(_idPersona, _codigo);
+END $$
