@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - sispsolidario
+MySQL - 10.4.25-MariaDB : Database - sispsolidario
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - sispsolidario
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `sispsolidario`;
 
@@ -25,7 +25,7 @@ CREATE TABLE `alergias` (
   `alergia` varchar(100) NOT NULL,
   PRIMARY KEY (`idAlergia`),
   UNIQUE KEY `uk_alergias_ale` (`alergia`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `alergias` */
 
@@ -49,12 +49,12 @@ CREATE TABLE `atenciones` (
   `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
   `fechaActualizacion` datetime DEFAULT NULL,
   `parentesco` varchar(100) DEFAULT NULL,
-  `estado` char(1) NOT NULL DEFAULT '0',
   `idUsuario` int(11) NOT NULL,
   `ordenDoctor` varchar(100) DEFAULT NULL,
   `idFamiliar` int(11) DEFAULT NULL,
   `idPersona` int(11) NOT NULL,
   `fechaAtencion` date NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idAtencion`),
   KEY `fk_usuario_ate` (`idUsuario`),
   KEY `fk_fami_ate` (`idFamiliar`),
@@ -62,14 +62,40 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `atenciones` */
 
-insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`estado`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`,`fechaAtencion`) values 
-(1,'T','141020230001','2023-10-14 14:18:25','2023-10-14 14:22:22',NULL,'1',1,NULL,NULL,22,'2023-10-14'),
-(2,'T','141020230002','2023-10-14 14:37:18',NULL,NULL,'0',1,NULL,NULL,24,'2023-10-14'),
-(3,'T','141020230003','2023-10-14 14:49:10',NULL,NULL,'0',1,NULL,NULL,27,'2023-10-14');
+insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,`fechaActualizacion`,`parentesco`,`idUsuario`,`ordenDoctor`,`idFamiliar`,`idPersona`,`fechaAtencion`,`estado`) values 
+(1,'T','081120230001','2023-11-08 00:06:17','2023-11-08 00:06:28',NULL,1,NULL,NULL,22,'2023-11-08','1'),
+(2,'T','081120230002','2023-11-08 00:35:49','2023-11-08 00:35:59',NULL,1,NULL,NULL,27,'2023-11-08','1'),
+(3,'T','081120230003','2023-11-08 01:19:15','2023-11-08 01:21:03',NULL,1,NULL,NULL,28,'2023-11-08','1'),
+(4,'T','081120230004','2023-11-08 01:20:51','2023-11-08 01:21:15',NULL,1,NULL,NULL,27,'2023-11-08','1'),
+(5,'T','081120230005','2023-11-08 16:03:14','2023-11-08 16:03:26',NULL,1,NULL,NULL,29,'2023-11-08','1'),
+(6,'T','081120230006','2023-11-08 16:09:04','2023-11-08 16:09:15',NULL,1,NULL,NULL,30,'2023-11-08','1'),
+(7,'T','081120230007','2023-11-08 16:11:18','2023-11-08 16:11:43',NULL,1,NULL,NULL,31,'2023-11-08','1'),
+(8,'T','081120230008','2023-11-08 16:17:30','2023-11-08 16:17:45',NULL,1,NULL,NULL,32,'2023-11-08','1'),
+(9,'T','081120230009','2023-11-08 16:21:47','2023-11-08 16:22:05',NULL,1,NULL,NULL,33,'2023-11-08','1'),
+(10,'T','081120230010','2023-11-08 16:32:42','2023-11-08 21:08:55',NULL,1,NULL,NULL,22,'2023-11-08','1'),
+(11,'T','091120230001','2023-11-09 00:10:52','2023-11-09 00:11:10',NULL,1,NULL,NULL,22,'2023-11-09','2'),
+(12,'T','091120230002','2023-11-09 00:22:58','2023-11-09 00:23:10',NULL,1,NULL,NULL,22,'2023-11-09','1'),
+(13,'T','091120230003','2023-11-09 21:58:28',NULL,NULL,1,NULL,NULL,22,'2023-11-09','0'),
+(14,'T','101120230001','2023-11-10 01:39:33','2023-11-10 01:39:48',NULL,1,NULL,NULL,22,'2023-11-10','1'),
+(15,'T','111120230001','2023-11-11 22:31:22','2023-11-11 22:36:03',NULL,1,NULL,NULL,22,'2023-11-11','1'),
+(16,'T','111120230002','2023-11-11 22:31:52','2023-11-11 22:36:11',NULL,1,NULL,NULL,29,'2023-11-11','1'),
+(17,'T','111120230003','2023-11-11 22:32:44','2023-11-11 22:35:39',NULL,1,NULL,NULL,30,'2023-11-11','1'),
+(18,'T','111120230004','2023-11-11 22:33:29','2023-11-11 22:35:47',NULL,1,NULL,NULL,27,'2023-11-11','1'),
+(19,'T','111120230005','2023-11-11 22:35:22','2023-11-11 22:35:56',NULL,1,NULL,NULL,34,'2023-11-11','1'),
+(20,'T','111120230006','2023-11-11 22:37:05','2023-11-11 22:57:32',NULL,1,NULL,NULL,22,'2023-11-11','2'),
+(21,'T','121120230001','2023-11-12 00:18:16','2023-11-12 20:25:55',NULL,1,NULL,NULL,27,'2023-11-12','2'),
+(22,'T','121120230002','2023-11-12 00:49:01','2023-11-12 20:26:42',NULL,1,NULL,NULL,22,'2023-11-12','1'),
+(23,'T','121120230003','2023-11-12 00:52:45','2023-11-12 20:26:30',NULL,1,NULL,NULL,27,'2023-11-12','1'),
+(24,'T','131120230001','2023-11-13 00:12:11','2023-11-13 00:17:44',NULL,1,NULL,NULL,35,'2023-11-13','1'),
+(25,'T','131120230002','2023-11-13 00:14:40','2023-11-13 00:17:55',NULL,1,NULL,NULL,36,'2023-11-13','1'),
+(26,'T','131120230003','2023-11-13 00:16:58','2023-11-13 00:17:27',NULL,1,NULL,NULL,37,'2023-11-13','1'),
+(27,'T','131120230004','2023-11-13 00:18:26','2023-11-13 00:18:56',NULL,1,NULL,NULL,22,'2023-11-13','1'),
+(28,'T','161120230001','2023-11-16 15:29:53','2023-11-16 15:30:05',NULL,1,NULL,NULL,22,'2023-11-16','1'),
+(29,'T','171120230001','2023-11-17 00:24:16','2023-11-17 00:24:27',NULL,1,NULL,NULL,22,'2023-11-17','1');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -84,9 +110,17 @@ CREATE TABLE `detalle_alergias` (
   KEY `fk_idHistoriaClinica_dal` (`idHistoriaClinica`),
   CONSTRAINT `fk_idAlergia_dal` FOREIGN KEY (`idAlergia`) REFERENCES `alergias` (`idAlergia`),
   CONSTRAINT `fk_idHistoriaClinica_dal` FOREIGN KEY (`idHistoriaClinica`) REFERENCES `historias_clinicas` (`idHistoriaClinica`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_alergias` */
+
+insert  into `detalle_alergias`(`idDetalleAlergia`,`idAlergia`,`idHistoriaClinica`) values 
+(4,1,11),
+(2,4,7),
+(1,5,7),
+(3,5,8),
+(5,6,11),
+(6,7,12);
 
 /*Table structure for table `detalle_atenciones` */
 
@@ -95,14 +129,19 @@ DROP TABLE IF EXISTS `detalle_atenciones`;
 CREATE TABLE `detalle_atenciones` (
   `idDetalleAtenciones` int(11) NOT NULL AUTO_INCREMENT,
   `peso` decimal(5,2) NOT NULL,
-  `talla` int(11) NOT NULL,
+  `talla` decimal(4,2) NOT NULL,
   `frecuenciaCardiaca` varchar(5) NOT NULL,
   `frecuenciaRespiratoria` varchar(5) NOT NULL,
   `presionArterial` varchar(10) NOT NULL,
   `temperatura` decimal(4,2) NOT NULL,
   `saturacionOxigeno` tinyint(4) NOT NULL,
-  `examemGeneral` varchar(2000) DEFAULT NULL,
+  `examenGeneral` varchar(2000) DEFAULT NULL,
   `frecuencia` char(1) DEFAULT 'p',
+  `inicio` varchar(2000) DEFAULT NULL,
+  `curso` varchar(2000) DEFAULT NULL,
+  `relato` varchar(2000) DEFAULT NULL,
+  `procedimiento` varchar(2000) DEFAULT NULL,
+  `observaciones` varchar(2000) DEFAULT NULL,
   `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
   `fechaActualizacion` datetime DEFAULT NULL,
   `idHistoria` int(11) NOT NULL,
@@ -115,9 +154,14 @@ CREATE TABLE `detalle_atenciones` (
   CONSTRAINT `fk_idAtencion_das` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idHistoria_das` FOREIGN KEY (`idHistoria`) REFERENCES `historias_clinicas` (`idHistoriaClinica`),
   CONSTRAINT `fk_idusuario_das` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_atenciones` */
+
+insert  into `detalle_atenciones`(`idDetalleAtenciones`,`peso`,`talla`,`frecuenciaCardiaca`,`frecuenciaRespiratoria`,`presionArterial`,`temperatura`,`saturacionOxigeno`,`examenGeneral`,`frecuencia`,`inicio`,`curso`,`relato`,`procedimiento`,`observaciones`,`fechaCreacion`,`fechaActualizacion`,`idHistoria`,`idAtencion`,`idUsuario`) values 
+(1,40.00,1.00,'60x1','20x1','120/80',37.00,95,NULL,'p',NULL,NULL,NULL,NULL,NULL,'2023-11-08 01:23:20',NULL,5,4,1),
+(2,50.00,2.00,'60x1','60x1','120/80',39.00,100,NULL,'p',NULL,NULL,NULL,NULL,NULL,'2023-11-08 01:25:01',NULL,4,3,1),
+(3,48.00,2.00,'120x1','120x1','140/80',36.00,100,NULL,'p',NULL,NULL,NULL,NULL,NULL,'2023-11-13 11:15:09',NULL,12,25,1);
 
 /*Table structure for table `detalle_servicios` */
 
@@ -132,14 +176,85 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_servicios` */
 
 insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAtencion`) values 
-(1,310,1),
-(2,310,2),
-(3,310,3);
+(1,54,1),
+(2,89,1),
+(3,30,2),
+(4,89,2),
+(5,51,2),
+(6,41,2),
+(7,8,2),
+(8,271,3),
+(9,266,4),
+(10,276,5),
+(11,267,6),
+(12,266,7),
+(13,267,8),
+(14,267,9),
+(15,89,10),
+(16,43,10),
+(17,33,10),
+(18,41,10),
+(19,8,10),
+(20,267,11),
+(21,268,12),
+(22,267,12),
+(23,146,13),
+(24,267,14),
+(25,267,15),
+(26,145,16),
+(27,266,17),
+(28,245,18),
+(29,267,19),
+(30,2,20),
+(31,266,21),
+(32,267,22),
+(33,1,23),
+(34,173,24),
+(35,266,25),
+(36,36,26),
+(37,116,26),
+(38,34,26),
+(39,144,27),
+(40,143,27),
+(41,130,28),
+(42,26,28),
+(43,139,28),
+(44,267,29);
+
+/*Table structure for table `devoluciones` */
+
+DROP TABLE IF EXISTS `devoluciones`;
+
+CREATE TABLE `devoluciones` (
+  `idDevolucion` int(11) NOT NULL AUTO_INCREMENT,
+  `montoDevolucion` decimal(6,2) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT '0',
+  `motivoDevolucion` varchar(100) NOT NULL,
+  `fechaHoraDevolucion` datetime NOT NULL DEFAULT current_timestamp(),
+  `idAtencion` int(11) DEFAULT NULL,
+  `idMedioPago` int(11) NOT NULL,
+  PRIMARY KEY (`idDevolucion`),
+  KEY `fk_idate_dev` (`idAtencion`),
+  KEY `fk_idmep_dev` (`idMedioPago`),
+  CONSTRAINT `fk_idate_dev` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
+  CONSTRAINT `fk_idmep_dev` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `devoluciones` */
+
+insert  into `devoluciones`(`idDevolucion`,`montoDevolucion`,`estado`,`motivoDevolucion`,`fechaHoraDevolucion`,`idAtencion`,`idMedioPago`) values 
+(1,50.00,'0','Emergencia','2023-11-09 00:11:10',11,3),
+(2,20.00,'0','Urgencia','2023-11-11 22:57:32',20,3),
+(3,10.00,'0','Urgencia','2023-11-11 22:57:32',20,2),
+(4,10.00,'0','Urgencia','2023-11-11 22:57:32',20,4),
+(5,10.00,'0','Urgencia','2023-11-11 22:57:32',20,1),
+(6,10.00,'0','Urgencia','2023-11-11 22:57:32',20,5),
+(7,50.00,'0','','2023-11-12 20:25:55',21,3);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -154,7 +269,7 @@ CREATE TABLE `enfermedad_pacientes` (
   KEY `fk_det_epp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_epp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`),
   CONSTRAINT `fk_enf_epp` FOREIGN KEY (`idEnfermedad`) REFERENCES `enfermedades` (`idEnfermedad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `enfermedad_pacientes` */
 
@@ -170,9 +285,17 @@ CREATE TABLE `enfermedades` (
   `fechaActualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idEnfermedad`),
   UNIQUE KEY `uk_codigoCie_enf` (`codigoCie_10`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `enfermedades` */
+
+insert  into `enfermedades`(`idEnfermedad`,`codigoCie_10`,`descripcion`,`fechaCreacion`,`fechaActualizacion`) values 
+(1,'A00-B99','Ciertas enfermedades infecciosas y parasitarias','2023-11-07 23:59:19',NULL),
+(2,'C00-D48','Neoplasias','2023-11-07 23:59:19',NULL),
+(3,'D50-D89','Enfermedades de la sangre y de los órganos hematopoyéticos y otros trastornos que afectan el mecanismo de la inmunidad','2023-11-07 23:59:19',NULL),
+(4,'E00-E90','Enfermedades endocrinas, nutricionales y metabólicas','2023-11-07 23:59:19',NULL),
+(5,'F00-F99','Trastornos mentales y del comportamiento','2023-11-07 23:59:19',NULL),
+(6,'F00-F100','Enfermedades del sistema nervioso','2023-11-07 23:59:19',NULL);
 
 /*Table structure for table `especialistas` */
 
@@ -186,7 +309,7 @@ CREATE TABLE `especialistas` (
   PRIMARY KEY (`idEspecialista`),
   UNIQUE KEY `uk_idPersona_esp` (`idPersona`),
   CONSTRAINT `fk_idPersona_esp` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialistas` */
 
@@ -208,7 +331,7 @@ CREATE TABLE `especialistas_servicios` (
   KEY `fk_idEspecialista_ees` (`idEspecialista`),
   CONSTRAINT `fk_idEspecialista_ees` FOREIGN KEY (`idEspecialista`) REFERENCES `especialistas` (`idEspecialista`),
   CONSTRAINT `fk_idServicio_ees` FOREIGN KEY (`idServicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialistas_servicios` */
 
@@ -219,6 +342,36 @@ insert  into `especialistas_servicios`(`idEspecialistasServicios`,`idEspecialist
 (4,2,9),
 (5,3,10),
 (6,1,11);
+
+/*Table structure for table `gastos` */
+
+DROP TABLE IF EXISTS `gastos`;
+
+CREATE TABLE `gastos` (
+  `idGasto` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcionGasto` varchar(200) NOT NULL,
+  `montoGasto` decimal(6,2) NOT NULL,
+  `fechaHoraGasto` datetime NOT NULL DEFAULT current_timestamp(),
+  `idPersona` int(11) NOT NULL,
+  `idMedioPago` int(11) NOT NULL,
+  PRIMARY KEY (`idGasto`),
+  KEY `fk_per_gas` (`idPersona`),
+  KEY `fk_idmep_gas` (`idMedioPago`),
+  CONSTRAINT `fk_idmep_gas` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
+  CONSTRAINT `fk_per_gas` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `gastos` */
+
+insert  into `gastos`(`idGasto`,`descripcionGasto`,`montoGasto`,`fechaHoraGasto`,`idPersona`,`idMedioPago`) values 
+(1,'mascarilla',20.00,'2023-11-08 23:35:06',22,3),
+(2,'inyecciones',5.00,'2023-11-08 23:36:24',28,3),
+(3,'Materiales para tópico en farmacia\n',50.00,'2023-11-08 23:51:22',27,3),
+(4,'mascarillas',30.00,'2023-11-09 00:16:31',28,3),
+(5,'hojas',10.00,'2023-11-09 00:25:13',22,3),
+(6,'auja',5.00,'2023-11-09 00:26:32',28,3),
+(7,'efe',25.00,'2023-11-10 01:54:51',28,3),
+(8,'mascarilla',10.00,'2023-11-12 20:43:02',28,3);
 
 /*Table structure for table `historias_clinicas` */
 
@@ -237,14 +390,22 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `historias_clinicas` */
 
 insert  into `historias_clinicas`(`idHistoriaClinica`,`antecedentePersonal`,`antecedenteFamiliar`,`antecedenteQuirurgico`,`antecedenteOtro`,`idUsuario`,`idPersona`) values 
 (1,NULL,NULL,NULL,NULL,1,22),
 (2,NULL,NULL,NULL,NULL,1,23),
-(3,NULL,NULL,NULL,NULL,1,24);
+(3,NULL,NULL,NULL,NULL,1,24),
+(4,NULL,NULL,NULL,NULL,1,28),
+(5,NULL,NULL,NULL,NULL,1,27),
+(6,NULL,NULL,NULL,NULL,1,29),
+(7,NULL,NULL,NULL,NULL,1,30),
+(8,NULL,NULL,NULL,NULL,1,31),
+(10,NULL,NULL,NULL,NULL,1,32),
+(11,NULL,NULL,NULL,NULL,1,33),
+(12,NULL,NULL,NULL,NULL,1,36);
 
 /*Table structure for table `medio_pagos` */
 
@@ -255,7 +416,7 @@ CREATE TABLE `medio_pagos` (
   `nombrePago` varchar(100) NOT NULL,
   PRIMARY KEY (`idMedioPago`),
   UNIQUE KEY `uk_nombrePago_mps` (`nombrePago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `medio_pagos` */
 
@@ -273,10 +434,8 @@ DROP TABLE IF EXISTS `pagos`;
 CREATE TABLE `pagos` (
   `idPago` int(11) NOT NULL AUTO_INCREMENT,
   `monto` decimal(6,2) NOT NULL,
-  `tipoMovimiento` char(1) NOT NULL DEFAULT 'E',
-  `descripcionGasto` varchar(200) DEFAULT NULL,
-  `fechaHora` datetime NOT NULL DEFAULT current_timestamp(),
-  `fechaDevolucion` datetime DEFAULT NULL,
+  `estado` char(1) NOT NULL DEFAULT '0',
+  `fechaHoraPago` datetime NOT NULL DEFAULT current_timestamp(),
   `idAtencion` int(11) DEFAULT NULL,
   `idMedioPago` int(11) NOT NULL,
   PRIMARY KEY (`idPago`),
@@ -284,16 +443,51 @@ CREATE TABLE `pagos` (
   KEY `fk_idmep_pag` (`idMedioPago`),
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pagos` */
 
-insert  into `pagos`(`idPago`,`monto`,`tipoMovimiento`,`descripcionGasto`,`fechaHora`,`fechaDevolucion`,`idAtencion`,`idMedioPago`) values 
-(1,40.00,'D','porque no tengo money \n','2023-10-14 14:22:22','2023-10-14 14:35:23',1,4),
-(2,500.00,'E','WILLIAMS\n','2023-10-14 14:26:27',NULL,NULL,3),
-(3,20.00,'E','mascarillas','2023-10-14 14:39:10',NULL,NULL,3),
-(4,100.00,'E','inyectables','2023-10-14 14:41:10',NULL,NULL,4),
-(5,40.00,'E','aujas','2023-10-14 14:42:15',NULL,NULL,2);
+insert  into `pagos`(`idPago`,`monto`,`estado`,`fechaHoraPago`,`idAtencion`,`idMedioPago`) values 
+(1,40.00,'0','2023-11-08 00:06:28',1,4),
+(2,70.00,'0','2023-11-08 00:35:59',2,3),
+(3,30.00,'0','2023-11-08 01:21:03',3,4),
+(4,30.00,'0','2023-11-08 01:21:15',4,3),
+(5,20.00,'0','2023-11-08 01:21:15',4,4),
+(6,50.00,'0','2023-11-08 16:03:26',5,3),
+(7,50.00,'0','2023-11-08 16:09:15',6,4),
+(8,50.00,'0','2023-11-08 16:11:43',7,4),
+(9,50.00,'0','2023-11-08 16:17:45',8,5),
+(10,50.00,'0','2023-11-08 16:22:05',9,5),
+(11,120.00,'0','2023-11-08 21:08:55',10,3),
+(12,50.00,'0','2023-11-09 00:11:00',11,3),
+(13,120.00,'0','2023-11-09 00:23:10',12,3),
+(14,50.00,'0','2023-11-10 01:39:48',14,3),
+(15,50.00,'0','2023-11-11 22:35:39',17,3),
+(16,20.00,'0','2023-11-11 22:35:47',18,4),
+(17,50.00,'0','2023-11-11 22:35:56',19,5),
+(18,50.00,'0','2023-11-11 22:36:03',15,2),
+(19,60.00,'0','2023-11-11 22:36:11',16,1),
+(20,20.00,'0','2023-11-11 22:37:49',20,3),
+(21,10.00,'0','2023-11-11 22:37:49',20,2),
+(22,10.00,'0','2023-11-11 22:37:49',20,4),
+(23,10.00,'0','2023-11-11 22:37:49',20,1),
+(24,10.00,'0','2023-11-11 22:37:49',20,5),
+(25,50.00,'0','2023-11-12 00:47:57',21,3),
+(26,10.00,'0','2023-11-12 20:26:30',23,4),
+(27,10.00,'0','2023-11-12 20:26:30',23,1),
+(28,40.00,'0','2023-11-12 20:26:30',23,3),
+(29,50.00,'0','2023-11-12 20:26:42',22,3),
+(30,50.00,'0','2023-11-13 00:17:27',26,3),
+(31,30.00,'0','2023-11-13 00:17:27',26,1),
+(32,20.00,'0','2023-11-13 00:17:44',24,4),
+(33,50.00,'0','2023-11-13 00:17:44',24,5),
+(34,50.00,'0','2023-11-13 00:17:55',25,3),
+(35,20.00,'0','2023-11-13 00:18:56',27,4),
+(36,50.00,'0','2023-11-13 00:18:56',27,2),
+(37,30.00,'0','2023-11-13 00:18:56',27,3),
+(38,20.00,'0','2023-11-13 00:18:56',27,1),
+(39,290.00,'0','2023-11-16 15:30:05',28,3),
+(40,50.00,'0','2023-11-17 00:24:27',29,3);
 
 /*Table structure for table `personas` */
 
@@ -314,38 +508,48 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personas` */
 
 insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno`,`tipoDocumento`,`numeroDocumento`,`fechaNacimiento`,`genero`,`telefono`,`fechaCreacion`,`fechaFin`,`estado`) values 
-(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-10-14 14:14:09',NULL,'1'),
-(27,'JAHAYRA ','SUAREZ','MATIAS','N','76364011','1999-06-02','F','','2023-10-14 14:48:48',NULL,'1');
+(1,'Juan','Quispe','Acevedo','N','98745632','2003-01-01','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(2,'Ana','Carbajal','Loyola','N','12546321','2000-01-16','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(3,'Juana','Uceda','Ramos','N','32145632',NULL,'F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(4,'Francisca','Ureña','Luna','N','96336987',NULL,'F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(5,'Benito','Martinez','Alfaro','N','95115978',NULL,'M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(6,'Laura','Polo','Manrique','N','74114789',NULL,'F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(7,'Maria','Cardenas','Almeyda','N','21876187','1987-10-11','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(8,'Yenny','Roman','Meneses','N','21854071','1990-09-08','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(9,'Williams','Moriano','Peña','N','72755127','2005-02-01','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(10,'Florentina','Peña','Diaz','N','21818841','1948-04-05','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(11,'Bruce','Tasayco','Almeyda','N','21874458','1976-11-05','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(12,'Maria','Robles','Sanchez','N','80042948','1972-10-05','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(13,'Luis','Chumpitaz','Torres','N','90160962','1967-08-01','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(14,'Adolfo','Magallanes','Gonzales','N','21860263','1970-08-01','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(15,'Hilda','Napa','Pachas','N','41869880','1985-02-01','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(16,'Ramon','Apolaya','Sotelo','N','21789377','1960-05-08','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(17,'Florentina','Salcedo','Sucantaipe','N','15412063','1965-04-03','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(18,'Ysabel','Conde','Castilla','N','40516544','1960-06-08','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(19,'Maria Fernanda','Carhualloclla','Crisostomo','N','71479678','1996-03-08','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(20,'Gustavo Alonso','Carbajal','Quispe','N','76582497','1984-08-08','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(21,'Angelica','Diaz','Pachas','N','61060072','1986-02-02','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(22,'Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(23,'Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(24,'Anny','Cabrera','Napa','N','71788436','2003-07-16','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(25,'Carol Nichol','Canchari','Silvestre','N','21884566','1978-08-08','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(26,'Rosa Luz','Vizarreta','De Mendoza','N','21800841','1962-03-03','F',NULL,'2023-11-07 23:59:18',NULL,'1'),
+(27,'KAREN GIULLIANA','SUAREZ','MATIAS','N','47671169','1990-03-24','F','','2023-11-08 00:35:06',NULL,'1'),
+(28,'BRIANNA HELENA','MATTA','VALVERDE','N','76364012','2002-12-21','F','','2023-11-08 01:19:01',NULL,'1'),
+(29,'ERADIO','SUAREZ','COTRINA','N','18202819','1960-10-29','M','','2023-11-08 15:57:44',NULL,'1'),
+(30,'NANCY','MATIAS','ORTIZ','N','18202820','1962-03-28','F','','2023-11-08 16:08:53',NULL,'1'),
+(31,'JAHAYRA ELIZABETH','SUAREZ','MATIAS','N','76364011','1999-06-02','F','','2023-11-08 16:11:08',NULL,'1'),
+(32,'RAUL','CHOTA','ARIRAMA','N','18202818','2000-02-15','M','','2023-11-08 16:17:01',NULL,'1'),
+(33,'JUANA','PAREDES','ANTICONA','N','18202821','1985-04-15','F','','2023-11-08 16:21:35',NULL,'1'),
+(34,'WILBER','SAMATA','PACCO','N','47671170','1950-06-15','F','','2023-11-11 22:34:28',NULL,'1'),
+(35,'JUANA CARMEN','ZUÑIGA','DE CASTRO','N','21865000','1952-04-05','F','','2023-11-13 00:11:30',NULL,'1'),
+(36,'JUANA ROSA','HUAMANI','LEON','N','47628838','1995-04-15','F','','2023-11-13 00:14:05',NULL,'1'),
+(37,'ZECARLOS ADRIAN','DONAYRE','CHAVEZ','N','71775558','2000-04-15','M','','2023-11-13 00:15:38',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -357,7 +561,7 @@ CREATE TABLE `servicios` (
   `nombreServicio` varchar(100) NOT NULL,
   PRIMARY KEY (`idServicio`),
   UNIQUE KEY `uk_nombreServicio_ser` (`nombreServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios` */
 
@@ -387,7 +591,8 @@ insert  into `servicios`(`idServicio`,`tipo`,`nombreServicio`) values
 (23,'E','Psicología'),
 (24,'E','Otorrinolaringología'),
 (25,'E','Medicina complementaria'),
-(26,'E','Odontología');
+(26,'E','Odontología'),
+(27,'E','Odontopediatria');
 
 /*Table structure for table `servicios_detalle` */
 
@@ -402,7 +607,7 @@ CREATE TABLE `servicios_detalle` (
   PRIMARY KEY (`idservicios_detalle`),
   KEY `fk_idservicios_serdet` (`idservicio`),
   CONSTRAINT `fk_idservicios_serdet` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=315 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=322 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios_detalle` */
 
@@ -711,16 +916,44 @@ insert  into `servicios_detalle`(`idservicios_detalle`,`idservicio`,`descripcion
 (302,26,'EXTRACION DE DIENTE',80.00,NULL),
 (303,26,'PULPOTOMIA',100.00,NULL),
 (304,26,'VARNIZ FLORADO - FLUOR',40.00,NULL),
-(305,2,'ECO 4D',100.00,'F'),
-(306,2,'ECO 5D',100.00,'F'),
-(307,2,'ECO OBSTÉTRICA',60.00,'F'),
-(308,2,'ECO MAMAS',60.00,'F'),
-(309,2,'ECO TRANSVAGINAL(TV)',60.00,'F'),
-(310,12,'CONSULTA',40.00,'F'),
-(311,12,'PAPANICOLAO',40.00,'F'),
-(312,12,'CULTIVO DE SECRECION VAGINAL',60.00,'F'),
-(313,12,'BIOPSIA DE CUELLO UTERINO',150.00,'F'),
-(314,12,'COLCOSPIA',120.00,'F');
+(305,27,'CONSULTA',40.00,NULL),
+(306,27,'LIMPIEZA DENTAL',100.00,NULL),
+(307,27,'FRENILLO',500.00,NULL),
+(308,27,'BLANCAMIENTO',350.00,NULL),
+(309,27,'EXTRACION DE DIENTE',80.00,NULL),
+(310,27,'PULPOTOMIA',100.00,NULL),
+(311,27,'VARNIZ FLORADO - FLUOR',40.00,NULL),
+(312,2,'ECO 4D',100.00,'F'),
+(313,2,'ECO 5D',100.00,'F'),
+(314,2,'ECO OBSTÉTRICA',60.00,'F'),
+(315,2,'ECO MAMAS',60.00,'F'),
+(316,2,'ECO TRANSVAGINAL(TV)',60.00,'F'),
+(317,12,'CONSULTA',40.00,'F'),
+(318,12,'PAPANICOLAO',40.00,'F'),
+(319,12,'CULTIVO DE SECRECION VAGINAL',60.00,'F'),
+(320,12,'BIOPSIA DE CUELLO UTERINO',150.00,'F'),
+(321,12,'COLCOSPIA',120.00,'F');
+
+/*Table structure for table `tratamiento_paciente` */
+
+DROP TABLE IF EXISTS `tratamiento_paciente`;
+
+CREATE TABLE `tratamiento_paciente` (
+  `idTratamiento` int(11) NOT NULL AUTO_INCREMENT,
+  `idDetalleAtencion` int(11) NOT NULL,
+  `medicamento` varchar(100) NOT NULL,
+  `presentacion` varchar(100) NOT NULL,
+  `cantidad` tinyint(4) NOT NULL,
+  `dosis` varchar(100) NOT NULL,
+  `dias` varchar(50) NOT NULL,
+  `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
+  `fechaActualizacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`idTratamiento`),
+  KEY `fk_det_tp` (`idDetalleAtencion`),
+  CONSTRAINT `fk_det_tp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tratamiento_paciente` */
 
 /*Table structure for table `usuarios` */
 
@@ -738,22 +971,223 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `uk_idpersona_usu` (`idPersona`),
   CONSTRAINT `fk_usuarios_usu` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `usuarios` */
 
 insert  into `usuarios`(`idUsuario`,`nombreUsuario`,`clave`,`nivelAcceso`,`fechaInicio`,`fechaFin`,`estado`,`idPersona`) values 
-(1,'JuanQ','123','A','2023-10-14 14:14:11',NULL,'1',1),
-(2,'AnaC','1','A','2023-10-14 14:14:11',NULL,'1',2),
-(3,'JuanaU','','A','2023-10-14 14:14:11',NULL,'1',3);
+(1,'JuanQ','$2y$10$qDspv2dEA7.jvQjS5gU12OxTrlopbXEXPParkCzqtZBElDs6GATeC','A','2023-11-07 23:59:19',NULL,'1',1),
+(2,'AnaC','$2y$10$Lnz.NmRU7JA4z/YKc4yrFugoZIsfPPdKTHe1btDBkD2AxN8rCUaxW','A','2023-11-07 23:59:19',NULL,'1',2),
+(3,'JuanaU','$2y$10$Gz1zSVQktIt1jCJsV.pjQ.ynPGu9QFSB.rTof.7kpIFdOVb9bXcre','A','2023-11-07 23:59:19',NULL,'1',3);
 
-/* Procedure structure for procedure `spu_admision_atenciones` */
+/* Procedure structure for procedure `spu_atenciones_buscar_personas` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_admision_atenciones` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_buscar_personas` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_admision_atenciones`(
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_buscar_personas`(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN 
+	SELECT `idPersona`, CONCAT(`apellidoPaterno`, 
+		' ', `apellidoMaterno`, 
+		', ' , nombres) AS 'ApellidosNombres',
+		YEAR(CURDATE())-YEAR(fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, fechaNacimiento, CURDATE()) AS 'meses', `genero`
+	FROM personas
+	WHERE `numeroDocumento` = _numeroDocumento;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_editar_fecha` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_editar_fecha` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_editar_fecha`(
+ IN _fechaAtencion DATE,
+ IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones 
+	SET fechaAtencion = _fechaAtencion,
+	    fechaActualizacion = NOW()
+	WHERE idatencion = _idatencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_filtro_doctores` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_filtro_doctores` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_filtro_doctores`(
+	IN _idServicio INT
+)
+BEGIN
+	SELECT idEspecialistasServicios,servicios.nombreservicio,
+	CONCAT(personas.apellidoPaterno, ' ',
+	personas.nombres) AS 'NombreCompleto'
+	FROM especialistas_servicios
+	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
+	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
+	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
+	WHERE especialistas_servicios.`idServicio` =_idservicio;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_filtro_servicios` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_filtro_servicios` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_filtro_servicios`(
+	IN _idServicio INT 
+)
+BEGIN 
+	SELECT Servicios.idServicio, servicios.nombreServicio, servicios_detalle.idservicios_detalle, servicios_detalle.descripcion, servicios_detalle.precio, servicios_detalle.genero
+	FROM Servicios
+	INNER JOIN servicios_detalle ON servicios_detalle.idServicio = Servicios.idServicio 
+	WHERE Servicios.idServicio = _idServicio;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_listar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_listar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_listar`()
+BEGIN 
+	SELECT
+		atenciones.idAtencion,
+		 atenciones.fechaCreacion AS Dia,
+		 PP.nombres,
+		 PP.apellidoPaterno,
+		 PP.apellidoMaterno,
+		 servicios.idServicio,
+		 servicios.nombreServicio,
+		 SUM(servicios_detalle.precio) AS Total,
+		 atenciones.estado
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
+	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
+	WHERE DATE(atenciones.fechaCreacion) = CURDATE()-- Filtrar por la fecha actual
+	GROUP BY Dia, atenciones.idAtencion
+	ORDER BY atenciones.`estado` ;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_listar_especialidades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_listar_especialidades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_listar_especialidades`()
+BEGIN
+	SELECT * FROM Servicios
+	WHERE tipo = "E";
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_listar_especialistas` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_listar_especialistas` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_listar_especialistas`(
+IN _estado CHAR(1)
+)
+BEGIN 
+	SELECT  idEspecialista,
+	CONCAT(personas.apellidoPaterno, 
+	' ', personas.apellidoMaterno, 
+	' ' , personas.nombres) AS 'ApellidosNombres'
+	FROM especialistas
+	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
+	WHERE especialistas.estado = _estado;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_listar_espera` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_listar_espera` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_listar_espera`()
+BEGIN 
+	SELECT
+		atenciones.idAtencion,
+		 atenciones.fechaCreacion AS Dia,
+		 PP.nombres,
+		 PP.apellidoPaterno,
+		 PP.apellidoMaterno,
+		 servicios.idServicio,
+		 servicios.nombreServicio,
+		 SUM(servicios_detalle.precio) AS Total,
+		 atenciones.estado,
+		 atenciones.numeroAtencion
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
+	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
+	WHERE DATE(atenciones.fechaAtencion) = CURDATE()-- Filtrar por la fecha actual
+	GROUP BY Dia, atenciones.idAtencion
+	ORDER BY atenciones.idAtencion DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_listar_servicios` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_listar_servicios` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_listar_servicios`()
+BEGIN 
+	SELECT *
+	FROM Servicios;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_obtenerPrecio_genero` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_obtenerPrecio_genero` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_obtenerPrecio_genero`(
+ IN _idservicios_detalle INT
+)
+BEGIN
+	SELECT idservicios_detalle,descripcion, precio, genero
+	FROM servicios_detalle
+	WHERE idservicios_detalle = _idservicios_detalle;
+
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_atenciones_registrar` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_registrar` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_registrar`(
 IN _turno		CHAR(1),
 IN _idusuario 	INT,
 IN _idpersona 	INT,
@@ -790,61 +1224,95 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_buscar_personas` */
+/* Procedure structure for procedure `spu_atenciones_registrar_detallesServicios` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_buscar_personas` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_registrar_detallesServicios` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_buscar_personas`(
-IN _numeroDocumento VARCHAR(12)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_registrar_detallesServicios`(
+IN _idservicios_detalle INT
 )
-BEGIN 
-	SELECT `idPersona`,
-		CONCAT(`apellidoPaterno`, 
-		' ', `apellidoMaterno`, 
-		', ' , nombres) AS 'ApellidosNombres',
-		YEAR(CURDATE()) - YEAR(`fechaNacimiento`) AS 'Edad', genero
-	FROM personas
-	WHERE `numeroDocumento` = _numeroDocumento;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_detalle_atencion` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_detalle_atencion` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_detalle_atencion`( IN _idatencion INT)
 BEGIN
-	SELECT Detalle_Servicios.idAtencion,servicios.idServicio, servicios.nombreServicio,
-	personas.nombres,personas.`apellidoMaterno`, personas.`apellidoPaterno`,
-	personas.`numeroDocumento`,YEAR(CURDATE()) - YEAR(personas.`fechaNacimiento`) AS 'Edad',
-	personas.`telefono`, atenciones.`fechaAtencion`
-	FROM Detalle_Servicios
-	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	--  INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE Detalle_Servicios.idAtencion = _idatencion
-	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
+    DECLARE _idatencion INT;
+    
+    SELECT idAtencion INTO _idatencion FROM atenciones ORDER BY idatencion DESC LIMIT 1;
+    
+    INSERT INTO Detalle_Servicios (idservicios_detalle, idAtencion) VALUES
+    (_idservicios_detalle, _idatencion);
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_detalle_pagos` */
+/* Procedure structure for procedure `spu_atenciones_registrar_persona` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_detalle_pagos` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_atenciones_registrar_persona` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_detalle_pagos`( IN _idatencion INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_atenciones_registrar_persona`(
+	IN _nombres 			VARCHAR(100),
+	IN _apellidoPaterno 	VARCHAR(50),
+	IN _apellidoMaterno 	VARCHAR(50),
+	IN _tipoDocumento		CHAR(1),
+	IN _numeroDocumento	VARCHAR(12),
+	IN _fechaNacimiento	DATE,
+	IN _genero				CHAR(1),
+	IN _telefono			CHAR(9)
+)
+BEGIN
+	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
+	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_cambiar_estado_Devolucion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_cambiar_estado_Devolucion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_cambiar_estado_Devolucion`(
+IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones	SET
+		fechaActualizacion=NOW(),
+		estado = '2'
+	WHERE idAtencion = _idatencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_cambiar_estado_pagos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_cambiar_estado_pagos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_cambiar_estado_pagos`(
+IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones	SET
+		fechaActualizacion=NOW(),
+		estado = '1'
+		WHERE idAtencion = _idatencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_detalle_pagos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_detalle_pagos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_detalle_pagos`( IN _idatencion INT)
 BEGIN
 	SELECT Detalle_Servicios.idAtencion, servicios.nombreServicio,
 	personas.nombres,personas.apellidoMaterno, personas.apellidoPaterno,
-	personas.numeroDocumento,YEAR(CURDATE()) - YEAR(personas.fechaNacimiento) AS 'Edad',
+	personas.numeroDocumento,
+		YEAR(CURDATE())-YEAR(fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, fechaNacimiento, CURDATE()) AS 'meses',
 	personas.telefono, atenciones.fechaAtencion
 	FROM Detalle_Servicios
 	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
@@ -858,40 +1326,276 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_devolucion_pagos` */
+/* Procedure structure for procedure `spu_caja_listar_detalle_servicio` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_devolucion_pagos` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_listar_detalle_servicio` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_devolucion_pagos`(
-IN _idAtencion INT,
-IN _descripcion VARCHAR(200)
-)
-BEGIN 
-	UPDATE pagos SET
-		tipoMovimiento = 'D',
-		descripcionGasto = _descripcion,
-		fechaDevolucion = NOW()
-	WHERE idAtencion = _idAtencion;
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_listar_detalle_servicio`( IN _idatencion INT)
+BEGIN
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
+	personas.telefono,servicios_detalle.precio AS 'total'
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE detalle_servicios.idAtencion = _idatencion;
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_doctor_agregar` */
+/* Procedure structure for procedure `spu_caja_listar_gastos` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctor_agregar` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_listar_gastos` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctor_agregar`(
-IN _idDetalleatencion INT,
-IN _examenGeneral VARCHAR(2000),
-IN _frecuencia CHAR(1)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_listar_gastos`()
+BEGIN 
+	SELECT idGasto, descripcionGasto, montoGasto, fechaHoraGasto,
+	 CONCAT(personas.ApellidoPaterno, ' ', personas.Nombres) AS personas ,
+	  Medio_Pagos.nombrePago
+	FROM gastos
+	INNER JOIN personas ON personas.idPersona = gastos.idPersona
+	INNER JOIN Medio_Pagos ON Medio_Pagos.idMedioPago = gastos.idMedioPago
+	WHERE DATE(fechaHoraGasto) = CURDATE();
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_listar_metodos_pago` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_listar_metodos_pago` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_listar_metodos_pago`()
+BEGIN
+	SELECT *
+	FROM Medio_Pagos;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_obtener_datos_devolucion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_obtener_datos_devolucion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_obtener_datos_devolucion`(
+IN _idAtencion INT
+)
+BEGIN 
+	SELECT	    CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
+	    per.numeroDocumento,
+	    especialidad.nombreServicio AS 'Servicio',
+	    SUM(pag.monto) AS 'MontoTotal'
+	FROM    pagos pag
+	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+	INNER JOIN  Personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN (
+	    SELECT ate.idAtencion,ser.nombreServicio
+	    FROM   atenciones ate
+	    INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+	    INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+	    INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+	    WHERE ate.idAtencion = _idAtencion
+	    GROUP BY ser.nombreServicio   
+	) AS especialidad ON ate.idAtencion = especialidad.idAtencion
+	WHERE ate.idAtencion = _idAtencion
+	GROUP BY ate.idAtencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_obtener_devolucion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_obtener_devolucion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_obtener_devolucion`()
+BEGIN 
+	SELECT SUM(montoDevolucion) AS 'MontoTotal'
+	FROM devoluciones;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_obtener_ingresos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_obtener_ingresos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_obtener_ingresos`()
+BEGIN 
+	SELECT 
+    (SELECT IFNULL(SUM(d.montoDevolucion), 0) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()) AS totalDevo,
+    (SELECT IFNULL(SUM(g.montoGasto), 0) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()) AS totalgasto,
+    ifnull(SUM(monto),0) AS totalpagos,
+    ifnull((SUM(monto) - (IFNULL((SELECT SUM(d.montoDevolucion) FROM Devoluciones d WHERE DATE(d.fechaHoraDevolucion) = CURDATE()), 0)
+	    + IFNULL((SELECT SUM(g.montoGasto) FROM Gastos g WHERE DATE(g.fechaHoraGasto) = CURDATE()), 0))),0) AS MontoTotal
+	FROM Pagos
+	WHERE DATE(fechaHoraPago) = CURDATE();
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_registrar_devolucion` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_registrar_devolucion` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_registrar_devolucion`(
+IN _motivoDevolucion		VARCHAR(400),
+IN _montoDevolucion		DECIMAL(6,2),
+IN _idAtencion			INT,
+IN _idMedioPago 		INT
+)
+BEGIN 
+	INSERT INTO Devoluciones(motivoDevolucion, montoDevolucion, idAtencion, idMedioPago) VALUES
+	(_motivoDevolucion, _montoDevolucion, _idAtencion, _idMedioPago);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_registrar_gastos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_registrar_gastos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_registrar_gastos`(
+IN _montoGasto		DECIMAL(6,2),
+IN _descripcionGasto	VARCHAR(200),
+IN _idPersona		INT, 
+IN _idMedioPago 	INT
+)
+BEGIN
+	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago) VALUES
+	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_caja_registrar_pago` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_caja_registrar_pago` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_caja_registrar_pago`(
+IN _idatencion 	INT,
+IN _idmediopago	INT,
+IN _monto			DECIMAL(7,2)
+)
+BEGIN 
+	INSERT INTO pagos (idatencion, idMedioPago, monto) VALUES
+	(_idatencion, _idmediopago, _monto);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_contadores` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_contadores` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_contadores`()
+BEGIN 
+	SELECT 
+	    (SELECT COUNT(p.idPersona) FROM personas p ) AS pacientes,
+	    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'E') AS especialidades,
+	    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'S') AS servicios,
+	    COUNT(e.idEspecialista) AS medicos, 
+	    (SELECT COUNT(a.idAtencion) FROM atenciones a) AS atenciones  
+	FROM Especialistas e;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctores_buscar_enfermedad` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctores_buscar_enfermedad` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_buscar_enfermedad`(
+IN _codigoCie_10 VARCHAR(10)
+)
+BEGIN
+	SELECT idEnfermedad,codigoCie_10, descripcion FROM enfermedades
+	WHERE Enfermedades.codigoCie_10 = _codigoCie_10;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctores_detalle_tratamiento` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctores_detalle_tratamiento` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_detalle_tratamiento`(
+IN _idDetalleAtencion	INT,
+IN _medicamento		VARCHAR(100),
+IN _presentacion	VARCHAR(100),
+IN _cantidad		TINYINT,
+IN _dosis		VARCHAR(100),
+IN _dias		VARCHAR(50)
+)
+BEGIN
+	INSERT INTO Tratamiento_paciente (idDetalleAtencion, medicamento, presentacion, cantidad, dosis, dias)VALUES
+	(_idDetalleAtencion, _medicamento, _presentacion, _cantidad, _dosis, _dias);
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SPU_DOCTORES_LISTAR` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SPU_DOCTORES_LISTAR` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SPU_DOCTORES_LISTAR`(
+)
+BEGIN
+	SELECT detAte.`idDetalleAtenciones`,
+		 ate.numeroAtencion,
+		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
+	FROM detalle_atenciones detAte
+	INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
+	INNER JOIN personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
+	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
+	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
+	WHERE ate.estado = 1 AND ser.tipo = 'E'--  AND ser.idServicio = 21
+	AND ate.fechaAtencion = CURDATE()
+	ORDER BY  ate.idAtencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA`(
+IN _idDetalleatencion 	INT,
+IN _inicio		VARCHAR(2000),
+IN _curso		VARCHAR(2000),
+IN _relato		VARCHAR(2000),
+IN _procedimiento 	VARCHAR(200),
+IN _observaciones 	VARCHAR(200),
+IN _examenGeneral 	VARCHAR(2000),
+IN _frecuencia 		CHAR(1)
 )
 BEGIN
 	UPDATE Detalle_Atenciones SET
+		inicio = _inicio,
+		curso = _curso,
+		relato = _relato,
+		procedimiento = _procedimiento,
+		observaciones = _observaciones,
 		examenGeneral = _examenGeneral,
-		frecuencia = _frecuencia
+		frecuencia = _frecuencia,
+		fechaActualizacion = NOW()
 	WHERE idDetalleAtenciones = _idDetalleatencion;
 END */$$
 DELIMITER ;
@@ -904,312 +1608,11 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctor_agregar_enfermedad`(
 IN _idEnfermedad INT,
-IN _idDetalleatencion INT
+IN _idDetalleAtencion INT
 )
 BEGIN
-	INSERT INTO Enfermedad_Pacientes (idEnfermedad, idDetalleAtencion) VALUES
-	(_idEnfermedad, _idDetalleatencion);
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_estadoCambiar_Pagos` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_estadoCambiar_Pagos` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_estadoCambiar_Pagos`(
-IN _idatencion INT
-)
-BEGIN
-	UPDATE atenciones	SET
-		fechaActualizacion=NOW(),
-		estado = '1'
-		WHERE idAtencion = _idatencion;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_filtro_doctores` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtro_doctores` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtro_doctores`(
-	IN _idServicio INT
-)
-BEGIN
-	SELECT idEspecialistasServicios,servicios.nombreservicio,
-	CONCAT(personas.apellidoPaterno, ' ',
-	personas.nombres) AS 'NombreCompleto'
-	FROM especialistas_servicios
-	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
-	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
-	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
-	WHERE especialistas_servicios.`idServicio` =_idservicio;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_filtro_servicios` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_filtro_servicios` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_filtro_servicios`(
-	IN _idServicio INT 
-)
-BEGIN 
-	SELECT Servicios.idServicio, servicios.nombreServicio, servicios_detalle.idservicios_detalle, servicios_detalle.descripcion, servicios_detalle.precio, servicios_detalle.genero
-	FROM Servicios
-	INNER JOIN servicios_detalle ON servicios_detalle.idServicio = Servicios.idServicio 
-	WHERE Servicios.idServicio = _idServicio;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_gastos_pagos` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_gastos_pagos` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_gastos_pagos`(
-IN _medioPago		INT,
-IN _descripcion	VARCHAR(200),
-IN _monto			DECIMAL(7,2)
-)
-BEGIN
-	INSERT INTO pagos(tipoMovimiento, idMedioPago, descripcionGasto, monto) VALUES
-	('E', _medioPago, _descripcion, _monto);
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listarDevolucion_pagos` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listarDevolucion_pagos` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listarDevolucion_pagos`()
-BEGIN 
-	SELECT * 
-	FROM pagos
-	WHERE tipoMovimiento = 'D' AND DATE(fechaDevolucion) = CURDATE();
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listarGastos_pagos` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listarGastos_pagos` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listarGastos_pagos`()
-BEGIN 
-	SELECT * 
-	FROM pagos
-	WHERE tipoMovimiento = 'E' AND DATE(fechaHora) = CURDATE();
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_alergias` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_alergias` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_alergias`()
-BEGIN 
-	SELECT * FROM alergias;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_atenciones` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_atenciones` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_atenciones`()
-BEGIN 
-	SELECT
-		atenciones.idAtencion,
-		 atenciones.fechaCreacion AS Dia,
-		 PP.nombres,
-		 PP.apellidoPaterno,
-		 PP.apellidoMaterno,
-		 servicios.idServicio,
-		 servicios.nombreServicio,
-		 SUM(servicios_detalle.precio) AS Total,
-		 atenciones.estado
-	FROM Detalle_Servicios
-	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
-	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
-	WHERE DATE(atenciones.fechaCreacion) = CURDATE()  -- Filtrar por la fecha actual
-	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY Dia DESC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_Atenciones_triaje_dni` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_Atenciones_triaje_dni` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_Atenciones_triaje_dni`(IN _numeroDocumento VARCHAR(12))
-BEGIN
-	SELECT atenciones.idAtencion, servicios.nombreServicio, atenciones.fechaAtencion AS 'dia'
-	FROM atenciones
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' 
-	GROUP BY Detalle_Servicios.idatencion
-	ORDER BY dia DESC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_detalles_atenciones` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_detalles_atenciones` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_detalles_atenciones`(
-IN _numeroDocumento VARCHAR(12)
-)
-BEGIN
-	SELECT DATE(Detalle_Atenciones.fechaCreacion) AS fecha
-	FROM Detalle_Atenciones
-	INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
-	INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
-	WHERE personas.numeroDocumento = _numeroDocumento
-	ORDER BY Detalle_Atenciones.`idDetalleAtenciones` DESC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_detalle_servicio` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_detalle_servicio` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_detalle_servicio`( IN _idatencion INT)
-BEGIN
-	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio, servicios.nombreServicio,servicios_detalle.descripcion,
-	personas.telefono,servicios_detalle.precio AS 'total'
-	FROM Detalle_Servicios
-	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	WHERE detalle_servicios.idAtencion = _idatencion;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_espcialistas_servicios` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_espcialistas_servicios` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_espcialistas_servicios`( 
-IN _idservicio INT 
-)
-BEGIN 
-	SELECT idEspecialistasServicios,
-	CONCAT(servicios.nombreservicio, ' - ',
-	personas.apellidoPaterno, ' ',
-	personas.nombres) AS 'Nombre Completo'
-	FROM especialistas_servicios
-	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
-	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`
-	INNER JOIN personas ON personas.`idPersona` = especialistas.`idPersona`
-	WHERE especialistas_servicios.`idServicio` = _idservicio;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_especialidades` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_especialidades` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_especialidades`()
-BEGIN
-	SELECT * FROM Servicios
-	WHERE tipo = "E";
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_especialistas` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_especialistas` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_especialistas`(
-IN _estado CHAR(1)
-)
-BEGIN 
-	SELECT  idEspecialista,
-	CONCAT(personas.apellidoPaterno, 
-	' ', personas.apellidoMaterno, 
-	' ' , personas.nombres) AS 'ApellidosNombres'
-	FROM especialistas
-	INNER JOIN personas ON personas.idPersona = especialistas.idPersona
-	WHERE especialistas.estado = _estado;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_historiasClinicasTodo` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_historiasClinicasTodo` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_historiasClinicasTodo`()
-BEGIN
-	SELECT historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
-	FROM historias_clinicas
-	INNER JOIN personas ON personas.`idPersona` = historias_clinicas.`idPersona`
-	ORDER BY historias_clinicas.`idHistoriaClinica` DESC;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_historias_clinicas` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_historias_clinicas` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_historias_clinicas`(
-IN _numeroDocumento VARCHAR(12)
-)
-BEGIN
-	SELECT *
-	 FROM Historias_Clinicas
-	INNER JOIN personas ON personas.`idPersona` = Historias_Clinicas.idpersona
-	WHERE personas.`numeroDocumento` = _numeroDocumento;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_listar_metodospago` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_listar_metodospago` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_metodospago`()
-BEGIN
-	SELECT *
-	FROM Medio_Pagos;
+	INSERT INTO Enfermedad_Pacientes(idEnfermedad, idDetalleAtencion) VALUES
+	(_idEnfermedad, _idDetalleAtencion);
 END */$$
 DELIMITER ;
 
@@ -1220,9 +1623,47 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_listar_servicios`()
+BEGIN
+	SELECT * FROM Servicios
+	WHERE tipo = "S";
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `SPU_LOGIN_USUARIOS` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `SPU_LOGIN_USUARIOS` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `SPU_LOGIN_USUARIOS`(
+	IN _nombreUsuario VARCHAR(50)
+)
+BEGIN
+	SELECT 	Usuarios.idUsuario, 
+		usuarios.nombreUsuario, 
+		usuarios.clave,
+		CONCAT(personas.apellidoPaterno,' ', personas.apellidoMaterno,' ' , personas.nombres) AS 'ApellidosNombres',
+		usuarios.`nivelAcceso`
+	FROM Usuarios
+	INNER JOIN Personas ON personas.idPersona = usuarios.idPersona
+	WHERE nombreUsuario = _nombreUsuario;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_monto_medioPago` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_monto_medioPago` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_monto_medioPago`(in _idmedio int)
 BEGIN 
-	SELECT *
-	FROM Servicios;
+	SELECT IFNULL(SUM(p.monto), 0) AS TotalPago, 
+	(SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = _idmedio) AS totalDevo, 
+	(IFNULL(SUM(p.monto), 0))-((SELECT IFNULL(SUM(montoDevolucion),0) FROM devoluciones WHERE DATE(fechaHoraDevolucion) = CURDATE() AND idMedioPago = _idmedio) + (SELECT IFNULL(SUM(montoGasto),0) FROM gastos WHERE DATE(fechaHoraGasto) = CURDATE() AND idMedioPago = _idmedio)) AS total
+	FROM pagos p 
+	INNER JOIN Medio_Pagos med ON p.idMedioPago = med.idMedioPago
+	WHERE DATE(p.fechaHoraPago) = CURDATE() AND p.idMedioPago = _idmedio;
 END */$$
 DELIMITER ;
 
@@ -1252,85 +1693,109 @@ BEGIN
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_obtenerDevolucion_pagos` */
+/* Procedure structure for procedure `spu_reporte_servicioQuincenal` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_obtenerDevolucion_pagos` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reporte_servicioQuincenal` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_obtenerDevolucion_pagos`(
-IN _idAtencion INT
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reporte_servicioQuincenal`(IN _idServicio INT)
 BEGIN 
-	SELECT CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno) AS 'Paciente',
-		per.numeroDocumento,
-	       ser.nombreServicio AS 'Servicio',
-	       SUM(pag.monto) AS 'MontoTotal'
-	FROM Pagos pag
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = _idServicio AND (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 1 AND 15
+	    OR (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 16 AND 31 AND DAYOFMONTH(CURDATE()) <= 15));
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_reporte_servicioSemanal` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_reporte_servicioSemanal` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_reporte_servicioSemanal`(IN _idServicio INT)
+BEGIN 
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = _idServicio AND WEEK(atenciones.`fechaAtencion`) = WEEK(CURDATE());
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_ticket_1` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_ticket_1` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_ticket_1`(IN _idAtencion INT)
+BEGIN 
+	SELECT ate.numeroAtencion, pag.fechaHoraPago,
+	upper(CONCAT(per.nombres, ' ', per.apellidoPaterno, ' ', per.apellidoMaterno)) AS 'Paciente',
+	per.numeroDocumento,per.`telefono`, YEAR(CURDATE())-YEAR(per.fechaNacimiento) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(per.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+	UPPER(especialidad.nombreServicio) AS 'Servicio',
+	SUM(pag.monto) AS 'MontoTotal',TRUNCATE(SUM(pag.monto)*0.18,2) AS 'IGV' , TRUNCATE(SUM(pag.monto)-SUM(pag.monto)*0.18,2)   AS 'subtotal'
+	FROM    pagos pag
 	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
-	INNER JOIN Personas per ON ate.idPersona = per.idPersona
-	INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
-	INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
-	INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
-	WHERE ate.idAtencion = _idAtencion;
+	INNER JOIN  Personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN (
+		 SELECT ate.idAtencion,ser.nombreServicio
+		 FROM   atenciones ate
+		 INNER JOIN Detalle_Servicios det_ser ON ate.idAtencion = det_ser.idAtencion
+		 INNER JOIN servicios_detalle ser_det ON det_ser.idservicios_detalle = ser_det.idservicios_detalle
+		 INNER JOIN Servicios ser ON ser_det.idservicio = ser.idServicio
+		 WHERE ate.idAtencion = _idAtencion
+		 GROUP BY ser.nombreServicio   
+	) AS especialidad ON ate.idAtencion = especialidad.idAtencion
+	WHERE ate.idAtencion = _idAtencion
+	GROUP BY ate.idAtencion;
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_pagar_pagos` */
+/* Procedure structure for procedure `spu_ticket_2` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_pagar_pagos` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_ticket_2` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_pagar_pagos`(
-IN _idatencion 	INT,
-IN _idmediopago	INT,
-IN _monto			DECIMAL(7,2)
-)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_ticket_2`(IN _idAtencion INT)
 BEGIN 
-	INSERT INTO pagos (idatencion, idMedioPago, monto, tipoMovimiento) VALUES
-	(_idatencion, _idmediopago, _monto, 'I');
+	SELECT ate.idAtencion, pag.`idMedioPago`,med.nombrePago, pag.`monto` 
+	FROM    pagos pag
+	INNER JOIN Atenciones ate ON pag.idAtencion = ate.idAtencion
+	INNER JOIN Medio_Pagos med ON pag.idMedioPago = med.idMedioPago
+	WHERE ate.idAtencion = _idAtencion
+	GROUP BY pag.`idMedioPago`;
+
 END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `spu_registrar_persona` */
+/* Procedure structure for procedure `spu_ticket_3` */
 
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_registrar_persona` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_registrar_persona`(
-	IN _nombres 			VARCHAR(100),
-	IN _apellidoPaterno 	VARCHAR(50),
-	IN _apellidoMaterno 	VARCHAR(50),
-	IN _tipoDocumento		CHAR(1),
-	IN _numeroDocumento	VARCHAR(12),
-	IN _fechaNacimiento	DATE,
-	IN _genero				CHAR(1),
-	IN _telefono			CHAR(9)
-)
-BEGIN
-	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
-	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `spu_servicios_detalles` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `spu_servicios_detalles` */;
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_ticket_3` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_servicios_detalles`(
-IN _idservicios_detalle INT
-)
-BEGIN
-    DECLARE _idatencion INT;
-    
-    SELECT idAtencion INTO _idatencion FROM atenciones ORDER BY idatencion DESC LIMIT 1;
-    
-    INSERT INTO Detalle_Servicios (idservicios_detalle, idAtencion) VALUES
-    (_idservicios_detalle, _idatencion);
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_ticket_3`(IN _idAtencion INT)
+BEGIN 
+	SELECT Detalle_Servicios.idAtencion,detalle_servicios.idDetalleServicio,Detalle_Servicios.idservicios_detalle,  servicios.nombreServicio,servicios_detalle.descripcion,
+	personas.telefono,servicios_detalle.precio AS 'total'
+	FROM Detalle_Servicios
+	LEFT JOIN atenciones ON atenciones.idAtencion = Detalle_Servicios.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	WHERE detalle_servicios.idAtencion =_idAtencion;
 END */$$
 DELIMITER ;
 
@@ -1374,6 +1839,146 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `spu_triaje_Atenciones_dni` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_Atenciones_dni` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_Atenciones_dni`(IN _numeroDocumento VARCHAR(12))
+BEGIN
+	SELECT atenciones.idAtencion, servicios.nombreServicio, atenciones.fechaAtencion AS 'dia'
+	FROM atenciones
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' 
+	GROUP BY Detalle_Servicios.idatencion
+	ORDER BY dia DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_atraparAlergias_xid` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_atraparAlergias_xid` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_atraparAlergias_xid`(
+IN _idHistoria INT
+)
+BEGIN
+	SELECT idDetalleAlergia, idHistoriaClinica,
+	alergias.alergia
+	FROM detalle_alergias
+	INNER JOIN alergias ON alergias.idAlergia = detalle_alergias.idAlergia
+	WHERE idHistoriaClinica = _idHistoria;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_buscar_historias` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_buscar_historias` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_buscar_historias`(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN
+	SELECT atenciones.idAtencion, personas.numeroDocumento,atenciones.`idPersona`,
+	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
+	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia',
+	    IF(historias_clinicas.idHistoriaClinica IS NOT NULL, 'si', 'no') AS 'historiaClinica', historias_clinicas.idHistoriaClinica
+	FROM atenciones
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE personas.numeroDocumento = _numeroDocumento AND atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE()
+	GROUP BY Detalle_Servicios.idatencion
+	ORDER BY dia DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_historia` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_historia` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_historia`()
+BEGIN
+	SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
+	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
+	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
+	FROM atenciones
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
+	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NOT NULL AND detalle_atenciones.idDetalleAtenciones IS NULL  
+	GROUP BY Detalle_Servicios.idatencion
+	ORDER BY dia DESC;
+
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_listar_alergias` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_listar_alergias` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_listar_alergias`()
+BEGIN 
+	SELECT * FROM alergias;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_listar_hecho` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_listar_hecho` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_listar_hecho`()
+BEGIN
+	SELECT 
+		idDetalleAtenciones, idHistoriaClinica,
+		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente,
+		servicios.nombreServicio
+		FROM detalle_atenciones
+		INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
+		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
+		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+		INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE() AND servicios.tipo = 'E'
+		ORDER BY idDetalleAtenciones DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_listar_historias` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_listar_historias` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_listar_historias`()
+BEGIN
+	SELECT historias_clinicas.`idHistoriaClinica`,personas.`numeroDocumento`, personas.`nombres`, personas.`apellidoPaterno`, personas.`apellidoMaterno`
+	FROM historias_clinicas
+	INNER JOIN personas ON personas.`idPersona` = historias_clinicas.`idPersona`
+	ORDER BY historias_clinicas.`idHistoriaClinica` DESC;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_triaje_Nueva_historiaClinica` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_Nueva_historiaClinica` */;
@@ -1397,6 +2002,50 @@ BEGIN
 	INSERT INTO Historias_Clinicas (idPersona, idUsuario, antecedentePersonal, antecedenteFamiliar, antecedenteQuirurgico, antecedenteOtro)VALUES
 	(_idpersona, _idusuario, _antecedentePersonal, _antecedenteFamiliar, _antecedenteQuirurgico, _antecedenteOtro);
 	
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_obtenerDatos` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_obtenerDatos` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_obtenerDatos`(IN _idAtencion VARCHAR(12))
+BEGIN
+	SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
+	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
+	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica
+	FROM atenciones
+	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
+	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE atenciones.`idAtencion` = _idAtencion AND atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NOT NULL
+	GROUP BY Detalle_Servicios.idatencion
+	ORDER BY dia DESC;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_triaje_reporte` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_triaje_reporte` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_triaje_reporte`()
+BEGIN
+	SELECT 
+		idDetalleAtenciones,
+		peso, talla, frecuenciaCardiaca, FrecuenciaRespiratoria, PresionArterial, temperatura, SaturacionOxigeno,
+		Historias_Clinicas.antecedentePersonal, Historias_Clinicas.antecedenteFamiliar, Historias_Clinicas.antecedenteQuirurgico, Historias_Clinicas.antecedenteOtro,
+		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente
+		FROM detalle_atenciones
+		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
+		INNER JOIN personas ON personas.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN Detalle_Alergias ON Detalle_Alergias.idHistoriaClinica = Historias_Clinicas.idHistoriaClinica
+		WHERE DATE(detalle_atenciones.fechaCreacion) = CURDATE();
 END */$$
 DELIMITER ;
 

@@ -37,53 +37,31 @@ INSERT INTO servicios (tipo, nombreServicio) VALUES
 ('E', 'Odontopediatria');
 
 
-INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
-('Juan', 'Quispe', 'Acevedo', 'N', '98745632', '2003-01-01', 'M', NULL),
-('Ana', 'Carbajal', 'Loyola', 'N', '12546321', '2000-01-16', 'F', NULL),
-('Juana', 'Uceda', 'Ramos', 'N', '32145632', NULL, 'F', NULL),
-('Francisca', 'Ureña', 'Luna', 'N', '96336987', NULL, 'F', NULL),
-('Benito', 'Martinez', 'Alfaro', 'N', '95115978', NULL, 'M', NULL),
-('Laura', 'Polo', 'Manrique', 'N', '74114789', NULL, 'F', NULL),
-('Maria', 'Cardenas', 'Almeyda', 'N','21876187','1987-10-11','F',NULL),
-('Yenny', 'Roman', 'Meneses', 'N','21854071','1990-09-08','F',NULL),
-('Williams', 'Moriano', 'Peña', 'N','72755127','2005-02-01','M',NULL),
-('Florentina', 'Peña', 'Diaz', 'N','21818841','1948-04-05','F',NULL),
-('Bruce', 'Tasayco', 'Almeyda', 'N','21874458','1976-11-05','M',NULL),
-('Maria', 'Robles', 'Sanchez', 'N','80042948','1972-10-05','F',NULL),
-('Luis', 'Chumpitaz', 'Torres', 'N','90160962','1967-08-01','M',NULL),
-('Adolfo','Magallanes', 'Gonzales','N','21860263','1970-08-01','M',NULL),
-('Hilda','Napa', 'Pachas','N','41869880','1985-02-01','F',NULL),
-('Ramon','Apolaya', 'Sotelo','N','21789377','1960-05-08','M',NULL),
-('Florentina','Salcedo', 'Sucantaipe','N','15412063','1965-04-03','F',NULL),
-('Ysabel','Conde', 'Castilla','N','40516544','1960-06-08','F',NULL),
-('Maria Fernanda','Carhualloclla', 'Crisostomo','N','71479678','1996-03-08','F',NULL),
-('Gustavo Alonso','Carbajal', 'Quispe','N','76582497','1984-08-08','M',NULL),			
-('Angelica','Diaz', 'Pachas','N','61060072','1986-02-02','F',NULL),
-('Irene','Suarez','Matias','N','76364010','2002-01-31','F',NULL),
-('Johan','Luque','Ramos','N','71789712','2003-02-24','M',NULL),			
-('Anny', 'Cabrera','Napa', 'N', '71788436','2003-07-16','F',NULL),
-('Carol Nichol','Canchari', 'Silvestre','N','21884566','1978-08-08','F',NULL),			
-('Rosa Luz','Vizarreta', 'De Mendoza','N','21800841','1962-03-03','F',NULL);			
-			
-			
+INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono, distrito) VALUES
+('IRENE ALEJANDRA','SUAREZ','MATIAS','N','76364010','2002-01-31','F',NULL,'CHINCHA ALTA'), 	-- A
+('JOHAN ALBERTO','LUQUE','RAMOS','N','71789712','2003-02-24','M',NULL,'EL CARMEN'),		-- T	
+('ANNY FABIOLA', 'CABRERA','NAPA', 'N', '71788436','2003-07-16','F',NULL,'CHINCHA ALTA'), -- C
+('JUAN', 'ESPINOZA','SANCHEZ', 'N', '41256398','1990-07-20','M',NULL,'CHINCHA BAJA'), -- G
+('ESTER', 'GONZALES','CHICO', 'N', '36521498','1994-01-15','F',NULL,'GROCIO PRADO'), 
+('LUIS', 'RIVA','CADENAS', 'N', '74125863','1989-05-15','M',NULL,'FORANEO'),	    -- E
+('CARLOS', 'REYES','GARCIA', 'N', '74125864','1991-06-24','M',NULL,'CHINCHA ALTA'); -- E
 
-INSERT INTO usuarios (nombreusuario, clave, fechaFin, idpersona) VALUES
-('JuanQ','123',NULL, 1),
-('AnaC','1',NULL, 2),
-('JuanaU','',NULL, 3);
+INSERT INTO usuarios (nombreusuario,clave,idpersona,nivelAcceso) VALUES
+('IRENE_SM','$2y$10$qDspv2dEA7.jvQjS5gU12OxTrlopbXEXPParkCzqtZBElDs6GATeC',1,'C'), -- CAJA 
+('ANNY_CN','$2y$10$Lnz.NmRU7JA4z/YKc4yrFugoZIsfPPdKTHe1btDBkD2AxN8rCUaxW',2,'A'), -- ADMISIÓN
+('JOHAN_LR','$2y$10$Gz1zSVQktIt1jCJsV.pjQ.ynPGu9QFSB.rTof.7kpIFdOVb9bXcre',3,'T'), -- TRIAJE
+('JUAN_ES','$2y$10$UQh.LaPu32FCgpSEzRH95OcptaBdB4g1Sk4iQwB68ez1j3GHI1cuO',4,'G'), -- GERENTE
+('LUIS_RC','$2y$10$rJn2vkXuI.h2SNBjAZFqvePHGePHUeIQl0VTSiHtoP.LatnONSCK2',6,'E'), -- ESPECIALISTA
+('CARLOS_RG','$2y$10$U9anHsdhxwMDaBAMM79OKeG7jdgJ.8oK3ucc5JWCGJmO/n8xqN9Vq',7,'E'); -- ESPECIALISTA
 
 INSERT INTO Especialistas (codigo, idpersona) VALUES
-('1', 4),
-(NULL, 5),
-('3', 6);
+('11088', 6), -- RIVA
+('13254', 7); -- CARLOS
 
 INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
-(1,1),
-(2,2),
-(1,3),
-(2,9),
-(3,10),
-(1,11);
+(1,2),
+(1,9),
+(2,1);
 
 INSERT INTO Enfermedades(codigoCie_10, descripcion)VALUES
 ('A00-B99','Ciertas enfermedades infecciosas y parasitarias'),
@@ -478,10 +456,10 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 (12,'BIOPSIA DE CUELLO UTERINO','150.00','F'),
 (12,'COLCOSPIA','120.00','F');
 
-INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES 
-(1,22),
-(1,23),
-(1,24);
+-- INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES 
+-- (1,22),
+-- (1,23),
+-- (1,24);
 
 -- INSERT INTO Detalle_Atenciones(idHistoria, idAtencion, idUsuario, peso, talla, frecuenciaCardiaca, frecuenciaRespiratoria, presionArterial, temperatura, saturacionOxigeno) VALUES
 -- (1,2,1,45.50,1.50,'83x1','20x1','90/60', 36.5,98);

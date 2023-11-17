@@ -49,14 +49,6 @@ SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	WHERE atenciones.estado = '1' AND servicios.tipo = 'S'
 	ORDER BY dia DESC;
 	
-SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
-personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
-FROM Detalle_Servicios
-INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
-INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND MONTH(atenciones.`fechaAtencion`) = 11
 
 SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
 personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
@@ -65,19 +57,51 @@ INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion
 INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
 INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND WEEK(atenciones.`fechaAtencion`) = WEEK(CURDATE())
+WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 1 AND MONTH(atenciones.`fechaAtencion`) = 11
 
 
-SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
-personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
-FROM Detalle_Servicios
-INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
-INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
-INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 2 AND (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 1 AND 15
-    OR (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 16 AND 31 AND DAYOFMONTH(CURDATE()) <= 15)
-  );
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_reporte_servicioSemanal(IN _idServicio INT)
+BEGIN 
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = _idServicio AND WEEK(atenciones.`fechaAtencion`) = WEEK(CURDATE());
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_reporte_servicioQuincenal(IN _idServicio INT)
+BEGIN 
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = _idServicio AND (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 1 AND 15
+	    OR (DAYOFMONTH(atenciones.`fechaAtencion`) BETWEEN 16 AND 31 AND DAYOFMONTH(CURDATE()) <= 15));
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_reporte_servicioMensual(IN _idServicio INT, IN _mes INT)
+BEGIN 
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = _idServicio AND MONTH(atenciones.`fechaAtencion`) = _mes;
+END $$
+
  
 
 -- DATOS DE TICKET
