@@ -546,7 +546,7 @@ function registrarAtencion(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
   parametros.append("turno", "T");
-  parametros.append("idusuario", 1);
+  parametros.append("idusuario",idUsuario );
   parametros.append("idfamiliar", idfamiliar);
   parametros.append("idpersona", idpersona);
   parametros.append("parentesco", parentescoF);

@@ -646,6 +646,7 @@ function registrarPagos(){
         parametros.append("idatencion", idatencion);
         parametros.append("idMedioPago", idmediopago);
         parametros.append("monto", monto);
+        parametros.append("idUsuario", idUsuario);
         
         const fetchPromesa = fetch("../controllers/pago.php", {
             method: "POST",
@@ -902,6 +903,7 @@ function GuardarDevolucion() {
         parametros.append("montoDevolucion", monto);
         parametros.append("idAtencion", idatencion);
         parametros.append("idMedioPago", idmediopago);
+        parametros.append("idUsuario", idUsuario);
         fetch("../controllers/devolucion.php", {
             method: "POST",
             body: parametros

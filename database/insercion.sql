@@ -48,11 +48,12 @@ INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, 
 
 INSERT INTO usuarios (nombreusuario,clave,idpersona,nivelAcceso) VALUES
 ('IRENE_SM','$2y$10$qDspv2dEA7.jvQjS5gU12OxTrlopbXEXPParkCzqtZBElDs6GATeC',1,'C'), -- CAJA 
-('ANNY_CN','$2y$10$Lnz.NmRU7JA4z/YKc4yrFugoZIsfPPdKTHe1btDBkD2AxN8rCUaxW',2,'A'), -- ADMISIÓN
-('JOHAN_LR','$2y$10$Gz1zSVQktIt1jCJsV.pjQ.ynPGu9QFSB.rTof.7kpIFdOVb9bXcre',3,'T'), -- TRIAJE
+('ANNY_CN','$2y$10$Lnz.NmRU7JA4z/YKc4yrFugoZIsfPPdKTHe1btDBkD2AxN8rCUaxW',3,'A'), -- ADMISIÓN
+('JOHAN_LR','$2y$10$Gz1zSVQktIt1jCJsV.pjQ.ynPGu9QFSB.rTof.7kpIFdOVb9bXcre',2,'T'), -- TRIAJE
 ('JUAN_ES','$2y$10$UQh.LaPu32FCgpSEzRH95OcptaBdB4g1Sk4iQwB68ez1j3GHI1cuO',4,'G'), -- GERENTE
 ('LUIS_RC','$2y$10$rJn2vkXuI.h2SNBjAZFqvePHGePHUeIQl0VTSiHtoP.LatnONSCK2',6,'E'), -- ESPECIALISTA
-('CARLOS_RG','$2y$10$U9anHsdhxwMDaBAMM79OKeG7jdgJ.8oK3ucc5JWCGJmO/n8xqN9Vq',7,'E'); -- ESPECIALISTA
+('CARLOS_RG','$2y$10$U9anHsdhxwMDaBAMM79OKeG7jdgJ.8oK3ucc5JWCGJmO/n8xqN9Vq',7,'S'); -- SERVICIO
+
 
 INSERT INTO Especialistas (codigo, idpersona) VALUES
 ('11088', 6), -- RIVA

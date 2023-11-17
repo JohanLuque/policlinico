@@ -12,7 +12,8 @@ if(isset($_POST['operacion'])){
         "motivoDevolucion"   => $_POST['motivoDevolucion'],
         "montoDevolucion"    => $_POST['montoDevolucion'],
         "idAtencion"         => $_POST['idAtencion'],
-        "idMedioPago"        => $_POST['idMedioPago']
+        "idMedioPago"        => $_POST['idMedioPago'],
+        "idUsuario"        => $_POST['idUsuario']
     ];
       $respuesta = $devolucion->registrarDevolucion($parametros);
       echo json_encode($respuesta);

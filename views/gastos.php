@@ -260,6 +260,7 @@ function validarMontoMP(){
         parametros.append("descripcionGasto", descripcion.value);
         parametros.append("montoGasto", monto.value);
         parametros.append("idPersona", idPersona);
+        parametros.append("idUsuario", idUsuario);
 
         fetch("../controllers/gasto.php", {
             method: "POST",

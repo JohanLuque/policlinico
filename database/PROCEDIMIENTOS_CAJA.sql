@@ -5,11 +5,12 @@ CREATE PROCEDURE spu_caja_registrar_pago
 (
 IN _idatencion 	INT,
 IN _idmediopago	INT,
-IN _monto			DECIMAL(7,2)
+IN _monto			DECIMAL(7,2),
+IN _idUsuario	INT
 )
 BEGIN 
-	INSERT INTO pagos (idatencion, idMedioPago, monto) VALUES
-	(_idatencion, _idmediopago, _monto);
+	INSERT INTO pagos (idatencion, idMedioPago, monto,idUsuario) VALUES
+	(_idatencion, _idmediopago, _monto, _idUsuario);
 END $$
 
 -- CAMBIAR A ESTADO (PAGADO)
@@ -90,11 +91,12 @@ CREATE PROCEDURE spu_caja_registrar_gastos
 IN _montoGasto		DECIMAL(6,2),
 IN _descripcionGasto	VARCHAR(200),
 IN _idPersona		INT, 
-IN _idMedioPago 	INT
+IN _idMedioPago 	INT,
+IN _idUsuario	INT
 )
 BEGIN
-	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago) VALUES
-	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago);
+	INSERT INTO gastos(montoGasto, descripcionGasto, idPersona, idMedioPago,idUsuario) VALUES
+	(_montoGasto, _descripcionGasto, _idPersona, _idMedioPago,_idUsuario);
 END $$
 
 -- REGISTRAR DEVOLUCION
@@ -104,11 +106,12 @@ CREATE PROCEDURE spu_caja_registrar_devolucion
 IN _motivoDevolucion		VARCHAR(400),
 IN _montoDevolucion		DECIMAL(6,2),
 IN _idAtencion			INT,
-IN _idMedioPago 		INT
+IN _idMedioPago 		INT,
+IN _idUsuario	INT
 )
 BEGIN 
-	INSERT INTO Devoluciones(motivoDevolucion, montoDevolucion, idAtencion, idMedioPago) VALUES
-	(_motivoDevolucion, _montoDevolucion, _idAtencion, _idMedioPago);
+	INSERT INTO Devoluciones(motivoDevolucion, montoDevolucion, idAtencion, idMedioPago,idUsuario) VALUES
+	(_motivoDevolucion, _montoDevolucion, _idAtencion, _idMedioPago,_idUsuario);
 END $$
 
 -- OBTENIENDO DATOS PARA REALIZAR DEVOLUCION

@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../");
 }
+$idUsuario = $_SESSION['login']['idUsuario'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -174,7 +175,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
+              <label id="usuario" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -219,6 +220,9 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {     
+      const usuario = document.querySelector("#usuario");
+      let idUsuario = usuario.dataset.id;
+      console.log(idUsuario);
       function getURL(){
         const url = new URL(window.location.href);
         const vista = url.searchParams.get("view");

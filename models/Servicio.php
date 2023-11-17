@@ -53,6 +53,26 @@ class Servicio extends Conexion{
     }
   }
 
+  public function reporteQuincenal($idservicio){
+    try{
+      $query = $this->connection->prepare("CALL spu_reporte_servicioQuincenal(?)");
+      $query->execute(array($idservicio));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
+  public function reporteMensual($idservicio,$mes){
+    try{
+      $query = $this->connection->prepare("CALL spu_reporte_servicioMensual(?,?)");
+      $query->execute(array($idservicio, $mes));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
   public function listarServiciosReporte(){
     try{
       $query = $this->connection->prepare("CALL spu_listar_servicios()");

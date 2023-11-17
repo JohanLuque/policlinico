@@ -71,7 +71,7 @@ fechaInicio		DATETIME 	NOT NULL DEFAULT NOW(),
 fechaFin		DATETIME 	NULL,
 estado			CHAR(1)		NOT NULL DEFAULT '1',
 idPersona		INT 		NOT NULL,
-CONSTRAINT uk_idpersona_usu UNIQUE(idPersona),
+CONSTRAINT uk_idpersona_usu UNIQUE(idPersona, nivelAcceso),
 CONSTRAINT fk_usuarios_usu FOREIGN KEY usuarios(idPersona) REFERENCES Personas(idPersona) 
 )ENGINE = INNODB;
 
@@ -185,7 +185,9 @@ estado						CHAR(1)			NOT NULL DEFAULT '0',
 fechaHoraPago				DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
+idUsuario				INT NOT NULL,
 CONSTRAINT fk_idate_pag FOREIGN KEY Pagos (idAtencion) REFERENCES Atenciones (idAtencion),
+CONSTRAINT fk_idusuario_pag FOREIGN KEY Detalle_Atenciones (idUsuario) REFERENCES Usuarios (idUsuario),
 CONSTRAINT fk_idmep_pag	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
 )ENGINE = INNODB;
 
@@ -198,6 +200,8 @@ motivoDevolucion		VARCHAR(100)	NOT NULL,
 fechaHoraDevolucion		DATETIME			NOT NULL DEFAULT NOW(),
 idAtencion					INT 				NULL,
 idMedioPago 				INT 				NOT NULL,
+idUsuario				INT NOT NULL,
+CONSTRAINT fk_idusuario_dev FOREIGN KEY Detalle_Atenciones (idUsuario) REFERENCES Usuarios (idUsuario),
 CONSTRAINT fk_idate_dev FOREIGN KEY Pagos (idAtencion) REFERENCES Atenciones (idAtencion),
 CONSTRAINT fk_idmep_dev	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
 )ENGINE = INNODB;
@@ -210,6 +214,8 @@ montoGasto					DECIMAL(6,2) 	NOT NULL,
 fechaHoraGasto				DATETIME			NOT NULL DEFAULT NOW(),
 idPersona					INT 		NOT NULL,
 idMedioPago 				INT 				NOT NULL,
+idUsuario				INT NOT NULL,
+CONSTRAINT fk_idusuario_gas FOREIGN KEY Detalle_Atenciones (idUsuario) REFERENCES Usuarios (idUsuario),
 CONSTRAINT fk_per_gas FOREIGN KEY Atenciones (idPersona) REFERENCES Personas (idPersona),
 CONSTRAINT fk_idmep_gas	FOREIGN KEY Pagos	(idMedioPago) REFERENCES Medio_Pagos (idMedioPago)
 )ENGINE = INNODB;
