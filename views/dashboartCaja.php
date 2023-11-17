@@ -93,52 +93,40 @@
             <div class="card w-100">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Reporte de Servicios</h5>
-                    <div class="row mt-3">
-                        <div class="col-md-5">
-                            <div class="me-4">
-                                <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
-                                <span>Servicio:</span>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <select name="" class="form-select" id=""></select>                            
+                    <div class="row mt-3">                        
+                        <div class="col-md-10">
+                            <select name="" class="form-select" id="servicios"></select>                            
                         </div>
                     </div>
-                    <!-- <div class="d-flex align-items-center">
-                        <div class="me-4">
-                            <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
-                        </div>
-                        <div>
-                            <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
-                            <span class=fs-2"">sbvijs</span>
-                        </div>
-                    </div> -->
                     <div class="row mt-4">
                         <div class="col-md-9">
+                            <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
                             <label for="">Por semana</label>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-secondary btn-circle btn-lg">
+                            <button type="button" id="Rsemana" class="d-inline-flex align-items-center justify-content-center btn btn-secondary btn-circle btn-lg">
                                 <i class="fs-5 ti ti-file-description"></i>
                             </button>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-9">
+                            <span class="round-8 text-bg-primary rounded-circle me-2 d-inline-block"></span>
                             <label for="">Por quincena</label>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-primary btn-circle btn-lg">
+                            <button type="button" id="RQuincena" class="d-inline-flex align-items-center justify-content-center btn btn-primary btn-circle btn-lg">
                                 <i class="fs-5 ti ti-file-description"></i>
                             </button>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-9">
+                            <span class="round-8 text-bg-danger rounded-circle me-2 d-inline-block"></span>
                             <label for="">Por Mes</label>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="d-inline-flex align-items-center justify-content-center btn btn-danger btn-circle btn-lg">
+                            <button type="button" id="RMensual" class="d-inline-flex align-items-center justify-content-center btn btn-danger btn-circle btn-lg">
                                 <i class="fs-5 ti ti-file-description"></i>
                             </button>
                         </div>
@@ -149,6 +137,7 @@
     </div>
 </div>
 <script>
+    // cantidad de dinero disponible
     const efectivo = document.querySelector("#mEfectivo");
     const trasferencia = document.querySelector("#mTranferencia");
     const pos = document.querySelector("#mPOS");
@@ -156,6 +145,14 @@
     const plin = document.querySelector("#mPlin");
     let totalingresos;
     const tIngresos = document.querySelector("#ingresos");
+    // reporte de servicios
+    const servicios = document.querySelector("#servicios");
+    const reporteSemanal = document.querySelector("#Rsemana");
+    const reporteQuincenal = document.querySelector("#RQuincena");
+    const reporteMensual = document.querySelector("#RMensual");
+
+
+
     function montoMedioPago(idmedio){
         const parametros = new URLSearchParams();
         parametros.append("operacion" , "montoMedioPago");
@@ -200,6 +197,40 @@
             }
         })
     }
+
+    function listarServicios(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "listarServiciosReporte");
+        fetch("../controllers/servicio.php", {
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            if(datos.length){
+                servicios.innerHTML = "<option value=''>Seleccione</option>";
+                datos.forEach(element => {
+                    const optionTag = document.createElement("option");
+                optionTag.value = element.idServicio;
+                optionTag.text = element.nombreServicio;
+                servicios.appendChild(optionTag);
+                
+                })
+            }
+        })
+    }
+    
+    reporteSemanal.addEventListener("click",() => {
+        if(servicios.value > 0){
+            const parametros = new URLSearchParams();
+            parametros.append("idservicio", servicios.value);
+            window.open(`../reports/servicio.report.php?${parametros}`, '_blank');
+        }else{
+            toast("Seleccione un servicio");
+        }
+    });
+
+    listarServicios();
     ingresos();
     montoMedioPago(1);
     montoMedioPago(2);

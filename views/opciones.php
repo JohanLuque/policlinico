@@ -1,33 +1,125 @@
 <?php
-// $opciones = [];
+$permiso = $_SESSION['login']['nivelacceso'];
+$opciones = [];
 
-// switch ($rol){
-//   case "ADM":
-//     $opciones = [
-//       ["menu" => "Atenciones", "url" => "index.php?view=atenciones.php"],
-//       ["menu" => "Pacientes", "url" => "index.php?view=pacientes.php"],
-//       ["menu" => "Especialidades", "url" => "index.php?view=especialidades.php"],
-//       ["menu" => "Servicios", "url" => "index.php?view=servicios.php"],
-//     ];
-//   break;
-//   case "CAJA":
-//     $opciones = [
-//       ["menu" => "", "url" => ""]
-//     ];
-//   break;
-//   case "TRIAJE":
-//     $opciones = [
-//         ["menu" => "", "url" => ""]
-//     ];    
-//   break;
-// }
+switch ($permiso){
+    case "G":
+        $opciones = 
+        [
+            [   "menu" => "Admisión", 
+                "url" => "index.php?view=atenciones.php",
+                "icono" => "ti ti-clipboard-text nav-small-cap-icon"
+            ],
+            [   "menu" => "Lista de atenciones", 
+                "url" => "index.php?view=atencionesListado.php",
+                "icono" => "ti ti-clipboard-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Inicio Caja", 
+                "url" => "index.php?view=dashboartCaja.php",
+                "icono" => "ti ti-shopping-cart-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Caja", 
+                "url" => "index.php?view=pagos.php",
+                "icono" => "ti ti-shopping-cart-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Gastos", 
+                "url" => "index.php?view=gastos.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
+            ],
+            [   "menu" => "Gastos", 
+                "url" => "index.php?view=gastos.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
+            ],
+            [   "menu" => "Historia Clinica", 
+                "url" => "index.php?view=historiaClinica.php",
+                "icono" => "ti ti-clipboard-heart nav-small-cap-icon"
+            ],
+            [   "menu" => "Triaje", 
+                "url" => "index.php?view=triaje.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Impresiones", 
+                "url" => "index.php?view=impresos.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Vista Doctor", 
+                "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Atención", 
+                "url" => "index.php?view=configuracionAtencion.php",
+                "icono" => "ti ti-settings nav-small-cap-icon"
+            ]
+        ];
+    break;
+    case "C":
+        $opciones = 
+        [
+            [   "menu" => "Inicio Caja", 
+                "url" => "index.php?view=dashboartCaja.php",
+                "icono" => "ti ti-shopping-cart-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Caja", 
+                "url" => "index.php?view=pagos.php",
+                "icono" => "ti ti-shopping-cart-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Gastos", 
+                "url" => "index.php?view=gastos.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
+            ]
+            
+        ];
+    break;
+    case "T":
+        $opciones = [
+            [   "menu" => "Historia Clinica", 
+                "url" => "index.php?view=historiaClinica.php",
+                "icono" => "ti ti-clipboard-heart nav-small-cap-icon"
+            ],
+            [   "menu" => "Triaje", 
+                "url" => "index.php?view=triaje.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Impresiones", 
+                "url" => "index.php?view=impresos.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ]
+        ];    
+    break;
+    case "A":
+        $opciones = [
+            [   "menu" => "Admisión", 
+                "url" => "index.php?view=atenciones.php",
+                "icono" => "ti ti-clipboard-text nav-small-cap-icon"
+            ],
+            [   "menu" => "Lista de atenciones", 
+                "url" => "index.php?view=atencionesListado.php",
+                "icono" => "ti ti-clipboard-plus nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Atención", 
+                "url" => "index.php?view=configuracionAtencion.php",
+                "icono" => "ti ti-settings nav-small-cap-icon"
+            ]
+        ];    
+    break;
+    case "D":
+        $opciones = [
+            [   
+                "menu" => "Vista Doctor", 
+                "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ]
+        ];    
+    break;
+}
 
-// foreach($opciones as $item){
-//   echo "
-//     <li class='sidebar-item bg'>
-//         <a class='sidebar-link bg-d' href='{$item['url']}' aria-expanded='false'>        
-//             <span class='hide-menu' style='color:#ffffff ;'>{$item['menu']}</span>
-//         </a>
-//     </li>
-//   ";
-//}
+    foreach($opciones as $item){
+    echo "
+        <li class='sidebar-item'>
+            <a class='sidebar-link' href='{$item['url']}' aria-expanded='false'>        
+                <i class='{$item['icono']}'></i>
+                <span class='hide-menu'>{$item['menu']}</span>
+            </a>
+        </li>
+    ";
+}

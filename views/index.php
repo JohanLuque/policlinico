@@ -52,10 +52,12 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
             
                       <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <!-- <span class="hide-menu">Opciones</span> -->
+                        <span class="hide-menu">Opciones</span>
                       </li>
+                      <?php require_once './opciones.php'; ?>     
+
                       
-                      <li class='sidebar-item'>
+                      <!-- <li class='sidebar-item'>
                         <a class='sidebar-link' href='index.php?view=atenciones.php' id="atenciones" aria-expanded='false'>        
                           <i class="ti ti-clipboard-text nav-small-cap-icon"></i>
                           <span class='hide-menu'>Admisión</span>
@@ -81,8 +83,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                           <i class="ti ti-shopping-cart-plus nav-small-cap-icon"></i>
                           <span class='hide-menu'>Caja</span>
                         </a>
-                      </li>
-          
+                      </li> -->
+<!--           
                       <li class='sidebar-item'>
                         <a class='sidebar-link' href='index.php?view=gastos.php' id="gastos" aria-expanded='false'>        
                           <i class="ti ti-coin nav-small-cap-icon"></i>
@@ -135,7 +137,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                           <i class="ti ti-settings nav-small-cap-icon"></i>
                           <span class='hide-menu'>Configuración Atención</span>
                         </a>
-                      </li>
+                      </li> -->
           
                     </ul>
                   </div>
