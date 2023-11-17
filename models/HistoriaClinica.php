@@ -68,7 +68,6 @@ class HistoriaClinica extends Conexion{
     }catch(Exception $e){
       die($e->getCode());
     }
-    return $respuesta;
   }
   public function buscarHistorias($dni=0){
     try{

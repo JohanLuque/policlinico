@@ -84,6 +84,24 @@ BEGIN
 	INSERT INTO Enfermedad_Pacientes(idEnfermedad, idDetalleAtencion) VALUES
 	(_idEnfermedad, _idDetalleAtencion);
 END$$
+
+-- vista para servicios
+DELIMITER $$
+CREATE PROCEDURE SPU_DOCTORES_LISTAR_SERVICIOS
+(
+)
+BEGIN
+	SELECT  ate.idAtencion,ate.numeroAtencion,
+		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
+	FROM atenciones ate
+	INNER JOIN personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
+	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
+	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
+	WHERE ate.estado = 1 AND ser.tipo = 'S'
+	AND ate.fechaAtencion = CURDATE()
+	ORDER BY  ate.idAtencion;
+END $$
 -- CALL spu_doctor_agregar_enfermedad(6,2)
 -- select * from Tratamiento_paciente
 -- select * from enfermedades
