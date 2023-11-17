@@ -32,5 +32,8 @@ if(isset($_POST['operacion'])){
     case 'listarTriajeHecho':
       echo json_encode($detalleAtencion->listarTriajeRealizado());
       break;
+    case 'listaServicios':
+      echo json_encode($detalleAtencion->listarAtencionesServicios());
+      break ;
   }
 }

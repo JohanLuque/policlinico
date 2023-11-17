@@ -279,7 +279,7 @@
                                         </div>
                                         <div class='col-md-6'>
                                             <button class='btn m-1 btn-danger' type='button'>
-                                                <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >ver</a>
+                                                <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Historia</a>
                                             </button>
                                         </div>
                                     </div>
