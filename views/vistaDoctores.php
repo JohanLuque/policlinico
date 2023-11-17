@@ -1,3 +1,4 @@
+<?php require_once 'permisos.php'; ?>
 <div class="container-fluid">
     <div class="card">
         <div class="mb-3 row g-2">

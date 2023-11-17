@@ -102,11 +102,16 @@ switch ($permiso){
             ]
         ];    
     break;
-    case "D":
+    case "E":
         $opciones = [
             [   
                 "menu" => "Vista Doctor", 
                 "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   
+                "menu" => "Vista Servicios", 
+                "url" => "index.php?view=vistaServicios.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
             ]
         ];    
