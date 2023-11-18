@@ -300,8 +300,8 @@
         if(e.target.classList[0] === ("historia")){
         
         const parametros = new URLSearchParams();
-        parametros.append("operacion", "resumen");
-        parametros.append("idatencion", idDetalleModal);
+        parametros.append("operacion", "obtenerDatos");
+        parametros.append("idDetalleAtenciones", idDetalleModal);
 
         fetch("../controllers/detalleServicio.php",{
             method: 'POST',
@@ -311,7 +311,7 @@
         .then(datos => {
             datos.forEach(element =>{
                 console.log(element.apellidoPaterno);
-                nombrepaciente.innerHTML=element.apellidoPaterno+" "+element.apellidoMaterno+ ", " +element.nombres;
+                nombrepaciente.innerHTML=element.ApellidosNombres;
             })
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))

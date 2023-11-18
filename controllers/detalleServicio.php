@@ -22,5 +22,8 @@ if(isset($_POST['operacion'])){
     case 'resumenAtencion':
         echo json_encode($detalleServicio->resumenAtencion($_POST['idatencion']));
       break;
+    case 'obtenerDatos':
+      echo json_encode($detalleServicio->obtenerDatos($_POST['idDetalleAtenciones']));
+      break;
   }
 }
