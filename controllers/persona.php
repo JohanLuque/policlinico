@@ -22,7 +22,8 @@ if(isset($_POST['operacion'])){
           "numeroDocumento"     => $_POST['numeroDocumento'],
           "fechaNacimiento"     => $_POST['fechaNacimiento'],
           "genero"              => $_POST['genero'],
-          "telefono"            => $_POST['telefono']
+          "telefono"            => $_POST['telefono'],
+          "distrito"            => $_POST['distrito']
         ];
         echo json_encode($persona->registrarPersona($datos));
         break;

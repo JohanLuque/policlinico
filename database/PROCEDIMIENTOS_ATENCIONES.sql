@@ -81,11 +81,17 @@ CREATE PROCEDURE spu_atenciones_registrar_persona
 	IN _numeroDocumento	VARCHAR(12),
 	IN _fechaNacimiento	DATE,
 	IN _genero				CHAR(1),
-	IN _telefono			CHAR(9)
+	IN _telefono			CHAR(9),
+	IN _distrito 		VARCHAR(100)
 )
 BEGIN
-	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono) VALUES
-	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono);
+	IF _fechaNacimiento = "" THEN SET _fechaNacimiento = NULL; END IF;
+	IF _genero = "" THEN SET _genero = NULL; END IF;
+	IF _telefono = "" THEN SET _telefono = NULL; END IF;
+	IF _distrito = "" THEN SET _distrito = NULL; END IF;
+
+	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono, distrito) VALUES
+	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono, _distrito);
 END$$
 
 -- LISTADO DE DOCTORES(ACTIVOS) spu_listar_especialistas
@@ -287,3 +293,15 @@ BEGIN
 	INSERT INTO Especialistas(idPersona, codigo) VALUES
 	(_idPersona, _codigo);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_agregar_Especialista_a_Servicios
+(
+IN _idEspecialidad 	INT,
+IN _idServicio		INT
+)
+BEGIN
+	INSERT INTO Especialistas_Servicios (idEspecialista, idServicio) VALUES
+	(_idEspecialidad,_idServicio);
+END $$
+SELECT * FROM personas;
