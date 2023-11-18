@@ -29,7 +29,7 @@ function listarServicios(){
             //console.log(idatencion);
             let color;
             let estilo;
-            if(element.estado == 1){
+            if(element.atendido == 0){
                 color = "bg-danger text-center text-white";
                 nombreBoton = "Atender";
                 colorBoton = "btn-danger";

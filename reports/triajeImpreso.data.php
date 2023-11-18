@@ -166,8 +166,8 @@
                 <tr>
                     <td class="text-center"><?=$datos['peso']?> kg</td>
                     <td class="text-center"><?=$datos['talla']?> cm</td>
-                    <td class="text-center"><?=$datos['frecuenciaCardiaca']?></td>
-                    <td class="text-center"><?=$datos['FrecuenciaRespiratoria']?></td>
+                    <td class="text-center"><?=$datos['frecuenciaCardiaca']?> min</td>
+                    <td class="text-center"><?=$datos['FrecuenciaRespiratoria']?> min</td>
                     <td class="text-center"><?=$datos['PresionArterial']?> MmHg</td>
                     <td class="text-center"><?=$datos['temperatura']?> Tc°</td>
                     <td class="text-center"><?=$datos['SaturacionOxigeno']?> %</td>
