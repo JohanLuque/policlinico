@@ -30,7 +30,7 @@ class Persona extends Conexion{
       "mensaje" => ""
     ];
     try{
-      $consulta = $this->connection->prepare("CALL spu_atenciones_registrar_persona(?,?,?,?,?,?,?,?)");
+      $consulta = $this->connection->prepare("CALL spu_atenciones_registrar_persona(?,?,?,?,?,?,?,?,?)");
       $respuesta["status"]=$consulta->execute(
         array(
           $data["nombres"],
@@ -40,7 +40,8 @@ class Persona extends Conexion{
           $data["numeroDocumento"],
           $data["fechaNacimiento"],
           $data["genero"],
-          $data["telefono"]
+          $data["telefono"],
+          $data["distrito"]
         )
       );
     }
