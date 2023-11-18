@@ -296,8 +296,9 @@
 
     let idDetalleModal;
     cardListado.addEventListener("click", (e) => {
-    if(e.target.classList[0] === ("historia")){
         idDetalleModal = parseInt(e.target.dataset.idatencion);
+        if(e.target.classList[0] === ("historia")){
+        
         const parametros = new URLSearchParams();
         parametros.append("operacion", "resumen");
         parametros.append("idatencion", idDetalleModal);

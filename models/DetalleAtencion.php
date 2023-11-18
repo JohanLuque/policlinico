@@ -92,4 +92,17 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   } 
+  public function cambiarEstadoAtendido($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL SPU_DOCTORES_CAMBIAR_ESTADO(?)");
+      $query->execute(
+        array(
+            $data['idatencion']
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

@@ -35,5 +35,12 @@ if(isset($_POST['operacion'])){
     case 'listaServicios':
       echo json_encode($detalleAtencion->listarAtencionesServicios());
       break ;
+    case 'cambiarEstado':
+      $parametros = [
+        "idatencion"          => $_POST['idatencion']
+      ];
+      $respuesta = $detalleAtencion->cambiarEstadoAtendido($parametros);
+      echo json_encode($respuesta);
+      break;
   }
 }
