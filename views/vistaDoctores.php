@@ -492,5 +492,11 @@ function limpiarTabla(){
     });
     listar();
     btnTratamiento.addEventListener("click",agregarTratamiento);
-    btnActualizar.addEventListener("click", validarForm);
+    btnActualizar.addEventListener("click", () =>{
+        mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+                if(result.isConfirmed){
+                    validarForm();
+                }
+            })
+    });
 </script>

@@ -110,13 +110,13 @@ CREATE PROCEDURE SPU_DOCTORES_LISTAR_SERVICIOS
 )
 BEGIN
 	SELECT  ate.idAtencion,ate.numeroAtencion,
-		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres', ate.estado
+		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres', ate.atendido
 	FROM atenciones ate
 	INNER JOIN personas per ON per.idPersona = ate.idPersona
 	LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
 	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
 	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
-	WHERE (ate.estado = 1 OR ate.estado = 3) AND ser.tipo = 'S'
+	WHERE ate.estado = 1  AND ser.tipo = 'S'
 	AND ate.fechaAtencion = CURDATE()
 	ORDER BY ate.`estado`;
 END $$
@@ -129,7 +129,7 @@ IN _idatencion INT
 BEGIN
 	UPDATE atenciones	SET
 		fechaActualizacion=NOW(),
-		estado = '3'
+		atendido = '1'
 		WHERE idAtencion = _idatencion;
 END $$
 -- CALL SPU_DOCTORES_CAMBIAR_ESTADO(6);

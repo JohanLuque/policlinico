@@ -360,7 +360,7 @@ function listarCards(){
                 colorBoton = "btn-info";
                 colorFondo = "bg-light-info";
                 clase = "devolucion"
-            }else{
+            }else if (element.estado == 2){
                 color = "bg-warning";
                 nombreBoton = "Resumen";
                 colorBoton = "btn-warning";
@@ -944,6 +944,10 @@ devbtAgregarPago.addEventListener("click", () => {
 totalResumen.addEventListener("keypress", (evt) =>{
     if (evt.charCode == 13){
         totalRestante.value = totalResumen.value;
+        const filasDatos = detallepagos.querySelectorAll('tbody tr');
+        filasDatos.forEach((fila) => {
+            fila.remove();
+        });
     };
 });
 
