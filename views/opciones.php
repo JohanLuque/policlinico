@@ -26,10 +26,6 @@ switch ($permiso){
                 "url" => "index.php?view=gastos.php",
                 "icono" => "ti ti-coin nav-small-cap-icon"
             ],
-            [   "menu" => "Gastos", 
-                "url" => "index.php?view=gastos.php",
-                "icono" => "ti ti-coin nav-small-cap-icon"
-            ],
             [   "menu" => "Historia Clinica", 
                 "url" => "index.php?view=historiaClinica.php",
                 "icono" => "ti ti-clipboard-heart nav-small-cap-icon"
@@ -44,6 +40,11 @@ switch ($permiso){
             ],
             [   "menu" => "Vista Doctor", 
                 "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   
+                "menu" => "Vista Servicios", 
+                "url" => "index.php?view=vistaServicios.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
             ],
             [   "menu" => "Configuración Atención", 
@@ -108,7 +109,11 @@ switch ($permiso){
                 "menu" => "Vista Doctor", 
                 "url" => "index.php?view=vistaDoctores.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
-            ],
+            ]
+        ];    
+    break;
+    case "S":
+        $opciones = [
             [   
                 "menu" => "Vista Servicios", 
                 "url" => "index.php?view=vistaServicios.php",

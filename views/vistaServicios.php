@@ -12,7 +12,6 @@
 </div>
 <script>
 const cardServicios = document.querySelector("#cardServicios");
-
 function listarServicios(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "listaServicios");
@@ -23,21 +22,39 @@ function listarServicios(){
     })
     .then(response => response.json())
     .then(datos=>{
-        console.log("todoo ok",datos)
+        cardServicios.innerHTML ="";
+        //console.log("todoo ok",datos)
         datos.forEach(element =>{
+            idatencion = element.idAtencion;
+            //console.log(idatencion);
+            let color;
+            let estilo;
+            if(element.estado == 1){
+                color = "bg-danger text-center text-white";
+                nombreBoton = "Atender";
+                colorBoton = "btn-danger";
+                colorFondo = "bg-light-danger";
+                estilo = "";
+            }else{
+                color = "bg-info text-center text-white";
+                colorBoton = "btn-info";
+                nombreBoton = "Atendido";
+                colorFondo = "bg-light-info";
+                estilo = "display: none;"
+            }
             const nuevoCard = `
                 <div class="col-md-3" >
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-header bg-danger text-center text-white" >${element.numeroAtencion}</div>
-                            <div class="card-body bg-light-danger" style="text-align: center;">
+                            <div class="card-header ${color}" >${element.numeroAtencion}</div>
+                            <div class="card-body ${colorFondo}" style="text-align: center;">
                                 <h5>${element.ApellidosNombres}</h5>
                                 <div class='mt-2 row g-2'>
                                     <div class='col-md-6'>
                                     </div>
                                     <div class='col-md-6'>
-                                        <button class='btn m-1 btn-danger' type='button'>
-                                            <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >ver</a>
+                                        <button class='btn m-1 ${colorBoton}' type='button' style='${estilo}'>
+                                            <a class='atender'  data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>${nombreBoton}</a>
                                         </button>
                                     </div>
                                 </div>
@@ -50,5 +67,25 @@ function listarServicios(){
         })
     })
 }
+let idatencion;
+cardServicios.addEventListener("click", (e) => {
+    idatencion = parseInt(e.target.dataset.idatencion);
+    if(e.target.classList[0] === ("atender")){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "cambiarEstado");
+        parametros.append("idatencion", idatencion);
+        console.log(idatencion);
+        fetch("../controllers/detalleAtencion.php",{
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            toastCheck("Atendido"); 
+            listarServicios();  
+        })
+    }
+})
+
 listarServicios();
 </script>

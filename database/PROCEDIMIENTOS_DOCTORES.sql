@@ -19,6 +19,24 @@ BEGIN
 END $$
 
 DELIMITER $$
+CREATE PROCEDURE SPU_DOCTORES_OBTENER_DATOS
+(
+IN _idDetalleAtenciones INT
+)
+BEGIN
+	SELECT detAte.`idDetalleAtenciones`,
+	CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
+	FROM detalle_atenciones detAte
+	INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
+	INNER JOIN personas per ON per.idPersona = ate.idPersona
+	LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
+	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
+	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
+	WHERE detAte.idDetalleAtenciones = _idDetalleAtenciones;
+END $$
+
+-- CALL SPU_DOCTORES_OBTENER_DATOS(2);
+DELIMITER $$
 CREATE PROCEDURE SPU_DOCTORES_REGISTRAR_DETALLE_HISTORIA
 (
 IN _idDetalleatencion 	INT,
@@ -92,16 +110,29 @@ CREATE PROCEDURE SPU_DOCTORES_LISTAR_SERVICIOS
 )
 BEGIN
 	SELECT  ate.idAtencion,ate.numeroAtencion,
-		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
+		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres', ate.estado
 	FROM atenciones ate
 	INNER JOIN personas per ON per.idPersona = ate.idPersona
 	LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
 	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
 	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
-	WHERE ate.estado = 1 AND ser.tipo = 'S'
+	WHERE (ate.estado = 1 OR ate.estado = 3) AND ser.tipo = 'S'
 	AND ate.fechaAtencion = CURDATE()
-	ORDER BY  ate.idAtencion;
+	ORDER BY ate.`estado`;
 END $$
+-- Cambiar estado a atendido
+DELIMITER $$
+CREATE PROCEDURE SPU_DOCTORES_CAMBIAR_ESTADO
+(
+IN _idatencion INT
+)
+BEGIN
+	UPDATE atenciones	SET
+		fechaActualizacion=NOW(),
+		estado = '3'
+		WHERE idAtencion = _idatencion;
+END $$
+-- CALL SPU_DOCTORES_CAMBIAR_ESTADO(6);
 -- CALL spu_doctor_agregar_enfermedad(6,2)
 -- select * from Tratamiento_paciente
 -- select * from enfermedades
