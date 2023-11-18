@@ -294,7 +294,7 @@
                 
                 <div class="mb-3 row g-2">
                   <div class="form-floating">
-                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text">
+                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
                     <label for="">
                         <i class="ti ti-user me-2 fs-4"></i>
                         Nombres
@@ -303,7 +303,7 @@
                 </div>
                 <div class="mb-3 row g-2">
                   <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
                     <label for="">
                         <i class="ti ti-user me-2 fs-4"></i>
                         Apellido Paterno
@@ -312,7 +312,7 @@
                 </div>
                 <div class="mb-3 row g-2">
                   <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
                     <label for="">
                         <i class="ti ti-user me-2 fs-4"></i>
                         Apellido Materno
@@ -326,7 +326,7 @@
                 </div>
                 <div class="mb-3 row g-2 ">
                   <div class="col-md-9">                                  
-                    <input class="form-control" id="fechaNacimiento" type="date">
+                    <input class="form-control" id="fechaNacimiento" type="date" required>
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
@@ -465,45 +465,59 @@ function mostrardivOrden(){
   }
 }
 
+function validarPacientes(){
+  if(!formPaciente.checkValidity()){
+    event.preventDefault();
+    event.stopPropagation();
+    formPaciente.classList.add('was-validated');
+  }else{
+    registrarPaciente();
+  }
+}
+
 function registrarPaciente(){
   const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
   if (!tipoDocumento) {
-      alert("Por favor, selecciona un tipo de documento.");
+      notificar("Seleccione un tipo de doc","Por favor, selecciona un tipo de documento.",2);
       return;  // No hay opción seleccionada, no continuamos
   }
   const genero = document.querySelector('input[name="options"]:checked');
   if (!genero) {
-    alert("Por favor, seleccione un genero");
+    notificar("Por favor, seleccione un genero","",2);
     return;  // No hay opción seleccionada, no continuamos
   }
-  const parametros = new URLSearchParams();
-  parametros.append("operacion", "registrarPersona");
-  parametros.append("nombres", nombres.value);
-  parametros.append("apellidoPaterno",apellidoPaterno.value);
-  parametros.append("apellidoMaterno",apellidoMaterno.value);
-  parametros.append("tipoDocumento", tipoDocumento.value);
-  parametros.append("numeroDocumento", dni.value);
-  parametros.append("fechaNacimiento", fechanacimiento.value);
-  parametros.append("genero", genero.value);
-  parametros.append("telefono", telefono.value);
-  parametros.append("distrito", distrito.value);
-  fetch("../controllers/persona.php", {
-    method : "POST",
-    body : parametros
-  })
-  .then(response => response.json())
-  .then(datos => {
-    if(datos.status){
-      toastCheck("Guardado Correctamente");   
-      modalRegistrarPersonas.toggle();
-      formPaciente.reset();
-    }else{
-      alert(datos.mensaje);
+  mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+    if(result.isConfirmed){  
+      const parametros = new URLSearchParams();
+      parametros.append("operacion", "registrarPersona");
+      parametros.append("nombres", nombres.value);
+      parametros.append("apellidoPaterno",apellidoPaterno.value);
+      parametros.append("apellidoMaterno",apellidoMaterno.value);
+      parametros.append("tipoDocumento", tipoDocumento.value);
+      parametros.append("numeroDocumento", dni.value);
+      parametros.append("fechaNacimiento", fechanacimiento.value);
+      parametros.append("genero", genero.value);
+      parametros.append("telefono", telefono.value);
+      parametros.append("distrito", distrito.value);
+      fetch("../controllers/persona.php", {
+        method : "POST",
+        body : parametros
+      })
+      .then(response => response.json())
+      .then(datos => {
+        if(datos.status){
+          toastCheck("Guardado Correctamente");   
+          modalRegistrarPersonas.toggle();
+          formPaciente.reset();
+        }else{
+          alert(datos.mensaje);
+        }
+      })
+      .catch(error => {
+        alert("Error al guardar")
+      })
     }
-  })
-  .catch(error => {
-    alert("Error al guardar")
-  })
+  }) 
 }
 
 function validar(){
@@ -1006,6 +1020,6 @@ listarEspecialistas();
 
 calcularTotal();
 listarEspecialidades();
-guardarRegistro.addEventListener("click", registrarPaciente);
+guardarRegistro.addEventListener("click", validarPacientes);
 mostrarOrden.addEventListener("click", mostrardivOrden);
 </script>
