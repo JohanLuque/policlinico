@@ -304,4 +304,3 @@ BEGIN
 	INSERT INTO Especialistas_Servicios (idEspecialista, idServicio) VALUES
 	(_idEspecialidad,_idServicio);
 END $$
-SELECT * FROM personas;

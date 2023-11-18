@@ -26,7 +26,7 @@ if(isset($_POST['operacion'])){
       $claveIngresada = $_POST['clave'];
       if (password_verify($claveIngresada, $data['clave'])){
         $resultado["acceso"] =  true;
-        $resultado["mensaje"] = "Bienvenido a las olimpiadas";
+        $resultado["mensaje"] = "Bienvenido al POLICLINICO SOLIDARIO";
         $resultado["nombres"] = $data["ApellidosNombres"];
         $resultado["idUsuario"] = $data["idUsuario"];
         $resultado["nivelacceso"] = $data["nivelAcceso"];
