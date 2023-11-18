@@ -52,4 +52,13 @@ class DetalleServicio extends Conexion{
       die($e->getCode());
     }
   }
+  public function obtenerDatos($idDetalleAtenciones){
+    try{
+      $query = $this->connection->prepare("CALL SPU_DOCTORES_OBTENER_DATOS(?)");
+      $query->execute(array($idDetalleAtenciones));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
