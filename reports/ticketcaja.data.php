@@ -1,4 +1,4 @@
-<page format="80x279" style="font: arial;">
+<page format="70x279" style="font: arial;">
     <div class="">
         <img src="../views/images/logos/ticket.png" alt="" style="width: 200px; margin-top: 3mm; margin-left: 15mm">
     </div>
@@ -6,12 +6,13 @@
         <?php foreach ($datosObtenidos as $registro):   ?>
             <div class="text-center">
                 <label>AV. SAN IDELFONSO #199</label><br>
+                <label class="text-bold mb-1">RUC:</label>
+                <label> 20609198801</label><br>
+                <label class="text-bold"> BOLETA DE VENTA</label><br>
+                <label class="text-bold">N°:</label>
+                <label><?=$registro['numeroAtencion']?></label><br>                
                 <label class="text-bold">CEL:</label>
                 <label>956784052</label><br>
-                <label class="text-bold">RUC:</label>
-                <label> 20609198801</label><br>
-                <label class="text-bold">N°:</label>
-                <label><?=$registro['numeroAtencion']?></label><br>
                 <label class="text-bold">FECHA: </label>
                 <label><?=$registro['fechaHoraPago']?></label><br>
             </div>
