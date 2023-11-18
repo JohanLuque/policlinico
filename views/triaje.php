@@ -300,7 +300,8 @@
       event.stopPropagation();
       formulario.classList.add('was-validated');
     }else{
-      comprobar();
+      //comprobar();
+      
     }
   }
   function comprobar() {
@@ -349,6 +350,7 @@
       revisar();
     } 
   }
+
   function revisar() {
     let revisado = false;
 
@@ -379,10 +381,90 @@
     } else {
       registrarTriaje();
     }
-}
+  }
+
+  
 
   registrarDetalle.addEventListener("click", validar);
   listarTriaje();
+  peso.addEventListener("change", ()=>{
+    valorPeso = parseFloat(peso.value);
 
+    if(valorPeso<=2){
+      toast("Peso invalido");
+      peso.focus()
+      return;
+    }
+
+    if (valorPeso > 150) {
+      mostrarPregunta("¿Está seguro de seguir?", "El peso es superior  a 150 kg").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          peso.focus();
+        }
+        })
+    }
+  });
+
+  talla.addEventListener("change", ()=>{
+    valorTalla = parseFloat(talla.value);
+
+    if(valorTalla<=50){
+      toast("Talla invalido");
+      talla.focus()
+      return;
+    }
+
+    if (valorTalla > 210) {
+      mostrarPregunta("¿Está seguro de seguir?", "La talla es superior  a 210 cm").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          talla.focus();
+        }
+        })
+    }
+  });
+
+  cardiaca1.addEventListener("change", ()=>{
+    valorCardiaca = parseFloat(cardiaca1.value);
+
+    if(cardiaca1<=0){
+      toast("F. Cardiaca invalida");
+      cardiaca1.focus()
+      return;
+    }
+
+    if (valorCardiaca < 60 || valorCardiaca > 72) {
+      mostrarPregunta("¿Está seguro de seguir?", "La F. Cardiaca es diferente al rango entre 60 a 72").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          cardiaca1.focus();
+        }
+        })
+    }
+  });
+
+  respiratoria1.addEventListener("change", ()=>{
+    valorRespiratoria = parseFloat(respiratoria1.value);
+
+    if(valorRespiratoria<=0){
+      toast("F. Respiratoria invalida");
+      respiratoria1.focus();
+      return;
+    }
+
+    if (valorRespiratoria < 19 || valorRespiratoria > 22) {
+      mostrarPregunta("¿Está seguro de seguir?", "La F. respiratoria es diferente al rango entre 19 a 22").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          respiratoria1.focus();
+        }
+        })
+    }
+  });
 
 </script>
