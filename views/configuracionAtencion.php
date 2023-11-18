@@ -320,7 +320,7 @@
                                             </label> 
                                           </div>                                
                                         </div>
-                                      </div>
+                                    </div>
                                     <div class="mb-3 row g-2">
                                         <div class="colmd-6"></div>
                                         <div class="col-md-3">
@@ -733,7 +733,8 @@
         .then(response => response.json())
         .then(datos => {
             if(datos.status){
-            toastCheck("Guardado Correctamente");   
+            toastCheck("Guardado Correctamente");
+            formularioPersona.reset();   
             }else{
                 consultarDNI();
             }

@@ -357,7 +357,17 @@
                     </div>                                
                   </div>
                 </div>
-                
+                <div class="mb-3 row g-2">
+                  <div class="col-md-9">  
+                    <div class="form-floating ">
+                      <input  class="form-control border" id="distrito"placeholder="a" type="text" maxlength="100">
+                      <label for="">
+                          <i class="ti ti-phone me-2 fs-4"></i>
+                          Distrito
+                      </label> 
+                    </div>                                
+                  </div>
+                </div>
               </form>
               
             </div>          
@@ -420,6 +430,7 @@ const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
 const nombres = document.querySelector("#nombrePersona");
 const fechanacimiento = document.querySelector("#fechaNacimiento");
 const telefono = document.querySelector("#telefono");
+const distrito = document.querySelector("#distrito");
 const buscar = document.querySelector("#buscar");
 const guardarRegistro = document.querySelector("#md-guardar");
 const formPaciente = document.querySelector("#form-paciente");
@@ -475,6 +486,7 @@ function registrarPaciente(){
   parametros.append("fechaNacimiento", fechanacimiento.value);
   parametros.append("genero", genero.value);
   parametros.append("telefono", telefono.value);
+  parametros.append("distrito", distrito.value);
   fetch("../controllers/persona.php", {
     method : "POST",
     body : parametros
