@@ -6,102 +6,127 @@
         <h2 class="text-center ">HISTORIA CLÍNICA</h2>
       </div>
       <div class="card-body">
-        <div class="d-sm-flex d-block align-items-center justify-content-between ">
-          <div class="mb-sm-0 text-center">
-          </div>
         <div>
+          <form id="form-historiaClinica" >
+            <div class="mb-3 row g-2">
+              <div class="form-floating col-md-5">
+                  <input type="text" class="form-control border " id="dni" placeholder="N° Documento" maxlength="10" type="tel" required>
+                  <label for="">
+                      <i class="ti ti-user me-2 fs-4"></i>
+                      N° Documento
+                  </label>
+                  <div class="invalid-feedback">
+                      Complete este campo para continuar
+                  </div>  
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-6">
+                <label class="fw-bolder text-dark" for="">Nombre Completo:</label>          
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-12">                                  
+                <input class="form-control bg-light" id="nombrePaciente" type="text" >
+              </div>
+            </div>
+            
+            <div class="mb-3 row g-2">
+              <div class="col-md-4">
+                <label class="fw-bolder text-dark" for="">Antecedente Personal:</label>          
+              </div>
+              <div class="col-md-8">                                  
+                <input class="form-control " id="antecedentePersonal" type="text" >
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-4">
+                <label class="fw-bolder text-dark" for="">Antecedente Familiar:</label>          
+              </div>
+              <div class="col-md-8">                                  
+                <input class="form-control " id="antecedenteFamiliar" type="text" >
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-4">
+                <label class="fw-bolder text-dark" for="">Antecedente Quirurgico:</label>          
+              </div>
+              <div class="col-md-8">                                  
+                <input class="form-control " id="antecedenteQuirurgico" type="text"  >
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-4">
+                <label class="fw-bolder text-dark" for="">Antecedente Otros:</label>          
+              </div>
+              <div class="col-md-8">                                  
+                <input class="form-control " id="antecedenteOtros" type="text" >
+              </div>
+            </div>                
+            <div class="mb-3 row g-2">
+              <div class="col-md-4">
+                <label class="fw-bolder text-dark"  for="">Alergias:</label>           
+              </div>
+              <div class="col-md-6">                                  
+                <select name="" id="alergias" class="form-select ">
+                    <option value=""></option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm" id="agregarAlergia" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
+              </div>
+            </div>
+            <div class="row g-2 mb-3">
+              <table id="tabla-Alergias" class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Alergia</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="cuerpoAlergias">
+                  <!-- traer datos  -->
+                </tbody>
+              </table>
+            </div>  
+            <div class="mb-3 row g-2">
+              <div class="d-grid">
+                <button id="registrar-historia" class="btn btn-danger btn-sm mt-1" type="button">Guardar</button>
+              </div> 
+            </div>
+          </form>
+        </div>  
+        
       </div>
     </div>
-    <div>
-      <form id="form-historiaClinica" >
-        <div class="mb-3 row g-2">
-          <div class="form-floating col-md-5">
-              <input type="text" class="form-control border " id="dni" placeholder="N° Documento" maxlength="10" type="tel" required>
-              <label for="">
-                  <i class="ti ti-user me-2 fs-4"></i>
-                  N° Documento
-              </label>
-              <div class="invalid-feedback">
-                  Complete este campo para continuar
-              </div>  
+  </div>
+  <div class="col-lg-6 d-flex align-items-strech">
+    <div class="card w-100">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold">Historias pendientes:</h5>
+            <p class="card-subtitle mb-0">Pendientes</p>
+          </div>          
+        </div>
+        <div class="d-flex align-items-center gap-3 py-3">
+          <div>
+            <table class="table table-responsive-md" id="sinHistorias">
+              <thead>
+                <tr>
+                  <th>N° DOC</th>
+                  <th>Paciente</th>
+                  <th>Especialidad</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="mb-3 row g-2">
-          <div class="col-md-6">
-            <label class="fw-bolder text-dark" for="">Nombre Completo:</label>          
-          </div>
-        </div>
-        <div class="mb-3 row g-2">
-          <div class="col-md-12">                                  
-            <input class="form-control bg-light" id="nombrePaciente" type="text" >
-          </div>
-        </div>
-        
-        <div class="mb-3 row g-2">
-          <div class="col-md-4">
-            <label class="fw-bolder text-dark" for="">Antecedente Personal:</label>          
-          </div>
-          <div class="col-md-8">                                  
-            <input class="form-control " id="antecedentePersonal" type="text" >
-          </div>
-        </div>
-        <div class="mb-3 row g-2">
-          <div class="col-md-4">
-            <label class="fw-bolder text-dark" for="">Antecedente Familiar:</label>          
-          </div>
-          <div class="col-md-8">                                  
-            <input class="form-control " id="antecedenteFamiliar" type="text" >
-          </div>
-        </div>
-        <div class="mb-3 row g-2">
-          <div class="col-md-4">
-            <label class="fw-bolder text-dark" for="">Antecedente Quirurgico:</label>          
-          </div>
-          <div class="col-md-8">                                  
-            <input class="form-control " id="antecedenteQuirurgico" type="text"  >
-          </div>
-        </div>
-        <div class="mb-3 row g-2">
-          <div class="col-md-4">
-            <label class="fw-bolder text-dark" for="">Antecedente Otros:</label>          
-          </div>
-          <div class="col-md-8">                                  
-            <input class="form-control " id="antecedenteOtros" type="text" >
-          </div>
-        </div>                
-        <div class="mb-3 row g-2">
-          <div class="col-md-4">
-            <label class="fw-bolder text-dark"  for="">Alergias:</label>           
-          </div>
-          <div class="col-md-6">                                  
-            <select name="" id="alergias" class="form-select ">
-                <option value=""></option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-sm" id="agregarAlergia" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
-          </div>
-        </div>
-        <div class="row g-2 mb-3">
-          <table id="tabla-Alergias" class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Alergia</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="cuerpoAlergias">
-              <!-- traer datos  -->
-            </tbody>
-          </table>
-        </div>  
-        <div class="mb-3 row g-2">
-          <div class="d-grid">
-            <button id="registrar-historia" class="btn btn-danger btn-sm mt-1" type="button">Guardar</button>
-          </div> 
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
@@ -113,6 +138,8 @@
   const antecedenteQuirurgico = document.querySelector("#antecedenteQuirurgico");
   const antecedenteOtros = document.querySelector("#antecedenteOtros");
   const antecedenteFamiliar = document.querySelector("#antecedenteFamiliar");
+  const sinHistoria = document.querySelector("#sinHistorias");
+  const cuerpoHistoria = sinHistoria.querySelector("tbody");
   const alergia = document.querySelector("#alergias");
   const tablaAlergias = document.querySelector("#tabla-Alergias");
   const agregarAlergia = document.querySelector("#agregarAlergia");
@@ -148,6 +175,33 @@
     })
   }
 
+  function listarSinHistoria(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "listarSinHistoria");
+
+    fetch("../controllers/historiaClinica.php", {
+            method: "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            let nro = 1;
+            cuerpoHistoria.innerHTML = ``;
+            datos.forEach(element => {
+                const fila =
+                    `
+                    <tr>
+                        <td>${element.numeroDocumento}</td>
+                        <td>${element.ApellidosNombres}</td>
+                        <td>${element.nombreServicio}</td>
+                    </tr>
+                    `;
+                cuerpoHistoria.innerHTML += fila;
+                nro +=1;
+            })
+        })
+  }
+  listarSinHistoria();
   function registrarHitoria(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "add");
@@ -165,6 +219,8 @@
     .then(datos=>{
       if(datos.status){
         capturandoIdhistoria();
+        listarSinHistoria();
+
       }
     })
   }
@@ -172,6 +228,7 @@
     mostrarPregunta("REGISTRAR", "¿Está seguro de guardar?").then((result) => {
       if(result.isConfirmed){
         registrarHitoria();
+        listarSinHistoria();
       }
     });  
   });
@@ -261,6 +318,7 @@
             idhistoria = element.idHistoriaClinica;
             console.log(idhistoria);
             registrarAlergiasHistoria(idhistoria);
+            listarSinHistoria();
           }
         });
       }
@@ -286,8 +344,8 @@
       .then(datos => {
         if(datos.status){
           toastCheck("Guardado correctamente");
+          listarSinHistoria();
           window.location.href = "index.php?view=triaje.php"
-
         }
       })
     }

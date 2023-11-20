@@ -586,10 +586,28 @@ function registrarAtencion(){
   .then(datos => {
       registrarServiciosDetalles();
       toastCheck("Guardado correctamente"); 
-      form.reset();
+      //form.reset();
+      limpiarFormulario();    
       limpiarTabla();
-      obtenerFecha();
   })
+}
+
+function limpiarFormulario(){
+  añosMeses.value = "";
+  dniPersonas.value = "";
+  nombrePaciente.value = "";
+  edadPaciente.value="";
+  dniFamiliar.value = "";
+  nombreFamiliar.value="";
+  parentesco.value = "";
+  otroFamiliar.value ="";
+  igv.value = "";
+  subTotal.value = "";
+  total_servicios.value = "";
+  precioProce.value = "";
+  generoProce.value = "";
+  obtenerFecha();
+  limpiarSelect();
 }
 
 function registrarServiciosDetalles() {
@@ -996,7 +1014,6 @@ btnagregarServicio.addEventListener("click", () => {
   }
   
 });
-limpiar.addEventListener("click", limpiarTodo);
 
 agregarAtencion.addEventListener("click", validar);
 

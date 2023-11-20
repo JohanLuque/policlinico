@@ -50,7 +50,6 @@ BEGIN
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idservicio
-	-- INNER JOIN Especialistas ON Especialistas.idEspecialista = Especialistas_Servicios.idEspecialista
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	WHERE Detalle_Servicios.idAtencion = _idatencion
 	GROUP BY Detalle_Servicios.idAtencion, servicios.nombreServicio, personas.nombres;
