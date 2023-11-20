@@ -320,22 +320,18 @@
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-4 fw-bolder">
+                  <div class="col-md-6 fw-bolder">
                     <label for="">Fecha Nacimiento:</label>          
                   </div>
-                </div>
-                <div class="mb-3 row g-2 ">
-                  <div class="col-md-9">                                  
-                    <input class="form-control" id="fechaNacimiento" type="date" required>
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-4 fw-bolder">
+                  <div class="col-md-6 fw-bolder">
                     <label for="">Género:</label>          
                   </div>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">       
+                <div class="mb-3 row g-2 ">
+                  <div class="col-md-6">                                  
+                    <input class="form-control" id="fechaNacimiento" type="date" required>
+                  </div>
+                  <div class="col-md-6">                                  
                     <div class="form-check form-check-inline ">                           
                       <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
                       <label class="form-check-label">Femenino</label>
@@ -344,10 +340,10 @@
                       <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
                       <label class="form-check-label">Masculino</label>
                     </div>
-                  </div> 
-                </div>                 
+                  </div>
+                </div>              
                 <div class="mb-3 row g-2">
-                  <div class="col-md-9">  
+                  <div class="col-md-6">  
                     <div class="form-floating ">
                       <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
                       <label for="">
@@ -355,17 +351,30 @@
                           Teléfono
                       </label> 
                     </div>                                
+                  </div>                  
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6 fw-bolder">
+                    <label for="">Distrito:</label>          
                   </div>
                 </div>
                 <div class="mb-3 row g-2">
-                  <div class="col-md-9">  
-                    <div class="form-floating ">
-                      <input  class="form-control border" id="distrito"placeholder="a" type="text" maxlength="100">
-                      <label for="">
-                          <i class="ti ti-phone me-2 fs-4"></i>
-                          Distrito
-                      </label> 
-                    </div>                                
+                  <div class="col-md-6">
+                    <select  class="form-select" id="distrito"> 
+                      <option value="">Seleccione</option>
+                      <option value="Chincha Alta">Chincha Alta</option>
+                      <option value="Chincha Baja">Chincha Baja</option>
+                      <option value="Grocio Prado">Grocio Prado</option>
+                      <option value="Sunampe">Sunampe</option>
+                      <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                      <option value="EL Carmen">EL Carmen</option>
+                      <option value="Alto Larán">Alto Larán</option>
+                      <option value="San Juan de Yanac">San Juan de Yanac</option>
+                      <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
+                      <option value="Tambo de Mora">Tambo de Mora</option>
+                      <option value="Chavín">Chavín</option>
+                      <option value="Foráneo">Foráneo</option>
+                    </select>                             
                   </div>
                 </div>
               </form>
@@ -566,12 +575,27 @@ function validarFecha(){
   }
 }
 
+let turno = "";
+
+function cambiarTurno() {
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    if (hora < 12) {
+        turno = "M";
+    } else {
+        turno = "T";
+    }
+    console.log(turno);
+}
+cambiarTurno();
+
+
 function registrarAtencion(){
   let listaParentesco = parentesco.value;
   const parentescoF = listaParentesco === "Otro" ? otroFamiliar.value : listaParentesco;
   const parametros = new URLSearchParams();
   parametros.append("operacion", "add");
-  parametros.append("turno", "T");
+  parametros.append("turno", turno);
   parametros.append("idusuario",idUsuario );
   parametros.append("idfamiliar", idfamiliar);
   parametros.append("idpersona", idpersona);
@@ -589,6 +613,7 @@ function registrarAtencion(){
       //form.reset();
       limpiarFormulario();    
       limpiarTabla();
+      cambiarTurno();
   })
 }
 
@@ -608,6 +633,8 @@ function limpiarFormulario(){
   generoProce.value = "";
   obtenerFecha();
   limpiarSelect();
+  cambiarTurno();
+
 }
 
 function registrarServiciosDetalles() {
@@ -742,6 +769,7 @@ const choiseFiltro = new Choices(listaServiciosFiltro, {
     itemSelectText: '',
     allowHTML: true
   });
+  cambiarTurno();
 
 //let precioProcedimiento;
 function listarServiciosFiltro() {
@@ -762,6 +790,7 @@ function listarServiciosFiltro() {
     });
     
 }
+cambiarTurno();
 
 listarServicios();
 listaServicios.addEventListener("change", () => {
