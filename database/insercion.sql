@@ -9,57 +9,60 @@ INSERT INTO Medio_Pagos (nombrePago)VALUES
 
 INSERT INTO servicios (tipo, nombreServicio) VALUES
 -- SERVICIOS
-1('S', 'Laboratorio clínico'),
-2('S', 'Ecografía'),
-3('S', 'Rayos X'),
-4('S', 'Tópico'),
-5('S', 'Resonancia magnetica'),
+('S', 'Laboratorio clínico'),
+('S', 'Ecografía'),
+('S', 'Rayos X'),
+('S', 'Tópico'),
+('S', 'Resonancia magnetica'),
 -- ESPECIALIDADES
-6('E', 'Medicina General'),
-7('E', 'Medicina Interna'),
-8('E', 'Pediatría'),
-9('E', 'Ginecología'),
-10('E', 'Cirugía general'),
-11('E', 'Neurología'),
-12('E', 'Traumatología'),
-13('E', 'Terapia física y rehabilitación'),
-14('E', 'Urología'),
-15('E', 'Dermatología'),
-16('E', 'Cardiología'),
-17('E', 'Psicología'),
-18('E', 'Neumología'),
-19('E', 'Otorrinolaringología'),
-20('E', 'Tomografia'),
-21('E', 'Odontología'),
-22('E', 'Odontopediatria');
+('E', 'Medicina General'),
+('E', 'Medicina Interna'),
+('E', 'Pediatría'),
+('E', 'Ginecología'),
+('E', 'Cirugía general'),
+('E', 'Neurología'),
+('E', 'Traumatología'),
+('E', 'Terapia física y rehabilitación'),
+('E', 'Urología'),
+('E', 'Dermatología'),
+('E', 'Cardiología'),
+('E', 'Psicología'),
+('E', 'Neumología'),
+('E', 'Otorrinolaringología'),
+('E', 'Tomografia'),
+('E', 'Odontología'),
+('E', 'Odontopediatria');
 
 
 INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono, distrito) VALUES
-('IRENE ALEJANDRA','SUAREZ','MATIAS','N','76364010','2002-01-31','F',NULL,'CHINCHA ALTA'), 	-- A
-('JOHAN ALBERTO','LUQUE','RAMOS','N','71789712','2003-02-24','M',NULL,'EL CARMEN'),		-- T	
-('ANNY FABIOLA', 'CABRERA','NAPA', 'N', '71788436','2003-07-16','F',NULL,'CHINCHA ALTA'), -- C
-('JUAN', 'ESPINOZA','SANCHEZ', 'N', '41256398','1990-07-20','M',NULL,'CHINCHA BAJA'), -- G
-('ESTER', 'GONZALES','CHICO', 'N', '36521498','1994-01-15','F',NULL,'GROCIO PRADO'), 
-('LUIS', 'RIVA','CADENAS', 'N', '74125863','1989-05-15','M',NULL,'FORANEO'),	    -- E
-('CARLOS', 'REYES','GARCIA', 'N', '74125864','1991-06-24','M',NULL,'CHINCHA ALTA'); -- E
+('WILLIAMS JAVIER','CHUMPITAZ','GAMARRA','N','10455420','1976-07-26','M',NULL,'CHINCHA ALTA'), 	-- G
+('RICHARD ANDERSON','DE LA CRUZ','CAMPOS','N','74556725','2003-03-09','M',NULL,'ALTO LARAN'),		-- G	
+('MELANY NAYELI', 'AGUIRRE','FERNANDEZ', 'N', '71716027','2004-10-17','F',NULL,'CHINCHA ALTA'), -- A
+('ENZO EFRAIN', 'RISCO','VÁSQUEZ', 'N', '46391849','1990-06-23','M',NULL,'FORANEO'), -- CIRUJIA
+('LUIS EDUARDO', 'RIVA','CADENAS', 'N', '43406872','1952-07-15','M',NULL,'FORANEO'), 
+('CARLOS ALBERTO', 'REYES','GARCIA', 'N', '46430425','1990-07-23','M',NULL,'FORANEO'),	    -- S
+('PAMELA ALEJANDRA', 'LUQUE','DONAYRE', 'N', '73458545','2001-10-05','F',NULL,'CHINCHA BAJA'),
+('JAZMIN JULIZA', 'CASTRO','VASQUEZ', 'N', '45397454','1988-07-21','F',NULL,'SUNAMPE'),
+('AUGUSTO AMERICO', 'TORRES','MAGALLANES', 'N', '70051404','1997-03-06','M',NULL,'CHINCHA ALTA'),
+('ALISSON DANIELA', 'TORRES','SARAVIA', 'N', '70758550','2006-01-21','F',NULL,'GROCIO PRADO'),
+('FABIANA ANDREA', 'TASAYCO','RAMOS', 'N', '72793047','2001-08-01','F',NULL,'CHINCHA ALTA'),
+('JUDITH ROSMERY', 'PACHAS','ESTEBAN', 'N', '72500480','2006-03-06','F',NULL,'CHINCHA ALTA');
+
+
 
 INSERT INTO usuarios (nombreusuario,clave,idpersona,nivelAcceso) VALUES
-('IRENE_SM','$2y$10$qDspv2dEA7.jvQjS5gU12OxTrlopbXEXPParkCzqtZBElDs6GATeC',1,'C'), -- CAJA 
-('ANNY_CN','$2y$10$Lnz.NmRU7JA4z/YKc4yrFugoZIsfPPdKTHe1btDBkD2AxN8rCUaxW',3,'A'), -- ADMISIÓN
-('JOHAN_LR','$2y$10$Gz1zSVQktIt1jCJsV.pjQ.ynPGu9QFSB.rTof.7kpIFdOVb9bXcre',2,'T'), -- TRIAJE
-('JUAN_ES','$2y$10$UQh.LaPu32FCgpSEzRH95OcptaBdB4g1Sk4iQwB68ez1j3GHI1cuO',4,'G'), -- GERENTE
-('LUIS_RC','$2y$10$rJn2vkXuI.h2SNBjAZFqvePHGePHUeIQl0VTSiHtoP.LatnONSCK2',6,'E'), -- ESPECIALISTA
-('CARLOS_RG','$2y$10$U9anHsdhxwMDaBAMM79OKeG7jdgJ.8oK3ucc5JWCGJmO/n8xqN9Vq',7,'S'); -- SERVICIO
+('WILLIAMS_CG','$2y$10$qDspv2dEA7.jvQjS5gU12OxTrlopbXEXPParkCzqtZBElDs6GATeC',1,'G');
 
 
 INSERT INTO Especialistas (codigo, idpersona) VALUES
-('11088', 6), -- RIVA
-('13254', 7); -- CARLOS
+('11088', 5), -- RIVA
+('13254', 6), -- CARLOS
+(NULL, 100); -- CARLOS
 
 INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
-(1,2),
-(1,9),
-(2,1);
+(1,7),
+(2,1),
+(3,3);
 
 INSERT INTO Enfermedades(codigoCie_10, descripcion)VALUES
 ('A00-B99','Ciertas enfermedades infecciosas y parasitarias'),
