@@ -153,7 +153,7 @@ BEGIN
 	SELECT Servicios.idServicio, servicios.nombreServicio, servicios_detalle.idservicios_detalle, servicios_detalle.descripcion, servicios_detalle.precio, servicios_detalle.genero
 	FROM Servicios
 	INNER JOIN servicios_detalle ON servicios_detalle.idServicio = Servicios.idServicio 
-	WHERE Servicios.idServicio = _idServicio;
+	WHERE Servicios.idServicio = _idServicio AND servicios_detalle.estado = '1';
 END $$
 
 -- LISTAR ATENCIONES spu_listar_atenciones

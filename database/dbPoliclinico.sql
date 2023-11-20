@@ -49,6 +49,7 @@ CREATE TABLE servicios_detalle
 	descripcion 			VARCHAR(100) NOT NULL,
 	precio 					DECIMAL(7,2) NOT NULL,
 	genero					CHAR(1) NULL DEFAULT NULL,
+	estado			CHAR(1) NOT NULL DEFAULT '1',
 	CONSTRAINT fk_idservicios_serdet FOREIGN KEY (idservicio) REFERENCES Servicios(idServicio)	
 )ENGINE = INNODB;
 CREATE TABLE Enfermedades
