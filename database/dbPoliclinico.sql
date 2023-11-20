@@ -152,7 +152,7 @@ CREATE TABLE Detalle_Atenciones
 (
 idDetalleAtenciones 		INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 peso				DECIMAL(5,2) 	NOT NULL,
-talla				TINYINT	NOT NULL,
+talla				INT	NOT NULL,
 frecuenciaCardiaca		VARCHAR(5)	NOT NULL,
 frecuenciaRespiratoria		VARCHAR(5) 	NOT NULL,
 presionArterial			VARCHAR(10) 	NOT NULL,

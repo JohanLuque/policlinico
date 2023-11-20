@@ -33,7 +33,7 @@
                                             <label for="">Nombre:</label>          
                                         </div>
                                         <div class="col-md-8">
-                                            <input class="form-control form-control-sm" id="nombreServicio" type="text" required>
+                                            <input class="form-control" id="nombreServicio" type="text" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
@@ -72,7 +72,7 @@
                                             <label for="">Descripción:</label>          
                                         </div>
                                         <div class="col-md-8">
-                                            <input class="form-control form-control-sm" id="descripcionServicio" type="tex" required>
+                                            <input class="form-control" id="descripcionServicio" type="tex" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
@@ -80,7 +80,7 @@
                                             <label for="">Precio:</label>          
                                         </div>
                                         <div class="col-md-8">
-                                            <input class="form-control form-control-sm" id="precioServicio" type="number" required>
+                                            <input class="form-control" id="precioServicio" type="number" required>
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
