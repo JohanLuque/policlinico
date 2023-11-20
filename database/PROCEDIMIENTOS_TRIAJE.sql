@@ -40,7 +40,7 @@ CREATE PROCEDURE spu_triaje_agregar_triaje
 IN _idatencion 	INT,
 IN _idhistoria 	INT,
 IN _peso 	DECIMAL(5,2),
-IN _talla	TINYINT,
+IN _talla	INT,
 IN _frecuenciaCardiaca 		VARCHAR(5),
 IN _frecuenciaRespiratoria 	VARCHAR(5),
 IN _presionArterial 		VARCHAR(10),

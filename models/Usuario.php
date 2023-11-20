@@ -21,5 +21,26 @@ class Usuario extends Conexion{
         }
         
     }
+    public function registrarUsuario($data = []){
+        $respuesta = [
+          "status" => false,
+          "mensaje" => ""
+        ];
+        try{
+          $consulta = $this->connection->prepare("CALL spu_atenciones_agregar_Usuarios(?,?,?,?)");
+          $respuesta["status"]=$consulta->execute(
+            array(
+              $data["idPersona"],
+              $data["nombreUsuario"],
+              $data["clave"],
+              $data["nivelAcceso"]
+            )
+          );
+        }
+        catch(Exception $e){
+          $respuesta["mensaje"] = "No se pudo guardar. Codigo ". $e->getMessage();
+        }
+        return $respuesta;
+      }
 
 }

@@ -127,7 +127,7 @@
                                 <form id="form-especialistas" autocomplete="off">
                                     <div class="mb-3 row g-2">
                                         <div class="col-md-3">
-                                            <label for="">dni:</label>          
+                                            <label for="">DNI:</label>          
                                         </div>
                                         <div class="col-md-9">
                                             <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>

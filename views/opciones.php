@@ -50,6 +50,10 @@ switch ($permiso){
             [   "menu" => "Configuración Atención", 
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Admin", 
+                "url" => "index.php?view=configuracionAdmin.php",
+                "icono" => "ti ti-settings nav-small-cap-icon"
             ]
         ];
     break;
