@@ -136,6 +136,16 @@ class HistoriaClinica extends Conexion{
     }
   }
 
+  public function listarTriajeNoHayHistoria(){
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_nohay_historia()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
   public function detalleHistoriaClinica($data =[]){
     $respuesta = [
       "status" => false,

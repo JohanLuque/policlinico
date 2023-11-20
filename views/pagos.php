@@ -405,7 +405,7 @@ function listarCards(){
         })
     })
     .catch(error => {
-        alert("No se pudieron obtener los datos.");
+        console.log(error);
     });
 }
 cardresumen.addEventListener("click", (event) => {

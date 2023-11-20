@@ -213,7 +213,6 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio) VALUES
 (2,'ECO ABDOMINAL SUPERIOR','60.00'),
 (2,'ECO COMPLETA','60.00'),
 (2,'ECO DE CUELLO','60.00'),
-(2,'ECO DE PROSTATA','60.00'),
 (2,'ECO DE VEJIGA','60.00'),
 (2,'ECO DOPLER 1 MIEMBRO','120.00'),
 (2,'ECO DOPLER 2 MIEMBROS','200.00'),
@@ -495,6 +494,7 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 (1,'PSA LIBRE','60.00','M'),
 -- ECOGRAFIA
 (2,'ECO 4D','100.00', 'F'),
+(2,'ECO DE PROSTATA','60.00','M'),
 (2,'ECO 5D','100.00', 'F'),
 (2,'ECO OBSTÉTRICA','60.00', 'F'),
 (2,'ECO MAMAS','60.00', 'F'),

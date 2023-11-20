@@ -28,6 +28,9 @@ if(isset($_POST['operacion'])){
     case 'listarTriaje':
       echo json_encode($historiaClininca->listarTriajeHistorias());
       break;
+    case 'listarSinHistoria':
+      echo json_encode($historiaClininca->listarTriajeNoHayHistoria());
+      break;
     case 'obtenerDatosTriaje':
       echo json_encode($historiaClininca->obtenerDatosTriaje($_POST['idatencion']));
       break;
