@@ -300,7 +300,7 @@
       event.stopPropagation();
       formulario.classList.add('was-validated');
     }else{
-      //comprobar();
+      comprobar();
       
     }
   }
@@ -314,11 +314,11 @@
     valorTemperatura = parseFloat(temperatura.value);
     valorSaturacion = parseFloat(saturacionOxigeno.value);
 
-    if(valorPeso<=0){
+    if(valorPeso<=0 || valorPeso >160){
       toast("Peso invalido");
       peso.focus()
       return;
-    }else if(valorTalla<=0){
+    }else if(valorTalla<=0 || valorTalla > 300){
       toast("talla invalida");
       talla.focus();
       return;
@@ -347,7 +347,7 @@
       saturacionOxigeno.focus();
       return;
     }else{
-      revisar();
+      registrarTriaje();
     } 
   }
 
@@ -389,13 +389,6 @@
   listarTriaje();
   peso.addEventListener("change", ()=>{
     valorPeso = parseFloat(peso.value);
-
-    if(valorPeso<=2){
-      toast("Peso invalido");
-      peso.focus()
-      return;
-    }
-
     if (valorPeso > 150) {
       mostrarPregunta("¿Está seguro de seguir?", "El peso es superior  a 150 kg").then((result) => {
         if(result.isConfirmed){
@@ -409,13 +402,6 @@
 
   talla.addEventListener("change", ()=>{
     valorTalla = parseFloat(talla.value);
-
-    if(valorTalla<=50){
-      toast("Talla invalido");
-      talla.focus()
-      return;
-    }
-
     if (valorTalla > 210) {
       mostrarPregunta("¿Está seguro de seguir?", "La talla es superior  a 210 cm").then((result) => {
         if(result.isConfirmed){
@@ -430,12 +416,6 @@
   cardiaca1.addEventListener("change", ()=>{
     valorCardiaca = parseFloat(cardiaca1.value);
 
-    if(cardiaca1<=0){
-      toast("F. Cardiaca invalida");
-      cardiaca1.focus()
-      return;
-    }
-
     if (valorCardiaca < 60 || valorCardiaca > 72) {
       mostrarPregunta("¿Está seguro de seguir?", "La F. Cardiaca es diferente al rango entre 60 a 72").then((result) => {
         if(result.isConfirmed){
@@ -449,13 +429,6 @@
 
   respiratoria1.addEventListener("change", ()=>{
     valorRespiratoria = parseFloat(respiratoria1.value);
-
-    if(valorRespiratoria<=0){
-      toast("F. Respiratoria invalida");
-      respiratoria1.focus();
-      return;
-    }
-
     if (valorRespiratoria < 19 || valorRespiratoria > 22) {
       mostrarPregunta("¿Está seguro de seguir?", "La F. respiratoria es diferente al rango entre 19 a 22").then((result) => {
         if(result.isConfirmed){
@@ -467,4 +440,59 @@
     }
   });
 
+  presionArterial1.addEventListener("change", ()=>{
+    valorPresionArterial1 = parseFloat(presionArterial1.value);
+
+    if (valorPresionArterial1 < 120 || valorPresionArterial1 > 140) {
+      mostrarPregunta("¿Está seguro de seguir?", "La P. arterial es diferente al rango entre 120 a 140").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          presionArterial1.focus();
+        }
+        })
+    }
+  });
+
+  presionArterial2.addEventListener("change", ()=>{
+    valorPresionArterial2 = parseFloat(presionArterial2.value);
+
+    if (valorPresionArterial2 < 80 || valorPresionArterial2 > 90) {
+      mostrarPregunta("¿Está seguro de seguir?", "La F. respiratoria es diferente al rango entre 80 a 90").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          presionArterial2.focus();
+        }
+        })
+    }
+  });
+
+  temperatura.addEventListener("change", ()=>{
+    valorTemperatura = parseFloat(temperatura.value);
+
+    if (valorTemperatura < 35 || valorTemperatura > 37) {
+      mostrarPregunta("¿Está seguro de seguir?", "La temperatura es diferente al rango entre 35 a 37").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          temperatura.focus();
+        }
+        })
+    }
+  });
+
+  saturacionOxigeno.addEventListener("change", ()=>{
+    valorSaturacion = parseFloat(saturacionOxigeno.value);
+
+    if (valorSaturacion < 95 || valorSaturacion > 99) {
+      mostrarPregunta("¿Está seguro de seguir?", "La saturacion es diferente al rango entre 95 a 99").then((result) => {
+        if(result.isConfirmed){
+
+        }else{
+          saturacionOxigeno.focus();
+        }
+        })
+    }
+  });
 </script>

@@ -304,3 +304,16 @@ BEGIN
 	INSERT INTO Especialistas_Servicios (idEspecialista, idServicio) VALUES
 	(_idEspecialidad,_idServicio);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_agregar_Usuarios
+(
+IN _idPersona		INT,
+IN _nombreUsuario 	VARCHAR(200),
+IN _clave 		VARCHAR(200),
+IN _nivelAcceso		CHAR(1)
+)
+BEGIN
+	INSERT INTO usuarios (idPersona, nombreUsuario, clave, nivelAcceso) VALUES
+	(_idPersona, _nombreUsuario, _clave, _nivelAcceso);
+END $$

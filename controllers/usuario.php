@@ -41,6 +41,20 @@ if(isset($_POST['operacion'])){
     
     echo json_encode($resultado);
   }
+  if($_POST['operacion'] == 'registrarUsuario'){
+
+    $claveOriginal = $_POST['clave'];
+    $claveEncriptada = password_hash($claveOriginal, PASSWORD_BCRYPT);
+
+    $datos = 
+        [
+          "idPersona"         => $_POST['idPersona'],
+          "nombreUsuario"      => $_POST['nombreUsuario'],
+          "clave"             => $claveEncriptada,
+          "nivelAcceso"       => $_POST['nivelAcceso']
+        ];
+        echo json_encode($usuario->registrarUsuario($datos));
+  }
 }
 
 if (isset($_GET['operacion']) == 'destroy'){
@@ -48,5 +62,6 @@ if (isset($_GET['operacion']) == 'destroy'){
   session_unset();
   header("location:../");
 }
+
 
 ?>
