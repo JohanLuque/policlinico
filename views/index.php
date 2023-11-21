@@ -4,6 +4,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../");
 }
 $idUsuario = $_SESSION['login']['idUsuario'];
+$nombreUsuario = $_SESSION['login']['usuario'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -49,103 +50,12 @@ $idUsuario = $_SESSION['login']['idUsuario'];
               <div class="simplebar-offset selected" style="right: 0px; bottom: 0px;">
                 <div class="simplebar-content-wrapper selected" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
                   <div  class="simplebar-content selected" style="padding: 0px 24px;">
-                    <ul id="sidebarnav" class="in">
-            
+                    <ul id="sidebarnav" class="in">            
                       <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">Opciones</span>
                       </li>
-                      <?php require_once './opciones.php'; ?>     
-
-                      
-                      <!-- <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=atenciones.php' id="atenciones" aria-expanded='false'>        
-                          <i class="ti ti-clipboard-text nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Admisión</span>
-                        </a>
-                      </li>
-                      
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=atencionesListado.php' id="atenciones" aria-expanded='false'>        
-                          <i class="ti ti-clipboard-plus nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Lista de atenciones</span>
-                        </a>
-                      </li>
-
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=dashboartCaja.php' id="Dashboartpagos" aria-expanded='false'>        
-                          <i class="ti ti-shopping-cart-plus nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Inicio Caja</span>
-                        </a>
-                      </li>
-
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=pagos.php' id="pagos" aria-expanded='false'>        
-                          <i class="ti ti-shopping-cart-plus nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Caja</span>
-                        </a>
-                      </li> -->
-<!--           
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=gastos.php' id="gastos" aria-expanded='false'>        
-                          <i class="ti ti-coin nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Gastos</span>
-                        </a>
-                      </li>
-          
-                      <li class='sidebar-item '>
-                        <a class='sidebar-link has-arrow' href='#' id="AtencionMedica" aria-expanded='false'>        
-                          <span class='d-flex'>
-                            <i class="ti ti-heart-plus nav-small-cap-icon"></i>                
-                          </span>
-                          <span class="hide-menu">Atención Médica</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                            <a href="index.php?view=historiaClinica.php" class="sidebar-link">
-                              <div class="round-16 d-flex align-items-center justify-content-center">
-                                <i class="ti ti-clipboard-heart nav-small-cap-icon"></i>
-                              </div>
-                              <span class='hide-menu'>Historia Clinica</span>
-                            </a>
-                          </li>
-                          <li class="sidebar-item">                  
-                            <a href="index.php?view=triaje.php" class="sidebar-link">
-                              <div class="round-16 d-flex align-items-center justify-content-center">
-                                <i class="ti ti-heartbeat nav-small-cap-icon"></i>
-                              </div>
-                              <span class='hide-menu'>Triaje</span>
-                            </a>
-                          </li>
-                          <li class="sidebar-item">                  
-                            <a href="index.php?view=impresos.php" class="sidebar-link">
-                              <div class="round-16 d-flex align-items-center justify-content-center">
-                                <i class="ti ti-heartbeat nav-small-cap-icon"></i>
-                              </div>
-                              <span class='hide-menu'>Impresiones</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=vistaDoctores.php' id="gastos" aria-expanded='false'>        
-                          <i class="ti ti-stethoscope nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Vista Doctor</span>
-                        </a>
-                      </li>
-                      <li class='sidebar-item'>
-                        <a class='sidebar-link' href='index.php?view=vistaServicios.php' id="gastos" aria-expanded='false'>        
-                          <i class="ti ti-stethoscope nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Vista Servicios</span>
-                        </a>
-                      </li>
-                      <li class='sidebar-item '>
-                        <a class='sidebar-link' href='index.php?view=configuracionAtencion.php' id="pagos" aria-expanded='false'>        
-                          <i class="ti ti-settings nav-small-cap-icon"></i>
-                          <span class='hide-menu'>Configuración Atención</span>
-                        </a>
-                      </li> -->
-          
+                      <?php require_once './opciones.php'; ?>             
                     </ul>
                   </div>
 
@@ -175,7 +85,7 @@ $idUsuario = $_SESSION['login']['idUsuario'];
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label id="usuario" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
+              <label id="usuario" data-nomusuario="<?= $nombreUsuario?>" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -222,7 +132,8 @@ $idUsuario = $_SESSION['login']['idUsuario'];
     document.addEventListener("DOMContentLoaded", () => {     
       const usuario = document.querySelector("#usuario");
       let idUsuario = usuario.dataset.id;
-      console.log(idUsuario);
+      let nombreUsuario = usuario.dataset.nomusuario;
+      console.log(nombreUsuario);
       function getURL(){
         const url = new URL(window.location.href);
         const vista = url.searchParams.get("view");
