@@ -9,29 +9,29 @@ INSERT INTO Medio_Pagos (nombrePago)VALUES
 
 INSERT INTO servicios (tipo, nombreServicio) VALUES
 -- SERVICIOS
-('S', 'Laboratorio clínico'),
-('S', 'Ecografía'),
-('S', 'Rayos X'),
-('S', 'Tópico'),
-('S', 'Resonancia magnetica'),
+('S', 'LABORATORIO CLÍNICO'),
+('S', 'ECOGRAFÍA'),
+('S', 'RAYOS X'),
+('S', 'TÓPICO'),
+('S', 'RESONANCIA MAGNÉTICA'),
 -- ESPECIALIDADES
-('E', 'Medicina General'),
-('E', 'Medicina Interna'),
-('E', 'Pediatría'),
-('E', 'Ginecología'),
-('E', 'Cirugía general'),
-('E', 'Neurología'),
-('E', 'Traumatología'),
-('E', 'Terapia física y rehabilitación'),
-('E', 'Urología'),
-('E', 'Dermatología'),
-('E', 'Cardiología'),
-('E', 'Psicología'),
-('E', 'Neumología'),
-('E', 'Otorrinolaringología'),
-('E', 'Tomografia'),
-('E', 'Odontología'),
-('E', 'Odontopediatria');
+('E', 'MEDICINA GENERAL'),
+('E', 'MEDICINA INTERNA'),
+('E', 'PEDIATRÍA'),
+('E', 'GINECOLOGÍA'),
+('E', 'CIRUGÍA GENERAL'),
+('E', 'NEUROLOGÍA'),
+('E', 'TRAUMATOLOGÍA'),
+('E', 'TERAPIA FÍSICA Y REHABILITACIÓN'),
+('E', 'UROLOGÍA'),
+('E', 'DERMATOLOGÍA'),
+('E', 'CARDIOLOGÍA'),
+('E', 'PSICOLOGÍA'),
+('E', 'NEUMOLOGÍA'),
+('E', 'OTORRINOLARINGOLOGÍA'),
+('E', 'TOMOGRAFÍA'),
+('E', 'ODONTOLOGÍA'),
+('E', 'ODONTOPEDIATRÍA');
 
 
 INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono, distrito) VALUES
