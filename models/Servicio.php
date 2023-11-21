@@ -113,4 +113,18 @@ class Servicio extends Conexion{
     }
     return $respuesta;
   }
+
+  public function cambiarEstadoProcedimiento($data =[]){
+    try{
+      $query = $this->connection->prepare("CALL spu_atenciones_cambiar_estado_procedimientos(?)");
+      $query->execute(
+        array(
+            $data['idservicios_detalle']
+        )
+      );
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }

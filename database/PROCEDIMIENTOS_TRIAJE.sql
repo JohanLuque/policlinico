@@ -234,3 +234,28 @@ BEGIN
 		AND idDetalleAtenciones = _iddetalle
 		GROUP BY idDetalleAtenciones;
 END $$
+
+-- REGISTRAR ALERGIA
+DELIMITER$$
+CREATE PROCEDURE spu_triaje_registrar_alergia
+(
+IN _alergia VARCHAR(100)
+)
+BEGIN
+	INSERT INTO alergias (alergia) VALUES
+	(_alergia);
+END $$
+
+-- ELIMINAR PROCEDIMIENTO
+DELIMITER $$
+CREATE PROCEDURE spu_atenciones_cambiar_estado_procedimientos
+(
+IN _idservicios_detalle INT
+)
+BEGIN
+	UPDATE servicios_detalle	SET
+		estado = '0'
+		WHERE idservicios_detalle = _idservicios_detalle;
+END $$
+
+-- call spu_atenciones_cambiar_estado_procedimientos(1);

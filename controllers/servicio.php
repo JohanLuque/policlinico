@@ -35,5 +35,12 @@ if(isset($_POST['operacion'])){
         ];
         echo json_encode($servicio->agregarServicios($parametros));
       break;
+    case 'cambiarEstado':
+      $parametros = [
+        "idservicios_detalle" => $_POST['idservicios_detalle']
+      ];
+      $respuesta = $servicio->cambiarEstadoProcedimiento($parametros);
+      echo json_encode($respuesta);
+      break;
   }
 }
