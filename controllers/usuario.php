@@ -55,6 +55,25 @@ if(isset($_POST['operacion'])){
         ];
         echo json_encode($usuario->registrarUsuario($datos));
   }
+  if($_POST['operacion'] == 'listarUsuario'){
+    echo json_encode($usuario->listar($_POST['estado']));
+  }
+  if($_POST['operacion'] == 'eliminarUsuario') {
+    $data = $usuario->login($_POST['idusuario']);
+
+    if($data){
+
+      $claveIngresada = $_POST['clave'];
+      if (password_verify($claveIngresada, $data['clave'])){
+        echo json_encode($usuario->eliminarUsuario($_POST['idusuario'])); 
+      }else{
+        echo json_encode(["mensaje" => "incorrecto"]); 
+      }
+    }else{
+      echo json_encode(["mensaje" => "no existe"]); 
+    }
+
+  }
 }
 
 if (isset($_GET['operacion']) == 'destroy'){
