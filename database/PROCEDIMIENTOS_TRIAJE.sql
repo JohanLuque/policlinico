@@ -246,6 +246,18 @@ BEGIN
 	(_alergia);
 END $$
 
+-- REGISTRAR ENFERMEDADES
+DELIMITER$$
+CREATE PROCEDURE spu_triaje_registrar_enfermedades
+(
+IN _codigoCie_10 VARCHAR(10),
+IN _descripcion VARCHAR(200)
+)
+BEGIN
+	INSERT INTO Enfermedades(codigoCie_10, descripcion) VALUES
+	(_codigoCie_10, _descripcion);
+END$$
+
 -- ELIMINAR PROCEDIMIENTO
 DELIMITER $$
 CREATE PROCEDURE spu_atenciones_cambiar_estado_procedimientos

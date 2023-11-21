@@ -223,4 +223,21 @@ class HistoriaClinica extends Conexion{
     }
     return $respuesta;
   }
+  public function registrarEnfermedades($datos = []){
+    $respuesta = [
+      "status" => false,
+      "message" => ""
+    ];
+    try{
+      $query = $this->connection->prepare("CALL spu_triaje_registrar_enfermedades(?,?)");
+      $respuesta["status"] = $query->execute(array(
+        $datos["codigoCie_10"],
+        $datos["descripcion"]
+      ));
+    }
+    catch(Exception $e){
+      $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
+    }
+    return $respuesta;
+  }
 }
