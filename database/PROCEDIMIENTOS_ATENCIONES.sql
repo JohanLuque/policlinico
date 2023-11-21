@@ -340,10 +340,6 @@ IN _idusuario INT
 BEGIN 
 	UPDATE Usuarios SET
 		fechaFin = NOW(),
-		estado = '1'
+		estado = '0'
 	WHERE idUsuario = _idusuario;
 END $$
-
--- call spu_admision_eliminar_usuarios(4)
--- call spu_admision_listar_usuarios(1)
--- select * from usuarios

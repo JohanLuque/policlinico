@@ -62,7 +62,7 @@ if(isset($_POST['operacion'])){
     echo json_encode($usuario->listar($_POST['estado']));
   }
   if($_POST['operacion'] == 'eliminarUsuario') {
-    $data = $usuario->login($_POST['idusuario']);
+    $data = $usuario->login($_POST['nombreUsuario']);
 
     if($data){
 
