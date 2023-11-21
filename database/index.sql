@@ -16,7 +16,18 @@ BEGIN
 	WHERE nombreUsuario = _nombreUsuario;
 END $$
 
-
+DELIMITER $$
+CREATE PROCEDURE SPU_LOGIN_GetData
+(
+	IN _idUsuario INT
+)
+BEGIN
+	SELECT 	Usuarios.idUsuario, 
+		usuarios.nombreUsuario, 
+		usuarios.clave, idPersona
+	FROM Usuarios
+	WHERE nombreUsuario = _idUsuario;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_contadores()

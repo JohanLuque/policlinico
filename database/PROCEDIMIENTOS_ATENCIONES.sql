@@ -317,3 +317,33 @@ BEGIN
 	INSERT INTO usuarios (idPersona, nombreUsuario, clave, nivelAcceso) VALUES
 	(_idPersona, _nombreUsuario, _clave, _nivelAcceso);
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_admision_listar_usuarios
+(
+IN _estado CHAR(1)
+)
+BEGIN 
+	SELECT idusuario, nombreUsuario, nivelAcceso, fechaInicio,
+		CONCAT(personas.apellidoPaterno, " ", personas.apellidoPaterno, " ", personas.nombres) AS persona
+	FROM usuarios
+	INNER JOIN personas ON personas.idPersona = usuarios.idPersona
+	WHERE usuarios.estado = _estado
+	ORDER BY idusuario DESC; 
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_admision_eliminar_usuarios
+(
+IN _idusuario INT
+)
+BEGIN 
+	UPDATE Usuarios SET
+		fechaFin = NOW(),
+		estado = '1'
+	WHERE idUsuario = _idusuario;
+END $$
+
+-- call spu_admision_eliminar_usuarios(4)
+-- call spu_admision_listar_usuarios(1)
+-- select * from usuarios

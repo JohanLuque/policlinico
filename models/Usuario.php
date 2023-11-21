@@ -43,4 +43,39 @@ class Usuario extends Conexion{
         return $respuesta;
       }
 
-}
+      public function listar($estado){
+        try{
+            $consulta = $this->connection->prepare("CALL spu_admision_listar_usuarios(?)");
+            $consulta->execute(array($estado));
+            return $consulta->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        } 
+    }
+    public function eliminarUsuario($idusuario = 0){
+      $respuesta = [
+        "status" => false,
+        "mensaje" => ""
+      ];
+      try{
+        $consulta = $this->connection->prepare("CALL spu_admision_eliminar_usuarios(?)");
+        $respuesta["status"]=$consulta->execute(array($idusuario));
+      }
+      catch(Exception $e){
+        $respuesta["mensaje"] = "No se pudo guardar. Codigo ". $e->getMessage();
+      }
+      return $respuesta;
+    }
+    public function getData($idusuario = 0){
+      try{
+          $consulta = $this->connection->prepare("CALL SPU_LOGIN_GetData(?)");
+          $consulta->execute(array($idusuario));
+          return $consulta->fetch(PDO::FETCH_ASSOC);
+      }
+      catch(Exception $e){
+          die($e->getMessage());
+      }
+      
+  }
+  }
