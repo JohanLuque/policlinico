@@ -516,11 +516,6 @@ INSERT INTO servicios_detalle(idservicio,descripcion, precio, genero) VALUES
 (9,'BIOPSIA DE CUELLO UTERINO','150.00','F'),
 (9,'COLCOSPIA','120.00','F');
 
--- INSERT INTO historias_clinicas(idUsuario, idPersona) VALUES 
--- (1,22),
--- (1,23),
--- (1,24);
-
 INSERT INTO alergias (alergia) VALUES
 ('Ampisilina'),
 ('Penicilina'),

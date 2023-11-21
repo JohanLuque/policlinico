@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['login']) || !$_SESSION['login']['nivelacceso']){
+if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../");
 }
 $idUsuario = $_SESSION['login']['idUsuario'];

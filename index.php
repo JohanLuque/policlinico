@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION['login']) && $_SESSION['login']['nivelacceso']){
+if (isset($_SESSION['login']) && $_SESSION['login']['acceso']){
   header('Location:./views/');
 }
 ?>
@@ -11,7 +11,7 @@ if (isset($_SESSION['login']) && $_SESSION['login']['nivelacceso']){
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <title>POLICLINICO SOLIDARIO</title>
   <link rel="shortcut icon" type="image/png" href="" />
   <link rel="stylesheet" href="./views/css/styles.min.css" />
 </head>
