@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION['login']) && $_SESSION['login']['acceso']){
+if (isset($_SESSION['login']) && $_SESSION['login']['nivelacceso']){
   header('Location:./views/');
 }
 ?>

@@ -28,7 +28,7 @@ class Atencion extends Conexion{
             $data['fechaAtencion']
         )
       );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+      //return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
       $respuesta["message"] = "No se ha podido completar el proceso. Código de error: " . $e->getMessage();
       //die($e->getMessage());

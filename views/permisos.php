@@ -9,12 +9,13 @@ $permisos = [
     "G" => ["atenciones.php","atencionesListado.php", 
                 "atencionMedica.php","configuracionAtencion.php",
                 "dashboart.php", "gastos.php", "historiaClinica.php", 
-                "pagos.php", "impresos.php","triaje.php","vistaDoctores.php", "vistaServicios.php","dashboartCaja.php", "configuracionAdmin.php"],
-    "A" => ["atenciones.php","atencionesListado.php", "configuracionAtencion.php","dashboart.php"],
-    "C" => ["dashboartCaja.php","pagos.php", "gastos.php"],
-    "T" => ["historiaClinica.php","impresos.php", "triaje.php"],
-    "E" => ["vistaDoctores.php"],
-    "S" => ["vistaServicios.php"]
+                "pagos.php", "impresos.php","triaje.php","vistaDoctores.php",
+                "vistaServicios.php","dashboartCaja.php", "configuracionAdmin.php","configuracionTriaje.php"],
+    "A" => ["dashboart.php","atenciones.php","atencionesListado.php", "configuracionAtencion.php","dashboart.php"],
+    "C" => ["dashboart.php","dashboartCaja.php","pagos.php", "gastos.php"],
+    "T" => ["dashboart.php","historiaClinica.php","impresos.php", "triaje.php","configuracionTriaje.php"],
+    "E" => ["dashboart.php","vistaDoctores.php"],
+    "S" => ["dashboart.php","vistaServicios.php"]
 ];
 
 $autorizado = false;

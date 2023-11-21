@@ -54,6 +54,10 @@ switch ($permiso){
             [   "menu" => "Configuración Admin", 
                 "url" => "index.php?view=configuracionAdmin.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Triaje", 
+                "url" => "index.php?view=configuracionTriaje.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ]
         ];
     break;
@@ -87,6 +91,10 @@ switch ($permiso){
             ],
             [   "menu" => "Impresiones", 
                 "url" => "index.php?view=impresos.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Triaje", 
+                "url" => "index.php?view=configuracionTriaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ]
         ];    
