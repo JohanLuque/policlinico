@@ -30,7 +30,7 @@ foreach($vistasPermitidas as $item){
 
 if (!$autorizado){
     echo "<h1>Acceso restringido</h1>";
-    //exit();
+    exit();
 }
 
 ?>

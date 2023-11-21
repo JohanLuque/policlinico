@@ -268,7 +268,7 @@
                 <div class="mb-3 row g-2">
                   <div class="col-md-12">
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N">
+                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
                       <label class="form-check-label">DNI</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -821,8 +821,12 @@ function generoPrecio(){
       precioProce.value = "";
 
       datos.forEach(element => {
+        if(element.genero == null){
+          generoProce.value = "M/F";
+        }else{
+          generoProce.value = element.genero;
+        }
         precioProce.value = element.precio;
-        generoProce.value = element.genero;
       });
     });
 }
@@ -831,14 +835,14 @@ function validarGenero(){
   console.log(generoPaciente);
   console.log(generoProce.value);
 
-  if(generoProce.value == generoPaciente || generoProce.value == ""){
+  if(generoProce.value == generoPaciente || generoProce.value == "M/F"){
     validarEspecialidadServicio();
   }else{
     notificar("POLICLINICO SOLIDARIO DE CHINCHA","SERVICIO NO DISPONIBLE", 3000 );
 
   }
 }
-
+dniPersonas.focus();
 function validarEspecialidadServicio(){
   const servicioSeleccionado  = listaServicios.options[listaServicios.selectedIndex];
   const filas = tabla_servicios.rows;
@@ -989,6 +993,7 @@ function consultarFamiliar(){
     }else{
       modalRegistrarPersonas.show();
       dni.value = dniFamiliar.value;
+      dni.focus();
       buscar.click();
     }
   })

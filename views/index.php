@@ -2,9 +2,11 @@
 session_start();
 if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
     header("Location:../");
+}else{
+  $idUsuario = $_SESSION['login']['idUsuario'];
+  $nombreUsuario = $_SESSION['login']['usuario'];
+
 }
-$idUsuario = $_SESSION['login']['idUsuario'];
-$nombreUsuario = $_SESSION['login']['usuario'];
 ?>
 <!doctype html>
 <html lang="es">
