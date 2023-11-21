@@ -334,7 +334,36 @@
                             </div>
                         </div>
                     </div>
-                </div>       
+                </div>
+                <!-- REGISTRO DE ALERGIAS-->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header bg-info text-white">AGREGAR ALERGIAS:</div>
+                            <div class="card-body">
+                                <form id="form-alergias" autocomplete="off">
+                                    <div class="mb-3 row g-2">
+                                        <div class="col-md-2">
+                                            <label for="">Alergia:</label>          
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input class="form-control" id="nombreAlergia" type="text" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row g-2">
+                                        <div class="colmd-6"></div>
+                                        <div class="col-md-3">
+                                            <button type="button" class="btn btn-primary" id="guardarAlergia">Guardar</button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="reset" class="btn btn-danger" id="cancelarAlergia">Cancelar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
             </div>
         </div>
     </div>
@@ -387,6 +416,11 @@
     const rbMujer = document.querySelector("#rbMujer");
     const rbDni = document.querySelector("#rbDni");
     const rbCarnet = document.querySelector("#rbCarnet");
+    // Alergias
+    const alergia = document.querySelector("#nombreAlergia");
+    const formAlergias = document.querySelector("#form-alergias");
+    const guardarAlergia = document.querySelector("#guardarAlergia");
+    const cancelarAlergia = document.querySelector("#cancelarAlergia");
     let genero;
     let tipoDocumento;
 
@@ -538,6 +572,24 @@
         rbAmbos.checked = true;
     }
     
+    function registrarAlergias() {
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "registrarAlergias");
+        parametros.append("alergia", alergia.value);
+        fetch("../controllers/alergia.php",{
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos =>{
+            if(datos.status){
+                toastCheck("Guardado correctamente");
+                formAlergias.reset();
+            }else{
+                notificar("Error", "La alergia ya existe",2)
+            }
+        })
+    }   
     function consultarPersonas(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -776,6 +828,9 @@
     btGuardarEspSer.addEventListener("click",validarEspSer);
     btCancelarEspSer.addEventListener("click",limpiarEspSer);
     btGuardarPersona.addEventListener("click",validarPersona);
+    cancelarAlergia.addEventListener("click", () =>{
+        formAlergias.reset();
+    });
 
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPersonas();
@@ -783,5 +838,11 @@
     dnip.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPaciente();
     });
-    
+    guardarAlergia.addEventListener("click", () => {
+        mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+                if(result.isConfirmed){
+                    registrarAlergias();
+                }
+            })
+    });
 </script>

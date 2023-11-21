@@ -18,6 +18,11 @@ if(isset($_POST['operacion'])){
     case 'listar':
       echo json_encode($alergia->listarAlergias());
       break;
-
+    case 'registrarAlergias':
+      $parametros = [
+        "alergia" => $_POST["alergia"]
+        ];
+        echo json_encode($alergia->registrarAlergias($parametros));
+      break;
   }
 }
