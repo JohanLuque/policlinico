@@ -5,6 +5,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 }
 $idUsuario = $_SESSION['login']['idUsuario'];
 $nombreUsuario = $_SESSION['login']['usuario'];
+$nivelAcceso = $_SESSION['login']['nivelacceso'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -85,7 +86,7 @@ $nombreUsuario = $_SESSION['login']['usuario'];
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label id="usuario" data-nomusuario="<?= $nombreUsuario?>" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
+              <label id="usuario" data-nivel="<?= $nivelAcceso?>" data-nomusuario="<?= $nombreUsuario?>" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -133,7 +134,8 @@ $nombreUsuario = $_SESSION['login']['usuario'];
       const usuario = document.querySelector("#usuario");
       let idUsuario = usuario.dataset.id;
       let nombreUsuario = usuario.dataset.nomusuario;
-      console.log(nombreUsuario);
+      let nivelAcceso = usuario.dataset.nivel;
+      console.log(nivelAcceso);
       function getURL(){
         const url = new URL(window.location.href);
         const vista = url.searchParams.get("view");

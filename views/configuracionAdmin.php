@@ -139,7 +139,7 @@
     // registrar usuarios
     const dni = document.querySelector("#dni");
     const nombre = document.querySelector("#nombre");
-    const nombreUsuario = document.querySelector("#nombreUsuario");
+    const nomUsuario = document.querySelector("#nombreUsuario");
     const clave = document.querySelector("#clave");
 
     const rbAdmision = document.querySelector("#rbAdmision");
@@ -155,13 +155,13 @@
     // listar usuarios
     const tablaUsuarios = document.querySelector("#tabla-usuario");
     const cuerpoUsuarios = tablaUsuarios.querySelector("#cuerpoUsuario");
-    let idUsuario;
 
     // eliminar usuarios
     const modal = new bootstrap.Modal(document.querySelector("#modalUsuarios"));
     const contrasenia = document.querySelector("#contraseña");
     const formularioContrasenia = document.querySelector("#form-modal");
     const btConfirmar = document.querySelector("#md-confirmacion");
+    let nivelData;
 
     
 
@@ -229,7 +229,7 @@
         const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarUsuario");
         parametros.append("idPersona", idPersona);
-        parametros.append("nombreUsuario", nombreUsuario.value);
+        parametros.append("nombreUsuario", nomUsuario.value);
         parametros.append("clave", clave.value);
         parametros.append("nivelAcceso", nivel);
         fetch("../controllers/usuario.php", {
@@ -271,7 +271,7 @@
                 <td>${element.nivelAcceso}</td>
                 <td>${element.fechaInicio}</td>
                 <td>
-                <a class ="usuario btn btn-sm btn-danger" data-idusuario='${element.idusuario}''>
+                <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}''>
                     Eliminar
                 </a>
                 </td>
@@ -284,8 +284,10 @@
     }
 
     function eliminar(){
+
         const parametros = new URLSearchParams();
         parametros.append("operacion", "eliminarUsuario");
+        parametros.append("nombreUsuario", nombreUsuario);
         parametros.append("clave", contrasenia.value);
         parametros.append("idusuario", idUsuario);
 
@@ -295,8 +297,32 @@
         })
         .then(response => response.json())
         .then(datos =>{
-            console.log(datos.mensaje)
+            if(datos.status){
+                listarUsuarios();
+                modal.toggle();
+                toastCheck("elimado correctamente");
+            }else{
+                toast("Contraseña Incorrecta");
+            }
         })
+    }
+    function validarEliminacion(){
+        if(!formularioContrasenia.checkValidity()){
+            event.preventDefault();
+            event.stopPropagation();
+            formularioContrasenia.classList.add('was-validated');
+        }else{
+            comprobarUsuario();
+        }
+    }
+
+    function comprobarUsuario(){
+       /*  if(nivelData == nivelAcceso){
+            toast("igual")
+        }
+        else{
+            toast("diferente")
+        } */
     }
 
     listarUsuarios();
@@ -308,13 +334,18 @@
     });
 
     cuerpoUsuarios.addEventListener("click", (event) => {
-        idUsuario = parseInt(event.target.dataset.idusuario)
+        nivelData = event.target.dataset.nivel;
         if(event.target.classList[0] == 'usuario'){
-            formularioContrasenia.reset();
-            contrasenia.focus();
-            modal.toggle();
+            console.log(nivelData);
+            mostrarPregunta("Eliminar", `¿Está seguro de eliminar a ${nombreUsuario}?`).then((result) => {
+                if(result.isConfirmed){
+                    formularioContrasenia.reset();
+                    contrasenia.focus();
+                    modal.toggle();
+                }
+            }) 
         }
     });
 
-    btConfirmar.addEventListener("click", eliminar);
+    btConfirmar.addEventListener("click", validarEliminacion);
 </script>
