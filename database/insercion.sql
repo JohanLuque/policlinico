@@ -57,7 +57,7 @@ INSERT INTO usuarios (nombreusuario,clave,idpersona,nivelAcceso) VALUES
 INSERT INTO Especialistas (codigo, idpersona) VALUES
 ('11088', 5), -- RIVA
 ('13254', 6), -- CARLOS
-(NULL, 100); -- CARLOS
+(NULL, 10); -- alisson
 
 INSERT INTO Especialistas_Servicios(idEspecialista, idServicio) VALUES
 (1,7),

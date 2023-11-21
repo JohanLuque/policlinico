@@ -147,7 +147,7 @@
               </div>                                                               
             </div>
             <div class="row g-2">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <label class="fw-bolder text-dark"  for="">Servicio:</label>          
               </div>
               <div class="col-md-5">
@@ -162,7 +162,7 @@
             </div>
 
             <div class="mb-3 row g-2">              
-              <div class="col-md-3">                                  
+              <div class="col-md-4">                                  
                 <select name="" id="listaServicios" class="">
                   <option  value="">Seleccione</option>
                 </select> 
@@ -589,7 +589,7 @@ function cambiarTurno() {
 }
 cambiarTurno();
 
-
+console.log(idUsuario);
 function registrarAtencion(){
   let listaParentesco = parentesco.value;
   const parentescoF = listaParentesco === "Otro" ? otroFamiliar.value : listaParentesco;
@@ -608,12 +608,16 @@ function registrarAtencion(){
   })
   .then(response => response.json())
   .then(datos => {
+    if(datos.status){
       registrarServiciosDetalles();
       toastCheck("Guardado correctamente"); 
       //form.reset();
       limpiarFormulario();    
       limpiarTabla();
       cambiarTurno();
+    }else{
+      console.log(datos.message);
+    }
   })
 }
 

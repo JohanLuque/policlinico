@@ -155,18 +155,6 @@ function obtenerFechaFormateada() {
 
 const fechaFormateada = obtenerFechaFormateada();
 fecha.innerHTML = fechaFormateada;
-// function obtenerFecha(){
-//   const fechaAhora = new Date();
-//   const año = fechaAhora.getFullYear();
-//   const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
-//   const dia = fechaAhora.getDate().toString().padStart(2, "0");
-
-//   const fechaTotal = `${año}-${mes}-${dia}`;
-//   fecha.innerHTML = fechaTotal;
-//   fechaHoy = fechaTotal;
-//   //console.log(fecha.innerHTML);
-// }
-// obtenerFecha();
 
 function listarCardsAtencion(){
     const parametros = new URLSearchParams();
@@ -178,35 +166,38 @@ function listarCardsAtencion(){
     })
     .then(response => response.json())
     .then(datos => {
-        cardAtencion.innerHTML= "";
-        datos.forEach(element => {
-            idatencion = element.idAtencion;
-            console.log(datos);
-            const nuevoCard = `
-            <div class="col-md-3" >
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white text-center"></div>
-                            <div class="card-body bg-light-info" style="text-align: center;">
-                                <h6>${element.numeroAtencion}</h6>
-                                <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                                <div class='mt-2 row g-2'>
-                                    <div class='col-md-12'>
-                                        <h6>${element.nombreServicio}</h6>
+        if(datos.length > 0){
+            cardAtencion.innerHTML= "";
+            datos.forEach(element => {
+                idatencion = element.idAtencion;
+                console.log(datos);
+                const nuevoCard = `
+                <div class="col-md-3" >
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-header bg-info text-white text-center"></div>
+                                <div class="card-body bg-light-info" style="text-align: center;">
+                                    <h6>${element.numeroAtencion}</h6>
+                                    <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                                    <div class='mt-2 row g-2'>
+                                        <div class='col-md-12'>
+                                            <h6>${element.nombreServicio}</h6>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class"row mt-2 g-2">
-                                    <button class='btn btn-info  m-1' type='button'>
-                                        <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
-                                    </button>
+                                    <div class"row mt-2 g-2">
+                                        <button class='btn btn-info  m-1' type='button'>
+                                            <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div> 
-            `;
-            cardAtencion.innerHTML +=nuevoCard;
-        });
+                    </div> 
+                `;
+                cardAtencion.innerHTML +=nuevoCard;
+            });
+
+        }
     })
 }
 let idServicioModal;
