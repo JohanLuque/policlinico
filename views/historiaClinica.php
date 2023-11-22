@@ -10,7 +10,7 @@
           <form id="form-historiaClinica" >
             <div class="mb-3 row g-2">
               <div class="form-floating col-md-5">
-                  <input type="text" class="form-control border " id="dni" placeholder="N° Documento" maxlength="10" type="tel" required>
+                  <input type="text" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" type="tel" required readonly>
                   <label for="">
                       <i class="ti ti-user me-2 fs-4"></i>
                       N° Documento
@@ -27,7 +27,7 @@
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-12">                                  
-                <input class="form-control bg-light" id="nombrePaciente" type="text" >
+                <input class="form-control bg-light" id="nombrePaciente" type="text"readonly >
               </div>
             </div>
             
@@ -115,9 +115,11 @@
             <table class="table table-responsive-md" id="sinHistorias">
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>N° DOC</th>
                   <th>Paciente</th>
                   <th>Especialidad</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -145,6 +147,7 @@
   const agregarAlergia = document.querySelector("#agregarAlergia");
   let idhistoria;
   let idPersona;
+  let buscar;
   function buscarHistoria(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "getData");
@@ -191,9 +194,15 @@
                 const fila =
                     `
                     <tr>
+                        <td>${nro}</td>
                         <td>${element.numeroDocumento}</td>
                         <td>${element.ApellidosNombres}</td>
                         <td>${element.nombreServicio}</td>
+                        <td>
+                          <a class ="historia btn btn-sm btn-danger" data-buscar='${element.numeroDocumento}'>
+                              Ir
+                          </a>
+                        </td>
                     </tr>
                     `;
                 cuerpoHistoria.innerHTML += fila;
@@ -358,12 +367,23 @@
     antecedenteQuirurgico.value = "";
     antecedenteOtros.value = "";
     antecedenteFamiliar.value = "";
-    tablaAlergias.reset();
+    tablaAlergias.innerHTML=`<table id="tabla-Alergias" class="table"><thead><tr><th>ID</th><th>Alergia</th><th></th></tr></thead><tbody id="cuerpoAlergias"></tbody></table>`;
   }
-  dni.addEventListener("keypress", (evt) => {
-    if(evt.charCode == 13){
-      buscarHistoria();
-      
-    } 
+  cuerpoHistoria.addEventListener("click", (event) => {
+    buscar = event.target.dataset.buscar;
+    if(event.target.classList[0] == 'historia'){
+      if(dni.value){
+        mostrarPregunta("Cambiar", "¿Está seguro de cambiar?, los datos ingresados se borraran").then((result) => {
+          if(result.isConfirmed){
+            resetdata();
+            dni.value = buscar;
+            buscarHistoria();
+          }
+        }) 
+      }else{
+        dni.value = buscar;
+        buscarHistoria();
+      }
+    }
   });
 </script>

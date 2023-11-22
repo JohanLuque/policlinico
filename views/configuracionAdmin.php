@@ -119,7 +119,7 @@
                 <form action="" id="form-modal" autocomplete="off">
                     <div class="mb-3 row g-2">
                         <div class="form-floating ">
-                            <input type="password" class="form-control border"  placeholder="." id="contraseña" required>
+                            <input type="password" class="form-control border"  placeholder="." id="contrasenia" required>
                             <label for="">
                                 <i class="ti ti-password me-2 fs-4"></i>
                                 Contraseña
@@ -158,12 +158,12 @@
 
     // eliminar usuarios
     const modal = new bootstrap.Modal(document.querySelector("#modalUsuarios"));
-    const contrasenia = document.querySelector("#contraseña");
+    const contrasenia = document.querySelector("#contrasenia");
     const formularioContrasenia = document.querySelector("#form-modal");
     const btConfirmar = document.querySelector("#md-confirmacion");
     let nivelData;
-
-    
+    let user;
+    let id;
 
 
     function consultarPersonas(){
@@ -271,7 +271,7 @@
                 <td>${element.nivelAcceso}</td>
                 <td>${element.fechaInicio}</td>
                 <td>
-                <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}''>
+                <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}' data-user='${element.nombreUsuario}', data-id='${element.idusuario}'>
                     Eliminar
                 </a>
                 </td>
@@ -289,7 +289,7 @@
         parametros.append("operacion", "eliminarUsuario");
         parametros.append("nombreUsuario", nombreUsuario);
         parametros.append("clave", contrasenia.value);
-        parametros.append("idusuario", idUsuario);
+        parametros.append("idusuario", id);
 
         fetch("../controllers/usuario.php",{
             method:'POST',
@@ -302,6 +302,8 @@
                 modal.toggle();
                 toastCheck("elimado correctamente");
             }else{
+                contrasenia.focus();
+                contrasenia.vale = null;
                 toast("Contraseña Incorrecta");
             }
         })
@@ -312,17 +314,8 @@
             event.stopPropagation();
             formularioContrasenia.classList.add('was-validated');
         }else{
-            comprobarUsuario();
+            eliminar();
         }
-    }
-
-    function comprobarUsuario(){
-       /*  if(nivelData == nivelAcceso){
-            toast("igual")
-        }
-        else{
-            toast("diferente")
-        } */
     }
 
     listarUsuarios();
@@ -335,15 +328,22 @@
 
     cuerpoUsuarios.addEventListener("click", (event) => {
         nivelData = event.target.dataset.nivel;
+        user = event.target.dataset.user;
+        id = event.target.dataset.id;
+
         if(event.target.classList[0] == 'usuario'){
-            console.log(nivelData);
-            mostrarPregunta("Eliminar", `¿Está seguro de eliminar a ${nombreUsuario}?`).then((result) => {
-                if(result.isConfirmed){
-                    formularioContrasenia.reset();
-                    contrasenia.focus();
-                    modal.toggle();
-                }
-            }) 
+            if(nivelData == nivelAcceso){
+                notificar("Alerta", "no se puede eliminar a este usuario", 5);
+            }
+            else{
+                mostrarPregunta("Eliminar", `¿Está seguro de eliminar a ${user}?`).then((result) => {
+                    if(result.isConfirmed){
+                        formularioContrasenia.reset();
+                        contrasenia.focus();
+                        modal.toggle();
+                    }
+                }) 
+            }
         }
     });
 
