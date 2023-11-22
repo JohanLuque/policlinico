@@ -11,7 +11,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 $idUsuario = $_SESSION['login']['idUsuario'];
 $nombreUsuario = $_SESSION['login']['usuario'];
 $nivelAcceso = $_SESSION['login']['nivelacceso'];
-
+?>
 <!doctype html>
 <html lang="es">
 
