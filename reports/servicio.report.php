@@ -11,6 +11,7 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 try {
     $servicio = new Servicio();
     $datos = $servicio->reporteSemanal($_GET['idservicio']);
+    $titulo = $_GET['titulo'];
     ob_start();
 
     include './estilos.html';

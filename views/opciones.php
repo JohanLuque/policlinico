@@ -38,15 +38,6 @@ switch ($permiso){
                 "url" => "index.php?view=impresos.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
-            [   "menu" => "Vista Doctor", 
-                "url" => "index.php?view=vistaDoctores.php",
-                "icono" => "ti ti-stethoscope nav-small-cap-icon"
-            ],
-            [   
-                "menu" => "Vista Servicios", 
-                "url" => "index.php?view=vistaServicios.php",
-                "icono" => "ti ti-stethoscope nav-small-cap-icon"
-            ],
             [   "menu" => "Configuración Atención", 
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"

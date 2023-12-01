@@ -152,9 +152,52 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">Reporte de POS</h5>
+                    <div class="row mt-3"> 
+                        <div class="col-md-4">
+                            <label class="text-dark"  for="">Fecha:</label>          
+                        </div>                       
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" id="FechaActual" >
+                        </div>
+                        
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-9">
+                            <span class="round-8 text-bg-secondary rounded-circle me-2 d-inline-block"></span>
+                            <label for="">Generar reporte</label>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" id="reportePOS" class="d-inline-flex align-items-center justify-content-center btn btn-secondary btn-circle btn-lg">
+                                <i class="fs-5 ti ti-file-description"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
+    const fecha = document.querySelector("#FechaActual");
+    const rPOS = document.querySelector("#reportePOS");
+
+    let fechaHoy;
+    function obtenerFecha(){
+        const fechaAhora = new Date();
+        const año = fechaAhora.getFullYear();
+        const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
+        const dia = fechaAhora.getDate().toString().padStart(2, "0");
+
+        const fechaTotal = `${año}-${mes}-${dia}`;
+        fecha.value = fechaTotal;
+        fechaHoy = fechaTotal;
+        console.log(fecha.value);
+    }
+    obtenerFecha();
     // cantidad de dinero disponible
     const efectivo = document.querySelector("#mEfectivo");
     const trasferencia = document.querySelector("#mTranferencia");
@@ -239,12 +282,20 @@
         })
     }
     
+    rPOS.addEventListener("click",() => {
+        const parametros = new URLSearchParams();
+        parametros.append("fecha", fecha.value);
+        window.open(`../reports/pos.report.php?${parametros}`, '_blank');
+    });
+
     reporteMensual.addEventListener("click",() => {
         if(servicios.value > 0){
             if(mes.value > 0){
                 const parametros = new URLSearchParams();
                 parametros.append("idservicio", servicios.value);
                 parametros.append("mes", mes.value);
+                parametros.append("titulo", servicios.options[servicios.selectedIndex].text);
+
                 window.open(`../reports/servicio.mensual.report.php?${parametros}`, '_blank');
             }else{
                 toast("Seleccione un mes");
@@ -258,6 +309,7 @@
         if(servicios.value > 0){
             const parametros = new URLSearchParams();
             parametros.append("idservicio", servicios.value);
+            parametros.append("titulo", servicios.options[servicios.selectedIndex].text);
             window.open(`../reports/servicio.quincenal.report.php?${parametros}`, '_blank');
         }else{
             toast("Seleccione un servicio");
@@ -268,6 +320,7 @@
         if(servicios.value > 0){
             const parametros = new URLSearchParams();
             parametros.append("idservicio", servicios.value);
+            parametros.append("titulo", servicios.options[servicios.selectedIndex].text);
             window.open(`../reports/servicio.report.php?${parametros}`, '_blank');
         }else{
             toast("Seleccione un servicio");

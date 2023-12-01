@@ -19,5 +19,14 @@ class MediosPago extends Conexion{
       die($e->getCode());
     }
   }
+  public function POS($fecha){
+    try{
+      $query = $this->connection->prepare("CALL spu_reporte_POS(?)");
+      $query->execute(array($fecha));
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 
 }
