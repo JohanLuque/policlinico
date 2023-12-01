@@ -1,4 +1,4 @@
-<h1 class="text-center text-md">reporte</h1>
+<h1 class="text-center text-md">REPORTE QUINCENAL: <?=$titulo?></h1>
 
 <table class="table table-border mt-3">
     <colgroup>

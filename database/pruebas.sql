@@ -59,8 +59,19 @@ INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_
 INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 1 AND MONTH(atenciones.`fechaAtencion`) = 11
 
-
-
+DELIMITER $$
+CREATE PROCEDURE spu_reporte_POS(IN _fecha DATE)
+BEGIN
+	SELECT  DATE(pagos.`fechaHoraPago`) AS fecha, med.nombrePago,per.numeroDocumento ,CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'nombreCompleto' , pagos.`monto`
+	FROM pagos
+	INNER JOIN atenciones ate ON ate.idAtencion = pagos.`idAtencion`
+	INNER JOIN personas per ON per.idPersona = ate.idPersona
+	INNER JOIN Detalle_Servicios det ON det.idAtencion = ate.idAtencion
+	INNER JOIN servicios_detalle setDet ON setDet.idservicios_detalle = det.idservicios_detalle
+	INNER JOIN servicios ser ON ser.idServicio = setDet.idservicio
+	INNER JOIN Medio_Pagos med ON pagos.idMedioPago = med.idMedioPago
+	WHERE med.nombrePago = "POS" AND DATE(pagos.`fechaHoraPago`) = _fecha;
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spu_reporte_servicioSemanal(IN _idServicio INT)
