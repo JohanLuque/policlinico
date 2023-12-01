@@ -104,13 +104,13 @@
                               </div>
                               <div class="row g-2 mb-3">
                                 <div class="col-md-3">
-                                  <input type="number" id="f-cardiaca1"class="form-control" required>         
+                                  <input type="number" id="f-cardiaca1"class="form-control" placeholder="60-72" required>         
                                 </div> 
                                 <div class="ms-3 col-md-2">
                                   <label> X 1 min</label>          
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="number" id="f-respiratoria1"class="form-control" required>         
+                                  <input type="number" id="f-respiratoria1"class="form-control" placeholder="19-22" required>         
                                 </div> 
                                 <div class="ms-3 col-md-3">
                                   <label> X 1 min</label>          
@@ -121,13 +121,13 @@
                                   <label class="fw-bolder">Presión Arterial:</label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="presionArterial1"class="form-control" required>         
+                                  <input type="number" id="presionArterial1"class="form-control" placeholder="120-130" required>         
                                 </div> 
                                 <div class="ms-3 col-md-1">
                                   <label class="fs-6"> / </label>          
                                 </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="presionArterial2"class="form-control" required>         
+                                  <input type="number" id="presionArterial2"class="form-control" placeholder="80-90" required>         
                                 </div>
                               </div>
                               <div class="row mb-3 g-2">
@@ -135,7 +135,7 @@
                                   <label class="fw-bolder" for="">Temperatura(C°):</label>
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" id="temperatura"class="form-control" placeholder="35" required>
+                                  <input type="number" id="temperatura"class="form-control" placeholder="35-37" required>
                                 </div>
                               </div>
                               <div class="row mb-3 g-2">
@@ -143,7 +143,7 @@
                                   <label class=" fw-bolder" for="">Saturación Oxígeno:</label>
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" id="saturacionOxigeno"class="form-control" required>
+                                  <input type="number" id="saturacionOxigeno"class="form-control" placeholder="95-99" required>
                                 </div>
                               </div>
                             </form>
@@ -294,6 +294,7 @@
     })
     
   }
+  
   function validar(){
     if(!formulario.checkValidity()){
       event.preventDefault();
@@ -304,6 +305,7 @@
       
     }
   }
+  
   function comprobar() {
     valorPeso = parseFloat(peso.value);
     valorTalla = parseFloat(talla.value);
@@ -322,23 +324,23 @@
       toast("talla invalida");
       talla.focus();
       return;
-    }else if(valorCardiaca<=0){
+    }else if(valorCardiaca<=0 || valorCardiaca>100){
       toast("F. Cardiaca invalida");
       cardiaca1.focus();
       return;
-    }else if(valorRespiratoria<=0){
+    }else if(valorRespiratoria<=0 || valorRespiratoria>30){
       toast("F. Respiratoria invalida");
       respiratoria1.focus();
       return;
-    }else if(valorPresionArterial1<=0 ||valorPresionArterial2<=0){
+    }else if(valorPresionArterial1<=0 || valorPresionArterial1>150 || valorPresionArterial2<=0 || valorPresionArterial2>100){
       toast("P. Arterial invalida");
-      if(valorPresionArterial1 <= 0){
+      if(valorPresionArterial1 <= 0 || valorPresionArterial1>150){
         presionArterial1.focus();
-      } else {
+      } else if(valorPresionArterial2<=0 || valorPresionArterial2>100){
         presionArterial2.focus();
       }
       return;
-    }else if(valorTemperatura<=0){
+    }else if(valorTemperatura<=0 ||valorTemperatura>40){
       toast("Temperatura  invalida");
       temperatura.focus();
       return;

@@ -888,7 +888,13 @@ function validarMontoMP(){
     }
 }
 
-
+devDetallepagos.addEventListener("click", (e) => {
+    if(e.target.closest(".eliminar")){
+        const row = e.target.closest("tr");
+        row.remove();
+        calcularRestanteDev();
+    }
+});
 
 function GuardarDevolucion() {
     let motivoSeleccionado = motivoDevolucion.value;

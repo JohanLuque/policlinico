@@ -256,6 +256,8 @@
     const modalHC = new bootstrap.Modal(document.querySelector("#modalHC"));
     const formHC = document.querySelector("#form-hc");
     const cardListado = document.querySelector("#cardListado");
+
+    let tratamientosAgregados = [];
     function listar(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listaDoctores");
@@ -310,7 +312,6 @@
         .then(response => response.json())
         .then(datos => {
             datos.forEach(element =>{
-                console.log(element.apellidoPaterno);
                 nombrepaciente.innerHTML=element.ApellidosNombres;
             })
         })
@@ -439,31 +440,66 @@ function limpiarTabla(){
         filas.remove();
     });
 }
-  function agregarTratamiento(){
-    if(medicamento.value !== "" && presentacion.value !== "" && dosis.value !== "" && cantidad.value !== "" && dias.value !== ""){
-        let nuevaFila = `
-            <tr>
-                <td>${medicamento.value}</td>
-                <td>${presentacion.value}</td>
-                <td>${dosis.value}</td>
-                <td>${cantidad.value}</td>
-                <td>${dias.value}</td>
-            </tr>
-        `;
-        tabla.innerHTML += nuevaFila;
 
-        //Limpiar campos
-        medicamento.value = "";
-        presentacion.value = "";
-        dosis.value = "";
-        cantidad.value = "";
-        dias.value = "";
-    }else{
-        toast("Por favor, complete los campos anteriores");
-        //console.log("Por favor, complete los campos anteriores");
+function validarTratamientos(campo) {
+    return campo.trim() === ''; 
+}
+
+function agregarTratamiento(){
+    if(
+        validarTratamientos(medicamento.value) ||
+        validarTratamientos(presentacion.value) ||
+        validarTratamientos(dosis.value) ||
+        validarTratamientos(cantidad.value) ||
+        validarTratamientos(dias.value)
+    ){
+        toast("Por favor, complete todos los campos.");
+        return;
     }
-    
-  }
+
+    const campos = [medicamento, presentacion, dosis, cantidad, dias];
+
+    for (const campo of campos) {
+        campo.value = campo.value.trim(); 
+    }
+    const nuevoTratamiento = {
+        medicamento: medicamento.value,
+        presentacion: presentacion.value,
+        dosis: dosis.value,
+        cantidad: cantidad.value,
+        dias: dias.value
+    };
+
+    const tratamientoDuplicado = tratamientosAgregados.find(tratamiento => (
+        tratamiento.medicamento == nuevoTratamiento.medicamento
+    ));
+
+    if (tratamientoDuplicado) {
+        notificar('Alerta','Este tratamiento ya ha sido agregado.', 5);
+        return;
+    }
+
+    tratamientosAgregados.push(nuevoTratamiento);
+
+    let nuevaFila = `
+        <tr>
+        <td>${nuevoTratamiento.medicamento}</td>
+        <td>${nuevoTratamiento.presentacion}</td>
+        <td>${nuevoTratamiento.dosis}</td>
+        <td>${nuevoTratamiento.cantidad}</td>
+        <td>${nuevoTratamiento.dias}</td>
+        </tr>
+    `;
+    tabla.innerHTML += nuevaFila;
+
+    //Limpiar campos 
+    medicamento.value = "";
+    presentacion.value = "";
+    dosis.value = "";
+    cantidad.value = "";
+    dias.value = "";    
+}
+
   function registrarEnfermedad(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "agregarEnfermedad");
@@ -481,7 +517,7 @@ function limpiarTabla(){
         alert("Error al guardar")
     })
   }
-  cie10.addEventListener("keypress", (evt) => {
+    cie10.addEventListener("keypress", (evt) => {
         if (evt.charCode === 13){
             consultarEnfermedad();
             if (descripcion.value) {
