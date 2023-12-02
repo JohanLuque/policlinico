@@ -7,18 +7,9 @@
       </div>
       <div class="card-body">
         <div>
-          <form id="form-historiaClinica" >
+          <form id="form-alergias" >
             <div class="mb-3 row g-2">
-              <div class="form-floating col-md-5">
-                  <input type="text" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" type="tel" required readonly>
-                  <label for="">
-                      <i class="ti ti-user me-2 fs-4"></i>
-                      N° Documento
-                  </label>
-                  <div class="invalid-feedback">
-                      Complete este campo para continuar
-                  </div>  
-              </div>
+              
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-6">
@@ -67,6 +58,10 @@
               <div class="col-md-4">
                 <label class="fw-bolder text-dark"  for="">Alergias:</label>           
               </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-2">
+              </div>
               <div class="col-md-6">                                  
                 <select name="" id="alergias" class="form-select ">
                     <option value=""></option>
@@ -75,7 +70,11 @@
               <div class="col-md-2">
                 <button class="btn btn-sm" id="agregarAlergia" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #f96f12;"></i></button>
               </div>
+              <div class="col-md-2">
+                <button class="btn btn-sm btn-danger" id="registrarAlergia" data-bs-toggle="modal" data-bs-target="#registrar-alergia" type="button">Registrar</button>
+              </div>
             </div>
+
             <div class="row g-2 mb-3">
               <table id="tabla-Alergias" class="table">
                 <thead>
@@ -132,10 +131,50 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="registrar-alergia" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Alergia</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-2 mb-3">
+          <div class="col-md-12">
+            <div class="row g-2 mb-3">  
+              <form action="" id="form-alergias">
+                <div class="mb-3 row g-2">
+                  <div class="form-floating">
+                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombreAlergia" type="text" required>
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Nombre Alergia
+                    </label> 
+                  </div>
+                </div>
+              </form>
+            </div>          
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="guardarAlergia">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
+  const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-alergia"));
   const registrarHistoria = document.querySelector("#registrar-historia");
   const dni = document.querySelector("#dni");
   const nombreCompleto = document.querySelector("#nombrePaciente");
+  const nombreAlergia = document.querySelector("#nombreAlergia");
+  const guardarAlergia = document.querySelector("#guardarAlergia");
+  const formAlergias = document.querySelector("#form-alergias");
+
+
   const antecedentePersonal = document.querySelector("#antecedentePersonal");
   const antecedenteQuirurgico = document.querySelector("#antecedenteQuirurgico");
   const antecedenteOtros = document.querySelector("#antecedenteOtros");
@@ -241,7 +280,11 @@
       }
     });  
   });
-
+  const choiseAlergias = new Choices(alergia, {
+    searchEnabled: true,
+    itemSelectText: '',
+    allowHTML: true
+  });
   function listarAlergias(){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "listar");
@@ -260,6 +303,9 @@
         optionTag.text = element.alergia
         alergia.appendChild(optionTag);
       })
+      choiseAlergias.setChoices([], 'value', 'label', true); // Vacía las opciones
+      choiseAlergias.setChoices(datos, 'idAlergia', 'alergia', true); // Agrega las nuevas opciones
+      
     })
   }
   function agregarAlergiaTabla (){
@@ -369,6 +415,27 @@
     antecedenteFamiliar.value = "";
     tablaAlergias.innerHTML=`<table id="tabla-Alergias" class="table"><thead><tr><th>ID</th><th>Alergia</th><th></th></tr></thead><tbody id="cuerpoAlergias"></tbody></table>`;
   }
+
+  function registrarAlergias() {
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "registrarAlergias");
+    parametros.append("alergia", nombreAlergia.value);
+    fetch("../controllers/alergia.php",{
+        method: 'POST',
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos =>{
+        if(datos.status){
+            toastCheck("Guardado correctamente");
+            listarAlergias();
+            formAlergias.reset();
+        }else{
+            notificar("Error", "La alergia ya existe",2)
+        }
+    })
+  } 
+
   cuerpoHistoria.addEventListener("click", (event) => {
     buscar = event.target.dataset.buscar;
     if(event.target.classList[0] == 'historia'){
@@ -385,5 +452,13 @@
         buscarHistoria();
       }
     }
+  });
+
+  guardarAlergia.addEventListener("click", () => {
+      mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+              if(result.isConfirmed){
+                  registrarAlergias();
+              }
+          })
   });
 </script>
