@@ -840,6 +840,7 @@ function montoMedioPago(){
                 cantmontoMedioPago = element.total;
                 if(cantidad <= cantmontoMedioPago){
                     console.log("yape");
+                    agregarMontoDevolucion();
                 }else{
                     toast("Monto insuficiente en YAPE");
                 }
