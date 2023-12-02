@@ -135,6 +135,149 @@
         </div>        
     </div>
 </div>
+<!--Modal de registro de personas-->
+<div class="modal fade" id="registrar-personas" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Paciente</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-2 mb-3">
+          <div class="col-md-12">
+            <div class="row g-2 mb-3">  
+              <form action="" id="form-paciente">
+                <div class="mb-3 row g-2">
+                  <div class="col-md-4 fw-bolder">
+                    <label for="">Tipo Documento:</label>          
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-12">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
+                      <label class="form-check-label">DNI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
+                      <label class="form-check-label">Carnet Extranjeria</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6">                    
+                    <div class="form-floating">
+                      <input type="text" class="form-control border " id="DNIModal" type="tel" placeholder="88888888" required>
+                      <label for="">
+                          <i class="ti ti-id-badge me-2 fs-4"></i>
+                          N° Documento
+                      </label>
+                      <div class="invalid-feedback">
+                          Complete este campo para continuar
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mb-3 row g-2">
+                  <div class="form-floating">
+                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Nombres
+                    </label> 
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="form-floating ">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Apellido Paterno
+                    </label> 
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="form-floating ">
+                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        Apellido Materno
+                    </label> 
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6 fw-bolder">
+                    <label for="">Fecha Nacimiento:</label>          
+                  </div>
+                  <div class="col-md-6 fw-bolder">
+                    <label for="">Género:</label>          
+                  </div>
+                </div>
+                <div class="mb-3 row g-2 ">
+                  <div class="col-md-6">                                  
+                    <input class="form-control" id="fechaNacimiento" type="date" required>
+                  </div>
+                  <div class="col-md-6">                                  
+                    <div class="form-check form-check-inline ">                           
+                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
+                      <label class="form-check-label">Femenino</label>
+                    </div>
+                    <div class="form-check form-check-inline ">
+                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
+                      <label class="form-check-label">Masculino</label>
+                    </div>
+                  </div>
+                </div>              
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6">  
+                    <div class="form-floating ">
+                      <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
+                      <label for="">
+                          <i class="ti ti-phone me-2 fs-4"></i>
+                          Teléfono
+                      </label> 
+                    </div>                                
+                  </div>                  
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6 fw-bolder">
+                    <label for="">Distrito:</label>          
+                  </div>
+                </div>
+                <div class="mb-3 row g-2">
+                  <div class="col-md-6">
+                    <select  class="form-select" id="distrito"> 
+                      <option value="">Seleccione</option>
+                      <option value="Chincha Alta">Chincha Alta</option>
+                      <option value="Chincha Baja">Chincha Baja</option>
+                      <option value="Grocio Prado">Grocio Prado</option>
+                      <option value="Sunampe">Sunampe</option>
+                      <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                      <option value="EL Carmen">EL Carmen</option>
+                      <option value="Alto Larán">Alto Larán</option>
+                      <option value="San Juan de Yanac">San Juan de Yanac</option>
+                      <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
+                      <option value="Tambo de Mora">Tambo de Mora</option>
+                      <option value="Chavín">Chavín</option>
+                      <option value="Foráneo">Foráneo</option>
+                    </select>                             
+                  </div>
+                </div>
+              </form>
+              
+            </div>          
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="md-guardar">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     // registrar usuarios
     const dni = document.querySelector("#dni");
@@ -152,6 +295,18 @@
     let idPersona;
     let nivel;
 
+    //Modal API
+    const modalRegistrar = new bootstrap.Modal(document.querySelector("#registrar-personas"));
+    const dniModal = document.querySelector("#DNIModal");
+    const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
+    const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
+    const nombres = document.querySelector("#nombrePersona");
+    const fechanacimiento = document.querySelector("#fechaNacimiento");
+    const telefono = document.querySelector("#telefono");
+    const distrito = document.querySelector("#distrito");
+    const buscar = document.querySelector("#buscar");
+    const guardarRegistro = document.querySelector("#md-guardar");
+    const formPaciente = document.querySelector("#form-paciente");
     // listar usuarios
     const tablaUsuarios = document.querySelector("#tabla-usuario");
     const cuerpoUsuarios = tablaUsuarios.querySelector("#cuerpoUsuario");
@@ -164,7 +319,6 @@
     let nivelData;
     let user;
     let id;
-
 
     function consultarPersonas(){
         const parametros = new URLSearchParams();
@@ -183,14 +337,41 @@
                 nombre.value = element.ApellidosNombres;
             });
             }else{
-                toast("persona no registrada");
+                modalRegistrar.show();
+                dniModal.value= dni.value;
             }
         })
         .catch(error => {
             console.error(error);
         })
     }
+    function consultarDNI() {
+    const documento =dniModal.value;
+    const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
 
+    fetch(url)
+        .then(datos => {
+        if(datos.status == 200) {
+            return datos.text();
+        } else {
+            throw `Respuesta incorrecta del servidor`; 
+        }
+        })
+        .then(datos => {
+        const resultado = JSON.parse(datos);
+        //console.log(resultado);
+        if (resultado.dni == documento) {
+            apellidoPaterno.value = resultado.apellidoPaterno;
+            apellidoMaterno.value = resultado.apellidoMaterno;
+            nombres.value = resultado.nombres;
+        } else {
+            toast(resultado.message);
+        }
+        })
+        .catch( e => {
+        console.error(e);
+        });
+    }
     function validar(){
         if(!formularioUsuario.checkValidity()){
             event.preventDefault();
@@ -283,6 +464,60 @@
         })
     }
 
+    function validarPacientes(){
+        if(!formPaciente.checkValidity()){
+            event.preventDefault();
+            event.stopPropagation();
+            formPaciente.classList.add('was-validated');
+        }else{
+            registrarPaciente();
+        }
+    }
+
+    function registrarPaciente(){
+    const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
+    if (!tipoDocumento) {
+        notificar("Seleccione un tipo de doc","Por favor, selecciona un tipo de documento.",2);
+        return;  // No hay opción seleccionada, no continuamos
+    }
+    const genero = document.querySelector('input[name="options"]:checked');
+    if (!genero) {
+        notificar("Por favor, seleccione un genero","",2);
+        return;  // No hay opción seleccionada, no continuamos
+    }
+    mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
+        if(result.isConfirmed){  
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "registrarPersona");
+        parametros.append("nombres", nombres.value);
+        parametros.append("apellidoPaterno",apellidoPaterno.value);
+        parametros.append("apellidoMaterno",apellidoMaterno.value);
+        parametros.append("tipoDocumento", tipoDocumento.value);
+        parametros.append("numeroDocumento", dni.value);
+        parametros.append("fechaNacimiento", fechanacimiento.value);
+        parametros.append("genero", genero.value);
+        parametros.append("telefono", telefono.value);
+        parametros.append("distrito", distrito.value);
+        fetch("../controllers/persona.php", {
+            method : "POST",
+            body : parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.status){
+            toastCheck("Guardado Correctamente");   
+            modalRegistrar.toggle();
+            formPaciente.reset();
+            }else{
+            alert(datos.mensaje);
+            }
+        })
+        .catch(error => {
+            alert("Error al guardar")
+        })
+        }
+    }) 
+    }
     function eliminar(){
 
         const parametros = new URLSearchParams();
@@ -326,6 +561,9 @@
         if (evt.charCode == 13) consultarPersonas();
     });
 
+    dniModal.addEventListener("keypress", (evt) => {
+        if(evt.charCode == 13) consultarDNI();
+    });
     cuerpoUsuarios.addEventListener("click", (event) => {
         nivelData = event.target.dataset.nivel;
         user = event.target.dataset.user;
@@ -346,6 +584,7 @@
             }
         }
     });
-
+    
+    guardarRegistro.addEventListener("click", validarPacientes);
     btConfirmar.addEventListener("click", validarEliminacion);
 </script>
