@@ -34,10 +34,6 @@ switch ($permiso){
                 "url" => "index.php?view=triaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
-            [   "menu" => "Impresiones", 
-                "url" => "index.php?view=impresos.php",
-                "icono" => "ti ti-heartbeat nav-small-cap-icon"
-            ],
             [   "menu" => "Configuración Atención", 
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
@@ -49,6 +45,10 @@ switch ($permiso){
             [   "menu" => "Configuración Triaje", 
                 "url" => "index.php?view=configuracionTriaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-password-user nav-small-cap-icon"
             ]
         ];
     break;
@@ -66,8 +66,11 @@ switch ($permiso){
             [   "menu" => "Gastos", 
                 "url" => "index.php?view=gastos.php",
                 "icono" => "ti ti-coin nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-password-user nav-small-cap-icon"
             ]
-            
         ];
     break;
     case "T":
@@ -87,6 +90,10 @@ switch ($permiso){
             [   "menu" => "Configuración Triaje", 
                 "url" => "index.php?view=configuracionTriaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+            "url" => "index.php?view=cambiarClave.php",
+            "icono" => "ti ti-password-user nav-small-cap-icon"
             ]
         ];    
     break;
@@ -103,6 +110,10 @@ switch ($permiso){
             [   "menu" => "Configuración Atención", 
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-password nav-small-cap-icon"
             ]
         ];    
     break;
@@ -112,6 +123,10 @@ switch ($permiso){
                 "menu" => "Vista Doctor", 
                 "url" => "index.php?view=vistaDoctores.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
             ]
         ];    
     break;
@@ -121,6 +136,10 @@ switch ($permiso){
                 "menu" => "Vista Servicios", 
                 "url" => "index.php?view=vistaServicios.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   "menu" => "Cambiar Clave", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
             ]
         ];    
     break;

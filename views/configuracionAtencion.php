@@ -62,7 +62,7 @@
                                             <label for="">Servicio:</label>          
                                         </div>
                                         <div class="col-md-8">                                  
-                                            <select name="" id="listaServicios" class="" required>
+                                            <select name="" id="listaServicios" class="">
                                             <option value="">Seleccione</option>
                                             </select> 
                                         </div>
@@ -205,166 +205,6 @@
                     </div>
                 </div>         
             </div>
-            <div class="mb-2 row g-2">
-                <!--Registrar personas-->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">AGREGAR PERSONAS:</div>
-                            <div class="card-body">
-                                <form action="" id="form-persona" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-4 fw-bolder">
-                                        <label for="">Tipo Documento:</label>          
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-12">
-                                        <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbDni" value="N">
-                                          <label class="form-check-label">DNI</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
-                                          <label class="form-check-label">Carnet Extranjeria</label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-6">                    
-                                        <div class="form-floating">
-                                          <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
-                                          <label for="">
-                                              <i class="ti ti-id-badge me-2 fs-4"></i>
-                                              N° Documento
-                                          </label>
-                                          <div class="invalid-feedback">
-                                              Complete este campo para continuar
-                                          </div>  
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                    <div class="mb-3 row g-2">
-                                      <div class="form-floating">
-                                        <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text">
-                                        <label for="">
-                                            <i class="ti ti-user me-2 fs-4"></i>
-                                            Nombres
-                                        </label> 
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="form-floating ">
-                                        <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
-                                        <label for="">
-                                            <i class="ti ti-user me-2 fs-4"></i>
-                                            Apellido Paterno
-                                        </label> 
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="form-floating ">
-                                        <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
-                                        <label for="">
-                                            <i class="ti ti-user me-2 fs-4"></i>
-                                            Apellido Materno
-                                        </label> 
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-4 fw-bolder">
-                                        <label for="">Fecha Nacimiento:</label>          
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2 ">
-                                      <div class="col-md-12">                                  
-                                        <input class="form-control" id="fechaNacimiento" type="date" required>
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-4 fw-bolder">
-                                        <label for="">Género:</label>          
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-12">       
-                                        <div class="form-check form-check-inline ">                           
-                                          <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMujer" value="F">
-                                          <label class="form-check-label">Femenino</label>
-                                        </div>
-                                        <div class="form-check form-check-inline ">
-                                          <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbHombre" value="M">
-                                          <label class="form-check-label">Masculino</label>
-                                        </div>
-                                      </div> 
-                                    </div>                 
-                                    <div class="mb-3 row g-2">
-                                      <div class="col-md-12">  
-                                        <div class="form-floating ">
-                                          <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
-                                          <label for="">
-                                              <i class="ti ti-phone me-2 fs-4"></i>
-                                              Teléfono
-                                          </label> 
-                                        </div>                                
-                                      </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-12">  
-                                          <div class="form-floating ">
-                                            <input  class="form-control border" id="distrito"placeholder="a" type="text" maxlength="100">
-                                            <label for="">
-                                                <i class="ti ti-phone me-2 fs-4"></i>
-                                                Distrito
-                                            </label> 
-                                          </div>                                
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="guardarPersona">Guardar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="reset" class="btn btn-danger">Cancelar</button>
-                                        </div>
-                                    </div>
-                                  </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- REGISTRO DE ALERGIAS-->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">AGREGAR ALERGIAS:</div>
-                            <div class="card-body">
-                                <form id="form-alergias" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-2">
-                                            <label for="">Alergia:</label>          
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control" id="nombreAlergia" type="text" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="guardarAlergia">Guardar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="reset" class="btn btn-danger" id="cancelarAlergia">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>        
-            </div>
         </div>
     </div>
 </div>
@@ -401,28 +241,6 @@
     const serviciosEspecialistas = document.querySelector("#servicioSelect");
     const btGuardarEspSer = document.querySelector("#guardarServicioEspecialista");
     const btCancelarEspSer = document.querySelector("#cancelarServicioEspecialista");
-    
-    // para el registro de pesonas 
-    const dnip = document.querySelector("#DNIp");
-    const apellidoPaterno = document.querySelector("#apellidosPaternoPersona");
-    const apellidoMaterno = document.querySelector("#apellidosMaternoPersona");
-    const nombres = document.querySelector("#nombrePersona");
-    const fechanacimiento = document.querySelector("#fechaNacimiento");
-    const telefono = document.querySelector("#telefono");
-    const distrito = document.querySelector("#distrito");
-    const formularioPersona = document.querySelector("#form-persona");
-    const btGuardarPersona = document.querySelector("#guardarPersona");
-    const rbHombre = document.querySelector("#rbHombre");
-    const rbMujer = document.querySelector("#rbMujer");
-    const rbDni = document.querySelector("#rbDni");
-    const rbCarnet = document.querySelector("#rbCarnet");
-    // Alergias
-    const alergia = document.querySelector("#nombreAlergia");
-    const formAlergias = document.querySelector("#form-alergias");
-    const guardarAlergia = document.querySelector("#guardarAlergia");
-    const cancelarAlergia = document.querySelector("#cancelarAlergia");
-    let genero;
-    let tipoDocumento;
 
     function listarServicios(select){
         const choiselistaServicios = new Choices(select, {
@@ -528,9 +346,17 @@
             event.stopPropagation();
             formularioDetalles.classList.add('was-validated');
         }else{
+            if(!servicios.value){
+                notificar("No permitido", "Seleccione un servicio para continuar", 5);
+                return;
+            }
+            if(precio.value <0){
+                notificar("No permitido", "Valores negativos no se aceptan", 5);
+                return;
+            }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
-                    guardarDetalle();   
+                    guardarDetalle();  
                 }
             })  
         }
@@ -703,99 +529,7 @@
         serviciosEspecialistas.selectedIndex = 0;
         especialistasSelect.selectedIndex = 0;
     }
-
-    function validarPersona(){
-        if(!formularioPersona.checkValidity()){
-            event.preventDefault();
-            event.stopPropagation();
-            formularioPersona.classList.add('was-validated');
-        }else{
-            if (rbDni.checked) {
-            tipoDocumento = rbDni.value;
-            }else if(rbCarnet.checked){
-                tipoDocumento = rbCarnet.value;
-            }
-            else{
-                notificar("Seleccione","Por favor, selecciona un tipo de documento.", 2);
-                return; 
-            }
-            if (rbMujer.checked) {
-                genero = rbMujer.value;
-            }else if(rbHombre.checked){
-                genero = rbHombre.value;
-            }else{
-                notificar("Seleccione", "el genero para continuar",2);
-                return;
-            }
-
-            mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-                if(result.isConfirmed){
-                    registrarPersona();   
-                }
-            }) 
-        }
-    }
     
-    function consultarDNI() {
-        const documento =dnip.value;
-        const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
-
-        fetch(url)
-            .then(datos => {
-            if(datos.status == 200) {
-                return datos.text();
-            } else {
-                throw `Respuesta incorrecta del servidor`; 
-            }
-            })
-            .then(datos => {
-            const resultado = JSON.parse(datos);
-            console.log(resultado);
-            if (resultado.dni == documento) {
-                apellidoPaterno.value = resultado.apellidoPaterno;
-                apellidoMaterno.value = resultado.apellidoMaterno;
-                nombres.value = resultado.nombres;
-            } else {
-                toast(resultado.message);
-            }
-            })
-            .catch( e => {
-            console.error(e);
-            });
-    }
-
-    function registrarPersona(){
-
-        
-        const parametros = new URLSearchParams();
-        parametros.append("operacion", "registrarPersona");
-        parametros.append("nombres", nombres.value);
-        parametros.append("apellidoPaterno",apellidoPaterno.value);
-        parametros.append("apellidoMaterno",apellidoMaterno.value);
-        parametros.append("tipoDocumento", tipoDocumento);
-        parametros.append("numeroDocumento", dnip.value);
-        parametros.append("fechaNacimiento", fechanacimiento.value);
-        parametros.append("genero", genero);
-        parametros.append("telefono", telefono.value);
-        parametros.append("distrito", distrito.value);
-        fetch("../controllers/persona.php", {
-            method : "POST",
-            body : parametros
-        })
-        .then(response => response.json())
-        .then(datos => {
-            if(datos.status){
-            toastCheck("Guardado Correctamente");
-            formularioPersona.reset();   
-            }else{
-                consultarDNI();
-            }
-        })
-        .catch(error => {
-            alert("Error al guardar")
-        })
-    }
-
     listarServicios(servicios);
     listarServicios(serviciosEspecialistas);
     listarEspecialistas();
@@ -827,22 +561,8 @@
     btGuardarEspecialista.addEventListener("click",validarEspecialistas);
     btGuardarEspSer.addEventListener("click",validarEspSer);
     btCancelarEspSer.addEventListener("click",limpiarEspSer);
-    btGuardarPersona.addEventListener("click",validarPersona);
-    cancelarAlergia.addEventListener("click", () =>{
-        formAlergias.reset();
-    });
 
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPersonas();
-    });
-    dnip.addEventListener("keypress", (evt) => {
-        if (evt.charCode == 13) consultarPaciente();
-    });
-    guardarAlergia.addEventListener("click", () => {
-        mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-                if(result.isConfirmed){
-                    registrarAlergias();
-                }
-            })
     });
 </script>
