@@ -117,11 +117,11 @@
                                 </div> 
                               </div>
                               <div class="row mb-3 g-2">
-                                <div class="col-md-4">
-                                  <label class="fw-bolder">Presión Arterial:</label>          
-                                </div> 
                                 <div class="col-md-3">
-                                  <input type="number" id="presionArterial1"class="form-control" placeholder="120-130" required>         
+                                  <label class="fw-bolder">P/A:</label>          
+                                </div> 
+                                <div class="col-md-4">
+                                  <input type="number" id="presionArterial1"class="form-control" placeholder="120-140" required>         
                                 </div> 
                                 <div class="ms-3 col-md-1">
                                   <label class="fs-6"> / </label>          

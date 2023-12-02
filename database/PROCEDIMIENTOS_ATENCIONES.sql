@@ -325,7 +325,7 @@ IN _estado CHAR(1)
 )
 BEGIN 
 	SELECT idusuario, nombreUsuario, nivelAcceso, fechaInicio,
-		CONCAT(personas.apellidoPaterno, " ", personas.apellidoPaterno, " ", personas.nombres) AS persona
+		CONCAT(personas.apellidoPaterno, " ", personas.apellidoMaterno, " ", personas.nombres) AS persona
 	FROM usuarios
 	INNER JOIN personas ON personas.idPersona = usuarios.idPersona
 	WHERE usuarios.estado = _estado
