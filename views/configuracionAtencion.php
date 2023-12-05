@@ -235,6 +235,7 @@
     const btGuardarEspecialista = document.querySelector("#guardarEspecialista");
     const formularioEspecialistas = document.querySelector("#form-especialistas");
     let idPersona;
+    let edad;
     
     // para el registro de los especialistas a los servicios
     const especialistasSelect = document.querySelector("#especialistaSelect");
@@ -431,6 +432,7 @@
             datos.forEach(element => {
                 idPersona = element.idPersona;
                 nombre.value = element.ApellidosNombres;
+                edad = element.Edad;
             });
             }else{
                 toast("No existes la persona registrada");
@@ -444,6 +446,10 @@
             event.stopPropagation();
             formularioEspecialistas.classList.add('was-validated');
         }else{
+            if(edad<20){
+                notificar("Dato invalido", "No se puede guardar un especilidad que sea menor a 20 años",5);
+                return;
+            }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                     comprobarEspecialista();   
