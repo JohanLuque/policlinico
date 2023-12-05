@@ -343,3 +343,16 @@ BEGIN
 		estado = '0'
 	WHERE idUsuario = _idusuario;
 END $$
+
+-- Cambiar contraseña
+DELIMITER $$
+CREATE PROCEDURE spu_admision_cambiar_clave
+(
+IN _idusuario INT,
+IN _clave VARCHAR(200)
+)
+BEGIN 
+	UPDATE Usuarios SET
+		clave = _clave
+	WHERE idUsuario = _idusuario;
+END $$

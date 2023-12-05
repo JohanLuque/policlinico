@@ -9,7 +9,16 @@
         <div>
           <form id="form-alergias" >
             <div class="mb-3 row g-2">
-              
+              <div class="form-floating col-md-5">
+                    <input type="text" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" type="tel" required readonly>
+                    <label for="">
+                        <i class="ti ti-user me-2 fs-4"></i>
+                        N° Documento
+                    </label>
+                    <div class="invalid-feedback">
+                        Complete este campo para continuar
+                    </div>  
+              </div>
             </div>
             <div class="mb-3 row g-2">
               <div class="col-md-6">
