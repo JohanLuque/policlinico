@@ -16,7 +16,8 @@ if(isset($_POST['operacion'])){
       "usuario" => "",
       "mensaje" => "",
       "nombres" => "",
-      "nivelacceso" => ""
+      "nivelacceso" => "",
+      "clave" => ""
     ];
 
     $data = $usuario->login($_POST['nombreUsuario']);
@@ -32,6 +33,7 @@ if(isset($_POST['operacion'])){
         $resultado["idUsuario"] = $data["idUsuario"];
         $resultado["nivelacceso"] = $data["nivelAcceso"];
         $resultado["usuario"] = $data["nombreUsuario"];
+        $resultado["clave"] = $data["clave"];
 
       }else{
         $resultado["mensaje"] = "La contraseña es incorrecta";
@@ -69,6 +71,30 @@ if(isset($_POST['operacion'])){
       $claveIngresada = $_POST['clave'];
       if (password_verify($claveIngresada, $data['clave'])){
         echo json_encode($usuario->eliminarUsuario($_POST['idusuario'])); 
+      }else{
+        echo json_encode(["mensaje" => "incorrecto"]); 
+      }
+    }else{
+      echo json_encode(["mensaje" => "no existe"]); 
+    }
+
+  }
+  if($_POST['operacion'] == 'actualizarClave') {
+    $data = $usuario->login($_POST['nombreUsuario']);
+
+    if($data){
+
+      $claveIngresada = $_POST['clave'];
+      if (password_verify($claveIngresada, $data['clave'])){
+        $claveOriginal = $_POST['nueva'];
+        $nuevaClave = password_hash($claveOriginal, PASSWORD_BCRYPT);
+
+        $datos=
+        [
+          "idusuario" => $_POST['idusuario'],
+          "clave"     => $nuevaClave
+        ];
+        echo json_encode($usuario->actualizarClave($datos)); 
       }else{
         echo json_encode(["mensaje" => "incorrecto"]); 
       }

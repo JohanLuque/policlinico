@@ -43,7 +43,7 @@ class Usuario extends Conexion{
         return $respuesta;
       }
 
-      public function listar($estado){
+    public function listar($estado){
         try{
             $consulta = $this->connection->prepare("CALL spu_admision_listar_usuarios(?)");
             $consulta->execute(array($estado));
@@ -77,5 +77,25 @@ class Usuario extends Conexion{
           die($e->getMessage());
       }
       
-  }
+    }
+
+    public function actualizarClave($datos = []){
+      $respuesta = [
+        "status" => false,
+        "mensaje" => ""
+      ];
+      try{
+        $consulta = $this->connection->prepare("CALL spu_admision_cambiar_clave(?,?)");
+        $respuesta["status"]=$consulta->execute(
+          array(
+            $datos["idusuario"],
+            $datos["clave"]
+          )
+        );
+      }
+      catch(Exception $e){
+        $respuesta["mensaje"] = "No se pudo guardar. Codigo ". $e->getMessage();
+      }
+      return $respuesta;
+    }
   }

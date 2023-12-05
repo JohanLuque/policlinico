@@ -316,11 +316,11 @@
     valorTemperatura = parseFloat(temperatura.value);
     valorSaturacion = parseFloat(saturacionOxigeno.value);
 
-    if(valorPeso<=0 || valorPeso >160){
+    if(valorPeso<=0 || valorPeso > 90){
       toast("Peso invalido");
       peso.focus()
       return;
-    }else if(valorTalla<=0 || valorTalla > 300){
+    }else if(valorTalla<=40 || valorTalla > 180){
       toast("talla invalida");
       talla.focus();
       return;
