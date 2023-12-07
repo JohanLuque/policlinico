@@ -61,7 +61,12 @@ if(isset($_POST['operacion'])){
         echo json_encode($usuario->registrarUsuario($datos));
   }
   if($_POST['operacion'] == 'listarUsuario'){
-    echo json_encode($usuario->listar($_POST['estado']));
+    try{
+      echo json_encode($usuario->listar($_POST['estado']));
+
+    }catch(Exception $e){
+      echo "error";
+    }
   }
   if($_POST['operacion'] == 'eliminarUsuario') {
     $data = $usuario->login($_POST['nombreUsuario']);

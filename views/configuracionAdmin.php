@@ -1,5 +1,5 @@
 <?php require_once 'permisos.php'; ?>
-<div class="container-fluid">
+<div class="row">
     <div class="card">
         <div class="card-header">
             <h1 class="text-center">Configuración</h1>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-md-8">       
                                             <div class="form-check form-check-inline">                           
-                                            <input class="form-check-input" type="radio" name="options" id="rbAdmision" value="A">
+                                                <input class="form-check-input" type="radio" name="options" id="rbAdmision" value="A">
                                                 <label class="form-check-label">Admisión</label>
                                             </div>
                                             <div class="form-check form-check-inline">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
+                                        <div class="col-md-6"></div>
                                         <div class="col-md-3">
                                             <button type="button" class="btn btn-primary" id="guardarUsuario">Guardar</button>
                                         </div>
@@ -88,51 +88,51 @@
                 </div>
             </div> 
             <div class="mb-2 row g-2">
-                    <h1   h1   h1 class="form-label fs-13 text-center text-danger">Listado de usuarios</h1>
-                    <table class="table table-hover" id="tabla-usuario">
-                      <thead class="table-danger">
+                <h1 class="form-label fs-13 text-center text-danger">Listado de usuarios</h1>
+                <table class="table table-hover" id="tabla-usuario">
+                    <thead class="table-danger">
                         <tr>
-                          <th>#</th>
-                          <th>Apellidos y nombres</th>
-                          <th>Usuario</th>
-                          <th>Nivel</th>
-                          <th>Fecha de inicio</th>
-                          <th>Operaciones</th>
+                            <th>#</th>
+                            <th>Apellidos y nombres</th>
+                            <th>Usuario</th>
+                            <th>Nivel</th>
+                            <th>Fecha de inicio</th>
+                            <th>Operaciones</th>
                         </tr>
-                      </thead>
-                      <tbody id="cuerpoUsuario">
-                      </tbody>
-                    </table>
+                    </thead>
+                    <tbody id="cuerpoUsuario">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal para la contraseña-->
-<div class="modal fade" id="modalUsuarios" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+<div class="modal fade" id="modalUsuarios" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
         <div class="modal-content">
-            <div class="modal-header ">
+            <div class="modal-header">
                 <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">Ingrese su contraseña:</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+            </div>
             <div class="modal-body">
                 <form action="" id="form-modal" autocomplete="off">
                     <div class="mb-3 row g-2">
-                        <div class="form-floating ">
-                            <input type="password" class="form-control border"  placeholder="." id="contrasenia" required>
-                            <label for="">
+                        <div class="form-floating">
+                            <input type="password" class="form-control border" placeholder="." id="contrasenia" required>
+                            <label for="contrasenia">
                                 <i class="ti ti-password me-2 fs-4"></i>
                                 Contraseña
-                            </label> 
+                            </label>
                         </div>
                     </div>
                 </form>
-            </div>  
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary "   id="md-confirmacion">Confirmar</button>
+                <button type="button" class="btn btn-primary" id="md-confirmacion">Confirmar</button>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
 <!--Modal de registro de personas-->
@@ -248,21 +248,21 @@
                 </div>
                 <div class="mb-3 row g-2">
                   <div class="col-md-6">
-                    <select  class="form-select" id="distrito"> 
-                      <option value="">Seleccione</option>
-                      <option value="Chincha Alta">Chincha Alta</option>
-                      <option value="Chincha Baja">Chincha Baja</option>
-                      <option value="Grocio Prado">Grocio Prado</option>
-                      <option value="Sunampe">Sunampe</option>
-                      <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-                      <option value="EL Carmen">EL Carmen</option>
-                      <option value="Alto Larán">Alto Larán</option>
-                      <option value="San Juan de Yanac">San Juan de Yanac</option>
-                      <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
-                      <option value="Tambo de Mora">Tambo de Mora</option>
-                      <option value="Chavín">Chavín</option>
-                      <option value="Foráneo">Foráneo</option>
-                    </select>                             
+                        <select  class="form-select" id="distrito"> 
+                            <option value="">Seleccione</option>
+                            <option value="Chincha Alta">Chincha Alta</option>
+                            <option value="Chincha Baja">Chincha Baja</option>
+                            <option value="Grocio Prado">Grocio Prado</option>
+                            <option value="Sunampe">Sunampe</option>
+                            <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                            <option value="EL Carmen">EL Carmen</option>
+                            <option value="Alto Larán">Alto Larán</option>
+                            <option value="San Juan de Yanac">San Juan de Yanac</option>
+                            <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
+                            <option value="Tambo de Mora">Tambo de Mora</option>
+                            <option value="Chavín">Chavín</option>
+                            <option value="Foráneo">Foráneo</option>
+                        </select>                             
                   </div>
                 </div>
               </form>
@@ -279,6 +279,8 @@
   </div>
 </div>
 <script>
+    
+
     // registrar usuarios
     const dni = document.querySelector("#dni");
     const nombre = document.querySelector("#nombre");
@@ -309,7 +311,7 @@
     const formPaciente = document.querySelector("#form-paciente");
     // listar usuarios
     const tablaUsuarios = document.querySelector("#tabla-usuario");
-    const cuerpoUsuarios = tablaUsuarios.querySelector("#cuerpoUsuario");
+    const cuerpoUsuarios = tablaUsuarios.querySelector("tbody");
 
     // eliminar usuarios
     const modal = new bootstrap.Modal(document.querySelector("#modalUsuarios"));
@@ -321,6 +323,9 @@
     let id;
     let edad;
 
+//window.addEventListener('load', async () => {
+    //});
+    
     function consultarPersonas(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -333,8 +338,8 @@
         .then(datos => {
             
             if(datos.length>0){
-
-            datos.forEach(element => {
+                
+                datos.forEach(element => {
                 idPersona = element.idPersona;
                 nombre.value = element.ApellidosNombres;
                 edad = element.Edad;
@@ -352,7 +357,7 @@
     function consultarDNI() {
         const documento =dniModal.value;
         const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
-
+        
         fetch(url)
             .then(datos => {
             if(datos.status == 200) {
@@ -380,7 +385,7 @@
     function validar(){
         if(!formularioUsuario.checkValidity()){
             event.preventDefault();
-            event.stopPropagation();
+            // event.stopPropagation();
             formularioUsuario.classList.add('was-validated');
         }else{
             if(!nombre.value){
@@ -407,7 +412,7 @@
                 notificar("Dato invalido", "No se puede añadir un usuario menor de edad",5);
                 return;
             }
-
+            
             if(rbEspecialista.checked && edad <20){
                 notificar("Dato invalido", "No se puede guardar un especilidad que sea menor a 20 años",5);
                 return;
@@ -457,6 +462,7 @@
         })
         .then(response => response.json())
         .then(datos => {
+            
             cuerpoUsuarios.innerHTML = "";
             let numero = 1;
             datos.forEach(element => {
@@ -468,15 +474,18 @@
                 <td>${element.nivelAcceso}</td>
                 <td>${element.fechaInicio}</td>
                 <td>
-                <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}' data-user='${element.nombreUsuario}', data-id='${element.idusuario}'>
-                    Eliminar
-                </a>
+                    <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}' data-user='${element.nombreUsuario}' data-id='${element.idusuario}'>
+                        Eliminar
+                    </a>
                 </td>
             </tr>
             `;
             cuerpoUsuarios.innerHTML += filaNueva;
             numero++;
             })
+            
+        }).catch( e => {
+            console.error(e);
         })
     }
 
@@ -489,7 +498,7 @@
             registrarPaciente();
         }
     }
-
+    
     function registrarPaciente(){
         const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
         if (!tipoDocumento) {
@@ -521,11 +530,11 @@
             .then(response => response.json())
             .then(datos => {
                 if(datos.status){
-                toastCheck("Guardado Correctamente");   
+                    toastCheck("Guardado Correctamente");   
                 modalRegistrar.toggle();
                 formPaciente.reset();
                 }else{
-                alert(datos.mensaje);
+                    alert(datos.mensaje);
                 }
             })
             .catch(error => {
@@ -536,13 +545,12 @@
     }
 
     function eliminar(){
-
         const parametros = new URLSearchParams();
         parametros.append("operacion", "eliminarUsuario");
         parametros.append("nombreUsuario", nombreUsuario);
         parametros.append("clave", contrasenia.value);
         parametros.append("idusuario", id);
-
+        
         fetch("../controllers/usuario.php",{
             method:'POST',
             body:parametros
@@ -570,9 +578,7 @@
             eliminar();
         }
     }
-
-    listarUsuarios();
-
+    
     btGuardarUsuario.addEventListener("click", validar);
 
     dni.addEventListener("keypress", (evt) => {
@@ -582,6 +588,8 @@
     dniModal.addEventListener("keypress", (evt) => {
         if(evt.charCode == 13) consultarDNI();
     });
+
+    listarUsuarios();
     cuerpoUsuarios.addEventListener("click", (event) => {
         nivelData = event.target.dataset.nivel;
         user = event.target.dataset.user;
