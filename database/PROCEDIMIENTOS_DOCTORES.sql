@@ -136,3 +136,74 @@ END $$
 -- CALL spu_doctor_agregar_enfermedad(6,2)
 -- select * from Tratamiento_paciente
 -- select * from enfermedades
+
+-- listar detalles de un paciente
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_listar_detalles_personas
+(
+IN _numeroDocumento VARCHAR(12)
+)
+BEGIN
+	SELECT 	Detalle_Atenciones.idDetalleAtenciones, Detalle_Atenciones.fechaCreacion,
+		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente,
+		servicios.nombreServicio
+	FROM Detalle_Atenciones
+	INNER JOIN Historias_clinicas ON Historias_clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
+	INNER JOIN personas ON personas.idPersona = Historias_clinicas.idPersona
+	INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
+	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE personas.numeroDocumento = _numeroDocumento
+	ORDER BY Detalle_Atenciones.idDetalleAtenciones DESC;
+END $$
+
+-- ver detalles de atenciones de los pacientes
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_ver_detalles_pacientes
+(
+IN _idDetelleAtenciones INT
+)
+BEGIN
+	SELECT  idDetalleAtenciones,
+		CONCAT(fam.apellidoPaterno, ' ', fam.apellidoMaterno, ' ', fam.nombres) AS familiar, atenciones.parentesco, fam.numeroDocumento AS dniFam,
+		peso, talla, frecuenciaCardiaca, FrecuenciaRespiratoria, PresionArterial, temperatura, SaturacionOxigeno,
+		Historias_Clinicas.antecedentePersonal, Historias_Clinicas.antecedenteFamiliar, Historias_Clinicas.antecedenteQuirurgico, Historias_Clinicas.antecedenteOtro,
+		CONCAT(pac.apellidoPaterno, ' ', pac.apellidoMaterno, ' ', pac.nombres) AS paciente,
+		pac.numeroDocumento,
+		pac.genero,
+		servicios.nombreServicio,
+		YEAR(CURDATE())-YEAR(pac.fechaNacimiento) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(pac.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad' ,
+		TIMESTAMPDIFF(MONTH, pac.fechaNacimiento, CURDATE()) AS 'meses',
+		CURDATE() AS fecha,
+		inicio, curso, relato, examenGeneral,
+		enfermedades.codigoCie_10, enfermedades.descripcion, frecuencia, procedimiento, observaciones
+		FROM detalle_atenciones
+		INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
+		INNER JOIN Historias_Clinicas ON Historias_Clinicas.idHistoriaClinica = detalle_atenciones.idHistoria
+		INNER JOIN personas pac ON pac.idPersona = Historias_Clinicas.idPersona
+		LEFT JOIN personas fam ON fam.idPersona = atenciones.idfamiliar
+		LEFT JOIN Detalle_Alergias ON Detalle_Alergias.idHistoriaClinica = Historias_Clinicas.idHistoriaClinica
+		LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
+		INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+		LEFT JOIN Enfermedad_Pacientes ON Enfermedad_Pacientes.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
+		LEFT JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
+		WHERE detalle_atenciones.idDetalleAtenciones = _idDetelleAtenciones
+		GROUP BY idDetalleAtenciones;
+END $$
+
+-- ver tratamientos del detalle de atencion del paciente
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_ver_tratamientos_pacientes
+(
+IN _idDetelleAtenciones INT
+)
+BEGIN 
+	SELECT idTratamiento, Tratamiento_paciente.idDetalleAtencion ,medicamento, presentacion, cantidad, dosis, dias
+	FROM detalle_atenciones
+	LEFT JOIN Tratamiento_paciente ON Tratamiento_paciente.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
+	WHERE Detalle_Atenciones.idDetalleAtenciones = 3
+	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
+END $$

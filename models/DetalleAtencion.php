@@ -105,4 +105,13 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   }
+  public function listarDetallesHistoriaClinica($dni = 0){
+    try{
+      $query = $this->connection->prepare("CALL spu_doctores_listar_detalles_personas(?)");
+      $query->execute(array($dni));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
