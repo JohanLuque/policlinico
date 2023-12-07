@@ -42,5 +42,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $detalleAtencion->cambiarEstadoAtendido($parametros);
       echo json_encode($respuesta);
       break;
+    case 'listarDetallehistoriaClinica':
+      echo json_encode($detalleAtencion->listarDetallesHistoriaClinica($_POST['nroDocumento']));
+      break ;
   }
 }
