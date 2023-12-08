@@ -126,7 +126,6 @@
                   <th>#</th>
                   <th>N° DOC</th>
                   <th>Paciente</th>
-                  <th>Especialidad</th>
                   <th></th>
                 </tr>
               </thead>
@@ -245,7 +244,6 @@
                         <td>${nro}</td>
                         <td>${element.numeroDocumento}</td>
                         <td>${element.ApellidosNombres}</td>
-                        <td>${element.nombreServicio}</td>
                         <td>
                           <a class ="historia btn btn-sm btn-danger" data-buscar='${element.numeroDocumento}'>
                               Ir

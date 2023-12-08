@@ -16,8 +16,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md">
             <div class="card  ">
                 <div class="card-body p-4">
@@ -46,6 +44,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        
+        
         <div class="col-md">
             <div class="card ">
                 <div class="card-body p-4">
@@ -326,6 +328,7 @@
             toast("Seleccione un servicio");
         }
     });
+    
 
     listarServicios();
     ingresos();

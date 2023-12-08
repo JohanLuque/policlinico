@@ -42,5 +42,8 @@ if(isset($_POST['operacion'])){
       $respuesta = $servicio->cambiarEstadoProcedimiento($parametros);
       echo json_encode($respuesta);
       break;
+    case 'graficoEspecialidades':
+      echo json_encode($servicio->grafico_especialidades());
+      break;
   }
 }

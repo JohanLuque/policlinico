@@ -135,7 +135,7 @@ CREATE PROCEDURE spu_triaje_nohay_historia()
 BEGIN
 	SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`, personas.`numeroDocumento`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
-	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
+	    atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
 	FROM atenciones
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
@@ -144,7 +144,7 @@ BEGIN
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
 	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NULL 
-	GROUP BY Detalle_Servicios.idatencion
+	GROUP BY  personas.`idPersona`
 	ORDER BY dia DESC;
 
 END $$

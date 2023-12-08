@@ -137,146 +137,144 @@
 </div>
 <!--Modal de registro de personas-->
 <div class="modal fade" id="registrar-personas" tabindex="-1"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Paciente</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row mt-2 mb-3">
-          <div class="col-md-12">
-            <div class="row g-2 mb-3">  
-              <form action="" id="form-paciente">
-                <div class="mb-3 row g-2">
-                  <div class="col-md-4 fw-bolder">
-                    <label for="">Tipo Documento:</label>          
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-12">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
-                      <label class="form-check-label">DNI</label>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Paciente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-2 mb-3">
+                    <div class="col-md-12">
+                        <div class="row g-2 mb-3">  
+                            <form action="" id="form-paciente">
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-4 fw-bolder">
+                                        <label for="">Tipo Documento:</label>          
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
+                                            <label class="form-check-label">DNI</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
+                                            <label class="form-check-label">Carnet Extranjeria</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6">                    
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border " id="DNIModal" type="tel" placeholder="88888888" required>
+                                            <label for="">
+                                                <i class="ti ti-id-badge me-2 fs-4"></i>
+                                                N° Documento
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                Complete este campo para continuar
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
+                                        <label for="">
+                                            <i class="ti ti-user me-2 fs-4"></i>
+                                            Nombres
+                                        </label> 
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="form-floating ">
+                                        <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
+                                        <label for="">
+                                            <i class="ti ti-user me-2 fs-4"></i>
+                                            Apellido Paterno
+                                        </label> 
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="form-floating ">
+                                        <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
+                                        <label for="">
+                                            <i class="ti ti-user me-2 fs-4"></i>
+                                            Apellido Materno
+                                        </label> 
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6 fw-bolder">
+                                        <label for="">Fecha Nacimiento:</label>          
+                                    </div>
+                                    <div class="col-md-6 fw-bolder">
+                                        <label for="">Género:</label>          
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2 ">
+                                    <div class="col-md-6">                                  
+                                        <input class="form-control" id="fechaNacimiento" type="date" required>
+                                    </div>
+                                    <div class="col-md-6">                                  
+                                        <div class="form-check form-check-inline ">                           
+                                            <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
+                                            <label class="form-check-label">Femenino</label>
+                                        </div>
+                                        <div class="form-check form-check-inline ">
+                                            <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
+                                            <label class="form-check-label">Masculino</label>
+                                        </div>
+                                    </div>
+                                </div>              
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6">  
+                                        <div class="form-floating ">
+                                            <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
+                                            <label for="">
+                                                <i class="ti ti-phone me-2 fs-4"></i>
+                                                Teléfono
+                                            </label> 
+                                        </div>                                
+                                    </div>                  
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6 fw-bolder">
+                                        <label for="">Distrito:</label>          
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6">
+                                            <select  class="form-select" id="distrito"> 
+                                                <option value="">Seleccione</option>
+                                                <option value="Chincha Alta">Chincha Alta</option>
+                                                <option value="Chincha Baja">Chincha Baja</option>
+                                                <option value="Grocio Prado">Grocio Prado</option>
+                                                <option value="Sunampe">Sunampe</option>
+                                                <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                                                <option value="EL Carmen">EL Carmen</option>
+                                                <option value="Alto Larán">Alto Larán</option>
+                                                <option value="San Juan de Yanac">San Juan de Yanac</option>
+                                                <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
+                                                <option value="Tambo de Mora">Tambo de Mora</option>
+                                                <option value="Chavín">Chavín</option>
+                                                <option value="Foráneo">Foráneo</option>
+                                            </select>                             
+                                    </div>
+                                </div>
+                            </form>                
+                        </div>          
                     </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
-                      <label class="form-check-label">Carnet Extranjeria</label>
-                    </div>
-                  </div>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">                    
-                    <div class="form-floating">
-                      <input type="text" class="form-control border " id="DNIModal" type="tel" placeholder="88888888" required>
-                      <label for="">
-                          <i class="ti ti-id-badge me-2 fs-4"></i>
-                          N° Documento
-                      </label>
-                      <div class="invalid-feedback">
-                          Complete este campo para continuar
-                      </div>  
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="mb-3 row g-2">
-                  <div class="form-floating">
-                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Nombres
-                    </label> 
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Apellido Paterno
-                    </label> 
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Apellido Materno
-                    </label> 
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Fecha Nacimiento:</label>          
-                  </div>
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Género:</label>          
-                  </div>
-                </div>
-                <div class="mb-3 row g-2 ">
-                  <div class="col-md-6">                                  
-                    <input class="form-control" id="fechaNacimiento" type="date" required>
-                  </div>
-                  <div class="col-md-6">                                  
-                    <div class="form-check form-check-inline ">                           
-                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
-                      <label class="form-check-label">Femenino</label>
-                    </div>
-                    <div class="form-check form-check-inline ">
-                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
-                      <label class="form-check-label">Masculino</label>
-                    </div>
-                  </div>
-                </div>              
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">  
-                    <div class="form-floating ">
-                      <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
-                      <label for="">
-                          <i class="ti ti-phone me-2 fs-4"></i>
-                          Teléfono
-                      </label> 
-                    </div>                                
-                  </div>                  
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Distrito:</label>          
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">
-                        <select  class="form-select" id="distrito"> 
-                            <option value="">Seleccione</option>
-                            <option value="Chincha Alta">Chincha Alta</option>
-                            <option value="Chincha Baja">Chincha Baja</option>
-                            <option value="Grocio Prado">Grocio Prado</option>
-                            <option value="Sunampe">Sunampe</option>
-                            <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-                            <option value="EL Carmen">EL Carmen</option>
-                            <option value="Alto Larán">Alto Larán</option>
-                            <option value="San Juan de Yanac">San Juan de Yanac</option>
-                            <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
-                            <option value="Tambo de Mora">Tambo de Mora</option>
-                            <option value="Chavín">Chavín</option>
-                            <option value="Foráneo">Foráneo</option>
-                        </select>                             
-                  </div>
-                </div>
-              </form>
-              
-            </div>          
-          </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="md-guardar">Guardar</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" id="md-guardar">Guardar</button>
-      </div>
     </div>
-  </div>
 </div>
 <script>
     
@@ -589,7 +587,7 @@
         if(evt.charCode == 13) consultarDNI();
     });
 
-    listarUsuarios();
+    //listarUsuarios();
     cuerpoUsuarios.addEventListener("click", (event) => {
         nivelData = event.target.dataset.nivel;
         user = event.target.dataset.user;
