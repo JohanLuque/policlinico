@@ -7,9 +7,6 @@
         <div class="col-md-11">
           <h2 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h2>
         </div>
-        <div class="col-md-1">
-          <button type="button" class="btn btn-sm" id="limpiar"><i class="fa-solid fa-trash-can fa-2xl" style="color: #f96f12;"></i></button>
-        </div>
       </div>
       
       <div class="card border-0">
@@ -31,7 +28,7 @@
                 </div>       
               </div>
               <div class="col-md-3">
-                <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+                <button class="btn btn-sm" id="limpiarDni" type="button"><i class="fa-solid fa-trash-can fa-2xl" style="color: #e66814;"></i></button>
               </div>
             </div>
             <div class="mb-3 row g-2">
@@ -397,6 +394,8 @@ const mostrarOrden = document.querySelector("#ordenMedica");
 const divFamiliar = document.querySelector("#familiar");
 const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
 const añosMeses = document.querySelector("#mesesAños");
+const limpiarDni = document.querySelector("#limpiarDni");
+
 
 // Pacientes
 const dniPersonas = document.querySelector("#DNI_personas");    
@@ -621,7 +620,8 @@ function registrarAtencion(){
   })
 }
 
-function limpiarFormulario(){
+function limpiarTodo(){
+  limpiarTabla();
   añosMeses.value = "";
   dniPersonas.value = "";
   nombrePaciente.value = "";
@@ -630,6 +630,20 @@ function limpiarFormulario(){
   nombreFamiliar.value="";
   parentesco.value = "";
   otroFamiliar.value ="";
+  igv.value = "";
+  subTotal.value = "";
+  total_servicios.value = "";
+  precioProce.value = "";
+  generoProce.value = "";
+  obtenerFecha();
+  limpiarSelect();
+  cambiarTurno();
+  listaServiciosFiltro();
+  listaServicios();
+}
+
+
+function limpiarFormulario(){
   igv.value = "";
   subTotal.value = "";
   total_servicios.value = "";
@@ -677,12 +691,7 @@ function registrarServiciosDetalles() {
   }
 }
 
-function limpiarTodo(){
-  //limpiarSelect();
-  limpiarTabla();
-  form.reset();
-  obtenerFecha();
-}
+
 
 function limpiarSelect(){
   listarServiciosFiltro();
@@ -1077,4 +1086,11 @@ calcularTotal();
 listarEspecialidades();
 guardarRegistro.addEventListener("click", validarPacientes);
 mostrarOrden.addEventListener("click", mostrardivOrden);
+limpiarDni.addEventListener("click", () =>{
+  mostrarPregunta("REGISTRAR", "¿Está seguro de Limpiar?").then((result) => {
+    if(result.isConfirmed){
+        limpiarTodo();
+    }
+  })
+});
 </script>

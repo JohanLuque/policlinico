@@ -1,13 +1,13 @@
 <?php require_once 'permisos.php'; ?>
 <div class="container-fluid">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-white">
             <h1 class="text-center">Configuración</h1>
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2">
                 <!--Registrar servicios-->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-content">
                             <div class="card-header bg-info text-white">SERVICIO:</div>
@@ -29,19 +29,18 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
-                                        <div class="col-md-2">
-                                            <label for="">Nombre:</label>          
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control" id="nombreServicio" type="text" required>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombreServicio" type="text" required>
+                                            <label for="">
+                                                Nombre Servicio
+                                            </label> 
                                         </div>
                                     </div>
                                     <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <button type="button" class="btn btn-primary" id="guardarServicio">Guardar</button>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-6">
                                             <button type="reset" class="btn btn-danger" id="cancelarServicio">Cancelar</button>
                                         </div>
                                     </div>
@@ -249,7 +248,7 @@
             itemSelectText: '',
             allowHTML: true
         }); 
-
+        choiselistaServicios.setChoices([], 'value', 'label', true); 
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
         fetch("../controllers/servicio.php",{
@@ -276,7 +275,7 @@
             itemSelectText: '',
             allowHTML: true
         }); 
-
+        choiselistaServicios.setChoices([], 'value', 'label', true); 
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
         parametros.append("estado", 1);
@@ -386,7 +385,10 @@
         .then(datos =>{
             if(datos.status){
                 toastCheck("Guardado correctamente");
-                formularioDetalles.reset();
+                //formularioDetalles.reset();
+                descripcionServicio.value="";
+                precio.value="";
+                listarServicios();
             }else{
                 notificar("Error", "No se pudo guardar correctamente",2)
             }

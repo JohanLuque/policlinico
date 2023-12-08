@@ -34,12 +34,12 @@ switch ($permiso){
                 "url" => "index.php?view=triaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
-            [   "menu" => "Configuración Atención", 
-                "url" => "index.php?view=configuracionAtencion.php",
-                "icono" => "ti ti-settings nav-small-cap-icon"
-            ],
             [   "menu" => "Configuración Admin", 
                 "url" => "index.php?view=configuracionAdmin.php",
+                "icono" => "ti ti-settings nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Atención", 
+                "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
             ],
             [   "menu" => "Configuración Triaje", 

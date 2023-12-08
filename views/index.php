@@ -8,8 +8,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 
 }
 
-$idUsuario = $_SESSION['login']['idUsuario'];
-$nombreUsuario = $_SESSION['login']['usuario'];
+//$idUsuario = $_SESSION['login']['idUsuario'];
+//$nombreUsuario = $_SESSION['login']['usuario'];
 $nivelAcceso = $_SESSION['login']['nivelacceso'];
 $clave = $_SESSION['login']['clave'];
 ?>
@@ -136,6 +136,8 @@ $clave = $_SESSION['login']['clave'];
   <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
+    console.log(`<?= print_r($_SESSION["login"])?>`);
+    console.log(`<?= print_r($_SESSION["login"]["acceso"]);?>`);
     document.addEventListener("DOMContentLoaded", () => {     
       const usuario = document.querySelector("#usuario");
       let idUsuario = usuario.dataset.id;
