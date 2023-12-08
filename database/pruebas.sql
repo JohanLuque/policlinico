@@ -1,64 +1,44 @@
--- consulta para vista de doctores
-SELECT detAte.`idDetalleAtenciones`,
-	CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
-FROM detalle_atenciones detAte
-INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
-INNER JOIN personas per ON per.idPersona = ate.idPersona
-LEFT JOIN detalle_servicios detSer ON detSer.idAtencion = ate.idAtencion
-INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
-INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
-WHERE ate.estado = 1 AND ser.tipo = 'E' AND ser.idServicio = 12
-ORDER BY  ate.idAtencion
-
--- cantidad de atenciones por dia: INGRESO TOTAL 
-SELECT 
-    (SELECT COUNT(p.idPago) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS pagados,
-    COUNT(d.idDevolucion) AS devueltos, SUM(d.montoDevolucion) AS Devoluciones,
-    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) AS totalPago,    
-    (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS totalGasto,
-    (SELECT SUM(p.monto) FROM pagos p WHERE DATE(p.fechaHoraPago) = CURDATE()) - SUM(d.montoDevolucion) - (SELECT SUM(g.`montoGasto`) FROM gastos g WHERE DATE(g.`fechaHoraGasto`) = CURDATE()) AS IngresoDia
-FROM atenciones a
-LEFT JOIN devoluciones d ON d.idAtencion = a.idAtencion
-WHERE DATE(d.fechaHoraDevolucion) = CURDATE();
-
--- DATOS DE INDEX
-SELECT 
-    (SELECT COUNT(p.idPersona) FROM personas p ) AS pacientes,
-    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'E') AS especialidades,
-    (SELECT COUNT(s.idServicio) FROM Servicios s  WHERE s.tipo = 'S') AS servicios,
-    COUNT(e.idEspecialista) AS medicos, 
-    (SELECT COUNT(a.idAtencion) FROM atenciones a) AS atenciones  
-FROM Especialistas e
-
-SELECT * FROM devoluciones
-
-SELECT * FROM detalle_alergias
-
-DELETE atenciones s
-
-SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
-	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
-	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
-	FROM atenciones
-	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
-	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
-	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
-	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
-	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
-	WHERE atenciones.estado = '1' AND servicios.tipo = 'S'
-	ORDER BY dia DESC;
-	
-
-SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
-personas.`numeroDocumento`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
-FROM Detalle_Servicios
-INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
-INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+SELECT COUNT(atenciones.`idAtencion`), atenciones.`turno`
+FROM pagos
+INNER JOIN atenciones ON atenciones.`idAtencion` = pagos.`idAtencion`	
+INNER JOIN detalle_servicios ON detalle_servicios.`idAtencion` = atenciones.`idAtencion`
 INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-WHERE servicios.`tipo` = 'S' AND servicios.`idServicio` = 1 AND MONTH(atenciones.`fechaAtencion`) = 11
+WHERE DATE(atenciones.`fechaCreacion`) = CURDATE() 
+GROUP BY atenciones.`turno`
+ORDER BY COUNT(atenciones.`idAtencion`) DESC
 
+-- CANTIDAD DE ATENCIONES POR TURNO
+DELIMITER $$
+CREATE PROCEDURE grafico_turnos()
+BEGIN
+	SELECT COUNT(atenciones.`idAtencion`) AS total, atenciones.`turno`
+	FROM pagos
+	INNER JOIN atenciones ON atenciones.`idAtencion` = pagos.`idAtencion`	
+	INNER JOIN detalle_servicios ON detalle_servicios.`idAtencion` = atenciones.`idAtencion`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE DATE(atenciones.`fechaCreacion`) = CURDATE() 
+	GROUP BY atenciones.`turno`
+	ORDER BY COUNT(atenciones.`idAtencion`) DESC;
+END $$
+
+-- CANTIDAD DE ATENCIONES POR ESPECIALIDAD POR DIA
+DELIMITER $$
+CREATE PROCEDURE grafico_servicios()
+BEGIN
+	SELECT servicios.`nombreServicio`,COUNT(servicios.`idServicio`) AS total
+	FROM pagos
+	INNER JOIN atenciones ON atenciones.`idAtencion` = pagos.`idAtencion`	
+	INNER JOIN detalle_servicios ON detalle_servicios.`idAtencion` = atenciones.`idAtencion`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	WHERE DATE(atenciones.`fechaCreacion`) = CURDATE() AND servicios.`tipo` = "E"
+	GROUP BY servicios.`idServicio`
+	ORDER BY COUNT(servicios.`idServicio`) DESC;
+END $$
+
+-- REPORTE DE POS
 DELIMITER $$
 CREATE PROCEDURE spu_reporte_POS(IN _fecha DATE)
 BEGIN

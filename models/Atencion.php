@@ -97,4 +97,15 @@ class Atencion extends Conexion{
       die($e->getCode());
     }
   }
+  // REPORTES
+  public function grafico_turnos(){
+    try{
+      $query = $this->connection->prepare("CALL grafico_turnos()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+      die($e->getMessage());
+    }
+  }
 }

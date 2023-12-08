@@ -127,4 +127,16 @@ class Servicio extends Conexion{
       die($e->getCode());
     }
   }
+  // REPORTES
+  public function grafico_especialidades(){
+    try{
+      $query = $this->connection->prepare("CALL grafico_servicios()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(Exception $e){
+      die($e->getMessage());
+    }
+  }
+
 }
