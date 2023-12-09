@@ -270,19 +270,24 @@
         .then(datos=>{
             console.log("todoo ok",datos)
             datos.forEach(element =>{
+                
                 const nuevoCard = `
                     <div class="col-md-3" >
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-header bg-danger text-center text-white" >${element.numeroAtencion}</div>
-                                <div class="card-body bg-light-danger" style="text-align: center;">
-                                <h5>${element.ApellidosNombres}</h5>
+                                <div class="card-body bg-light-danger">
+                                <h5 style="text-align: center;">${element.ApellidosNombres}</h5>
                                     <div class='mt-2 row g-2'>
-                                        <div class='col-md-6'>
+                                        <div class='col-md-4'>
+                                            <button class='btn btn-danger' type='button'>
+                                                <a class='clinica' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Imprimir</a>
+                                            </button>
                                         </div>
-                                        <div class='col-md-6'>
-                                            <button class='btn m-1 btn-danger' type='button'>
-                                                <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Historia</a>
+                                        <div class='col-md-3'></div>
+                                        <div class='col-md-3 ocultar' style="display: '';">
+                                            <button class='btn btn-danger' type='button'>
+                                                <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Registrar</a>
                                             </button>
                                         </div>
                                     </div>
@@ -317,6 +322,17 @@
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
         modalHC.toggle();  
+    }else if(event.target.classList[0] == 'clinica'){
+        console.log(idDetalleModal)
+        if(idDetalleModal >0){
+            const parametros = new URLSearchParams();
+            parametros.append("idDetalleAtenciones", idDetalleModal);
+            parametros.append("idHistoria", idDetalleModal);
+            parametros.append("idDetalleAtenciones1", idDetalleModal);
+            window.open(`../reports/historia.report.php?${parametros}`, '_blank');
+        }else{
+            console.log(idDetalleModal);
+        }
     }
   });
 
@@ -532,6 +548,10 @@ function agregarTratamiento(){
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                     validarForm();
+                    // const btnHistoria = document.querySelectorAll('.ocultar');
+                    // btnHistoria.forEach(boton => {
+                    // boton.style.display = 'none';
+                    // });
                 }
             })
     });

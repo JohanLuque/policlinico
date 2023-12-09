@@ -162,7 +162,7 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_doctores_ver_detalles_pacientes
 (
-IN _idDetelleAtenciones INT
+IN _idDetalleAtenciones INT
 )
 BEGIN
 	SELECT  idDetalleAtenciones,
@@ -190,7 +190,7 @@ BEGIN
 		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 		LEFT JOIN Enfermedad_Pacientes ON Enfermedad_Pacientes.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
 		LEFT JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
-		WHERE detalle_atenciones.idDetalleAtenciones = _idDetelleAtenciones
+		WHERE detalle_atenciones.idDetalleAtenciones = _idDetalleAtenciones
 		GROUP BY idDetalleAtenciones;
 END $$
 
@@ -198,12 +198,12 @@ END $$
 DELIMITER $$
 CREATE PROCEDURE spu_doctores_ver_tratamientos_pacientes
 (
-IN _idDetelleAtenciones INT
+IN _idDetalleAtenciones INT
 )
 BEGIN 
 	SELECT idTratamiento, Tratamiento_paciente.idDetalleAtencion ,medicamento, presentacion, cantidad, dosis, dias
 	FROM detalle_atenciones
 	LEFT JOIN Tratamiento_paciente ON Tratamiento_paciente.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
-	WHERE Detalle_Atenciones.idDetalleAtenciones = 3
+	WHERE Detalle_Atenciones.idDetalleAtenciones = _idDetalleAtenciones
 	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
 END $$
