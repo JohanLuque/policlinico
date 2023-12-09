@@ -114,4 +114,23 @@ class DetalleAtencion extends Conexion{
       die($e->getCode());
     }
   }
+  public function impresionHistoria($idDetalleAtenciones){
+    try{
+      $query = $this->connection->prepare("CALL spu_doctores_ver_detalles_pacientes(?)");
+      $query->execute(array($idDetalleAtenciones));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
+  public function impresionTratamiento($idDetalleAtenciones){
+    try{
+      $query = $this->connection->prepare("CALL spu_doctores_ver_tratamientos_pacientes(?)");
+      $query->execute(array($idDetalleAtenciones));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
 }
