@@ -4,206 +4,238 @@
         <div class="card-header bg-white">
             <h1 class="text-center">Configuración</h1>
         </div>
-        <div class="card-body">
-            <div class="mb-2 row g-2">
-                <!--Registrar servicios-->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">SERVICIO:</div>
-                            <div class="card-body">
-                                <form id="form-servicio" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-2">
-                                            <label for="">Tipo:</label>          
-                                        </div>
-                                        <div class="col-md-9">       
-                                            <div class="form-check form-check-inline">                           
-                                            <input class="form-check-input" type="radio" name="options" id="rbServicio" value="S">
-                                                <label class="form-check-label">Servicio</label>
+        <ul class="mt-2 nav nav-pills user-profile-tab justify-content-end mt-2 bg-light-info rounded-2" id="pills-tab" role="tablist" >
+            <li class="nav-item" role="presentation">
+                <button class="nav-link position-relative rounded-0 active d-flex align-items-center justify-content-center  bg-transparent fs-3 py-6" id="pills-servicios-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">
+                    <i class="ti ti-stethoscope  me-2 fs-6"></i>
+                    <span class="d-none d-md-block">Servicios</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-doctores-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false" tabindex="-1">
+                    <i class="ti ti-first-aid-kit me-2 fs-6"></i>
+                    <span class="d-none d-md-block">Doctores</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-servicios-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Información Personal</h3>
+            </div>  
+            <div class="row">
+                <div class="card">
+                    <div class="mb-2 row g-2">
+                        <!--Registrar servicios-->
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-header bg-info text-white">SERVICIO:</div>
+                                    <div class="card-body">
+                                        <form id="form-servicio" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-2">
+                                                    <label for="">Tipo:</label>          
+                                                </div>
+                                                <div class="col-md-9">       
+                                                    <div class="form-check form-check-inline">                           
+                                                    <input class="form-check-input" type="radio" name="options" id="rbServicio" value="S">
+                                                        <label class="form-check-label">Servicio</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="options" id="rbEspecialidad" value="E">
+                                                        <label class="form-check-label">Especialidad</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="options" id="rbEspecialidad" value="E">
-                                                <label class="form-check-label">Especialidad</label>
+                                            <div class="mb-3 row g-2">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombreServicio" type="text" required>
+                                                    <label for="">
+                                                        Nombre Servicio
+                                                    </label> 
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn btn-primary" id="guardarServicio">Guardar</button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="reset" class="btn btn-danger" id="cancelarServicio">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombreServicio" type="text" required>
-                                            <label for="">
-                                                Nombre Servicio
-                                            </label> 
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-primary" id="guardarServicio">Guardar</button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button type="reset" class="btn btn-danger" id="cancelarServicio">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div> 
-                <!--Registrar detalle de servicios-->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">DETALLE DE SERVICIO:</div>
-                            <div class="card-body">
-                                <form id="form-detalles" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Servicio:</label>          
-                                        </div>
-                                        <div class="col-md-8">                                  
-                                            <select name="" id="listaServicios" class="">
-                                            <option value="">Seleccione</option>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Descripción:</label>          
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control" id="descripcionServicio" type="tex" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Precio:</label>          
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input class="form-control" id="precioServicio" type="number" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Género:</label>          
-                                        </div>
-                                        <div class="col-md-8">       
-                                            <div class="form-check form-check-inline">                           
-                                            <input class="form-check-input" type="radio" name="options" id="rbAmbos" value="" checked>
-                                                <label class="form-check-label">Ambos</label>
+                        </div> 
+                        <!--Registrar detalle de servicios-->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-header bg-info text-white">DETALLE DE SERVICIO:</div>
+                                    <div class="card-body">
+                                        <form id="form-detalles" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Servicio:</label>          
+                                                </div>
+                                                <div class="col-md-8">                                  
+                                                    <select name="" id="listaServicios" class="">
+                                                    <option value="">Seleccione</option>
+                                                    </select> 
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="options" id="rbFemenino" value="F">
-                                                <label class="form-check-label">Femenino</label>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Descripción:</label>          
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" id="descripcionServicio" type="tex" required>
+                                                </div>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="options" id="rbMasculino" value="M">
-                                                <label class="form-check-label">Masculino</label>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Precio:</label>          
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" id="precioServicio" type="number" required>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Género:</label>          
+                                                </div>
+                                                <div class="col-md-8">       
+                                                    <div class="form-check form-check-inline">                           
+                                                    <input class="form-check-input" type="radio" name="options" id="rbAmbos" value="" checked>
+                                                        <label class="form-check-label">Ambos</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="options" id="rbFemenino" value="F">
+                                                        <label class="form-check-label">Femenino</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="options" id="rbMasculino" value="M">
+                                                        <label class="form-check-label">Masculino</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="colmd-6"></div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary" id="guardarDetalle">Guardar</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-danger" id="cancelarDetalle">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="guardarDetalle">Guardar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-danger" id="cancelarDetalle">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>              
-            </div>
-            <div class="mb-2 row g-2">
-                <!--Registrar especialistas-->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS:</div>
-                            <div class="card-body">
-                                <form id="form-especialistas" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">DNI:</label>          
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Persona:</label>          
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">Código medico:</label>          
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control border bg-light"  placeholder="Código medico" id="codigo">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="guardarEspecialista">Guardar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="reset" class="btn btn-danger">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        </div>              
                     </div>
                 </div>
-                <!--Registrar especialistas a servicios-->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS A SERVICIOS:</div>
-                            <div class="card-body">
-                                <form id="form-espSer" autocomplete="off">
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">ESPECIALISTAS:</label>          
-                                        </div>
-                                        <div class="col-md-9">                                  
-                                            <select name="" id="especialistaSelect" class="" required>
-                                            <option value="">Seleccione</option>
-                                            </select> 
-                                        </div>
+            </div>         
+        </div>
+        <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-doctores-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Cambiar contraseña:</h3>
+            </div> 
+            <div class="row">
+                <div class="card">
+                    <div class="mb-2 row g-2">
+                        <!--Registrar especialistas-->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS:</div>
+                                    <div class="card-body">
+                                        <form id="form-especialistas" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">DNI:</label>          
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Persona:</label>          
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">Código medico:</label>          
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control border bg-light"  placeholder="Código medico" id="codigo">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="colmd-6"></div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary" id="guardarEspecialista">Guardar</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="reset" class="btn btn-danger">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
-                                            <label for="">SERVICIOS:</label>          
-                                        </div>
-                                        <div class="col-md-9">                                  
-                                            <select name="" id="servicioSelect" class="" required>
-                                            <option value="">Seleccione</option>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="guardarServicioEspecialista">Guardar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-danger" id="cancelarServicioEspecialista">Cancelar</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
+                        <!--Registrar especialistas a servicios-->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS A SERVICIOS:</div>
+                                    <div class="card-body">
+                                        <form id="form-espSer" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">ESPECIALISTAS:</label>          
+                                                </div>
+                                                <div class="col-md-9">                                  
+                                                    <select name="" id="especialistaSelect" class="" required>
+                                                    <option value="">Seleccione</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-3">
+                                                    <label for="">SERVICIOS:</label>          
+                                                </div>
+                                                <div class="col-md-9">                                  
+                                                    <select name="" id="servicioSelect" class="" required>
+                                                    <option value="">Seleccione</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="colmd-6"></div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary" id="guardarServicioEspecialista">Guardar</button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-danger" id="cancelarServicioEspecialista">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
                     </div>
-                </div>         
-            </div>
+                </div>
+            </div>          
         </div>
     </div>
 </div>

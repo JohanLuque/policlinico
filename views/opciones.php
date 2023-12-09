@@ -42,13 +42,9 @@ switch ($permiso){
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
             ],
-            [   "menu" => "Configuración Triaje", 
-                "url" => "index.php?view=configuracionTriaje.php",
-                "icono" => "ti ti-heartbeat nav-small-cap-icon"
-            ],
             [   "menu" => "Cambiar Clave", 
                 "url" => "index.php?view=cambiarClave.php",
-                "icono" => "ti ti-password-user nav-small-cap-icon"
+                "icono" => "ti ti-password nav-small-cap-icon"
             ]
         ];
     break;
@@ -69,7 +65,7 @@ switch ($permiso){
             ],
             [   "menu" => "Cambiar Clave", 
                 "url" => "index.php?view=cambiarClave.php",
-                "icono" => "ti ti-password-user nav-small-cap-icon"
+                "icono" => "ti ti-password nav-small-cap-icon"
             ]
         ];
     break;
@@ -87,13 +83,9 @@ switch ($permiso){
                 "url" => "index.php?view=impresos.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
-            [   "menu" => "Configuración Triaje", 
-                "url" => "index.php?view=configuracionTriaje.php",
-                "icono" => "ti ti-heartbeat nav-small-cap-icon"
-            ],
             [   "menu" => "Cambiar Clave", 
-            "url" => "index.php?view=cambiarClave.php",
-            "icono" => "ti ti-password-user nav-small-cap-icon"
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-password nav-small-cap-icon"
             ]
         ];    
     break;

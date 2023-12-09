@@ -1,7 +1,7 @@
 -- REPORTES- GRAFICOS- login
 
 DELIMITER $$
-CREATE PROCEDURE SPU_LOGIN_USUARIOS
+DROP PROCEDURE SPU_LOGIN_USUARIOS
 (
 	IN _nombreUsuario VARCHAR(50)
 )
@@ -10,7 +10,8 @@ BEGIN
 		usuarios.nombreUsuario, 
 		usuarios.clave,
 		CONCAT(personas.apellidoPaterno,' ', personas.apellidoMaterno,' ' , personas.nombres) AS 'ApellidosNombres',
-		usuarios.`nivelAcceso`
+		usuarios.`nivelAcceso`, personas.`estado`, personas.`distrito`, personas.`numeroDocumento`, personas.`telefono`,YEAR(CURDATE())-YEAR(personas.`fechaNacimiento`) + 
+		IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(personas.fechaNacimiento,'%m-%d'), 0 , -1 )AS 'Edad'
 	FROM Usuarios
 	INNER JOIN Personas ON personas.idPersona = usuarios.idPersona
 	WHERE nombreUsuario = _nombreUsuario;

@@ -121,7 +121,6 @@
     const form = document.querySelector("#form-gastos");
     //capturando ingresos;
     let totalingresos;
-
     function listarMetodosPago(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listar");
