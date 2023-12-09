@@ -1,4 +1,4 @@
-<?php require_once 'permisos.php'; ?>
+<!-- <?php require_once 'permisos.php'; ?>
 <div class="row">
     <div class="col-lg-6 d-flex align-items-strech">
         <div class="card w-100">
@@ -34,4 +34,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

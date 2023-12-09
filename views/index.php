@@ -5,13 +5,15 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
 }else{
   $idUsuario = $_SESSION['login']['idUsuario'];
   $nombreUsuario = $_SESSION['login']['usuario'];
-
+  $nivelAcceso = $_SESSION['login']['nivelacceso'];
+  $clave = $_SESSION['login']['clave'];
+  $edad = $_SESSION['login']['edad'];
+  $telefono = $_SESSION['login']['telefono'];
+  $distrito = $_SESSION['login']['distrito'];
 }
 
 //$idUsuario = $_SESSION['login']['idUsuario'];
 //$nombreUsuario = $_SESSION['login']['usuario'];
-$nivelAcceso = $_SESSION['login']['nivelacceso'];
-$clave = $_SESSION['login']['clave'];
 ?>
 <!doctype html>
 <html lang="es">
@@ -92,7 +94,7 @@ $clave = $_SESSION['login']['clave'];
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <label id="usuario" data-clave="<?= $clave?>" data-nivel="<?= $nivelAcceso?>" data-nomusuario="<?= $nombreUsuario?>" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
+              <label id="usuario" data-distrito="<?= $distrito?>" data-telefono="<?= $telefono?>" data-edad="<?= $edad?>" data-clave="<?= $clave?>" data-nivel="<?= $nivelAcceso?>" data-nomusuario="<?= $nombreUsuario?>" data-id="<?= $idUsuario?>" class="">BIENVENIDO! <?= $_SESSION['login']['nombres']?></label>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -138,13 +140,27 @@ $clave = $_SESSION['login']['clave'];
   <script>
     console.log(`<?= print_r($_SESSION["login"])?>`);
     console.log(`<?= print_r($_SESSION["login"]["acceso"]);?>`);
+
     document.addEventListener("DOMContentLoaded", () => {     
       const usuario = document.querySelector("#usuario");
       let idUsuario = usuario.dataset.id;
       let nombreUsuario = usuario.dataset.nomusuario;
       let nivelAcceso = usuario.dataset.nivel;
       let clave = usuario.dataset.clave;
-      
+      let edadUsu = usuario.dataset.edad;
+      let telefonoUsu = usuario.dataset.telefono;
+      let distritoUsu = usuario.dataset.distrito;
+      let nombreNivelA;
+      function nivelAccesoNom(){
+        if(nivelAcceso = "G"){nombreNivelA = "Gerente";}
+        else if(nivelAcceso = "C"){nombreNivelA = "Cajero"}
+        else if(nivelAcceso = "T"){nombreNivelA = "Triaje - Enfermero(a)"}
+        else if(nivelAcceso = "A"){nombreNivelA = "Admisión"}
+        else if(nivelAcceso = "E"){nombreNivelA = "Doctor"}
+        else if(nivelAcceso = "S"){nombreNivelA = "Tecnólogo"}
+      }
+      nivelAccesoNom();
+
       function getURL(){
         const url = new URL(window.location.href);
         const vista = url.searchParams.get("view");

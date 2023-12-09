@@ -17,7 +17,10 @@ if(isset($_POST['operacion'])){
       "mensaje" => "",
       "nombres" => "",
       "nivelacceso" => "",
-      "clave" => ""
+      "clave" => "",
+      "edad" => 0,
+      "telefono" => "",
+      "distrito" => ""
     ];
 
     $data = $usuario->login($_POST['nombreUsuario']);
@@ -34,6 +37,9 @@ if(isset($_POST['operacion'])){
         $resultado["nivelacceso"] = $data["nivelAcceso"];
         $resultado["usuario"] = $data["nombreUsuario"];
         $resultado["clave"] = $data["clave"];
+        $resultado["edad"] = $data["Edad"];
+        $resultado["telefono"] = $data["telefono"];
+        $resultado["distrito"] = $data["distrito"];
 
       }else{
         $resultado["mensaje"] = "La contraseña es incorrecta";
