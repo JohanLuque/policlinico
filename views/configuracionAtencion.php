@@ -14,7 +14,7 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-doctores-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false" tabindex="-1">
                     <i class="ti ti-first-aid-kit me-2 fs-6"></i>
-                    <span class="d-none d-md-block">Doctores</span>
+                    <span class="d-none d-md-block">Especialistas</span>
                 </button>
             </li>
         </ul>
@@ -22,25 +22,32 @@
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-servicios-tab" tabindex="0">
             <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
-                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Información Personal</h3>
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">SERVICIOS</h3>
             </div>  
             <div class="row">
                 <div class="card">
                     <div class="mb-2 row g-2">
                         <!--Registrar servicios-->
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-header bg-info text-white">SERVICIO:</div>
                                     <div class="card-body">
                                         <form id="form-servicio" autocomplete="off">
                                             <div class="mb-3 row g-2">
-                                                <div class="col-md-2">
+                                                <div class="col-md-4">
+                                                    <label for="" class="fw-bolder text-dark">REGISTRAR SERVICIO:</label> 
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <hr class="bold">   
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-4">
                                                     <label for="">Tipo:</label>          
                                                 </div>
-                                                <div class="col-md-9">       
+                                                <div class="col-md-8">       
                                                     <div class="form-check form-check-inline">                           
-                                                    <input class="form-check-input" type="radio" name="options" id="rbServicio" value="S">
+                                                    <input class="form-check-input" type="radio" name="options" id="rbServicio" value="S" checked>
                                                         <label class="form-check-label">Servicio</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
@@ -59,9 +66,11 @@
                                             </div>
                                             <div class="mb-3 row g-2">
                                                 <div class="col-md-6">
+                                                </div>
+                                                <div class="col-md-3">
                                                     <button type="button" class="btn btn-primary" id="guardarServicio">Guardar</button>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <button type="reset" class="btn btn-danger" id="cancelarServicio">Cancelar</button>
                                                 </div>
                                             </div>
@@ -74,9 +83,16 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-header bg-info text-white">DETALLE DE SERVICIO:</div>
                                     <div class="card-body">
                                         <form id="form-detalles" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-6">
+                                                    <label for="" class="fw-bolder text-dark">REGISTRAR PROCEDIMIENTO:</label> 
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <hr class="bold">   
+                                                </div>
+                                            </div>
                                             <div class="mb-3 row g-2">
                                                 <div class="col-md-3">
                                                     <label for="">Servicio:</label>          
@@ -123,7 +139,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row g-2">
-                                                <div class="colmd-6"></div>
+                                                <div class="col-md-6"></div>
                                                 <div class="col-md-3">
                                                     <button type="button" class="btn btn-primary" id="guardarDetalle">Guardar</button>
                                                 </div>
@@ -142,7 +158,7 @@
         </div>
         <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-doctores-tab" tabindex="0">
             <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
-                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Cambiar contraseña:</h3>
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">ESPECIALISTAS</h3>
             </div> 
             <div class="row">
                 <div class="card">
@@ -151,9 +167,16 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS:</div>
                                     <div class="card-body">
                                         <form id="form-especialistas" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-6">
+                                                    <label for="" class="fw-bolder text-dark">REGISTRAR ESPECIALISTAS:</label> 
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <hr class="bold">   
+                                                </div>
+                                            </div>
                                             <div class="mb-3 row g-2">
                                                 <div class="col-md-3">
                                                     <label for="">DNI:</label>          
@@ -179,7 +202,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row g-2">
-                                                <div class="colmd-6"></div>
+                                                <div class="col-md-6"></div>
                                                 <div class="col-md-3">
                                                     <button type="button" class="btn btn-primary" id="guardarEspecialista">Guardar</button>
                                                 </div>
@@ -196,9 +219,16 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content">
-                                    <div class="card-header bg-info text-white">AGREGAR ESPECIALISTAS A SERVICIOS:</div>
                                     <div class="card-body">
                                         <form id="form-espSer" autocomplete="off">
+                                            <div class="mb-3 row g-2">
+                                                <div class="col-md-7">
+                                                    <label for="" class="fw-bolder text-dark">REGISTRAR ESPECIALISTAS - SERVICIOS:</label> 
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <hr class="bold">   
+                                                </div>
+                                            </div>
                                             <div class="mb-3 row g-2">
                                                 <div class="col-md-3">
                                                     <label for="">ESPECIALISTAS:</label>          
@@ -220,7 +250,7 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row g-2">
-                                                <div class="colmd-6"></div>
+                                                <div class="col-md-6"></div>
                                                 <div class="col-md-3">
                                                     <button type="button" class="btn btn-primary" id="guardarServicioEspecialista">Guardar</button>
                                                 </div>

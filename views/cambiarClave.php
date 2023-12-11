@@ -107,7 +107,7 @@
         </div>
         <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab" tabindex="0">
             <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
-                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Cambiar contraseña:</h3>
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">CAMBIAR CONTRASEÑA:</h3>
             </div>
             <div class="row">
                 <div class="col-lg-12">
