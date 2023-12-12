@@ -178,8 +178,6 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
-</div>
 <script>
     const actual = document.querySelector("#actual");
     const nueva = document.querySelector("#nuevo");
