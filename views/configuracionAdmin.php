@@ -1,12 +1,155 @@
 <?php require_once 'permisos.php'; ?>
-<div class="row">
+<div class="container-fluid">
+    <div class="card overflow-hidden">
+        <div class="card-body p-0">            
+            <ul class="mt-2 nav nav-pills user-profile-tab justify-content-end mt-2 bg-light-info rounded-2" id="pills-tab" role="tablist" >
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 active d-flex align-items-center justify-content-center  bg-transparent fs-3 py-6" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ti ti-user-circle me-2 fs-6"></i>
+                        <span class="d-none d-md-block">Usuarios</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-friends-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false" tabindex="-1">
+                        <i class="ti ti-user-circle me-2 fs-6"></i>
+                        <span class="d-none d-md-block">Cuentas</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Registrar usuario</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="form-usuarios" autocomplete="off">
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-3">
+                                        <label for="">DNI:</label>          
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-3">
+                                        <label for="">Persona:</label>          
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-3">
+                                        <label for="">Nombre de usuario:</label>          
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control border"  placeholder="Usuario" id="nombreUsuario" maxlength="200" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-3">
+                                        <label for="">Contraseña:</label>          
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control border"  placeholder="***" id="clave" maxlength="200" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-3">
+                                        <label for="">Nivel:</label>          
+                                    </div>
+                                    <div class="col-md-8">       
+                                        <div class="form-check form-check-inline">                           
+                                            <input class="form-check-input" type="radio" name="options" id="rbAdmision" value="A">
+                                            <label class="form-check-label">Admisión</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="options" id="rbCaja" value="C">
+                                            <label class="form-check-label">Caja</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="options" id="rbTriaje" value="T">
+                                            <label class="form-check-label">Triaje</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="options" id="rbEspecialista" value="E">
+                                            <label class="form-check-label">Especialista</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="options" id="rbServicio" value="S">
+                                            <label class="form-check-label">Servicio</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row g-2">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-primary" id="guardarUsuario">Guardar</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="reset" class="btn btn-danger">Cancelar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">USUARIOS:</h3>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mb-2 row g-2">
+                            <!--contraseña de usuarios usuarios-->
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form id="form-usuarios" autocomplete="off">
+                                                <div class="mb-2 row g-2">
+                                                    <table class="table" id="tabla-usuario">
+                                                        <thead class="">
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Apellidos y nombres</th>
+                                                                <th>Usuario</th>
+                                                                <th>Nivel</th>
+                                                                <th>Fecha de inicio</th>
+                                                                <th>Operaciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="cuerpoUsuario">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-white">
             <h1 class="text-center">Configuración</h1>
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2">
-                <!--Registrar usuarios-->
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-content">
@@ -106,7 +249,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Modal para la contraseña-->
 <div class="modal fade" id="modalUsuarios" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-l" role="document">
