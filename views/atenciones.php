@@ -1,14 +1,12 @@
 <?php require_once 'permisos.php'; ?>
-<div class="container-fluid border-0">
-  
+<div class="container-fluid border-0">  
   <div class="card border-0">
     <div class="card-body border-0">
       <div class="row">
         <div class="col-md-11">
           <h2 class="fw-semibold mb-4 text-center" style="color:#ff7619 ;">REGISTRAR ATENCIÓN DE SERVICIOS</h2>
         </div>
-      </div>
-      
+      </div>      
       <div class="card border-0">
         <div class="card-body">            
           <form id="form-atenciones" class="needs-validation">
@@ -52,53 +50,52 @@
               <div class="col-md-2">
                 <button class="btn " style="background-color: #ff7619; color: white;" id="ordenMedica" type="button">Orden médica</button>
               </div>
-            </div>
-            
+            </div>            
             <!-- familiar -->
             <div id="familiar" style="display: none;">
-            <div class="mb-3 row g-2">
-              <div class="col-md-10">
-                <label for="" class="fw-bolder card-title" style="color:#ff7619 ;">FAMILIAR:</label>
-              </div>                                                               
-            </div>
-            <div class="mb-3 row g-2">
-              <div class="col-md-2">
-                <label class="fw-bolder text-dark"  for="DNI_familiar">N° Doc: </label>
+              <div class="mb-3 row g-2">
+                <div class="col-md-10">
+                  <label for="" class="fw-bolder card-title" style="color:#ff7619 ;">FAMILIAR:</label>
+                </div>                                                               
               </div>
-              <div class="col-md-3">
-                <input type="text" class="form-control " id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
+              <div class="mb-3 row g-2">
+                <div class="col-md-2">
+                  <label class="fw-bolder text-dark"  for="DNI_familiar">N° Doc: </label>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control " id="DNI_familiar" placeholder="12345678" maxlength="10" type="tel">
+                </div>
+                <div class="col-md-3">
+                  <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+                </div>
               </div>
-              <div class="col-md-3">
-                <button class="btn btn-sm" id="agregarPaciente" data-bs-toggle="modal" data-bs-target="#registrar-personas" type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
+              <div class="mb-3 row g-2">
+                <div class="col-md-2">
+                  <label class="fw-bolder text-dark"  for="nombreFamiliar">Nombre completo:</label>          
+                </div>
+                <div class="col-md-9">                                  
+                  <input class="form-control  bg-light" id="nombreFamiliar" type="text" readonly>
+                </div>
               </div>
-            </div>
-            <div class="mb-3 row g-2">
-              <div class="col-md-2">
-                <label class="fw-bolder text-dark"  for="nombreFamiliar">Nombre completo:</label>          
+              <div class="mb-3 row g-2">
+                <div class="col-md-2">
+                  <label class="fw-bolder text-dark"  for="">Parentesco:</label>          
+                </div>
+                <div class="col-md-3">
+                  <select name="" id="parentescoFamilar" class="form-select ">
+                    <option value="">Seleccione</option>
+                    <option value="Mamá">Mamá</option>
+                    <option value="Papá">Papá</option>
+                    <option value="Hermano/a">Hermano/a</option>
+                    <option value="Tio/a">Tio/a</option>
+                    <option value="Otro">Otro</option>
+                  </select>                                 
+                  <!--<input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>-->
+                </div>
+                <div class="col-md-3" id="divOtroFamiliar" style="display: none;">
+                  <input type="text" class="form-control " id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
+                </div>
               </div>
-              <div class="col-md-9">                                  
-                <input class="form-control  bg-light" id="nombreFamiliar" type="text" readonly>
-              </div>
-            </div>
-            <div class="mb-3 row g-2">
-              <div class="col-md-2">
-                <label class="fw-bolder text-dark"  for="">Parentesco:</label>          
-              </div>
-              <div class="col-md-3">
-                <select name="" id="parentescoFamilar" class="form-select ">
-                  <option value="">Seleccione</option>
-                  <option value="Mamá">Mamá</option>
-                  <option value="Papá">Papá</option>
-                  <option value="Hermano/a">Hermano/a</option>
-                  <option value="Tio/a">Tio/a</option>
-                  <option value="Otro">Otro</option>
-                </select>                                 
-                <!--<input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>-->
-              </div>
-              <div class="col-md-3" id="divOtroFamiliar" style="display: none;">
-                <input type="text" class="form-control " id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
-              </div>
-            </div>
             </div>
             <!-- orden medica -->
             <div id="ordenM" style="display: none;">
@@ -121,9 +118,9 @@
                     <option value="">Seleccione</option>
                   </select> 
                 </div>
-
               </div>
             </div>
+            <!-- fecha de atención -->
             <div class="mb-3 row g-2">
               <div class="col-md-10">
                 <label for="" class="card-title fw-bolder" style="color:#ff7619 ;">FECHA:</label>
@@ -157,7 +154,7 @@
                 <label class="fw-bolder text-dark"  for="">Genéro:</label>          
               </div>
             </div>
-
+            
             <div class="mb-3 row g-2">              
               <div class="col-md-4">                                  
                 <select name="" id="listaServicios" class="">
@@ -179,6 +176,7 @@
                 <button class="btn btn-sm" id="agregarServicio" type="button"><i class="fa-solid fa-cart-plus fa-2xl" style="color: #f96f12;"></i></button>
               </div>
             </div>
+            <!-- tabla temporal con datos para guardar -->
             <div class="row mt-5">
               <div class="col-md-12 mb-2">
                 <table class="table " id="tabla_atenciones_procedimientos">
@@ -237,12 +235,10 @@
               <div class="col-md-3"></div>
             </div>                
           </form>
-
         </div>
       </div>                 
     </div>
   </div> 
-
 </div>
 <!-- modal registrar personas usando el API -->
 <div class="modal fade" id="registrar-personas" tabindex="-1"  aria-hidden="true">
@@ -253,131 +249,125 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row mt-2 mb-3">
-          <div class="col-md-12">
-            <div class="row g-2 mb-3">  
-              <form action="" id="form-paciente">
-                <div class="mb-3 row g-2">
-                  <div class="col-md-4 fw-bolder">
-                    <label for="">Tipo Documento:</label>          
-                  </div>
+        <div class="row g-2 mb-3">  
+          <form action="" id="form-paciente">
+            <div class="mb-3 row g-2">
+              <div class="col-md-4 fw-bolder">
+                <label for="">Tipo Documento:</label>          
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
+                  <label class="form-check-label">DNI</label>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-12">
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" checked name="inlineRadioOptions" id="rbDni" value="N" >
-                      <label class="form-check-label">DNI</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
-                      <label class="form-check-label">Carnet Extranjeria</label>
-                    </div>
-                  </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rbCarnet"  value="E">
+                  <label class="form-check-label">Carnet Extranjeria</label>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">                    
-                    <div class="form-floating">
-                      <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
-                      <label for="">
-                          <i class="ti ti-id-badge me-2 fs-4"></i>
-                          N° Documento
-                      </label>
-                      <div class="invalid-feedback">
-                          Complete este campo para continuar
-                      </div>  
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-6">                    
+                <div class="form-floating">
+                  <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
+                  <label for="">
+                      <i class="ti ti-id-badge me-2 fs-4"></i>
+                      N° Documento
+                  </label>
+                  <div class="invalid-feedback">
+                      Complete este campo para continuar
+                  </div>  
                 </div>
-                
-                <div class="mb-3 row g-2">
-                  <div class="form-floating">
-                    <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Nombres
-                    </label> 
-                  </div>
+              </div>
+            </div>                
+            <div class="mb-3 row g-2">
+              <div class="form-floating">
+                <input type="text" class="form-control border"  placeholder="Nombre Completo" id="nombrePersona" type="text" required>
+                <label for="">
+                    <i class="ti ti-user me-2 fs-4"></i>
+                    Nombres
+                </label> 
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="form-floating ">
+                <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
+                <label for="">
+                    <i class="ti ti-user me-2 fs-4"></i>
+                    Apellido Paterno
+                </label> 
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="form-floating ">
+                <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
+                <label for="">
+                    <i class="ti ti-user me-2 fs-4"></i>
+                    Apellido Materno
+                </label> 
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-6 fw-bolder">
+                <label for="">Fecha Nacimiento:</label>          
+              </div>
+              <div class="col-md-6 fw-bolder">
+                <label for="">Género:</label>          
+              </div>
+            </div>
+            <div class="mb-3 row g-2 ">
+              <div class="col-md-6">                                  
+                <input class="form-control" id="fechaNacimiento" type="date" required>
+              </div>
+              <div class="col-md-6">                                  
+                <div class="form-check form-check-inline ">                           
+                  <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
+                  <label class="form-check-label">Femenino</label>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosPaternoPersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Apellido Paterno
-                    </label> 
-                  </div>
+                <div class="form-check form-check-inline ">
+                  <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
+                  <label class="form-check-label">Masculino</label>
                 </div>
-                <div class="mb-3 row g-2">
-                  <div class="form-floating ">
-                    <input type="text" class="form-control border"  placeholder="Apellido Paterno" id="apellidosMaternoPersona" type="text" required>
-                    <label for="">
-                        <i class="ti ti-user me-2 fs-4"></i>
-                        Apellido Materno
-                    </label> 
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Fecha Nacimiento:</label>          
-                  </div>
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Género:</label>          
-                  </div>
-                </div>
-                <div class="mb-3 row g-2 ">
-                  <div class="col-md-6">                                  
-                    <input class="form-control" id="fechaNacimiento" type="date" required>
-                  </div>
-                  <div class="col-md-6">                                  
-                    <div class="form-check form-check-inline ">                           
-                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbFemenino" value="F">
-                      <label class="form-check-label">Femenino</label>
-                    </div>
-                    <div class="form-check form-check-inline ">
-                      <input class="form-check-input danger check-light-danger" type="radio" name="options" id="rbMasculino" value="M">
-                      <label class="form-check-label">Masculino</label>
-                    </div>
-                  </div>
-                </div>              
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">  
-                    <div class="form-floating ">
-                      <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
-                      <label for="">
-                          <i class="ti ti-phone me-2 fs-4"></i>
-                          Teléfono
-                      </label> 
-                    </div>                                
-                  </div>                  
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6 fw-bolder">
-                    <label for="">Distrito:</label>          
-                  </div>
-                </div>
-                <div class="mb-3 row g-2">
-                  <div class="col-md-6">
-                    <select  class="form-select" id="distrito"> 
-                      <option value="">Seleccione</option>
-                      <option value="Chincha Alta">Chincha Alta</option>
-                      <option value="Chincha Baja">Chincha Baja</option>
-                      <option value="Grocio Prado">Grocio Prado</option>
-                      <option value="Sunampe">Sunampe</option>
-                      <option value="Pueblo Nuevo">Pueblo Nuevo</option>
-                      <option value="EL Carmen">EL Carmen</option>
-                      <option value="Alto Larán">Alto Larán</option>
-                      <option value="San Juan de Yanac">San Juan de Yanac</option>
-                      <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
-                      <option value="Tambo de Mora">Tambo de Mora</option>
-                      <option value="Chavín">Chavín</option>
-                      <option value="Foráneo">Foráneo</option>
-                    </select>                             
-                  </div>
-                </div>
-              </form>
-              
-            </div>          
-          </div>
+              </div>
+            </div>              
+            <div class="mb-3 row g-2">
+              <div class="col-md-6">  
+                <div class="form-floating ">
+                  <input  class="form-control border"  placeholder="999999999" id="telefono" type="number">
+                  <label for="">
+                      <i class="ti ti-phone me-2 fs-4"></i>
+                      Teléfono
+                  </label> 
+                </div>                                
+              </div>                  
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-6 fw-bolder">
+                <label for="">Distrito:</label>          
+              </div>
+            </div>
+            <div class="mb-3 row g-2">
+              <div class="col-md-6">
+                <select  class="form-select" id="distrito"> 
+                  <option value="">Seleccione</option>
+                  <option value="Chincha Alta">Chincha Alta</option>
+                  <option value="Chincha Baja">Chincha Baja</option>
+                  <option value="Grocio Prado">Grocio Prado</option>
+                  <option value="Sunampe">Sunampe</option>
+                  <option value="Pueblo Nuevo">Pueblo Nuevo</option>
+                  <option value="EL Carmen">EL Carmen</option>
+                  <option value="Alto Larán">Alto Larán</option>
+                  <option value="San Juan de Yanac">San Juan de Yanac</option>
+                  <option value="San Pedro de Huacarpana">San Pedro de Huacarpana</option>
+                  <option value="Tambo de Mora">Tambo de Mora</option>
+                  <option value="Chavín">Chavín</option>
+                  <option value="Foráneo">Foráneo</option>
+                </select>                             
+              </div>
+            </div>
+          </form>              
         </div>
       </div>
       <div class="modal-footer">
@@ -395,7 +385,6 @@ const divFamiliar = document.querySelector("#familiar");
 const mostrarFamiliar = document.querySelector("#mostrarFamiliar");
 const añosMeses = document.querySelector("#mesesAños");
 const limpiarDni = document.querySelector("#limpiarDni");
-
 
 // Pacientes
 const dniPersonas = document.querySelector("#DNI_personas");    
@@ -448,6 +437,7 @@ const agregarAtencion = document.querySelector("#agregarAtencion");
 const form = document.querySelector("#form-atenciones");
 //limpiar
 const limpiar = document.querySelector("#limpiar");
+// obteniendo la fecha de hoy
 let fechaHoy;
 function obtenerFecha(){
   const fechaAhora = new Date();
@@ -458,10 +448,10 @@ function obtenerFecha(){
   const fechaTotal = `${año}-${mes}-${dia}`;
   fecha.value = fechaTotal;
   fechaHoy = fechaTotal;
-  console.log(fecha.value);
 }
 obtenerFecha();
 
+// DIV de orden de doctor
 var presionar=1;
 function mostrardivOrden(){
   if(presionar == 1){
@@ -473,6 +463,7 @@ function mostrardivOrden(){
   }
 }
 
+// validando formulario de registro de pacientes
 function validarPacientes(){
   if(!formPaciente.checkValidity()){
     event.preventDefault();
@@ -483,6 +474,7 @@ function validarPacientes(){
   }
 }
 
+// HAY QUE CAMBIAR ALGO DE ESTE METODO
 function registrarPaciente(){
   const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
   if (!tipoDocumento) {
@@ -528,6 +520,7 @@ function registrarPaciente(){
   }) 
 }
 
+// validando formulario de atenciones
 function validar(){
   if (!form.checkValidity()) {
       event.preventDefault()
@@ -544,7 +537,9 @@ function validar(){
         return;
       }
     }
+
     const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
+    // Si no hay datos en la tabla
     if (filasDatos.length < 1) {
       toast('Agregue al menos un servicio.');
     } else {
@@ -560,6 +555,7 @@ function validar(){
   }
 }
 
+// validando que la fecha a registrar no sea menor al dia actual ni mayor a 15 dias.
 function validarFecha(){
   const fechaActual = new Date();
   const fechaQuince = new Date(fechaActual);
@@ -574,8 +570,8 @@ function validarFecha(){
   }
 }
 
+// Cambio de turno
 let turno = "";
-
 function cambiarTurno() {
     const ahora = new Date();
     const hora = ahora.getHours();
@@ -584,11 +580,9 @@ function cambiarTurno() {
     } else {
         turno = "T";
     }
-    console.log(turno);
 }
-cambiarTurno();
 
-console.log(idUsuario);
+// Registrar atencion
 function registrarAtencion(){
   let listaParentesco = parentesco.value;
   const parentescoF = listaParentesco === "Otro" ? otroFamiliar.value : listaParentesco;
@@ -609,8 +603,7 @@ function registrarAtencion(){
   .then(datos => {
     if(datos.status){
       registrarServiciosDetalles();
-      toastCheck("Guardado correctamente"); 
-      //form.reset();
+      toastCheck("Guardado correctamente");
       limpiarFormulario();    
       limpiarTabla();
       cambiarTurno();
@@ -636,13 +629,12 @@ function limpiarTodo(){
   precioProce.value = "";
   generoProce.value = "";
   obtenerFecha();
-  limpiarSelect();
   cambiarTurno();
-  listaServiciosFiltro();
+  listarServiciosFiltro();
   listaServicios();
 }
 
-
+// Limpiar formulario despues de registrar la atención y los detalles de atención
 function limpiarFormulario(){
   igv.value = "";
   subTotal.value = "";
@@ -650,15 +642,13 @@ function limpiarFormulario(){
   precioProce.value = "";
   generoProce.value = "";
   obtenerFecha();
-  limpiarSelect();
   cambiarTurno();
-
 }
 
+// Registrar servicios detalle
 function registrarServiciosDetalles() {
   const tabla_servicios = document.querySelector("#tabla_atenciones_procedimientos");
   const filas = tabla_servicios.rows;
-  // Crear un array de promesas para almacenar las solicitudes fetch
   const promesasFetch = [];
   for (let i = 1; i < filas.length; i++) {
   const fila = filas[i];
@@ -668,14 +658,12 @@ function registrarServiciosDetalles() {
   parametros.append("operacion", "add");
   parametros.append("idServicioDetalle", idservicios_detalle);
 
-  // Agregar la solicitud fetch al array de promesas
   const fetchPromise = fetch("../controllers/detalleServicio.php", {
     method: "POST",
     body: parametros
   })
   .then(response => {
     if (response.ok) {
-      // Si la respuesta es exitosa, puedes realizar acciones adicionales aquí si es necesario.
       console.log(`Detalle ${idservicios_detalle} registrado con éxito.`);
     } else {
       // Manejar errores de solicitud aquí
@@ -691,22 +679,15 @@ function registrarServiciosDetalles() {
   }
 }
 
-
-
-function limpiarSelect(){
-  listarServiciosFiltro();
-  listarServicios();
-}
-
+// limpiar la tabla temporal
 function limpiarTabla() {
   const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
-  // Itera sobre las filas de datos y elimínalas
   filasDatos.forEach((fila) => {
     fila.remove();
   });
-
   calcularTotal(); 
 }
+
 // div orden doctor
 function listarEspecialidades(){
   const parametros = new URLSearchParams();
@@ -726,6 +707,8 @@ function listarEspecialidades(){
     });
   })
 }
+
+// Listar doctores
 function listarEspecialistas(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "filtroDoctores");
@@ -745,7 +728,8 @@ function listarEspecialistas(){
     });
   })
 }
-//Agregar servicios a la tabla
+
+// Listar servicios - especialidades
 function listarServicios() {
   const choiselistaServicios = new Choices(listaServicios, {
     searchEnabled: true,
@@ -777,14 +761,12 @@ function listarServicios() {
     });
 }
 
+
 const choiseFiltro = new Choices(listaServiciosFiltro, {
     searchEnabled: true,
     itemSelectText: '',
     allowHTML: true
   });
-  cambiarTurno();
-
-//let precioProcedimiento;
 function listarServiciosFiltro() {
   const parametros = new URLSearchParams();
   parametros.append("operacion", "filtroServicios");
@@ -803,9 +785,7 @@ function listarServiciosFiltro() {
     });
     
 }
-cambiarTurno();
 
-listarServicios();
 listaServicios.addEventListener("change", () => {
   choiseFiltro.setChoices([], 'value', 'label', true); // Vacía las opciones
   listarServiciosFiltro();
@@ -815,7 +795,7 @@ listaServiciosFiltro.addEventListener("change", () => {
   generoPrecio();
 });
 
-
+//obtener el genero y el precio de cada procedimiento
 function generoPrecio(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "precioGenero");
@@ -840,18 +820,16 @@ function generoPrecio(){
     });
 }
 
+// validar el genero por pacientes
 function validarGenero(){
-  console.log(generoPaciente);
-  console.log(generoProce.value);
-
   if(generoProce.value == generoPaciente || generoProce.value == "M/F"){
     validarEspecialidadServicio();
   }else{
     notificar("POLICLINICO SOLIDARIO DE CHINCHA","SERVICIO NO DISPONIBLE", 3000 );
-
   }
 }
-dniPersonas.focus();
+
+// validar no registrar el mismo procedimiento dos veces en la tabla
 function validarEspecialidadServicio(){
   const servicioSeleccionado  = listaServicios.options[listaServicios.selectedIndex];
   const filas = tabla_servicios.rows;
@@ -878,6 +856,7 @@ function validarEspecialidadServicio(){
   }
 }
 
+// agregar servicio- procedimiento a la tabla
 function agregarServicio() {
   const servicioSeleccionado = listaServiciosFiltro.options[listaServiciosFiltro.selectedIndex];
 
@@ -918,6 +897,7 @@ function agregarServicio() {
   }
 }
 
+// calcular el total de lo que costara los procedimientos
 function calcularTotal() {
   const tablaFilas = tabla_servicios.rows;
   let total = 0, tigv = 0;tsubTotal = 0 ;
@@ -937,6 +917,7 @@ function calcularTotal() {
   subTotal.value = tsubTotal.toFixed(2);
 }
 
+// consultar paciente y obtener genero para poder hacer validaciones
 let generoPaciente;
 function consultarPaciente(){
   const parametros = new URLSearchParams();
@@ -984,6 +965,7 @@ function consultarPaciente(){
   })
 }
 
+//Consultar familiar
 function consultarFamiliar(){
   const parametros = new URLSearchParams();
   parametros.append("operacion", "getData");
@@ -1008,6 +990,7 @@ function consultarFamiliar(){
   })
 }
 
+//Consultar por dni en el API
 function consultarDNI() {
   const documento =dni.value;
   const url = `https://dniruc.apisperu.com/api/v1/dni/${documento}?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvcmdlbHVpczA0bXMwMkBnbWFpbC5jb20ifQ.8wtTqlkROifFOhvTxMKR7klfD-wpVr3U5AqDtL8LhVw`;
@@ -1022,7 +1005,6 @@ function consultarDNI() {
     })
     .then(datos => {
       const resultado = JSON.parse(datos);
-      //console.log(resultado);
       if (resultado.dni == documento) {
         apellidoPaterno.value = resultado.apellidoPaterno;
         apellidoMaterno.value = resultado.apellidoMaterno;
@@ -1035,6 +1017,7 @@ function consultarDNI() {
       console.error(e);
     });
 }
+
 
 dni.addEventListener("keypress", (evt) => {
   if (evt.charCode == 13) consultarDNI();
@@ -1080,12 +1063,11 @@ parentesco.addEventListener("change", function(){
     divOtroFamiliar.style.display ="none";
   }
 });
-listarEspecialistas();
 
-calcularTotal();
-listarEspecialidades();
 guardarRegistro.addEventListener("click", validarPacientes);
+
 mostrarOrden.addEventListener("click", mostrardivOrden);
+
 limpiarDni.addEventListener("click", () =>{
   mostrarPregunta("REGISTRAR", "¿Está seguro de Limpiar?").then((result) => {
     if(result.isConfirmed){
@@ -1093,4 +1075,13 @@ limpiarDni.addEventListener("click", () =>{
     }
   })
 });
+
+dniPersonas.focus();
+cambiarTurno();
+listarServicios();
+listarEspecialistas();
+cambiarTurno();
+calcularTotal();
+listarEspecialidades();
+
 </script>
