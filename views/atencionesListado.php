@@ -109,8 +109,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-primary "   id="md-actualizar">Actualizar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary "   id="md-actualizar">Actualizar</button>
             </div>
         </div>
     </div>
@@ -173,26 +173,26 @@ function listarCardsAtencion(){
                 console.log(datos);
                 const nuevoCard = `
                 <div class="col-md-3" >
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-header bg-info text-white text-center"></div>
-                                <div class="card-body bg-light-info" style="text-align: center;">
-                                    <h6>${element.numeroAtencion}</h6>
-                                    <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
-                                    <div class='mt-2 row g-2'>
-                                        <div class='col-md-12'>
-                                            <h6>${element.nombreServicio}</h6>
-                                        </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-header bg-info text-white text-center"></div>
+                            <div class="card-body bg-light-info" style="text-align: center;">
+                                <h6>${element.numeroAtencion}</h6>
+                                <h5>${element.apellidoPaterno} ${element.apellidoMaterno},<br>${element.nombres}</h5>
+                                <div class='mt-2 row g-2'>
+                                    <div class='col-md-12'>
+                                        <h6>${element.nombreServicio}</h6>
                                     </div>
-                                    <div class"row mt-2 g-2">
-                                        <button class='btn btn-info  m-1' type='button'>
-                                            <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
-                                        </button>
-                                    </div>
+                                </div>
+                                <div class"row mt-2 g-2">
+                                    <button class='btn btn-info  m-1' type='button'>
+                                        <a class="resume" data-idservicio='${element.idServicio}' data-idatencion='${element.idAtencion}' style='text-decoration: none;color: white;'>Editar</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
+                </div> 
                 `;
                 cardAtencion.innerHTML +=nuevoCard;
             });
