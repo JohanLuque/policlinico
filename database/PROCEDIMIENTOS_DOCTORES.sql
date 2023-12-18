@@ -14,7 +14,7 @@ BEGIN
 	INNER JOIN servicios_detalle serDet ON serDet.idservicios_detalle = detSer.idservicios_detalle
 	INNER JOIN Servicios ser ON  ser.idServicio = serDet.idServicio
 	WHERE ate.estado = 1 AND ser.tipo = 'E'--  AND ser.idServicio = 21
-	AND ate.fechaAtencion = CURDATE()
+	AND ate.fechaAtencion = CURDATE() AND (detAte.fechaActualizacion = '' OR detAte.fechaActualizacion IS NULL)
 	ORDER BY  ate.idAtencion;
 END $$
 
@@ -206,4 +206,15 @@ BEGIN
 	LEFT JOIN Tratamiento_paciente ON Tratamiento_paciente.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
 	WHERE Detalle_Atenciones.idDetalleAtenciones = _idDetalleAtenciones
 	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_actualizar_fechaActualizacion
+(
+IN _idDetalleAtenciones INT
+)
+BEGIN
+	UPDATE Detalle_Atenciones SET
+	 fechaActualizacion = NOW()
+	 WHERE idDetalleAtenciones = _idDetalleAtenciones;
 END $$

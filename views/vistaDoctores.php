@@ -270,7 +270,6 @@
         .then(datos=>{
             console.log("todoo ok",datos)
             datos.forEach(element =>{
-                
                 const nuevoCard = `
                     <div class="col-md-3" >
                         <div class="card">
@@ -279,12 +278,7 @@
                                 <div class="card-body bg-light-danger">
                                 <h5 style="text-align: center;">${element.ApellidosNombres}</h5>
                                     <div class='mt-2 row g-2'>
-                                        <div class='col-md-4'>
-                                            <button class='btn btn-danger' type='button'>
-                                                <a class='clinica' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Imprimir</a>
-                                            </button>
-                                        </div>
-                                        <div class='col-md-3'></div>
+                                    <div class="col-md-3"></div>
                                         <div class='col-md-3 ocultar' style="display: '';">
                                             <button class='btn btn-danger' type='button'>
                                                 <a class='historia' data-idservicio='${element.idServicio}' data-idatencion='${element.idDetalleAtenciones}' style='text-decoration: none;color: white;' >Registrar</a>
@@ -343,6 +337,7 @@
         formHC.classList.add('was-validated');
     }else{
         agregarDetalleHistoria();
+        cambiarFecha();
     }
   }
   function agregarDetalleHistoria() {
@@ -450,6 +445,22 @@ function registrarDetalleTratamiento(){
         promesas.push(fetchPromesa);
     }
 }
+
+function cambiarFecha(){
+    const parametros = new URLSearchParams();
+    parametros.append("operacion", "cambiarFecha");
+    parametros.append("idDetalleAtenciones", idDetalleModal);
+    fetch("../controllers/historiaClinica.php",{
+        method : "POST",
+        body: parametros
+    })
+    .then(response => response.json())
+    .then(datos => {  
+        toastCheck("Actualizado");  
+        listar();
+    })
+}
+
 function limpiarTabla(){
     const datosFilas = tabla.querySelectorAll('tbody tr');
     datosFilas.forEach((filas)=>{
@@ -548,10 +559,6 @@ function agregarTratamiento(){
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                     validarForm();
-                    // const btnHistoria = document.querySelectorAll('.ocultar');
-                    // btnHistoria.forEach(boton => {
-                    // boton.style.display = 'none';
-                    // });
                 }
             })
     });
