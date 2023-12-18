@@ -174,7 +174,7 @@
   </div>
 </div>
 <script>
-  const modalRegistrarPersonas = new bootstrap.Modal(document.querySelector("#registrar-alergia"));
+  const modalAlergias = new bootstrap.Modal(document.querySelector("#registrar-alergia"));
   const registrarHistoria = document.querySelector("#registrar-historia");
   const dni = document.querySelector("#dni");
   const nombreCompleto = document.querySelector("#nombrePaciente");
@@ -436,7 +436,7 @@
         if(datos.status){
             toastCheck("Guardado correctamente");
             listarAlergias();
-            formAlergias.reset();
+            modalAlergias.toggle();
         }else{
             notificar("Error", "La alergia ya existe",2)
         }

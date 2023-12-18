@@ -151,13 +151,22 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
       let telefonoUsu = usuario.dataset.telefono;
       let distritoUsu = usuario.dataset.distrito;
       let nombreNivelA;
+      console.log(nivelAcceso);
       function nivelAccesoNom(){
-        if(nivelAcceso = "G"){nombreNivelA = "Gerente";}
-        else if(nivelAcceso = "C"){nombreNivelA = "Cajero"}
-        else if(nivelAcceso = "T"){nombreNivelA = "Triaje - Enfermero(a)"}
-        else if(nivelAcceso = "A"){nombreNivelA = "Admisión"}
-        else if(nivelAcceso = "E"){nombreNivelA = "Doctor"}
-        else if(nivelAcceso = "S"){nombreNivelA = "Tecnólogo"}
+        if(nivelAcceso == "C"){
+          nombreNivelA = "Cajero";
+        }else if(nivelAcceso == "G"){
+          nombreNivelA = "Gerente";
+        }else if(nivelAcceso == "T"){
+          nombreNivelA = "Triaje - Enfermero(a)";
+        }else if(nivelAcceso == "A"){
+          nombreNivelA = "Admisión";
+        }else if(nivelAcceso == "E"){
+          nombreNivelA = "Doctor";
+        }else if(nivelAcceso == "S"){
+          nombreNivelA = "Tecnólogo";
+        }
+        console.log(nombreNivelA)
       }
       nivelAccesoNom();
 
