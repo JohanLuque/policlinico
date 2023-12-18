@@ -114,7 +114,7 @@
                                 <div class="card">
                                     <div class="card-content">
                                         <div class="card-body">
-                                            <form id="form-usuarios" autocomplete="off">
+                                            <form id="" autocomplete="off">
                                                 <div class="mb-2 row g-2">
                                                     <table class="table" id="tabla-usuario">
                                                         <thead class="">
