@@ -63,7 +63,7 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=310 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
@@ -372,7 +372,80 @@ insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,
 (306,'T','151220230017','2023-12-15 16:23:03','2023-12-15 16:23:16',NULL,1,NULL,NULL,109,'2023-12-15','1','0'),
 (307,'T','151220230018','2023-12-15 16:24:43','2023-12-15 16:26:28',NULL,1,NULL,NULL,178,'2023-12-15','1','0'),
 (308,'T','151220230019','2023-12-15 16:25:35','2023-12-15 16:26:37',NULL,1,NULL,NULL,179,'2023-12-15','1','0'),
-(309,'T','151220230020','2023-12-15 16:26:16','2023-12-15 16:26:44',NULL,1,NULL,NULL,180,'2023-12-15','1','0');
+(309,'T','151220230020','2023-12-15 16:26:16','2023-12-15 16:26:44',NULL,1,NULL,NULL,180,'2023-12-15','1','0'),
+(310,'T','161220230001','2023-12-16 20:46:31','2023-12-16 20:48:46',NULL,1,NULL,NULL,181,'2023-12-16','1','0'),
+(311,'T','161220230002','2023-12-16 20:46:44','2023-12-16 20:48:53',NULL,1,NULL,NULL,181,'2023-12-16','1','0'),
+(312,'T','161220230003','2023-12-16 20:47:45','2023-12-16 20:49:00',NULL,1,NULL,NULL,182,'2023-12-16','1','0'),
+(313,'T','161220230004','2023-12-16 20:48:30','2023-12-16 20:49:11',NULL,1,NULL,NULL,183,'2023-12-16','1','0'),
+(314,'T','161220230005','2023-12-16 20:52:00','2023-12-16 20:59:12',NULL,1,NULL,NULL,184,'2023-12-16','1','0'),
+(315,'T','161220230006','2023-12-16 20:52:37','2023-12-16 20:59:19',NULL,1,NULL,NULL,154,'2023-12-16','1','0'),
+(316,'T','161220230007','2023-12-16 20:52:57','2023-12-16 20:59:03',NULL,1,NULL,NULL,154,'2023-12-16','1','0'),
+(317,'T','161220230008','2023-12-16 20:53:50','2023-12-16 20:59:29',NULL,1,NULL,NULL,185,'2023-12-16','1','0'),
+(318,'T','161220230009','2023-12-16 20:54:28','2023-12-16 20:59:39',NULL,1,NULL,NULL,186,'2023-12-16','1','0'),
+(319,'T','161220230010','2023-12-16 20:56:00','2023-12-16 20:59:52',NULL,1,NULL,NULL,187,'2023-12-16','1','0'),
+(320,'T','161220230011','2023-12-16 20:57:06','2023-12-16 20:59:58',NULL,1,NULL,NULL,188,'2023-12-16','1','0'),
+(321,'T','161220230012','2023-12-16 20:58:46','2023-12-16 21:00:14',NULL,1,NULL,NULL,189,'2023-12-16','1','0'),
+(322,'T','161220230013','2023-12-16 21:02:39','2023-12-16 21:03:31',NULL,1,NULL,NULL,190,'2023-12-16','1','0'),
+(323,'T','161220230014','2023-12-16 21:03:17','2023-12-16 21:03:39',NULL,1,NULL,NULL,191,'2023-12-16','1','0'),
+(324,'T','161220230015','2023-12-16 21:07:28','2023-12-16 21:10:09',NULL,1,NULL,NULL,192,'2023-12-16','1','0'),
+(325,'T','161220230016','2023-12-16 21:08:17','2023-12-16 21:10:16',NULL,1,NULL,NULL,193,'2023-12-16','1','0'),
+(326,'T','161220230017','2023-12-16 21:09:10','2023-12-16 21:10:26',NULL,1,NULL,NULL,194,'2023-12-16','1','0'),
+(327,'T','161220230018','2023-12-16 21:09:33','2023-12-16 21:10:32',NULL,1,NULL,NULL,166,'2023-12-16','1','0'),
+(328,'T','161220230019','2023-12-16 21:09:50','2023-12-16 21:10:40',NULL,1,NULL,NULL,96,'2023-12-16','1','0'),
+(329,'T','161220230020','2023-12-16 21:12:11','2023-12-16 21:12:28',NULL,1,NULL,NULL,195,'2023-12-16','1','0'),
+(330,'T','161220230021','2023-12-16 21:13:20','2023-12-16 21:13:54',NULL,1,NULL,NULL,196,'2023-12-16','1','0'),
+(331,'T','161220230022','2023-12-16 21:13:34','2023-12-16 21:14:06',NULL,1,NULL,NULL,96,'2023-12-16','1','0'),
+(332,'T','161220230023','2023-12-16 21:15:36','2023-12-16 21:24:31',NULL,1,NULL,NULL,197,'2023-12-16','1','0'),
+(333,'T','161220230024','2023-12-16 21:17:18','2023-12-16 21:24:39',NULL,1,NULL,NULL,198,'2023-12-16','1','0'),
+(334,'T','161220230025','2023-12-16 21:18:13','2023-12-16 21:25:09',NULL,1,NULL,NULL,190,'2023-12-16','1','0'),
+(335,'T','161220230026','2023-12-16 21:22:27','2023-12-16 21:25:16',NULL,1,NULL,NULL,183,'2023-12-16','1','0'),
+(336,'T','161220230027','2023-12-16 21:23:18','2023-12-16 21:25:23',NULL,1,NULL,NULL,199,'2023-12-16','1','0'),
+(337,'T','161220230028','2023-12-16 21:24:00','2023-12-16 21:25:31',NULL,1,NULL,NULL,200,'2023-12-16','1','0'),
+(338,'T','161220230029','2023-12-16 21:26:59','2023-12-16 21:30:31',NULL,1,NULL,NULL,124,'2023-12-16','1','0'),
+(339,'T','161220230030','2023-12-16 21:27:42','2023-12-16 21:30:38',NULL,1,NULL,NULL,198,'2023-12-16','1','0'),
+(340,'T','161220230031','2023-12-16 21:29:39','2023-12-16 21:30:46',NULL,1,NULL,NULL,200,'2023-12-16','1','0'),
+(341,'T','161220230032','2023-12-16 21:30:08','2023-12-16 21:31:05',NULL,1,NULL,NULL,200,'2023-12-16','1','0'),
+(342,'T','161220230033','2023-12-16 21:33:11','2023-12-16 21:35:31',NULL,1,NULL,NULL,201,'2023-12-16','1','0'),
+(343,'T','161220230034','2023-12-16 21:33:47','2023-12-16 21:35:39',NULL,1,NULL,NULL,202,'2023-12-16','1','0'),
+(344,'T','161220230035','2023-12-16 21:34:09','2023-12-16 21:35:45',NULL,1,NULL,NULL,200,'2023-12-16','1','0'),
+(345,'T','161220230036','2023-12-16 21:34:42','2023-12-16 21:35:58',NULL,1,NULL,NULL,201,'2023-12-16','1','0'),
+(346,'T','161220230037','2023-12-16 21:35:14','2023-12-16 21:36:12',NULL,1,NULL,NULL,176,'2023-12-16','1','0'),
+(347,'T','161220230038','2023-12-16 21:36:56','2023-12-16 21:37:40',NULL,1,NULL,NULL,203,'2023-12-16','1','0'),
+(348,'T','161220230039','2023-12-16 21:37:10','2023-12-16 21:37:52',NULL,1,NULL,NULL,203,'2023-12-16','1','0'),
+(349,'T','161220230040','2023-12-16 21:37:27','2023-12-16 21:38:11',NULL,1,NULL,NULL,203,'2023-12-16','1','0'),
+(350,'T','171220230001','2023-12-17 21:27:31','2023-12-17 21:32:00',NULL,1,NULL,NULL,204,'2023-12-17','1','0'),
+(351,'T','171220230002','2023-12-17 21:27:44','2023-12-17 21:32:08',NULL,1,NULL,NULL,204,'2023-12-17','1','0'),
+(352,'T','171220230003','2023-12-17 21:28:22','2023-12-17 21:32:14',NULL,1,NULL,NULL,191,'2023-12-17','1','0'),
+(353,'T','171220230004','2023-12-17 21:29:52','2023-12-17 21:32:22',NULL,1,NULL,NULL,205,'2023-12-17','1','0'),
+(354,'T','171220230005','2023-12-17 21:31:14','2023-12-17 21:32:58',NULL,1,NULL,NULL,206,'2023-12-17','1','0'),
+(355,'T','171220230006','2023-12-17 21:31:45','2023-12-17 21:32:47',NULL,1,NULL,NULL,207,'2023-12-17','1','0'),
+(356,'T','171220230007','2023-12-17 21:33:36','2023-12-17 21:35:31',NULL,1,NULL,NULL,208,'2023-12-17','1','0'),
+(357,'T','171220230008','2023-12-17 21:34:38','2023-12-17 21:35:47',NULL,1,NULL,NULL,209,'2023-12-17','1','0'),
+(358,'T','171220230009','2023-12-17 21:35:17','2023-12-17 21:35:57',NULL,1,NULL,NULL,210,'2023-12-17','1','0'),
+(359,'T','171220230010','2023-12-17 21:36:45','2023-12-17 21:38:19',NULL,1,NULL,NULL,211,'2023-12-17','1','0'),
+(360,'T','171220230011','2023-12-17 21:37:11','2023-12-17 21:38:31',NULL,1,NULL,NULL,210,'2023-12-17','1','0'),
+(361,'T','171220230012','2023-12-17 21:37:56','2023-12-17 21:38:43',NULL,1,NULL,NULL,212,'2023-12-17','1','0'),
+(362,'T','171220230013','2023-12-17 21:40:10','2023-12-17 21:41:23',NULL,1,NULL,NULL,213,'2023-12-17','1','0'),
+(363,'T','171220230014','2023-12-17 21:41:01','2023-12-17 21:41:32',NULL,1,NULL,NULL,214,'2023-12-17','1','0'),
+(364,'T','181220230001','2023-12-18 21:47:40','2023-12-18 21:53:07',NULL,1,NULL,NULL,215,'2023-12-18','1','0'),
+(365,'T','181220230002','2023-12-18 21:48:06','2023-12-18 21:53:23',NULL,1,NULL,NULL,166,'2023-12-18','1','0'),
+(366,'T','181220230003','2023-12-18 21:48:37','2023-12-18 21:53:32',NULL,1,NULL,NULL,154,'2023-12-18','1','0'),
+(367,'T','181220230004','2023-12-18 21:49:50','2023-12-18 21:53:38',NULL,1,NULL,NULL,216,'2023-12-18','1','0'),
+(368,'T','181220230005','2023-12-18 21:50:11','2023-12-18 21:53:58',NULL,1,NULL,NULL,208,'2023-12-18','1','0'),
+(369,'T','181220230006','2023-12-18 21:51:44','2023-12-18 21:54:05',NULL,1,NULL,NULL,217,'2023-12-18','1','0'),
+(370,'T','181220230007','2023-12-18 21:52:18','2023-12-18 21:54:12',NULL,1,NULL,NULL,218,'2023-12-18','1','0'),
+(371,'T','181220230008','2023-12-18 21:52:54','2023-12-18 21:54:18',NULL,1,NULL,NULL,128,'2023-12-18','1','0'),
+(372,'T','181220230009','2023-12-18 21:55:19','2023-12-18 21:58:29',NULL,1,NULL,NULL,30,'2023-12-18','1','0'),
+(373,'T','181220230010','2023-12-18 21:55:39','2023-12-18 21:58:36',NULL,1,NULL,NULL,139,'2023-12-18','1','0'),
+(374,'T','181220230011','2023-12-18 21:56:25','2023-12-18 21:58:42',NULL,1,NULL,NULL,219,'2023-12-18','1','0'),
+(375,'T','181220230012','2023-12-18 21:56:58','2023-12-18 21:58:49',NULL,1,NULL,NULL,220,'2023-12-18','1','0'),
+(376,'T','181220230013','2023-12-18 21:58:18','2023-12-18 21:58:56',NULL,1,NULL,NULL,208,'2023-12-18','1','0'),
+(377,'T','181220230014','2023-12-18 22:00:00','2023-12-18 22:03:48',NULL,1,NULL,NULL,221,'2023-12-18','1','0'),
+(378,'T','181220230015','2023-12-18 22:01:14','2023-12-18 22:03:57',NULL,1,NULL,NULL,220,'2023-12-18','1','0'),
+(379,'T','181220230016','2023-12-18 22:01:36','2023-12-18 22:04:03',NULL,1,NULL,NULL,219,'2023-12-18','1','0'),
+(380,'T','181220230017','2023-12-18 22:02:01','2023-12-18 22:04:10',NULL,1,NULL,NULL,219,'2023-12-18','1','0'),
+(381,'T','181220230018','2023-12-18 22:02:16','2023-12-18 22:04:18',NULL,1,NULL,NULL,65,'2023-12-18','1','0'),
+(382,'T','181220230019','2023-12-18 22:03:11','2023-12-18 22:04:24',NULL,1,NULL,NULL,222,'2023-12-18','1','0');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -446,7 +519,7 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=452 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
@@ -806,7 +879,102 @@ insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAt
 (353,298,306),
 (354,43,307),
 (355,283,308),
-(356,210,309);
+(356,210,309),
+(357,41,310),
+(358,28,310),
+(359,50,310),
+(360,89,310),
+(361,303,311),
+(362,41,312),
+(363,52,312),
+(364,283,313),
+(365,41,314),
+(366,8,314),
+(367,204,315),
+(368,284,316),
+(369,89,317),
+(370,222,318),
+(371,222,319),
+(372,94,320),
+(373,154,321),
+(374,156,321),
+(375,289,322),
+(376,284,323),
+(377,41,324),
+(378,28,324),
+(379,50,324),
+(380,43,324),
+(381,419,325),
+(382,419,326),
+(383,298,327),
+(384,419,328),
+(385,298,329),
+(386,222,330),
+(387,419,331),
+(388,222,332),
+(389,231,332),
+(390,89,333),
+(391,181,334),
+(392,190,334),
+(393,62,335),
+(394,419,336),
+(395,289,337),
+(396,284,338),
+(397,54,339),
+(398,292,340),
+(399,189,341),
+(400,211,341),
+(401,289,342),
+(402,419,343),
+(403,222,344),
+(404,161,345),
+(405,213,346),
+(406,289,347),
+(407,160,348),
+(408,289,349),
+(409,395,350),
+(410,416,351),
+(411,8,352),
+(412,41,352),
+(413,97,352),
+(414,161,353),
+(415,43,354),
+(416,41,354),
+(417,283,355),
+(418,223,356),
+(419,89,357),
+(420,289,358),
+(421,299,359),
+(422,289,360),
+(423,76,361),
+(424,298,362),
+(425,113,363),
+(426,314,364),
+(427,298,365),
+(428,298,366),
+(429,7,367),
+(430,223,368),
+(431,33,369),
+(432,51,369),
+(433,289,370),
+(434,190,371),
+(435,416,372),
+(436,303,373),
+(437,283,374),
+(438,283,375),
+(439,384,376),
+(440,289,377),
+(441,8,378),
+(442,62,378),
+(443,60,378),
+(444,136,378),
+(445,89,378),
+(446,41,378),
+(447,137,378),
+(448,8,379),
+(449,176,380),
+(450,312,381),
+(451,222,382);
 
 /*Table structure for table `devoluciones` */
 
@@ -938,7 +1106,7 @@ CREATE TABLE `gastos` (
   CONSTRAINT `fk_idmep_gas` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_gas` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`),
   CONSTRAINT `fk_per_gas` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `gastos` */
 
@@ -985,7 +1153,25 @@ insert  into `gastos`(`idGasto`,`descripcionGasto`,`montoGasto`,`fechaHoraGasto`
 (40,'RETIRO DE DINERO DE PARTE DE WILLIANS',37.00,'2023-12-14 22:35:45',1,3,1),
 (41,'RETIRO DE DINERO DE PARTE DE WILLIANS',400.00,'2023-12-14 22:36:44',1,3,1),
 (42,'RETIRO DE DINERO DE CAJA',300.00,'2023-12-15 16:30:49',1,3,1),
-(43,'PAGO ',100.00,'2023-12-15 16:31:39',7,3,1);
+(43,'PAGO ',100.00,'2023-12-15 16:31:39',7,3,1),
+(44,'pago de traumalogia a willians',40.00,'2023-12-16 21:26:38',1,3,1),
+(45,'pago de medicina interna a willians',40.00,'2023-12-16 21:28:06',1,3,1),
+(46,'pago de laboratorio a willians',30.00,'2023-12-16 21:28:21',1,3,1),
+(47,'pago de laboratorio a williasn',120.00,'2023-12-16 21:31:50',1,3,1),
+(48,'INSUMO DE FARMACIA',2.50,'2023-12-16 21:38:49',3,3,1),
+(49,'RETIRO DE DINERO DE CAJA DE WILLIAMS',800.00,'2023-12-16 21:39:12',1,3,1),
+(50,'PAGO DEL ESPECIALISTA RIVA',112.00,'2023-12-16 21:39:43',5,3,1),
+(51,'PAGO DEL ESPECIALISTA CAMPOS',500.00,'2023-12-16 21:40:11',2,3,1),
+(52,'BIO CONTENEDOR',21.00,'2023-12-17 21:43:13',2,3,1),
+(53,'PARA PAGARLE A ANGELA',10.00,'2023-12-17 21:43:51',3,3,1),
+(54,'RETIRO DE PARTE DE WILLIAMS\n',50.00,'2023-12-17 21:44:15',1,3,1),
+(55,'DEPOSITO A CUENTA BANCARIA',300.00,'2023-12-17 21:44:48',1,3,1),
+(56,'PAGO DEL DIA',50.00,'2023-12-18 22:05:30',11,3,1),
+(57,'INSUMO DE FARMACIA',2.50,'2023-12-18 22:06:04',10,3,1),
+(58,'RETIRO DINERO DE CAJA',20.00,'2023-12-18 22:06:25',1,3,1),
+(59,'DEVOLUCION PARA PASAJE DE UN PACIENTE\n',7.00,'2023-12-18 22:06:53',40,3,1),
+(60,'PAGO DE LA SEMANA A AMERICO',200.00,'2023-12-18 22:07:20',9,3,1),
+(61,'PASAJE PARA EL CAJERO',7.50,'2023-12-18 22:07:46',2,3,1);
 
 /*Table structure for table `historias_clinicas` */
 
@@ -1067,7 +1253,7 @@ CREATE TABLE `pagos` (
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_pag` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=308 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pagos` */
 
@@ -1378,7 +1564,81 @@ insert  into `pagos`(`idPago`,`monto`,`estado`,`fechaHoraPago`,`idAtencion`,`idM
 (304,10.00,'0','2023-12-15 16:23:16',306,1,1),
 (305,60.00,'0','2023-12-15 16:26:28',307,3,1),
 (306,20.00,'0','2023-12-15 16:26:37',308,3,1),
-(307,50.00,'0','2023-12-15 16:26:44',309,3,1);
+(307,50.00,'0','2023-12-15 16:26:44',309,3,1),
+(308,45.00,'0','2023-12-16 20:48:46',310,3,1),
+(309,40.00,'0','2023-12-16 20:48:53',311,3,1),
+(310,60.00,'0','2023-12-16 20:49:00',312,3,1),
+(311,20.00,'0','2023-12-16 20:49:11',313,4,1),
+(312,40.00,'0','2023-12-16 20:59:03',316,4,1),
+(313,40.00,'0','2023-12-16 20:59:12',314,3,1),
+(314,70.00,'0','2023-12-16 20:59:19',315,3,1),
+(315,10.00,'0','2023-12-16 20:59:29',317,3,1),
+(316,6.00,'0','2023-12-16 20:59:39',318,3,1),
+(317,5.00,'0','2023-12-16 20:59:52',319,3,1),
+(318,40.00,'0','2023-12-16 20:59:58',320,3,1),
+(319,90.00,'0','2023-12-16 21:00:14',321,3,1),
+(320,30.00,'0','2023-12-16 21:00:14',321,5,1),
+(321,40.00,'0','2023-12-16 21:03:31',322,1,1),
+(322,40.00,'0','2023-12-16 21:03:39',323,3,1),
+(323,95.00,'0','2023-12-16 21:10:09',324,3,1),
+(324,40.00,'0','2023-12-16 21:10:16',325,3,1),
+(325,40.00,'0','2023-12-16 21:10:26',326,3,1),
+(326,40.00,'0','2023-12-16 21:10:32',327,3,1),
+(327,40.00,'0','2023-12-16 21:10:40',328,1,1),
+(328,100.00,'0','2023-12-16 21:12:28',329,3,1),
+(329,6.00,'0','2023-12-16 21:13:54',330,3,1),
+(330,40.00,'0','2023-12-16 21:14:06',331,1,1),
+(331,12.00,'0','2023-12-16 21:24:31',332,3,1),
+(332,10.00,'0','2023-12-16 21:24:39',333,3,1),
+(333,160.00,'0','2023-12-16 21:25:09',334,3,1),
+(334,30.00,'0','2023-12-16 21:25:16',335,1,1),
+(335,40.00,'0','2023-12-16 21:25:23',336,3,1),
+(336,40.00,'0','2023-12-16 21:25:31',337,3,1),
+(337,40.00,'0','2023-12-16 21:30:31',338,3,1),
+(338,30.00,'0','2023-12-16 21:30:38',339,3,1),
+(339,250.00,'0','2023-12-16 21:30:46',340,3,1),
+(340,120.00,'0','2023-12-16 21:31:04',341,3,1),
+(341,40.00,'0','2023-12-16 21:35:31',342,3,1),
+(342,40.00,'0','2023-12-16 21:35:39',343,3,1),
+(343,6.00,'0','2023-12-16 21:35:45',344,3,1),
+(344,60.00,'0','2023-12-16 21:35:58',345,3,1),
+(345,90.00,'0','2023-12-16 21:36:11',346,5,1),
+(346,40.00,'0','2023-12-16 21:37:40',347,3,1),
+(347,50.00,'0','2023-12-16 21:37:52',348,3,1),
+(348,60.00,'0','2023-12-16 21:38:11',349,5,1),
+(349,60.00,'0','2023-12-17 21:32:00',350,3,1),
+(350,5.00,'0','2023-12-17 21:32:08',351,3,1),
+(351,70.00,'0','2023-12-17 21:32:14',352,3,1),
+(352,90.00,'0','2023-12-17 21:32:22',353,3,1),
+(353,70.00,'0','2023-12-17 21:32:47',355,1,1),
+(354,70.00,'0','2023-12-17 21:32:58',354,1,1),
+(355,30.00,'0','2023-12-17 21:35:31',356,3,1),
+(356,10.00,'0','2023-12-17 21:35:47',357,1,1),
+(357,40.00,'0','2023-12-17 21:35:57',358,5,1),
+(358,150.00,'0','2023-12-17 21:38:19',359,3,1),
+(359,60.00,'0','2023-12-17 21:38:31',360,5,1),
+(360,70.00,'0','2023-12-17 21:38:43',361,5,1),
+(361,40.00,'0','2023-12-17 21:41:23',362,1,1),
+(362,20.00,'0','2023-12-17 21:41:32',363,3,1),
+(363,70.00,'0','2023-12-18 21:53:07',364,3,1),
+(364,40.00,'0','2023-12-18 21:53:23',365,3,1),
+(365,40.00,'0','2023-12-18 21:53:32',366,3,1),
+(366,10.00,'0','2023-12-18 21:53:38',367,3,1),
+(367,30.00,'0','2023-12-18 21:53:58',368,4,1),
+(368,20.00,'0','2023-12-18 21:54:05',369,1,1),
+(369,40.00,'0','2023-12-18 21:54:12',370,3,1),
+(370,70.00,'0','2023-12-18 21:54:18',371,5,1),
+(371,5.00,'0','2023-12-18 21:58:29',372,3,1),
+(372,40.00,'0','2023-12-18 21:58:36',373,1,1),
+(373,20.00,'0','2023-12-18 21:58:42',374,3,1),
+(374,20.00,'0','2023-12-18 21:58:49',375,3,1),
+(375,40.00,'0','2023-12-18 21:58:56',376,5,1),
+(376,40.00,'0','2023-12-18 22:03:48',377,4,1),
+(377,230.00,'0','2023-12-18 22:03:57',378,3,1),
+(378,30.00,'0','2023-12-18 22:04:03',379,3,1),
+(379,50.00,'0','2023-12-18 22:04:10',380,3,1),
+(380,30.00,'0','2023-12-18 22:04:18',381,3,1),
+(381,6.00,'0','2023-12-18 22:04:24',382,3,1);
 
 /*Table structure for table `personas` */
 
@@ -1400,7 +1660,7 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personas` */
 
@@ -1584,7 +1844,49 @@ insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno
 (177,'HENRY','DE LOS RIOS','LOAYZA','N','21881445','1983-12-04','M',NULL,NULL,'2023-12-15 16:21:38',NULL,'1'),
 (178,'SARA ELENA','JAYO','RODRIGUEZ','N','80611261','1999-09-26','F',NULL,NULL,'2023-12-15 16:24:09',NULL,'1'),
 (179,'YERIMIN SMITH','GUILLEN','GARCIA','N','76029102','2000-10-19','F',NULL,NULL,'2023-12-15 16:25:09',NULL,'1'),
-(180,'HILDA YESENIA','CONTRERAS','CERRON','N','20061451','1984-11-07','F',NULL,NULL,'2023-12-15 16:26:03',NULL,'1');
+(180,'HILDA YESENIA','CONTRERAS','CERRON','N','20061451','1984-11-07','F',NULL,NULL,'2023-12-15 16:26:03',NULL,'1'),
+(181,'REYNALDO PEDRO','PULCHA','LINARES','N','30417874','1968-10-04','M',NULL,NULL,'2023-12-16 20:45:51',NULL,'1'),
+(182,'YANELY DOMINGA VALERIA','TASAYCO','AVALOS','N','73373991','2002-04-29','F',NULL,NULL,'2023-12-16 20:47:24',NULL,'1'),
+(183,'THALIA NOEMI','CHINCHAY','AZORZA','N','71911876','1987-01-15','F',NULL,NULL,'2023-12-16 20:48:18',NULL,'1'),
+(184,'GLORIA','SEGURA','ZUÑIGA','N','21799649','1957-05-02','F',NULL,NULL,'2023-12-16 20:51:18',NULL,'1'),
+(185,'GIOVANNA MARIA','ALMEYDA','ALMEYDA','N','43233930','1985-05-26','F',NULL,NULL,'2023-12-16 20:53:33',NULL,'1'),
+(186,'ROSENDO ADRIAN','VERAMENDI','GUZMAN','N','80104240','1984-09-24','M',NULL,NULL,'2023-12-16 20:54:15',NULL,'1'),
+(187,'JOSE TORIBIO','MARALLANO','CLAROS','N','21785685','1979-01-15','M',NULL,NULL,'2023-12-16 20:55:30',NULL,'1'),
+(188,'SEGUNDO MARINO','SOLANO','ROMERO','N','21828239','1970-11-03','M',NULL,NULL,'2023-12-16 20:56:52',NULL,'1'),
+(189,'PEDRO RUFINO','DIAZ','VALENCIA','N','21804695','1976-12-01','M',NULL,NULL,'2023-12-16 20:57:32',NULL,'1'),
+(190,'ROSA ELENA','TORRES','TORRES','N','21857999','1977-01-30','F',NULL,NULL,'2023-12-16 21:02:27',NULL,'1'),
+(191,'MARIA BELEN','MAGALLANES','TORRES','N','72742350','1985-03-14','F',NULL,NULL,'2023-12-16 21:03:07',NULL,'1'),
+(192,'CARMELA LUISA','AGUILAR','BELLEZA','N','21826100','1957-02-06','F',NULL,NULL,'2023-12-16 21:06:50',NULL,'1'),
+(193,'MANUEL FELIPE','RAMOS','HERNANDEZ','N','21852714','2000-06-19','M',NULL,NULL,'2023-12-16 21:08:07',NULL,'1'),
+(194,'JESUSA LUZ','CASTELLANO','RIVADENEYRA DE RAMOS','N','21853525','1949-07-23','F',NULL,NULL,'2023-12-16 21:08:48',NULL,'1'),
+(195,'MARTHA MELANIA','YAÑEZ','VALENCIA','N','21806656','1989-05-17','F',NULL,NULL,'2023-12-16 21:11:42',NULL,'1'),
+(196,'WENDY JAZMIN','MAGALLANES','ROJAS','N','48261304','1976-08-28','F',NULL,NULL,'2023-12-16 21:13:04',NULL,'1'),
+(197,'LEONARDO FABRICIO','SALHUANA','FLORES','N','72722262','1990-10-03','M',NULL,NULL,'2023-12-16 21:15:20',NULL,'1'),
+(198,'CAROLINA SANDRA','SOTO','NUÑEZ','N','21871103','1974-02-14','F',NULL,NULL,'2023-12-16 21:17:07',NULL,'1'),
+(199,'HAMILY YANINA','RAMIREZ','CARPIO','N','45902581','1988-02-13','F',NULL,NULL,'2023-12-16 21:23:09',NULL,'1'),
+(200,'HECTOR SABINO','ISIDRO','MANCHA','N','41882104','1977-11-23','M',NULL,NULL,'2023-12-16 21:23:51',NULL,'1'),
+(201,'MARIA ZOILA','GUERRA','AGUILAR','N','21876638','1999-04-30','F',NULL,NULL,'2023-12-16 21:33:01',NULL,'1'),
+(202,'ELMER ARTURO','HUAYLLA','FLORES','N','43624331','1991-09-20','M',NULL,NULL,'2023-12-16 21:33:39',NULL,'1'),
+(203,'RICARDO JEFFERSON','RICALES','CORDOVA','N','72966584','1980-11-29','M',NULL,NULL,'2023-12-16 21:36:46',NULL,'1'),
+(204,'LUIS ALBERTO','YLLESCAS','GALLARDO','N','21825278','1990-04-29','M',NULL,NULL,'2023-12-17 21:27:12',NULL,'1'),
+(205,'DAGOBERTO LILIO','SALVADOR','CUBA','N','21804738','1977-07-07','M',NULL,NULL,'2023-12-17 21:29:32',NULL,'1'),
+(206,'NATALY RAQUEL','CHAVEZ','NUÑEZ','N','71479686','1992-07-04','F',NULL,NULL,'2023-12-17 21:30:55',NULL,'1'),
+(207,'FRANCISCA MARILU','RICALDI','VILCHEZ','N','42278327','1984-02-19','F',NULL,NULL,'2023-12-17 21:31:36',NULL,'1'),
+(208,'CARMEN ROSA','PACHAS','GONZALES','N','72466634','1969-04-29','F',NULL,NULL,'2023-12-17 21:33:27',NULL,'1'),
+(209,'BLANCA RAQUEL','GIORFFINO','NEYRA','N','03560574','1959-05-30','M',NULL,NULL,'2023-12-17 21:34:20',NULL,'1'),
+(210,'ROSA MARIA','CALDERON','MAURICIO','N','41190542','1986-03-26','F',NULL,NULL,'2023-12-17 21:35:06',NULL,'1'),
+(211,'JUAN CARLOS','RODRIGUEZ','FERNANDEZ','N','15405913','1968-04-13','M',NULL,NULL,'2023-12-17 21:36:28',NULL,'1'),
+(212,'YESICA','QUISPE','HUANACUNI','N','45843739','1989-04-11','F',NULL,NULL,'2023-12-17 21:37:41',NULL,'1'),
+(213,'ROSA IRENE','MELENDEZ','ALBARRACIN','N','21881289','1985-08-17','F',NULL,NULL,'2023-12-17 21:39:55',NULL,'1'),
+(214,'MILAGROS MARIBEL','PERALES','SALHUANA','N','44645082','1987-03-03','F',NULL,NULL,'2023-12-17 21:40:42',NULL,'1'),
+(215,'MARIVEL MARLENY','CHOQUE','FLORES','N','40495333','1980-01-01','F',NULL,NULL,'2023-12-18 21:47:19',NULL,'1'),
+(216,'ANA MARIA','MIÑAN','CHUMBIAUCA','N','76470340','1984-03-19','F',NULL,NULL,'2023-12-18 21:49:13',NULL,'1'),
+(217,'YOLANDA','YONJOY','RAMOS','N','22244820','1942-06-18','F',NULL,NULL,'2023-12-18 21:51:26',NULL,'1'),
+(218,'JOSE ANTONIO','RAMOS','TRILLO','N','42548230','1980-05-23','M',NULL,NULL,'2023-12-18 21:52:08',NULL,'1'),
+(219,'BERTILA CATALINA','GONZALES','DE MAYORGA','N','21784368','1939-07-23','F',NULL,NULL,'2023-12-18 21:56:14',NULL,'1'),
+(220,'PRODENCIANA','MAYTA','DE LA CRUZ','N','22273199','1949-04-30','F',NULL,NULL,'2023-12-18 21:56:47',NULL,'1'),
+(221,'VICTOR GUSTAVO','CAJO','GUERRA','N','46601929','1976-06-18','M',NULL,NULL,'2023-12-18 21:59:51',NULL,'1'),
+(222,'ANITA ABIGAIL','CASTILLA','VDA DE ROJAS','N','21839399','1955-02-18','F',NULL,NULL,'2023-12-18 22:02:47',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -2178,7 +2480,7 @@ IN _idusuario INT
 BEGIN 
 	UPDATE Usuarios SET
 		fechaFin = NOW(),
-		estado = '1'
+		estado = '0'
 	WHERE idUsuario = _idusuario;
 END */$$
 DELIMITER ;
@@ -2194,7 +2496,7 @@ IN _estado CHAR(1)
 )
 BEGIN 
 	SELECT idusuario, nombreUsuario, nivelAcceso, fechaInicio,
-		CONCAT(personas.apellidoPaterno, " ", personas.apellidoPaterno, " ", personas.nombres) AS persona
+		CONCAT(personas.apellidoPaterno, " ", personas.apellidoMaterno, " ", personas.nombres) AS persona
 	FROM usuarios
 	INNER JOIN personas ON personas.idPersona = usuarios.idPersona
 	WHERE usuarios.estado = _estado
@@ -2501,6 +2803,7 @@ BEGIN
 	SELECT idservicios_detalle,descripcion, precio, genero
 	FROM servicios_detalle
 	WHERE idservicios_detalle = _idservicios_detalle;
+
 END */$$
 DELIMITER ;
 
@@ -2535,6 +2838,7 @@ BEGIN
 	FROM Atenciones
 	WHERE DATE(fechaCreacion) = _fecha;
 	SET _contador = _contador + 1;
+
 	-- Construir el número de atención basado en la fecha y el contador
 	SET _numAtencion = CONCAT(
 	DATE_FORMAT(_fecha, '%d%m%Y'),
@@ -2587,6 +2891,7 @@ BEGIN
 	IF _genero = "" THEN SET _genero = NULL; END IF;
 	IF _telefono = "" THEN SET _telefono = NULL; END IF;
 	IF _distrito = "" THEN SET _distrito = NULL; END IF;
+
 	INSERT INTO personas (nombres, apellidoPaterno, apellidoMaterno, tipoDocumento, numeroDocumento, fechaNacimiento, genero, telefono, distrito) VALUES
 	(_nombres,_apellidoPaterno,_apellidoMaterno,_tipoDocumento,_numeroDocumento,_fechaNacimiento,_genero,_telefono, _distrito);
 END */$$
@@ -2923,22 +3228,22 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_listar_detalles_personas`(
-in _numeroDocumento varchar(12)
+IN _numeroDocumento VARCHAR(12)
 )
-begin
-	select 	Detalle_Atenciones.idDetalleAtenciones, Detalle_Atenciones.fechaCreacion,
+BEGIN
+	SELECT 	Detalle_Atenciones.idDetalleAtenciones, Detalle_Atenciones.fechaCreacion,
 		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente,
 		servicios.nombreServicio
-	from Detalle_Atenciones
-	inner join Historias_clinicas on Historias_clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
-	inner join personas on personas.idPersona = Historias_clinicas.idPersona
+	FROM Detalle_Atenciones
+	INNER JOIN Historias_clinicas ON Historias_clinicas.idHistoriaClinica = Detalle_Atenciones.idHistoria
+	INNER JOIN personas ON personas.idPersona = Historias_clinicas.idPersona
 	INNER JOIN atenciones ON atenciones.idAtencion = detalle_atenciones.idAtencion
 	LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-	where personas.numeroDocumento = _numeroDocumento
-	order by Detalle_Atenciones.idDetalleAtenciones desc;
-end */$$
+	WHERE personas.numeroDocumento = _numeroDocumento
+	ORDER BY Detalle_Atenciones.idDetalleAtenciones DESC;
+END */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `SPU_DOCTORES_LISTAR_SERVICIOS` */
@@ -3022,10 +3327,10 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_ver_detalles_pacientes`(
-IN _idDetelleAtenciones int
+IN _idDetalleAtenciones INT
 )
 BEGIN
-	select  idDetalleAtenciones,
+	SELECT  idDetalleAtenciones,
 		CONCAT(fam.apellidoPaterno, ' ', fam.apellidoMaterno, ' ', fam.nombres) AS familiar, atenciones.parentesco, fam.numeroDocumento AS dniFam,
 		peso, talla, frecuenciaCardiaca, FrecuenciaRespiratoria, PresionArterial, temperatura, SaturacionOxigeno,
 		Historias_Clinicas.antecedentePersonal, Historias_Clinicas.antecedenteFamiliar, Historias_Clinicas.antecedenteQuirurgico, Historias_Clinicas.antecedenteOtro,
@@ -3048,10 +3353,28 @@ BEGIN
 		LEFT JOIN Detalle_Servicios ON Detalle_Servicios.idatencion = atenciones.idAtencion
 		INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 		INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
-		left join Enfermedad_Pacientes on Enfermedad_Pacientes.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
-		left join Enfermedades on Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
-		where detalle_atenciones.idDetalleAtenciones = _idDetelleAtenciones
+		LEFT JOIN Enfermedad_Pacientes ON Enfermedad_Pacientes.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
+		LEFT JOIN Enfermedades ON Enfermedades.idEnfermedad = Enfermedad_Pacientes.idEnfermedad
+		WHERE detalle_atenciones.idDetalleAtenciones = _idDetalleAtenciones
 		GROUP BY idDetalleAtenciones;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctores_ver_tratamientos_pacientes` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctores_ver_tratamientos_pacientes` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_ver_tratamientos_pacientes`(
+IN _idDetalleAtenciones INT
+)
+BEGIN 
+	SELECT idTratamiento, Tratamiento_paciente.idDetalleAtencion ,medicamento, presentacion, cantidad, dosis, dias
+	FROM detalle_atenciones
+	LEFT JOIN Tratamiento_paciente ON Tratamiento_paciente.idDetalleAtencion = detalle_atenciones.idDetalleAtenciones
+	WHERE Detalle_Atenciones.idDetalleAtenciones = _idDetalleAtenciones
+	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
 END */$$
 DELIMITER ;
 
@@ -3436,6 +3759,7 @@ BEGIN
 	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NOT NULL AND detalle_atenciones.idDetalleAtenciones IS NULL  
 	GROUP BY Detalle_Servicios.idatencion
 	ORDER BY dia DESC;
+
 END */$$
 DELIMITER ;
 
@@ -3500,7 +3824,7 @@ DELIMITER $$
 BEGIN
 	SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`, personas.`numeroDocumento`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
-	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
+	    atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
 	FROM atenciones
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona
@@ -3509,8 +3833,9 @@ BEGIN
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
 	WHERE atenciones.estado = '1' AND servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NULL 
-	GROUP BY Detalle_Servicios.idatencion
+	GROUP BY  personas.`idPersona`
 	ORDER BY dia DESC;
+
 END */$$
 DELIMITER ;
 
