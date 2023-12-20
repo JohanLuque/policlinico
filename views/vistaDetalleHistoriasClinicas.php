@@ -74,6 +74,8 @@
     const nombre = document.querySelector("#nombre");
     const tabla = document.querySelector("#tabla-paciente");
     const cuerpoTabla = tabla.querySelector("#cuerpoPaciente");
+    let idDetalleAtencion;
+    let idHistoria;
 
     function consultarHistoria(){
         const parametros = new URLSearchParams();
@@ -96,7 +98,7 @@
                             <td>${element.nombreServicio}</td>
                             <td>${element.fechaCreacion}</td>
                             <td>
-                            <a class ="usuario btn btn-sm btn-danger" data-historia='${element.idDetalleAtenciones}'>
+                            <a class ="usuario btn btn-sm btn-danger" data-detalle='${element.idDetalleAtenciones}' data-historia='${element.idHistoriaClinica}'>
                                 Ver
                             </a>
                             </td>
@@ -110,6 +112,23 @@
                 }
             })
     }
+    
+    cuerpoTabla.addEventListener("click", (event) => {
+        idDetalleAtencion =  parseInt(event.target.dataset.detalle)
+        idHistoria =  parseInt(event.target.dataset.historia)
+
+    if(event.target.classList[0] == 'usuario'){
+      if(idDetalleAtencion>0){
+        const parametros = new URLSearchParams();
+
+        parametros.append("idDetalleAtencion",idDetalleAtencion);
+        parametros.append("idHistoria",idHistoria);
+        parametros.append("idDetalleHistoria",idDetalleAtencion);
+
+        window.open(`../reports/verHistorias.report.php?${parametros}`, '_blank');
+      }
+    }
+  })
 
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarHistoria();
