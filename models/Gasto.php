@@ -30,10 +30,10 @@ class Gasto extends Conexion{
   public function listarGastos(){
     try{
       $query = $this->connection->prepare("CALL spu_caja_listar_gastos()");
-      $query->execute(array());
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
     }catch(Exception $e){
-      die($e->getCode());
+      die($e->getMessage());
     }
   }
 }

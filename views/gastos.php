@@ -1,6 +1,6 @@
 <?php require_once 'permisos.php'; ?>
 <div class="row mt-2 mb-3">                
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="card">
             <form id="form-gastos" class="needs-validation">
                 <div class="card-body">
@@ -69,7 +69,9 @@
             </form>
         </div>
     </div>
-    <div class="col-md-8">
+</div>
+<div class="row mt-2 mb-3">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <h1 class="text-center text-danger">Lista de gastos por dia</h1>
@@ -77,16 +79,16 @@
                     <div class="col-md">
                         <table class=" table rounded-2" id="tabla-lista-gastos">
                         <colgroup>
-                            <col width="10%"> <!-- # -->
+                            <!-- <col width="10%">  -->
                             <col width="35%"> <!-- descripcion-->
                             <col width="10%"> <!-- monto-->
                             <col width="20%"> <!-- fechaHora-->
                             <col width="10%"> <!-- persona-->
                             <col width="15%"> <!-- medio gasto-->
                         </colgroup>
-                        <thead class="table-danger">
+                        <thead class="">
                             <tr>
-                            <th>#</th>
+                            <!-- <th>#</th> -->
                             <th>Descripción</th>
                             <th>Monto</th>
                             <th>Fecha/Hora</th>
@@ -100,10 +102,11 @@
                         </table>
                     </div>
                 </div>
-
+    
             </div>
         </div>        
     </div>
+
 </div>
 
 <script> 
@@ -155,9 +158,7 @@
                         totalingresos = 0;
                     }else{
                         totalingresos =  element.MontoTotal;
-                    }
-                    console.log(totalingresos);
-                
+                    }                
                 })
             }
         })
@@ -251,7 +252,7 @@ function validarMontoMP(){
             }
         })
     }
-    //ingresos();
+
     function registrarGasto() {
         const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarGasto");
@@ -271,12 +272,7 @@ function validarMontoMP(){
                 reset();
                 form.reset();
                 toastCheck("Guardado Correctamente");
-                // Después de guardar con éxito, actualiza la tabla
                 listarGastosTabla();
-                // totalingresos = totalingresos - monto.value;
-                // console.log(totalingresos);
-                //ingresos();
-
             } else {
                 console.log("Algo salió mal");
             }
@@ -285,49 +281,53 @@ function validarMontoMP(){
             console.log("Error al guardar");
         })
     }
+    
+    const tablaDT = new DataTable('#tabla-lista-gastos', {        
+        dom: 'Bfrtip',
+        buttons: [
+                    'print', 'excel', 'pdf', 'copy'
+        ],
+        language: {
+            url: 'js/Spanish.json'
+        },
+        "order": [[0,"desc"]],
+        "columnDefs" : [
+            {
+                visible : true,
+                serchable : true,
+                serverSide : true,
+                pageLength: 10
+            }
+        ]
+    });
 
     function listarGastosTabla() {
         const parametros = new URLSearchParams();
-        parametros.append("operacion", "listarGastos");
+        parametros.append('operacion', 'listarGastos');
 
-        fetch("../controllers/gasto.php", {
-            method: "POST",
+        fetch('../controllers/gasto.php', {
+            method: 'POST',
             body: parametros
         })
         .then(response => response.json())
-        .then(datos => {
-            let nro = 1;
-            cuerpoTabla.innerHTML = ``;
-            datos.forEach(element => {
-                const fila =
-                    `
-                    <tr>
-                        <td>${nro}</td>
-                        <td>${element.descripcionGasto}</td>
-                        <td>${element.montoGasto}</td>
-                        <td>${element.fechaHoraGasto}</td>
-                        <td>${element.personas}</td>
-                        <td>${element.nombrePago}</td>
-                    </tr>
-                    `;
-                cuerpoTabla.innerHTML += fila;
-                nro +=1;
-            })
+        .then(result => {
+            // Limpiar la tabla antes de agregar nuevas filas
+            tablaDT.clear();
+            // Agregar filas a la tabla
+            result.forEach(element => {
+                tablaDT.row.add([
+                    element.descripcionGasto,
+                    element.montoGasto,
+                    element.fechaHoraGasto,
+                    element.personas,
+                    element.nombrePago
+                ]);
+            });
+            // Dibujar la tabla
+            tablaDT.draw();
         })
+        .catch(error => console.error('Error en la solicitud fetch:', error));
     }
-
-    // function validarGasto(){
-    //     const gasto = parseFloat(monto.value);
-        
-    //     if(gasto > totalingresos){
-    //         toast("El monto ingresado no puede ser mayor al ingreso");
-    //     }else if(gasto < 0){
-    //         toast("El monto es inválido");
-    //     }else{
-    //         validarMontoMP();
-
-    //     }
-    // }
     
     function validar(){
         if (!form.checkValidity()) {
@@ -344,15 +344,14 @@ function validarMontoMP(){
     }
 
     function reset(){
-       monto.value = null;
-       descripcion.value = null;
-       metodosPago.selectedIndex = 0;
+        monto.value = null;
+        descripcion.value = null;
+        metodosPago.selectedIndex = 0;
     }
 
     listarMetodosPago();
     listarGastosTabla();
     btGuardar.addEventListener("click", validar);
-    //btCancelar.addEventListener("click", reset);
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPaciente();
     });
