@@ -22,16 +22,22 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Policlinico</title>
-  <!-- <link rel="shortcut icon" type="image/png" href="images/logos/" /> -->
   <link rel="stylesheet" href="css/styles.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
   <script src="https://kit.fontawesome.com/f4286f5039.js" crossorigin="anonymous"></script>
-  <!-- Boostrap-->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> -->
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.css">
+  <!-- jQuery -->
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- DataTables JS -->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
 </head>
 <body>
   <!--  Body Wrapper -->
@@ -71,8 +77,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
                 </div>
               </div>
             </div>
-          </div>
-        
+          </div>        
         </nav>
         <!-- End Sidebar navigation -->
       </div>
@@ -133,14 +138,13 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <!-- Boostrap-->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+
+  <!--DATATABLE-->
+
+
   <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    console.log(`<?= print_r($_SESSION["login"])?>`);
-    console.log(`<?= print_r($_SESSION["login"]["acceso"]);?>`);
-
     document.addEventListener("DOMContentLoaded", () => {     
       const usuario = document.querySelector("#usuario");
       let idUsuario = usuario.dataset.id;
@@ -151,7 +155,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
       let telefonoUsu = usuario.dataset.telefono;
       let distritoUsu = usuario.dataset.distrito;
       let nombreNivelA;
-      console.log(nivelAcceso);
+
       function nivelAccesoNom(){
         if(nivelAcceso == "C"){
           nombreNivelA = "Cajero";
@@ -166,7 +170,6 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
         }else if(nivelAcceso == "S"){
           nombreNivelA = "Tecnólogo";
         }
-        console.log(nombreNivelA)
       }
       nivelAccesoNom();
 

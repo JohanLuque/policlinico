@@ -45,12 +45,16 @@ switch ($permiso){
             [   "menu" => "Impresiones", 
                 "url" => "index.php?view=impresos.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
-        ],
-        [   
-            "menu" => "Vista Doctor", 
-            "url" => "index.php?view=vistaDoctores.php",
-            "icono" => "ti ti-stethoscope nav-small-cap-icon"
-        ]
+            ],
+            [   
+                "menu" => "Vista Doctor", 
+                "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   "menu" => "Historias clinicas", 
+                "url" => "index.php?view=vistaDetalleHistoriasClinicas.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ]
         ];
     break;
     case "C":
@@ -91,6 +95,10 @@ switch ($permiso){
             [   "menu" => "Cambiar Clave", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-password nav-small-cap-icon"
+            ],
+            [   "menu" => "Historias clinicas", 
+                "url" => "index.php?view=vistaDetalleHistoriasClinicas.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ]
         ];    
     break;
@@ -124,6 +132,10 @@ switch ($permiso){
             [   "menu" => "Cambiar Clave", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-coin nav-small-cap-icon"
+            ],
+            [   "menu" => "Historias clinicas", 
+                "url" => "index.php?view=vistaDetalleHistoriasClinicas.php",
+                "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ]
         ];    
     break;

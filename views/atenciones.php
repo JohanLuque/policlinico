@@ -519,7 +519,6 @@ function registrarPaciente(){
     }
   }) 
 }
-
 // validando formulario de atenciones
 function validar(){
   if (!form.checkValidity()) {
@@ -536,7 +535,7 @@ function validar(){
         toast("Por favor, seleccione el parentesco del familiar.");
         return;
       }
-    }
+}
 
     const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
     // Si no hay datos en la tabla
