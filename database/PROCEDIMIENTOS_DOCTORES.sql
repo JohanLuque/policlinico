@@ -144,7 +144,7 @@ CREATE PROCEDURE spu_doctores_listar_detalles_personas
 IN _numeroDocumento VARCHAR(12)
 )
 BEGIN
-	SELECT 	Detalle_Atenciones.idDetalleAtenciones, Detalle_Atenciones.fechaCreacion,
+	SELECT 	Detalle_Atenciones.idDetalleAtenciones, Detalle_Atenciones.fechaCreacion, Historias_clinicas.idHistoriaClinica,
 		CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS paciente,
 		servicios.nombreServicio
 	FROM Detalle_Atenciones
