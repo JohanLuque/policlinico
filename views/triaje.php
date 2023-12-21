@@ -15,9 +15,10 @@
                     <table class="table table-hover" id="tabla-triaje">
                       <thead class="table-danger">
                         <tr>
-                          <th>id</th>
+                          <th>ID</th>
                           <th>Paciente</th>
                           <th>Especialidad</th>
+                          <th></th>
                           <th></th>
                         </tr>
                       </thead>
@@ -212,15 +213,26 @@
     .then(datos => {
       cuerpoTriaje.innerHTML = "";
       let numero = 1;
+      let activo = "disabled";
+      let desabilitar = "";
       datos.forEach(element => {
+        if(element.idDetalleAtenciones > 0){
+          activo = "";
+          desabilitar = "disabled";
+        }
         let filanueva = `
         <tr>
           <td>${numero}</td>
           <td>${element.ApellidosNombres}</td>
           <td>${element.nombreServicio}</td>
           <td>
-              <a class ="triaje btn btn-sm btn-danger" data-idhistoria='${element.idHistoriaClinica}' data-idatencion='${element.idAtencion}'>
-                triaje
+              <a class ="triaje btn btn-sm btn-danger" ${desabilitar} data-idhistoria='${element.idHistoriaClinica}' data-idatencion='${element.idAtencion}'>
+                Triaje
+              </a>
+          </td>
+          <td>
+              <a class ="triajeImp btn btn-sm btn-danger " ${activo} data-idhistoria='${element.idHistoriaClinica}' data-iddetalle='${element.idDetalleAtenciones}'>
+                Imprimir
               </a>
           </td>
         </tr>
@@ -232,14 +244,24 @@
     })
   }
   cuerpoTriaje.addEventListener("click", (event) => {
+    idAtencion = parseInt(event.target.dataset.idatencion);
+    idhistoria = parseInt(event.target.dataset.idhistoria);
+    iddetalleHistoria =  parseInt(event.target.dataset.iddetalle);
     if(event.target.classList[0] == 'triaje'){
-      idAtencion = parseInt(event.target.dataset.idatencion);
-      idhistoria = parseInt(event.target.dataset.idhistoria);
-
       obtenerDatos(idAtencion);
       modal.toggle();
     }
+    else if(event.target.classList[0] == 'triajeImp'){
+      if(idhistoria>0){
+        const parametros = new URLSearchParams();
+        parametros.append("idHistoria",idhistoria);
+        parametros.append("idDetalleHistoria",iddetalleHistoria);
+        
+        window.open(`../reports/triajeImpreso.report.php?${parametros}`, '_blank');
+      }
+    }
   });
+  listarTriaje();
   function obtenerDatos(idAtencion){
     const parametros = new URLSearchParams();
     parametros.append("operacion", "obtenerDatosTriaje");
@@ -253,8 +275,7 @@
       datos.forEach(element => {
         idhistoria = element.idHistoriaClinica;
         dniPaciente.value = element.numeroDocumento;
-        nombrePaciente.value = element.ApellidosNombres;
-        //console.log(idhistoria);       
+        nombrePaciente.value = element.ApellidosNombres;    
       })
     })
   }
@@ -284,6 +305,10 @@
     .then(response => response.json())
     .then(datos =>{
       if(datos.status){
+
+        document.querySelector('.triaje[data-idatencion="' + idAtencion + '"]').disabled = true;
+        document.querySelector('.triajeImp[data-idhistoria="' + idhistoria + '"]').disabled = false;
+
         toastCheck("Guardado correctamente");
         listarTriaje();
         formulario.reset();
