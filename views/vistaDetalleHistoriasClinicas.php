@@ -5,35 +5,31 @@
         </div>
         <div class="card-body">
             <div class="mb-2 row g-2">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="card">
                         <div class="card-content">
-                            <div class="card-header bg-info text-white">BUSCAR HISTORIA CLINICA:</div>
                             <div class="card-body">
                                 <form id="form-usuarios" autocomplete="off">
                                     <div class="mb-3 row g-2">
-                                        <div class="col-md-3">
+                                        <div class="col-md-1">
                                             <label for="">DNI:</label>          
                                         </div>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required>
+                                        <div class="col-md-6">
+                                            <input type="number" class="form-control border bg-light" id="dni" placeholder="N° Documento" maxlength="10" required min="0">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-sm" id="BuscarHirtoria" type="button"><i class="fa-solid fa-search fa-2xl" style="color: #e66814;"></i></button>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="reset" class="btn btn-danger">Cancelar</button>
                                         </div>
                                     </div>
-                                    <div class="mb-3 row g-2">
+                                    <div class="mb-3 row g-2" style="display: none;">
                                         <div class="col-md-3">
                                             <label for="">Persona:</label>          
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="nombre" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 row g-2">
-                                        <div class="colmd-6"></div>
-                                        <div class="col-md-3">
-                                            <button type="button" class="btn btn-primary" id="BuscarHirtoria">Buscar</button>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <button type="reset" class="btn btn-danger">Cancelar</button>
+                                            <input type="text" class="form-control border bg-light"  placeholder="Nombre Completo" id="" readonly>
                                         </div>
                                     </div>
                                 </form>
@@ -46,6 +42,9 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
+                            <div class="card-header bg-white">
+                                <h5 class="text-center" id="nombre"></h5>
+                            </div>
                             <div class="card-body">
                                 <form id="form-paciente" autocomplete="off">
                                     <table class="table table-hover" id="tabla-paciente">
