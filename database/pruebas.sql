@@ -8,6 +8,19 @@ WHERE DATE(atenciones.`fechaCreacion`) = CURDATE()
 GROUP BY atenciones.`turno`
 ORDER BY COUNT(atenciones.`idAtencion`) DESC
 
+
+DELIMITER $$
+CREATE PROCEDURE listar_atenciones_todo()
+BEGIN
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`,servicios.`nombreServicio`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	ORDER BY atenciones.`fechaAtencion`;
+END $$
 -- CANTIDAD DE ATENCIONES POR TURNO
 DELIMITER $$
 CREATE PROCEDURE grafico_turnos()

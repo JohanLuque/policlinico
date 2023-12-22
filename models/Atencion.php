@@ -46,6 +46,16 @@ class Atencion extends Conexion{
     }
   }
 
+  public function listarAtencionesTodo(){
+    try{
+      $query = $this->connection->prepare("CALL listar_atenciones_todo()");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch(Exception $e){
+      die($e->getCode());
+    }
+  }
+
   public function pagar($idatencion){
     try{
       $query = $this->connection->prepare("CALL spu_estadoCambiar_Pagos(?)");

@@ -13,13 +13,20 @@
                       <h1 class="form-label fs-13 text-center text-danger">Realizar Triaje</h1>
                     </div>
                     <table class="table table-hover" id="tabla-triaje">
+                      <colgroup>
+                        <col width="10%"> <!-- ID -->
+                        <col width="40%"> <!-- Paciente -->
+                        <col width="30%"> <!-- Especialidad -->
+                        <col width="10%"> <!-- Triaje-->
+                        <col width="10%"> <!-- Imprimir-->
+                      </colgroup>
                       <thead class="table-danger">
                         <tr>
                           <th>ID</th>
                           <th>Paciente</th>
                           <th>Especialidad</th>
-                          <th></th>
-                          <th></th>
+                          <th>Triaje</th>
+                          <th>Imprimir</th>
                         </tr>
                       </thead>
                       <tbody id="cuerpoTriaje">
@@ -226,13 +233,13 @@
           <td>${element.ApellidosNombres}</td>
           <td>${element.nombreServicio}</td>
           <td>
-              <a class ="triaje btn btn-sm btn-danger" ${desabilitar} data-idhistoria='${element.idHistoriaClinica}' data-idatencion='${element.idAtencion}'>
-                Triaje
+              <a class ="triaje btn btn-sm btn-danger ${desabilitar}"  data-idhistoria='${element.idHistoriaClinica}' data-idatencion='${element.idAtencion}'>
+                <i class="fa-solid fa-heart-circle-plus fa-xl" style="color: #ffffff;"></i>
               </a>
           </td>
           <td>
-              <a class ="triajeImp btn btn-sm btn-danger " ${activo} data-idhistoria='${element.idHistoriaClinica}' data-iddetalle='${element.idDetalleAtenciones}'>
-                Imprimir
+              <a class ="triajeImp btn btn-sm btn-danger ${activo}"  data-idhistoria='${element.idHistoriaClinica}' data-iddetalle='${element.idDetalleAtenciones}'>
+                <i class="fa-regular fa-file-pdf fa-xl" style="color: #ffffff;"></i>
               </a>
           </td>
         </tr>
@@ -247,6 +254,7 @@
     idAtencion = parseInt(event.target.dataset.idatencion);
     idhistoria = parseInt(event.target.dataset.idhistoria);
     iddetalleHistoria =  parseInt(event.target.dataset.iddetalle);
+    console.log(iddetalleHistoria)
     if(event.target.classList[0] == 'triaje'){
       obtenerDatos(idAtencion);
       modal.toggle();

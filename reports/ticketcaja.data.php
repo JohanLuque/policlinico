@@ -54,16 +54,16 @@
     <div class="text-end mt-2">
         <?php foreach ($datosObtenidos as $registro):   ?>
             <label class="text-end text-sm text-bold">SUB TOTAL:</label>
-            <label class="text-end text-sm"><?=$registro['subtotal']?></label><br>
+            <label class="text-end text-sm">S/ <?=$registro['subtotal']?></label><br>
             <label class="text-end text-sm text-bold">I.G.V.:</label>
-            <label class="text-end text-sm"><?=$registro['IGV']?></label><br>
+            <label class="text-end text-sm">S/ <?=$registro['IGV']?></label><br>
             <label class="text-end text-sm text-bold">TOTAL:</label>
-            <label class="text-end text-sm"><?=$registro['MontoTotal']?></label> <br>
+            <label class="text-end text-sm">S/ <?=$registro['MontoTotal']?></label> <br>
         <?php endforeach ?>
     </div>
     <div class="">
         <?php foreach ($datos1 as $registro2):   ?>
-            <h1 class="text-start text-xs">MÉTODO DE PAGO: <?=$registro2['nombrePago']?></h1>
+            <h1 class="text-start text-xs">MÉTODO DE PAGO: <?=$registro2['nombrePago']?> - S/ <?=$registro2['monto']?></h1>
         <?php endforeach ?>
         <?php foreach ($datosObtenidos as $registro):   ?>
             <label class="text-end text-xs">IMPORTE TOTAL:<?=$registro['MontoTotal']?></label> <br>

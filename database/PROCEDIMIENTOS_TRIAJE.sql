@@ -114,7 +114,8 @@ CREATE PROCEDURE spu_triaje_historia()
 BEGIN
 	SELECT atenciones.idAtencion, personas.numeroDocumento, atenciones.`idPersona`,
 	    CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'ApellidosNombres',
-	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, detalle_atenciones.idDetalleAtenciones
+	    servicios.nombreServicio, atenciones.fechaAtencion AS 'dia', historias_clinicas.idHistoriaClinica, 
+	    IF(detalle_atenciones.idDetalleAtenciones IS NOT NULL,detalle_atenciones.idDetalleAtenciones , '0') AS 'idDetalleAtenciones'
 	FROM atenciones
 	INNER JOIN personas ON personas.idPersona = atenciones.idPersona
 	LEFT JOIN historias_clinicas ON historias_clinicas.idPersona = personas.idPersona

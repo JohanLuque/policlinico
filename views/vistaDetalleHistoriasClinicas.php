@@ -90,7 +90,7 @@
                     cuerpoTabla.innerHTML = "";
                     let nroFila = 1;
                     datos.forEach(element =>{
-                        nombre.value = element.paciente;
+                        nombre.innerHTML = element.paciente;
                         let filaNueva=`
                         <tr>
                             <td>${nroFila}</td>
