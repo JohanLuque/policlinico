@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.5.1 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - sispsolidario
+MySQL - 10.4.25-MariaDB : Database - sispsolidario
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 10.4.28-MariaDB : Database - sispsolidario
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`sispsolidario` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `sispsolidario`;
 
@@ -25,7 +25,7 @@ CREATE TABLE `alergias` (
   `alergia` varchar(100) NOT NULL,
   PRIMARY KEY (`idAlergia`),
   UNIQUE KEY `uk_alergias_ale` (`alergia`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `alergias` */
 
@@ -63,7 +63,7 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=447 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `atenciones` */
 
@@ -479,7 +479,37 @@ insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,
 (413,'T','201220230014','2023-12-20 21:58:04','2023-12-20 22:00:15',NULL,1,NULL,NULL,235,'2023-12-20','1','0'),
 (414,'T','201220230015','2023-12-20 21:58:15','2023-12-20 22:00:22',NULL,1,NULL,NULL,235,'2023-12-20','1','0'),
 (415,'T','201220230016','2023-12-20 21:58:56','2023-12-20 22:00:27',NULL,1,NULL,NULL,236,'2023-12-20','1','0'),
-(416,'T','201220230017','2023-12-20 21:59:36','2023-12-20 22:00:34',NULL,1,NULL,NULL,237,'2023-12-20','1','0');
+(416,'T','201220230017','2023-12-20 21:59:36','2023-12-20 22:00:34',NULL,1,NULL,NULL,237,'2023-12-20','1','0'),
+(417,'T','211220230001','2023-12-21 16:27:20','2023-12-21 16:28:44',NULL,1,NULL,NULL,238,'2023-12-21','1','0'),
+(418,'T','211220230002','2023-12-21 16:31:16','2023-12-21 16:35:04',NULL,1,NULL,NULL,239,'2023-12-21','1','0'),
+(419,'T','211220230003','2023-12-21 16:34:01','2023-12-21 16:35:15',NULL,1,NULL,NULL,239,'2023-12-21','1','0'),
+(420,'T','211220230004','2023-12-21 16:36:22','2023-12-21 16:36:40',NULL,1,NULL,NULL,238,'2023-12-21','1','0'),
+(421,'T','211220230005','2023-12-21 16:39:45','2023-12-21 16:40:21',NULL,1,NULL,NULL,240,'2023-12-21','1','0'),
+(422,'T','211220230006','2023-12-21 17:06:40','2023-12-21 17:07:35',NULL,1,NULL,NULL,241,'2023-12-21','1','0'),
+(423,'T','211220230007','2023-12-21 17:10:29','2023-12-21 17:10:52',NULL,1,NULL,NULL,240,'2023-12-21','1','0'),
+(424,'T','211220230008','2023-12-21 17:13:09','2023-12-21 17:13:45',NULL,1,NULL,NULL,238,'2023-12-21','1','0'),
+(425,'T','211220230009','2023-12-21 17:16:38','2023-12-21 17:16:53',NULL,1,NULL,NULL,242,'2023-12-21','1','0'),
+(426,'T','211220230010','2023-12-21 22:04:23','2023-12-21 22:06:11',NULL,1,NULL,NULL,243,'2023-12-21','1','0'),
+(427,'T','211220230011','2023-12-21 22:05:40','2023-12-21 22:06:28',NULL,1,NULL,NULL,244,'2023-12-21','1','0'),
+(428,'T','211220230012','2023-12-21 22:07:56','2023-12-21 22:08:26',NULL,1,NULL,NULL,245,'2023-12-21','1','0'),
+(429,'T','211220230013','2023-12-21 22:09:18','2023-12-21 22:09:52',NULL,1,NULL,NULL,232,'2023-12-21','1','0'),
+(430,'T','211220230014','2023-12-21 22:12:07','2023-12-21 22:12:33',NULL,1,NULL,NULL,246,'2023-12-21','1','0'),
+(431,'T','211220230015','2023-12-21 22:18:48','2023-12-21 22:19:01',NULL,1,NULL,NULL,244,'2023-12-21','1','0'),
+(432,'T','211220230016','2023-12-21 22:21:26','2023-12-21 22:22:09',NULL,1,NULL,NULL,245,'2023-12-21','1','0'),
+(433,'T','211220230017','2023-12-21 22:23:49','2023-12-21 22:24:03',NULL,1,NULL,NULL,232,'2023-12-21','1','0'),
+(434,'T','211220230018','2023-12-21 22:25:30','2023-12-21 22:25:46',NULL,1,NULL,NULL,247,'2023-12-21','1','0'),
+(435,'T','211220230019','2023-12-21 22:26:49','2023-12-21 22:27:10',NULL,1,NULL,NULL,177,'2023-12-21','1','0'),
+(436,'T','211220230020','2023-12-21 22:28:14','2023-12-21 22:28:30',NULL,1,NULL,NULL,75,'2023-12-21','1','0'),
+(437,'T','211220230021','2023-12-21 22:30:47','2023-12-21 22:31:06',NULL,1,NULL,NULL,248,'2023-12-21','1','0'),
+(438,'T','211220230022','2023-12-21 22:31:40','2023-12-21 22:32:01',NULL,1,NULL,NULL,248,'2023-12-21','1','0'),
+(439,'T','211220230023','2023-12-21 22:32:33','2023-12-21 22:32:49',NULL,1,NULL,NULL,248,'2023-12-21','1','0'),
+(440,'T','211220230024','2023-12-21 22:33:54','2023-12-21 22:34:52',NULL,1,NULL,NULL,116,'2023-12-21','1','0'),
+(441,'T','211220230025','2023-12-21 22:38:01','2023-12-21 22:39:08','Tio/a',1,NULL,116,249,'2023-12-21','1','0'),
+(442,'T','211220230026','2023-12-21 22:40:07','2023-12-21 22:40:23','Tio/a',1,NULL,116,249,'2023-12-21','1','0'),
+(443,'T','211220230027','2023-12-21 22:41:28','2023-12-21 22:42:09',NULL,1,NULL,NULL,250,'2023-12-21','1','0'),
+(444,'T','211220230028','2023-12-21 22:41:52','2023-12-21 22:42:18',NULL,1,NULL,NULL,250,'2023-12-21','1','0'),
+(445,'T','211220230029','2023-12-21 22:43:17','2023-12-21 22:44:11',NULL,1,NULL,NULL,251,'2023-12-21','1','0'),
+(446,'T','211220230030','2023-12-21 22:43:51','2023-12-21 22:44:23',NULL,1,NULL,NULL,251,'2023-12-21','1','0');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -494,7 +524,7 @@ CREATE TABLE `detalle_alergias` (
   KEY `fk_idHistoriaClinica_dal` (`idHistoriaClinica`),
   CONSTRAINT `fk_idAlergia_dal` FOREIGN KEY (`idAlergia`) REFERENCES `alergias` (`idAlergia`),
   CONSTRAINT `fk_idHistoriaClinica_dal` FOREIGN KEY (`idHistoriaClinica`) REFERENCES `historias_clinicas` (`idHistoriaClinica`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_alergias` */
 
@@ -536,7 +566,7 @@ CREATE TABLE `detalle_atenciones` (
   CONSTRAINT `fk_idAtencion_das` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idHistoria_das` FOREIGN KEY (`idHistoria`) REFERENCES `historias_clinicas` (`idHistoriaClinica`),
   CONSTRAINT `fk_idusuario_das` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_atenciones` */
 
@@ -553,7 +583,7 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=497 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `detalle_servicios` */
 
@@ -1053,7 +1083,40 @@ insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAt
 (493,160,413),
 (494,289,414),
 (495,283,415),
-(496,289,416);
+(496,289,416),
+(497,283,417),
+(498,138,418),
+(499,139,419),
+(500,8,420),
+(501,289,421),
+(502,283,422),
+(503,158,423),
+(504,226,424),
+(505,416,424),
+(506,298,425),
+(507,420,426),
+(508,154,427),
+(509,283,428),
+(510,283,429),
+(511,283,430),
+(512,421,431),
+(513,224,432),
+(514,229,432),
+(515,223,432),
+(516,227,433),
+(517,289,434),
+(518,299,435),
+(519,298,436),
+(520,283,437),
+(521,8,438),
+(522,416,439),
+(523,201,440),
+(524,192,441),
+(525,289,442),
+(526,283,443),
+(527,138,444),
+(528,283,445),
+(529,178,446);
 
 /*Table structure for table `devoluciones` */
 
@@ -1075,7 +1138,7 @@ CREATE TABLE `devoluciones` (
   CONSTRAINT `fk_idate_dev` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_dev` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_dev` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `devoluciones` */
 
@@ -1096,7 +1159,7 @@ CREATE TABLE `enfermedad_pacientes` (
   KEY `fk_det_epp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_epp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`),
   CONSTRAINT `fk_enf_epp` FOREIGN KEY (`idEnfermedad`) REFERENCES `enfermedades` (`idEnfermedad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `enfermedad_pacientes` */
 
@@ -1112,7 +1175,7 @@ CREATE TABLE `enfermedades` (
   `fechaActualizacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idEnfermedad`),
   UNIQUE KEY `uk_codigoCie_enf` (`codigoCie_10`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `enfermedades` */
 
@@ -1136,7 +1199,7 @@ CREATE TABLE `especialistas` (
   PRIMARY KEY (`idEspecialista`),
   UNIQUE KEY `uk_idPersona_esp` (`idPersona`),
   CONSTRAINT `fk_idPersona_esp` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialistas` */
 
@@ -1158,7 +1221,7 @@ CREATE TABLE `especialistas_servicios` (
   KEY `fk_idEspecialista_ees` (`idEspecialista`),
   CONSTRAINT `fk_idEspecialista_ees` FOREIGN KEY (`idEspecialista`) REFERENCES `especialistas` (`idEspecialista`),
   CONSTRAINT `fk_idServicio_ees` FOREIGN KEY (`idServicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `especialistas_servicios` */
 
@@ -1186,7 +1249,7 @@ CREATE TABLE `gastos` (
   CONSTRAINT `fk_idmep_gas` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_gas` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`),
   CONSTRAINT `fk_per_gas` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `gastos` */
 
@@ -1256,7 +1319,11 @@ insert  into `gastos`(`idGasto`,`descripcionGasto`,`montoGasto`,`fechaHoraGasto`
 (63,'PAGO DEL DIA',84.00,'2023-12-19 15:21:15',5,3,1),
 (64,'INSUMOS DE FARMACIA',64.40,'2023-12-20 10:23:54',3,3,1),
 (65,'BIDON DE AGUA',10.00,'2023-12-20 10:24:15',2,3,1),
-(66,' RETIRO DINERO DE CAJA',400.00,'2023-12-20 22:01:21',1,3,1);
+(66,' RETIRO DINERO DE CAJA',400.00,'2023-12-20 22:01:21',1,3,1),
+(67,'INSUMO PARA TOPICO',8.70,'2023-12-21 22:46:20',11,3,1),
+(68,'PAGO DE FABIANA',200.00,'2023-12-21 22:46:38',11,3,1),
+(69,'retiro de caja',200.00,'2023-12-21 22:47:05',1,3,1),
+(70,'Retiro de caja',61.30,'2023-12-21 22:47:24',1,3,1);
 
 /*Table structure for table `historias_clinicas` */
 
@@ -1275,7 +1342,7 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `historias_clinicas` */
 
@@ -1308,7 +1375,7 @@ CREATE TABLE `medio_pagos` (
   `nombrePago` varchar(100) NOT NULL,
   PRIMARY KEY (`idMedioPago`),
   UNIQUE KEY `uk_nombrePago_mps` (`nombrePago`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `medio_pagos` */
 
@@ -1338,7 +1405,7 @@ CREATE TABLE `pagos` (
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_pag` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=416 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=447 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pagos` */
 
@@ -1757,7 +1824,38 @@ insert  into `pagos`(`idPago`,`monto`,`estado`,`fechaHoraPago`,`idAtencion`,`idM
 (412,70.00,'0','2023-12-20 22:00:15',413,3,1),
 (413,40.00,'0','2023-12-20 22:00:22',414,3,1),
 (414,20.00,'0','2023-12-20 22:00:27',415,3,1),
-(415,40.00,'0','2023-12-20 22:00:34',416,3,1);
+(415,40.00,'0','2023-12-20 22:00:34',416,3,1),
+(416,20.00,'0','2023-12-21 16:28:44',417,3,1),
+(417,60.00,'0','2023-12-21 16:35:04',418,3,1),
+(418,60.00,'0','2023-12-21 16:35:15',419,3,1),
+(419,30.00,'0','2023-12-21 16:36:40',420,3,1),
+(420,40.00,'0','2023-12-21 16:40:21',421,3,1),
+(421,20.00,'0','2023-12-21 17:07:35',422,3,1),
+(422,60.00,'0','2023-12-21 17:10:52',423,3,1),
+(423,55.00,'0','2023-12-21 17:13:45',424,4,1),
+(424,40.00,'0','2023-12-21 17:16:53',425,3,1),
+(425,70.00,'0','2023-12-21 22:06:11',426,3,1),
+(426,60.00,'0','2023-12-21 22:06:28',427,5,1),
+(427,20.00,'0','2023-12-21 22:08:26',428,1,1),
+(428,20.00,'0','2023-12-21 22:09:52',429,1,1),
+(429,20.00,'0','2023-12-21 22:12:33',430,3,1),
+(430,90.00,'0','2023-12-21 22:19:01',431,5,1),
+(431,74.50,'0','2023-12-21 22:22:09',432,1,1),
+(432,80.00,'0','2023-12-21 22:24:03',433,1,1),
+(433,40.00,'0','2023-12-21 22:25:46',434,3,1),
+(434,50.00,'0','2023-12-21 22:27:10',435,3,1),
+(435,40.00,'0','2023-12-21 22:28:30',436,1,1),
+(436,20.00,'0','2023-12-21 22:31:06',437,4,1),
+(437,30.00,'0','2023-12-21 22:32:01',438,1,1),
+(438,5.00,'0','2023-12-21 22:32:49',439,4,1),
+(439,50.00,'0','2023-12-21 22:34:52',440,3,1),
+(440,30.00,'0','2023-12-21 22:39:08',441,3,1),
+(441,40.00,'0','2023-12-21 22:39:08',441,1,1),
+(442,40.00,'0','2023-12-21 22:40:23',442,1,1),
+(443,20.00,'0','2023-12-21 22:42:09',443,3,1),
+(444,60.00,'0','2023-12-21 22:42:19',444,3,1),
+(445,20.00,'0','2023-12-21 22:44:11',445,3,1),
+(446,50.00,'0','2023-12-21 22:44:23',446,3,1);
 
 /*Table structure for table `personas` */
 
@@ -1779,7 +1877,7 @@ CREATE TABLE `personas` (
   `estado` char(1) DEFAULT '1',
   PRIMARY KEY (`idPersona`),
   UNIQUE KEY `uk_numeroDocumento_per` (`numeroDocumento`)
-) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `personas` */
 
@@ -2020,7 +2118,21 @@ insert  into `personas`(`idPersona`,`nombres`,`apellidoPaterno`,`apellidoMaterno
 (234,'SEGUNDO MANUEL','SAUCEDO','ALMEYDA','N','74779080','1985-03-02','M',NULL,NULL,'2023-12-20 21:56:47',NULL,'1'),
 (235,'JESUS SEBASTIAN','AGUILAR','GONZALES','N','71456797','1976-12-23','M',NULL,NULL,'2023-12-20 21:57:55',NULL,'1'),
 (236,'JACKSANDER FIDEL','MARTINEZ','ÑOPO','N','42611586','1963-08-15','M',NULL,NULL,'2023-12-20 21:58:47',NULL,'1'),
-(237,'JHONNATAN JOSE','PACHAS','TASAYCO','N','70477114','1983-01-02','M',NULL,NULL,'2023-12-20 21:59:27',NULL,'1');
+(237,'JHONNATAN JOSE','PACHAS','TASAYCO','N','70477114','1983-01-02','M',NULL,NULL,'2023-12-20 21:59:27',NULL,'1'),
+(238,'JEFF JEFERSON','OSORIO','MONTALVO','N','72610904','1999-03-30','M',NULL,'Pueblo Nuevo','2023-12-21 16:26:58',NULL,'1'),
+(239,'JUNANCO DECIDERIO','QUISPE','LAZARO','N','21851472','2000-09-19','M',NULL,NULL,'2023-12-21 16:30:46',NULL,'1'),
+(240,'NORBERTO','CASTRO','CARBAJAL','N','21790566','1997-08-15','M',NULL,NULL,'2023-12-21 16:39:04',NULL,'1'),
+(241,'EVELIN SUMNI','AURIS','MARTINEZ','N','73654595','1980-01-31','F',NULL,NULL,'2023-12-21 17:06:12',NULL,'1'),
+(242,'GISELA','MOREYRA','TASAYCO','N','41904606','1977-06-10','F',NULL,NULL,'2023-12-21 17:15:28',NULL,'1'),
+(243,'ALEX GIANPIER','REQUEJO','SAAVEDRA','N','76899031','1994-09-11','M',NULL,NULL,'2023-12-21 22:03:44',NULL,'1'),
+(244,'JENNIFER','ZAPATA','TORRES','N','72722485','1978-01-22','F',NULL,NULL,'2023-12-21 22:05:03',NULL,'1'),
+(245,'RUTH ISABEL','MAGALLANES','COPE','N','47441014','1992-07-20','F',NULL,NULL,'2023-12-21 22:07:32',NULL,'1'),
+(246,'WILBERTH','BONIFACIO','ROQUE','N','80028427','1991-03-28','M',NULL,NULL,'2023-12-21 22:11:41',NULL,'1'),
+(247,'OLGA ESTHER','NOLAZCO','DE MONTES','N','21805594','1956-02-19','F',NULL,NULL,'2023-12-21 22:25:05',NULL,'1'),
+(248,'ROBERTO JESUS','NICHO','HERRERA','N','40392424','1979-08-21','M',NULL,NULL,'2023-12-21 22:30:34',NULL,'1'),
+(249,'MIA CHANTAL','OCHOA','BENDEZU','N','79900059','2016-08-01','F',NULL,NULL,'2023-12-21 22:36:56',NULL,'1'),
+(250,'SOFIA LUZ','CAMACHO','BRAVO','N','41645080','1983-05-26','F',NULL,NULL,'2023-12-21 22:41:08',NULL,'1'),
+(251,'GLORIA JESUS','QUISPE','CUBA','N','21842515','1988-07-13','F',NULL,'Chincha Baja','2023-12-21 22:42:56',NULL,'1');
 
 /*Table structure for table `servicios` */
 
@@ -2032,7 +2144,7 @@ CREATE TABLE `servicios` (
   `nombreServicio` varchar(100) NOT NULL,
   PRIMARY KEY (`idServicio`),
   UNIQUE KEY `uk_nombreServicio_ser` (`nombreServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios` */
 
@@ -2075,7 +2187,7 @@ CREATE TABLE `servicios_detalle` (
   PRIMARY KEY (`idservicios_detalle`),
   KEY `fk_idservicios_serdet` (`idservicio`),
   CONSTRAINT `fk_idservicios_serdet` FOREIGN KEY (`idservicio`) REFERENCES `servicios` (`idServicio`)
-) ENGINE=InnoDB AUTO_INCREMENT=420 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=422 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `servicios_detalle` */
 
@@ -2498,7 +2610,9 @@ insert  into `servicios_detalle`(`idservicios_detalle`,`idservicio`,`descripcion
 (416,4,'Inyectable',5.00,NULL,'1'),
 (417,17,'INFORME',50.00,NULL,'1'),
 (418,12,'RETIRO DE PUNTOS',150.00,NULL,'1'),
-(419,23,'Sesion',40.00,NULL,'1');
+(419,23,'Sesion',40.00,NULL,'1'),
+(420,4,'LAVADO DE OIDO',70.00,NULL,'1'),
+(421,1,'PAQUETE DE DENGUE',90.00,NULL,'1');
 
 /*Table structure for table `tratamiento_paciente` */
 
@@ -2517,7 +2631,7 @@ CREATE TABLE `tratamiento_paciente` (
   PRIMARY KEY (`idTratamiento`),
   KEY `fk_det_tp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_tp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tratamiento_paciente` */
 
@@ -2537,7 +2651,7 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `uk_idpersona_usu` (`idPersona`,`nivelAcceso`),
   CONSTRAINT `fk_usuarios_usu` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `usuarios` */
 
