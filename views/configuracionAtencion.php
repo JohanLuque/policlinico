@@ -12,9 +12,15 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-doctores-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false" tabindex="-1">
+                <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-doctores-tab" data-bs-toggle="pill" data-bs-target="#pills-doctores" type="button" role="tab" aria-controls="pills-doctores" aria-selected="false" tabindex="-1">
                     <i class="ti ti-first-aid-kit me-2 fs-6"></i>
                     <span class="d-none d-md-block">Especialistas</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-reporte-tab" data-bs-toggle="pill" data-bs-target="#pills-reporte" type="button" role="tab" aria-controls="pills-reporte" aria-selected="false" tabindex="-1">
+                    <i class="ti ti-file-report me-2 fs-6"></i>
+                    <span class="d-none d-md-block">Reporte</span>
                 </button>
             </li>
         </ul>
@@ -156,7 +162,7 @@
                 </div>
             </div>         
         </div>
-        <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-doctores-tab" tabindex="0">
+        <div class="tab-pane fade" id="pills-doctores" role="tabpanel" aria-labelledby="pills-doctores-tab" tabindex="0">
             <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
                 <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">ESPECIALISTAS</h3>
             </div> 
@@ -267,9 +273,43 @@
                 </div>
             </div>          
         </div>
+        <div class="tab-pane fade" id="pills-reporte" role="tabpanel" aria-labelledby="pills-reporte-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">ESPECIALISTAS</h3>
+            </div> 
+            <div class="row">
+                <div class="card">
+                    <div class="mb-2 row g-2">
+                        <table class="table table-hover" id="tabla-atenciones">
+                            <colgroup>
+                                <col width="10%"> <!-- Fecha -->
+                                <col width="35%"> <!-- Paciente -->
+                                <col width="15%"> <!-- N° Doc -->
+                                <col width="10%"> <!-- Precio-->
+                                <col width="30%"> <!-- Procedimiento-->
+                            </colgroup>
+                            <thead class="table-danger">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Paciente</th>
+                                    <th>N° Doc</th>
+                                    <th>Precio</th>
+                                    <th>Procedimiento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTriaje"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>          
+        </div>
     </div>
 </div>
 <script>
+    const tabla_atenciones = document.querySelector("#tabla-atenciones");
+    const cuerpoAtenciones = tabla_atenciones.querySelector("#cuerpoTriaje");
+
+
     // para los servicios
     const rbServicio = document.querySelector("#rbServicio");
     const rbEspecialidad = document.querySelector("#rbEspecialidad");
@@ -304,6 +344,60 @@
     const btGuardarEspSer = document.querySelector("#guardarServicioEspecialista");
     const btCancelarEspSer = document.querySelector("#cancelarServicioEspecialista");
 
+    
+const tablaAtenciones = new DataTable('#tabla-atenciones', {        
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excel',
+                title: 'Reporte de Atenciones'
+            },
+                    'print'
+        ],
+        language: {
+            url: 'js/Spanish.json'
+        },
+        "order": [[0,"desc"]],
+        "columnDefs" : [
+            {
+                visible : true,
+                serchable : true,
+                serverSide : true,
+                pageLength: 10
+            }
+        ]
+    });
+
+function listarGastosTabla() {
+        const parametros = new URLSearchParams();
+        parametros.append('operacion', 'listarAtencionesTodo');
+
+        fetch('../controllers/atencion.php', {
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Limpiar la tabla antes de agregar nuevas filas
+            tablaAtenciones.clear();
+            // Agregar filas a la tabla
+            result.forEach(element => {
+                tablaAtenciones.row.add([
+                    element.fecha,
+                    element.nombreCompleto,
+                    element.numeroDocumento,
+                    element.nombreServicio,
+                    element.precio,
+                    element.descripcion
+                ]);
+            });
+            // Dibujar la tabla
+            tablaAtenciones.draw();
+        })
+        .catch(error => console.error('Error en la solicitud fetch:', error));
+    }
+
+    listarGastosTabla();
     function listarServicios(select){
         const choiselistaServicios = new Choices(select, {
             searchEnabled: true,

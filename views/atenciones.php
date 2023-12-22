@@ -90,7 +90,6 @@
                     <option value="Tio/a">Tio/a</option>
                     <option value="Otro">Otro</option>
                   </select>                                 
-                  <!--<input class="form-control form-control-sm" id="parentescoFamilar" type="text" maxlength="100" disabled>-->
                 </div>
                 <div class="col-md-3" id="divOtroFamiliar" style="display: none;">
                   <input type="text" class="form-control " id="otroFamiliar" placeholder="Ingrese Familiar" maxlength="80">
@@ -202,26 +201,26 @@
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
-              <div class="col-md-11">
+              <div class="col-md-10">
                 <label class="fw-bolder text-dark"  for="">SubTotal:</label>          
               </div>
-              <div class="col-md-1">                                  
+              <div class="col-md-2">                                  
                 <input class="form-control bg-light" id="subTotal" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
-              <div class="col-md-11">
+              <div class="col-md-10">
                 <label class="fw-bolder text-dark"  for="">I.G.V:</label>          
               </div>
-              <div class="col-md-1">                                  
+              <div class="col-md-2">                                  
                 <input class="form-control bg-light" id="IGV" type="text" readonly>
               </div>
             </div>
             <div class="mb-3 row g-2 text-end">
-              <div class="col-md-11">
+              <div class="col-md-10">
                 <label class="fw-bolder text-dark"  for="">Total:</label>          
               </div>
-              <div class="col-md-1">                                  
+              <div class="col-md-2">                                  
                 <input class="form-control bg-light" id="total" type="text" readonly>
               </div>
             </div>                          
@@ -535,7 +534,7 @@ function validar(){
         toast("Por favor, seleccione el parentesco del familiar.");
         return;
       }
-}
+  }
 
     const filasDatos = tabla_servicios.querySelectorAll('tbody tr');
     // Si no hay datos en la tabla
@@ -632,6 +631,7 @@ function limpiarTodo(){
   listarServiciosFiltro();
   listaServicios();
 }
+
 
 // Limpiar formulario despues de registrar la atención y los detalles de atención
 function limpiarFormulario(){
@@ -882,7 +882,9 @@ function agregarServicio() {
           <td>${servicioSeleccionado.text}</td>
           <td>${precioProce.value}</td>
           <td>
-            <a class ="eliminar btn btn-sm btn-danger">Eliminar</a>
+            <a class ="eliminar btn btn-sm btn-danger">
+              <i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i>
+            </a>
           </td>
         </tr>    
       `;

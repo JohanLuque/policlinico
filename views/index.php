@@ -23,6 +23,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Policlinico</title>
   <link rel="stylesheet" href="css/styles.min.css" />
+  <link rel="icon" href="./images/logos/logoPag.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
   <script src="https://kit.fontawesome.com/f4286f5039.js" crossorigin="anonymous"></script>
   <!-- DataTables CSS -->

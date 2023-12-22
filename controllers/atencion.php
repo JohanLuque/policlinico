@@ -24,6 +24,9 @@ if(isset($_POST['operacion'])){
     case 'listarAtenciones':
       echo json_encode($atencion->listarAtenciones());
       break;
+    case 'listarAtencionesTodo':
+      echo json_encode($atencion->listarAtencionesTodo());
+      break;
     case 'pagar':
       echo json_encode($atencion->pagar($_POST['idatencion']));
       break;

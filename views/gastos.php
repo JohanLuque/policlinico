@@ -1,6 +1,6 @@
 <?php require_once 'permisos.php'; ?>
 <div class="row mt-2 mb-3">                
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="card">
             <form id="form-gastos" class="needs-validation">
                 <div class="card-body">
@@ -69,43 +69,46 @@
             </form>
         </div>
     </div>
+    <div class="col-md-7">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center text-danger">Lista de gastos por dia</h1>
+                    <div class="row mt-5">
+                        <div class="col-md">
+                            <table class=" table rounded-2" id="tabla-lista-gastos">
+                            <colgroup>
+                                <!-- <col width="10%">  -->
+                                <col width="35%"> <!-- descripcion-->
+                                <col width="10%"> <!-- monto-->
+                                <col width="20%"> <!-- fechaHora-->
+                                <col width="10%"> <!-- persona-->
+                                <col width="15%"> <!-- medio gasto-->
+                            </colgroup>
+                            <thead class="">
+                                <tr>
+                                <!-- <th>#</th> -->
+                                <th>Descripción</th>
+                                <th>Monto</th>
+                                <th>Fecha/Hora</th>
+                                <th>Persona</th>
+                                <th>Medio P.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--Inyecta datos-->
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>        
+        </div>
+
+    </div>
 </div>
 <div class="row mt-2 mb-3">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h1 class="text-center text-danger">Lista de gastos por dia</h1>
-                <div class="row mt-5">
-                    <div class="col-md">
-                        <table class=" table rounded-2" id="tabla-lista-gastos">
-                        <colgroup>
-                            <!-- <col width="10%">  -->
-                            <col width="35%"> <!-- descripcion-->
-                            <col width="10%"> <!-- monto-->
-                            <col width="20%"> <!-- fechaHora-->
-                            <col width="10%"> <!-- persona-->
-                            <col width="15%"> <!-- medio gasto-->
-                        </colgroup>
-                        <thead class="">
-                            <tr>
-                            <!-- <th>#</th> -->
-                            <th>Descripción</th>
-                            <th>Monto</th>
-                            <th>Fecha/Hora</th>
-                            <th>Persona</th>
-                            <th>Medio P.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--Inyecta datos-->
-                        </tbody>
-                        </table>
-                    </div>
-                </div>
-    
-            </div>
-        </div>        
-    </div>
 
 </div>
 

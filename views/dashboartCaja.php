@@ -92,7 +92,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+        <div class="col-md-6 col-lg-8 d-flex align-items-stretch">
             <div class="card w-100">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold">Reporte de Servicios</h5>
