@@ -254,7 +254,7 @@
     idAtencion = parseInt(event.target.dataset.idatencion);
     idhistoria = parseInt(event.target.dataset.idhistoria);
     iddetalleHistoria =  parseInt(event.target.dataset.iddetalle);
-    console.log(iddetalleHistoria)
+    console.log(iddetalleHistoria);
     if(event.target.classList[0] == 'triaje'){
       obtenerDatos(idAtencion);
       modal.toggle();

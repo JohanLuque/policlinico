@@ -6,6 +6,8 @@ CREATE PROCEDURE SPU_DOCTORES_LISTAR
 BEGIN
 	SELECT detAte.`idDetalleAtenciones`,
 		 ate.numeroAtencion,
+		 ser.idServicio,
+		 ser.`nombreServicio`,
 		CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
 	FROM detalle_atenciones detAte
 	INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
@@ -24,7 +26,7 @@ CREATE PROCEDURE SPU_DOCTORES_OBTENER_DATOS
 IN _idDetalleAtenciones INT
 )
 BEGIN
-	SELECT detAte.`idDetalleAtenciones`,
+	SELECT detAte.`idDetalleAtenciones`,ser.`idServicio`, ser.`nombreServicio`,
 	CONCAT(per.apellidoPaterno, ' ', per.apellidoMaterno, ' ', per.nombres) AS 'ApellidosNombres'
 	FROM detalle_atenciones detAte
 	INNER JOIN atenciones ate ON ate.idAtencion = detAte.idAtencion
