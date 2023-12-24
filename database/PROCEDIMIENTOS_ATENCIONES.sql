@@ -125,9 +125,9 @@ CREATE PROCEDURE spu_atenciones_filtro_doctores
 	IN _idServicio INT
 )	
 BEGIN
-	SELECT idEspecialistasServicios,servicios.nombreservicio,
+	SELECT idEspecialistasServicios, especialistas.`idEspecialista`,servicios.nombreservicio,
 	CONCAT(personas.apellidoPaterno, ' ',
-	personas.nombres) AS 'NombreCompleto'
+	personas.nombres) AS 'NombreCompleto', especialistas.`codigo`
 	FROM especialistas_servicios
 	INNER JOIN servicios ON servicios.idservicio = especialistas_servicios.`idServicio`
 	INNER JOIN especialistas ON especialistas.idespecialista = especialistas_servicios.`idEspecialista`

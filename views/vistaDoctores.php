@@ -26,6 +26,7 @@
                                     <h3 class=" fw-bolder text-danger text-center mb-4">HISTORIA CLÍNICA</h3>
                                     <div class="row g-2 mb-2">
                                         <h5 style="text-align: center;" id="nombrepaciente"></h5>
+                                        <h5 style="text-align: center;" id="nombreservicio"></h5>
                                     </div>
                                     <div class="row g-2 mb-3">
                                         <h5 class="fw-bolder">ENFERMEDAD ACTUAL</h5>
@@ -194,7 +195,9 @@
                                             <label class="fw-bolder" for="">PROFESIONAL:</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input class="form-control form-control-m bg-light" id="" type="text" readonly>
+                                            <select name="" id="especialistas" class="form-select " >
+                                                <option value="">Seleccione</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row g-2 mb-2">
@@ -202,7 +205,7 @@
                                             <label class="fw-bolder" for="">CÓDIGO:</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input class="form-control form-control-m bg-light" id="" type="text" readonly>
+                                            <input class="form-control form-control-m bg-light" id="codigo-especialista" type="text" readonly>
                                         </div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-1">
@@ -241,10 +244,13 @@
     const procedimiento = document.querySelector("#procedimiento");
     const observaciones = document.querySelector("#observaciones");
     const nombrepaciente = document.querySelector("#nombrepaciente");
+    const nombreservicio = document.querySelector("#nombreservicio");
     const btnActualizar = document.querySelector("#md-actualizar");
     const cie10 = document.querySelector("#cie-10");
     const descripcion = document.querySelector("#descripcion");
     const tabla = document.querySelector("#tabla-tratamiento");
+    const especialistas = document.querySelector("#especialistas");
+    const codEspe = document.querySelector("#codigo-especialista");
     //TRATAMIENTO
     const medicamento = document.querySelector("#medicamento");
     const presentacion = document.querySelector("#presentacion");
@@ -276,7 +282,7 @@
                             <div class="card-content">
                                 <div class="card-header bg-danger text-center text-white" >${element.numeroAtencion}</div>
                                 <div class="card-body bg-light-danger">
-                                <h5 style="text-align: center;">${element.ApellidosNombres}</h5>
+                                <h5 style="text-align: center;">${element.ApellidosNombres}</h5><h5 style="text-align: center;">${element.nombreServicio}</h5>
                                     <div class='mt-2 row g-2'>
                                     <div class="col-md-3"></div>
                                         <div class='col-md-3 ocultar' style="display: '';">
@@ -295,11 +301,14 @@
         })
     }
 
+    let idServicio;
     let idDetalleModal;
     cardListado.addEventListener("click", (e) => {
         idDetalleModal = parseInt(e.target.dataset.idatencion);
+        idServicio = parseInt(e.target.dataset.idservicio);
+        console.log(idServicio);
+        listarEspecialistas();
         if(e.target.classList[0] === ("historia")){
-        
         const parametros = new URLSearchParams();
         parametros.append("operacion", "obtenerDatos");
         parametros.append("idDetalleAtenciones", idDetalleModal);
@@ -312,6 +321,7 @@
         .then(datos => {
             datos.forEach(element =>{
                 nombrepaciente.innerHTML=element.ApellidosNombres;
+                nombreservicio.innerHTML = element.nombreServicio;
             })
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
@@ -330,6 +340,32 @@
     }
   });
 
+  function listarEspecialistas(){
+  const parametros = new URLSearchParams();
+  parametros.append("operacion", "filtroDoctores");
+  parametros.append("idServicio" , idServicio);
+  fetch("../controllers/servicio.php",{
+    method : "POST",
+    body: parametros
+  })
+  .then(response => response.json())
+  .then(datos => {
+      datos.forEach(element => {
+        especialistas.innerHTML = `<option value='' data-codigo ='${element.codigo}'>Seleccione</option>`;
+      const optionTag = document.createElement("option");
+      optionTag.value = element.idEspecialistasServicios;
+      optionTag.text = element.NombreCompleto;
+      especialistas.appendChild(optionTag);
+    });
+  })
+}
+let codigoD;
+especialistas.addEventListener('change', (e) => {
+    const doctor = e.target.options[e.target.selectedIndex];
+    codigoD = doctor.dataset.codigo;
+        console.log(codigoD);
+        codEspe.value = codigoD;
+});
   function validarForm(){
     if(!formHC.checkValidity()){
         event.preventDefault()
