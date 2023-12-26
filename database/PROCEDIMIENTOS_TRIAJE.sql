@@ -123,7 +123,7 @@ BEGIN
 	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
 	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
 	LEFT JOIN detalle_atenciones ON detalle_atenciones.idAtencion = atenciones.idAtencion
-	WHERE servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE()  
+	WHERE servicios.tipo = 'E' AND atenciones.fechaAtencion = CURDATE() AND historias_clinicas.idHistoriaClinica IS NOT NULL AND atenciones.`estado` = '1'
 	GROUP BY Detalle_Servicios.idatencion
 	ORDER BY dia DESC;
 

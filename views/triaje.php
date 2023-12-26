@@ -226,6 +226,9 @@
         if(element.idDetalleAtenciones > 0){
           activo = "";
           desabilitar = "disabled";
+        }else{
+          activo = "disabled";
+          desabilitar = "";
         }
         let filanueva = `
         <tr>
