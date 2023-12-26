@@ -42,10 +42,6 @@ switch ($permiso){
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-password nav-small-cap-icon"
             ],
-            [   "menu" => "Impresiones", 
-                "url" => "index.php?view=impresos.php",
-                "icono" => "ti ti-heartbeat nav-small-cap-icon"
-            ],
             [   
                 "menu" => "Vista Doctor", 
                 "url" => "index.php?view=vistaDoctores.php",
@@ -86,10 +82,6 @@ switch ($permiso){
             ],
             [   "menu" => "Triaje", 
                 "url" => "index.php?view=triaje.php",
-                "icono" => "ti ti-heartbeat nav-small-cap-icon"
-            ],
-            [   "menu" => "Impresiones", 
-                "url" => "index.php?view=impresos.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
             [   "menu" => "Cambiar Clave", 
