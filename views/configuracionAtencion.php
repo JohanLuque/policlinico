@@ -283,7 +283,8 @@
                         <table class="table table-hover" id="tabla-atenciones">
                             <colgroup>
                                 <col width="10%"> <!-- Fecha -->
-                                <col width="35%"> <!-- Paciente -->
+                                <col width="30%"> <!-- Paciente -->
+                                <col width="10%"> <!-- N° Doc -->
                                 <col width="15%"> <!-- N° Doc -->
                                 <col width="10%"> <!-- Precio-->
                                 <col width="30%"> <!-- Procedimiento-->
@@ -293,6 +294,7 @@
                                     <th>Fecha</th>
                                     <th>Paciente</th>
                                     <th>N° Doc</th>
+                                    <th>Especialidad</th>
                                     <th>Precio</th>
                                     <th>Procedimiento</th>
                                 </tr>
