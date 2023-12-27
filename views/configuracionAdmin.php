@@ -587,42 +587,42 @@
         })
     }
 
-    function listarUsuarios(){
-        const parametros = new URLSearchParams()
-        parametros.append("operacion", "listarUsuario");
-        parametros.append("estado", 1);
-        fetch("../controllers/usuario.php",{
-            method: "POST",
-            body: parametros
-        })
-        .then(response => response.json())
-        .then(datos => {
+    // function listarUsuarios(){
+    //     const parametros = new URLSearchParams()
+    //     parametros.append("operacion", "listarUsuario");
+    //     parametros.append("estado", 1);
+    //     fetch("../controllers/usuario.php",{
+    //         method: "POST",
+    //         body: parametros
+    //     })
+    //     .then(response => response.json())
+    //     .then(datos => {
             
-            cuerpoUsuarios.innerHTML = "";
-            let numero = 1;
-            datos.forEach(element => {
-            let filaNueva = `
-            <tr>
-                <td>${numero}</td>
-                <td>${element.persona}</td>
-                <td>${element.nombreUsuario}</td>
-                <td>${element.nivelAcceso}</td>
-                <td>${element.fechaInicio}</td>
-                <td>
-                    <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}' data-user='${element.nombreUsuario}' data-id='${element.idusuario}'>
-                        Eliminar
-                    </a>
-                </td>
-            </tr>
-            `;
-            cuerpoUsuarios.innerHTML += filaNueva;
-            numero++;
-            })
+    //         cuerpoUsuarios.innerHTML = "";
+    //         let numero = 1;
+    //         datos.forEach(element => {
+    //         let filaNueva = `
+    //         <tr>
+    //             <td>${numero}</td>
+    //             <td>${element.persona}</td>
+    //             <td>${element.nombreUsuario}</td>
+    //             <td>${element.nivelAcceso}</td>
+    //             <td>${element.fechaInicio}</td>
+    //             <td>
+    //                 <a class ="usuario btn btn-sm btn-danger" data-nivel='${element.nivelAcceso}' data-user='${element.nombreUsuario}' data-id='${element.idusuario}'>
+    //                     Eliminar
+    //                 </a>
+    //             </td>
+    //         </tr>
+    //         `;
+    //         cuerpoUsuarios.innerHTML += filaNueva;
+    //         numero++;
+    //         })
             
-        }).catch( e => {
-            console.error(e);
-        })
-    }
+    //     }).catch( e => {
+    //         console.error(e);
+    //     })
+    // }
 
     function validarPacientes(){
         if(!formPaciente.checkValidity()){
