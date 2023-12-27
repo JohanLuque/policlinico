@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" class="form-control border" placeholder="monto" id="monto" required>
+                            <input type="text" class="form-control border" placeholder="monto" id="monto" required min="0">
                             <div class="invalid-feedback">
                             Complete este campo para continuar
                             </div>
@@ -338,6 +338,10 @@ function validarMontoMP(){
             event.stopPropagation()
             form.classList.add('was-validated');
         }else{
+            if(monto.value <=0.1){
+                notificar("No permitido", "solo numeros mayores a 0",4);
+                return;
+            }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
                 if(result.isConfirmed){
                     validarMontoMP();
@@ -357,6 +361,14 @@ function validarMontoMP(){
     btGuardar.addEventListener("click", validar);
     dni.addEventListener("keypress", (evt) => {
         if (evt.charCode == 13) consultarPaciente();
+    });
+    monto.addEventListener("input", () => {
+        if (!/^\d*\.?\d*$/.test(monto.value.trim())) {
+            notificar("Valor no valido","Ingrese solo números", 4);
+            monto.value = ''; 
+            monto.focus();
+            return;
+        }
     });
 
 </script>
