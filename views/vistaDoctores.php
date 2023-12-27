@@ -264,6 +264,10 @@
     const cardListado = document.querySelector("#cardListado");
 
     let tratamientosAgregados = [];
+    let idServicio;
+    let idDetalleModal;
+    let codigoD;
+
     function listar(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "listaDoctores");
@@ -301,12 +305,9 @@
         })
     }
 
-    let idServicio;
-    let idDetalleModal;
     cardListado.addEventListener("click", (e) => {
         idDetalleModal = parseInt(e.target.dataset.idatencion);
         idServicio = parseInt(e.target.dataset.idservicio);
-        console.log(idServicio);
         listarEspecialistas();
         if(e.target.classList[0] === ("historia")){
         const parametros = new URLSearchParams();
@@ -326,260 +327,246 @@
         })
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
         modalHC.toggle();  
-    }else if(event.target.classList[0] == 'clinica'){
-        console.log(idDetalleModal)
-        if(idDetalleModal >0){
-            const parametros = new URLSearchParams();
-            parametros.append("idDetalleAtenciones", idDetalleModal);
-            parametros.append("idHistoria", idDetalleModal);
-            parametros.append("idDetalleAtenciones1", idDetalleModal);
-            window.open(`../reports/historia.report.php?${parametros}`, '_blank');
-        }else{
-            console.log(idDetalleModal);
-        }
-    }
-  });
-
-  function listarEspecialistas(){
-  const parametros = new URLSearchParams();
-  parametros.append("operacion", "filtroDoctores");
-  parametros.append("idServicio" , idServicio);
-  fetch("../controllers/servicio.php",{
-    method : "POST",
-    body: parametros
-  })
-  .then(response => response.json())
-  .then(datos => {
-      datos.forEach(element => {
-        especialistas.innerHTML = `<option value='' data-codigo ='${element.codigo}'>Seleccione</option>`;
-      const optionTag = document.createElement("option");
-      optionTag.value = element.idEspecialistasServicios;
-      optionTag.text = element.NombreCompleto;
-      especialistas.appendChild(optionTag);
-    });
-  })
-}
-let codigoD;
-especialistas.addEventListener('change', (e) => {
-    const doctor = e.target.options[e.target.selectedIndex];
-    codigoD = doctor.dataset.codigo;
-        console.log(codigoD);
-        codEspe.value = codigoD;
-});
-  function validarForm(){
-    if(!formHC.checkValidity()){
-        event.preventDefault()
-        event.stopPropagation()
-        formHC.classList.add('was-validated');
-    }else{
-        agregarDetalleHistoria();
-        cambiarFecha();
-    }
-  }
-  function agregarDetalleHistoria() {
-    const frecuencia = document.querySelectorAll('input[name="inlineRadioOptions"]');
-    let valorRadio = '';
-    if(descripcion.value.trim() === ""){
-        valorRadio;
-    }else{
-        frecuencia.forEach(radio => {
-            if (radio.checked) {
-                //console.log(`El radio con id ${radio.id} está seleccionado.`);
-                if (radio.id === 'rbP') {
-                    valorRadio = 'P';
-                } else if (radio.id === 'rbD') {
-                    valorRadio = 'D';
-                } else if (radio.id === 'rbR') {
-                    valorRadio = 'R';
-                }else{
-                    valorRadio;
-                }
+        }else if(event.target.classList[0] == 'clinica'){
+            console.log(idDetalleModal)
+            if(idDetalleModal >0){
+                const parametros = new URLSearchParams();
+                parametros.append("idDetalleAtenciones", idDetalleModal);
+                parametros.append("idHistoria", idDetalleModal);
+                parametros.append("idDetalleAtenciones1", idDetalleModal);
+                window.open(`../reports/historia.report.php?${parametros}`, '_blank');
+            }else{
+                console.log(idDetalleModal);
             }
-        });
-    }
-    const parametros = new URLSearchParams();
+        }
+    });
 
-    parametros.append("operacion", "detalleHC");
-    parametros.append("idDetalleatencion", idDetalleModal);
-    parametros.append("inicio", inicio.value);
-    parametros.append("curso", curso.value);
-    parametros.append("relato", relato.value);
-    parametros.append("procedimiento", procedimiento.value);
-    parametros.append("observaciones", observaciones.value);
-    parametros.append("examenGeneral", examenGeneral.value);
-    parametros.append("frecuencia", valorRadio);
-
-
-    fetch("../controllers/historiaClinica.php", {
-        method: "POST",
-        body: parametros
-    })
+    function listarEspecialistas(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "filtroDoctores");
+        parametros.append("idServicio" , idServicio);
+        fetch("../controllers/servicio.php",{
+            method : "POST",
+            body: parametros
+        })
         .then(response => response.json())
         .then(datos => {
-            if (datos.status) {
-                registrarDetalleTratamiento();
-                toastCheck("Guardado correctamente");
-                modalHC.toggle();
-                formHC.reset();
-                registrarEnfermedad();
-                limpiarTabla();
-            } else {
-                alert(datos.mensaje);
+            datos.forEach(element => {
+                especialistas.innerHTML = `<option value=''>Seleccione</option>`;
+                const optionTag = document.createElement("option");
+                optionTag.value = element.idEspecialistasServicios;
+                optionTag.text = element.NombreCompleto;
+                optionTag.dataset.codigo = element.codigo;
+                especialistas.appendChild(optionTag);
+            });
+        })
+    }
+
+    especialistas.addEventListener('change', (e) => {
+        const selectedOption = e.target.options[e.target.selectedIndex];
+        const codigo = selectedOption.dataset.codigo; // Obtener el código del especialista
+        console.log(codigo)
+        codEspe.value = codigo || ''; 
+    });
+
+    function validarForm(){
+        if(!formHC.checkValidity()){
+            event.preventDefault()
+            event.stopPropagation()
+            formHC.classList.add('was-validated');
+        }else{
+            agregarDetalleHistoria();
+        }
+    }
+    function agregarDetalleHistoria() {
+        const frecuencia = document.querySelectorAll('input[name="inlineRadioOptions"]');
+        let valorRadio = '';
+        if(descripcion.value.trim() === ""){
+            valorRadio;
+        }else{
+            frecuencia.forEach(radio => {
+                if (radio.checked) {
+                    //console.log(`El radio con id ${radio.id} está seleccionado.`);
+                    if (radio.id === 'rbP') {
+                        valorRadio = 'P';
+                    } else if (radio.id === 'rbD') {
+                        valorRadio = 'D';
+                    } else if (radio.id === 'rbR') {
+                        valorRadio = 'R';
+                    }else{
+                        valorRadio;
+                    }
+                }
+            });
+        }
+        const parametros = new URLSearchParams();
+
+        parametros.append("operacion", "detalleHC");
+        parametros.append("idDetalleatencion", idDetalleModal);
+        parametros.append("inicio", inicio.value);
+        parametros.append("curso", curso.value);
+        parametros.append("relato", relato.value);
+        parametros.append("procedimiento", procedimiento.value);
+        parametros.append("observaciones", observaciones.value);
+        parametros.append("examenGeneral", examenGeneral.value);
+        parametros.append("frecuencia", valorRadio);
+
+
+        fetch("../controllers/historiaClinica.php", {
+            method: "POST",
+            body: parametros
+        })
+            .then(response => response.json())
+            .then(datos => {
+                if (datos.status) {
+                    registrarDetalleTratamiento();
+                    toastCheck("Guardado correctamente");
+                    modalHC.toggle();
+                    formHC.reset();
+                    registrarEnfermedad();
+                    limpiarTabla();
+                } else {
+                    alert(datos.mensaje);
+                }
+            })
+            .catch(error => {
+                toast("Error al guardar");
+            });
+    }
+
+    let idEnfermedad;
+    function consultarEnfermedad(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "obtenerEnfermedad");
+        parametros.append("codigoCie_10",cie10.value);
+        fetch("../controllers/historiaClinica.php",{
+            method : "POST",
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.length>0){
+                datos.forEach(element =>{
+                idEnfermedad = element.idEnfermedad;
+                console.log(idEnfermedad);
+                descripcion.value = element.descripcion;
+            });
             }
         })
         .catch(error => {
             toast("Error al guardar");
         });
-}
+    }
 
-  let idEnfermedad;
-  function consultarEnfermedad(){
-    const parametros = new URLSearchParams();
-    parametros.append("operacion", "obtenerEnfermedad");
-    parametros.append("codigoCie_10",cie10.value);
-    fetch("../controllers/historiaClinica.php",{
-        method : "POST",
-        body: parametros
-    })
-    .then(response => response.json())
-    .then(datos => {
-        if(datos.length>0){
-            datos.forEach(element =>{
-            idEnfermedad = element.idEnfermedad;
-            console.log(idEnfermedad);
-            descripcion.value = element.descripcion;
-        });
+    function registrarDetalleTratamiento(){
+        const filas = tabla.rows;
+        const promesas = [];
+        for(let i = 1; i < filas.length; i++){
+            const medicamentoTabla = filas[i].cells[0].innerText;
+            const presentacionTabla = filas[i].cells[1].innerText;
+            const dosisTabla = filas[i].cells[2].innerText;
+            const cantidadTabla = filas[i].cells[3].innerText;
+            const diasTabla = filas[i].cells[4].innerText;
+            const parametros = new URLSearchParams();
+            parametros.append("operacion", "detalleTratamiento");
+            parametros.append("idDetalleAtencion", idDetalleModal);
+            parametros.append("medicamento", medicamentoTabla);
+            parametros.append("presentacion", presentacionTabla);
+            parametros.append("cantidad", cantidadTabla);
+            parametros.append("dosis", dosisTabla);
+            parametros.append("dias", diasTabla);
+
+            const fetchPromesa = fetch("../controllers/historiaClinica.php",{
+                method: "POST",
+                body: parametros
+            });
+            promesas.push(fetchPromesa);
         }
-    })
-    .catch(error => {
-        toast("Error al guardar");
-    });
-  }
+    }
 
-function registrarDetalleTratamiento(){
-    const filas = tabla.rows;
-    const promesas = [];
-    for(let i = 1; i < filas.length; i++){
-        const medicamentoTabla = filas[i].cells[0].innerText;
-        const presentacionTabla = filas[i].cells[1].innerText;
-        const dosisTabla = filas[i].cells[2].innerText;
-        const cantidadTabla = filas[i].cells[3].innerText;
-        const diasTabla = filas[i].cells[4].innerText;
-        const parametros = new URLSearchParams();
-        parametros.append("operacion", "detalleTratamiento");
-        parametros.append("idDetalleAtencion", idDetalleModal);
-        parametros.append("medicamento", medicamentoTabla);
-        parametros.append("presentacion", presentacionTabla);
-        parametros.append("cantidad", cantidadTabla);
-        parametros.append("dosis", dosisTabla);
-        parametros.append("dias", diasTabla);
-
-        const fetchPromesa = fetch("../controllers/historiaClinica.php",{
-            method: "POST",
-            body: parametros
+    function limpiarTabla(){
+        const datosFilas = tabla.querySelectorAll('tbody tr');
+        datosFilas.forEach((filas)=>{
+            filas.remove();
         });
-        promesas.push(fetchPromesa);
-    }
-}
-
-function cambiarFecha(){
-    const parametros = new URLSearchParams();
-    parametros.append("operacion", "cambiarFecha");
-    parametros.append("idDetalleAtenciones", idDetalleModal);
-    fetch("../controllers/historiaClinica.php",{
-        method : "POST",
-        body: parametros
-    })
-    .then(response => response.json())
-    .then(datos => {  
-        toastCheck("Actualizado");  
-        listar();
-    })
-}
-
-function limpiarTabla(){
-    const datosFilas = tabla.querySelectorAll('tbody tr');
-    datosFilas.forEach((filas)=>{
-        filas.remove();
-    });
-}
-
-function validarTratamientos(campo) {
-    return campo.trim() === ''; 
-}
-
-function agregarTratamiento(){
-    if(
-        validarTratamientos(medicamento.value) ||
-        validarTratamientos(presentacion.value) ||
-        validarTratamientos(dosis.value) ||
-        validarTratamientos(cantidad.value) ||
-        validarTratamientos(dias.value)
-    ){
-        toast("Por favor, complete todos los campos.");
-        return;
     }
 
-    const campos = [medicamento, presentacion, dosis, cantidad, dias];
-
-    for (const campo of campos) {
-        campo.value = campo.value.trim(); 
-    }
-    const nuevoTratamiento = {
-        medicamento: medicamento.value,
-        presentacion: presentacion.value,
-        dosis: dosis.value,
-        cantidad: cantidad.value,
-        dias: dias.value
-    };
-
-    const tratamientoDuplicado = tratamientosAgregados.find(tratamiento => (
-        tratamiento.medicamento == nuevoTratamiento.medicamento
-    ));
-
-    if (tratamientoDuplicado) {
-        notificar('Alerta','Este tratamiento ya ha sido agregado.', 5);
-        return;
+    function validarTratamientos(campo) {
+        return campo.trim() === ''; 
     }
 
-    tratamientosAgregados.push(nuevoTratamiento);
+    function agregarTratamiento(){
+        if(
+            validarTratamientos(medicamento.value) ||
+            validarTratamientos(presentacion.value) ||
+            validarTratamientos(dosis.value) ||
+            validarTratamientos(cantidad.value) ||
+            validarTratamientos(dias.value)
+        ){
+            toast("Por favor, complete todos los campos.");
+            return;
+        }
 
-    let nuevaFila = `
-        <tr>
-        <td>${nuevoTratamiento.medicamento}</td>
-        <td>${nuevoTratamiento.presentacion}</td>
-        <td>${nuevoTratamiento.dosis}</td>
-        <td>${nuevoTratamiento.cantidad}</td>
-        <td>${nuevoTratamiento.dias}</td>
-        </tr>
-    `;
-    tabla.innerHTML += nuevaFila;
+        const campos = [medicamento, presentacion, dosis, cantidad, dias];
 
-    //Limpiar campos 
-    medicamento.value = "";
-    presentacion.value = "";
-    dosis.value = "";
-    cantidad.value = "";
-    dias.value = "";    
-}
+        for (const campo of campos) {
+            campo.value = campo.value.trim(); 
+        }
+        const nuevoTratamiento = {
+            medicamento: medicamento.value,
+            presentacion: presentacion.value,
+            dosis: dosis.value,
+            cantidad: cantidad.value,
+            dias: dias.value
+        };
 
-  function registrarEnfermedad(){
-    const parametros = new URLSearchParams();
-    parametros.append("operacion", "agregarEnfermedad");
-    parametros.append("idEnfermedad",idEnfermedad);
-    parametros.append("idDetalleAtencion",idDetalleModal);
-    fetch("../controllers/historiaClinica.php",{
-        method : "POST",
-        body: parametros
-    })
-    .then(response=> response.json())
-    .then(datos => {
-        console.log("guardado correctamente");
-    })
-    .catch(error => {
-        alert("Error al guardar")
-    })
-  }
+        const tratamientoDuplicado = tratamientosAgregados.find(tratamiento => (
+            tratamiento.medicamento == nuevoTratamiento.medicamento
+        ));
+
+        if (tratamientoDuplicado) {
+            notificar('Alerta','Este tratamiento ya ha sido agregado.', 5);
+            return;
+        }
+
+        tratamientosAgregados.push(nuevoTratamiento);
+
+        let nuevaFila = `
+            <tr>
+            <td>${nuevoTratamiento.medicamento}</td>
+            <td>${nuevoTratamiento.presentacion}</td>
+            <td>${nuevoTratamiento.dosis}</td>
+            <td>${nuevoTratamiento.cantidad}</td>
+            <td>${nuevoTratamiento.dias}</td>
+            </tr>
+        `;
+        tabla.innerHTML += nuevaFila;
+
+        //Limpiar campos 
+        medicamento.value = "";
+        presentacion.value = "";
+        dosis.value = "";
+        cantidad.value = "";
+        dias.value = "";    
+    }
+
+    function registrarEnfermedad(){
+        const parametros = new URLSearchParams();
+        parametros.append("operacion", "agregarEnfermedad");
+        parametros.append("idEnfermedad",idEnfermedad);
+        parametros.append("idDetalleAtencion",idDetalleModal);
+        fetch("../controllers/historiaClinica.php",{
+            method : "POST",
+            body: parametros
+        })
+        .then(response=> response.json())
+        .then(datos => {
+            console.log("guardado correctamente");
+        })
+        .catch(error => {
+            alert("Error al guardar")
+        })
+    }
     cie10.addEventListener("keypress", (evt) => {
         if (evt.charCode === 13){
             consultarEnfermedad();
@@ -589,13 +576,14 @@ function agregarTratamiento(){
             }
         }
     });
-    listar();
     btnTratamiento.addEventListener("click",agregarTratamiento);
     btnActualizar.addEventListener("click", () =>{
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-                if(result.isConfirmed){
-                    validarForm();
-                }
-            })
+            if(result.isConfirmed){
+                validarForm();
+            }
+        })
     });
+    listarEspecialistas();
+    listar();
 </script>

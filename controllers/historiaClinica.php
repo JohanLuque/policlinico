@@ -83,12 +83,5 @@ if(isset($_POST['operacion'])){
         ];
         echo json_encode($historiaClininca->registrarEnfermedades($parametros));
       break;
-    case 'cambiarFecha':
-      $parametros = [
-        "idDetalleAtenciones" => $_POST['idDetalleAtenciones']
-      ];
-      $respuesta = $pago->cambiarfechaActualizacion($parametros);
-      echo json_encode($respuesta);
-      break;
   }
 }
