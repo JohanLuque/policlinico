@@ -11,9 +11,6 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']['acceso']){
   $telefono = $_SESSION['login']['telefono'];
   $distrito = $_SESSION['login']['distrito'];
 }
-
-//$idUsuario = $_SESSION['login']['idUsuario'];
-//$nombreUsuario = $_SESSION['login']['usuario'];
 ?>
 <!doctype html>
 <html lang="es">

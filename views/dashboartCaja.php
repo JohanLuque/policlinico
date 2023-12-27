@@ -186,20 +186,6 @@
 <script>
     const fecha = document.querySelector("#FechaActual");
     const rPOS = document.querySelector("#reportePOS");
-
-    let fechaHoy;
-    function obtenerFecha(){
-        const fechaAhora = new Date();
-        const año = fechaAhora.getFullYear();
-        const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
-        const dia = fechaAhora.getDate().toString().padStart(2, "0");
-
-        const fechaTotal = `${año}-${mes}-${dia}`;
-        fecha.value = fechaTotal;
-        fechaHoy = fechaTotal;
-        console.log(fecha.value);
-    }
-    obtenerFecha();
     // cantidad de dinero disponible
     const efectivo = document.querySelector("#mEfectivo");
     const trasferencia = document.querySelector("#mTranferencia");
@@ -214,9 +200,21 @@
     const reporteSemanal = document.querySelector("#Rsemana");
     const reporteQuincenal = document.querySelector("#RQuincena");
     const reporteMensual = document.querySelector("#RMensual");
+    let fechaHoy;
 
+    function obtenerFecha(){
+        const fechaAhora = new Date();
+        const año = fechaAhora.getFullYear();
+        const mes = (fechaAhora.getMonth() + 1).toString().padStart(2,"0");
+        const dia = fechaAhora.getDate().toString().padStart(2, "0");
 
-
+        const fechaTotal = `${año}-${mes}-${dia}`;
+        fecha.value = fechaTotal;
+        fechaHoy = fechaTotal;
+        console.log(fecha.value);
+    }
+    obtenerFecha();
+    
     function montoMedioPago(idmedio){
         const parametros = new URLSearchParams();
         parametros.append("operacion" , "montoMedioPago");
@@ -255,8 +253,6 @@
             if(datos.length){
                 datos.forEach(element => {
                     tIngresos.innerHTML = `S/ ${element.MontoTotal}`;
-                    console.log(totalingresos);
-                
                 })
             }
         })
@@ -275,10 +271,9 @@
                 servicios.innerHTML = "<option value=''>Seleccione</option>";
                 datos.forEach(element => {
                     const optionTag = document.createElement("option");
-                optionTag.value = element.idServicio;
-                optionTag.text = element.nombreServicio;
-                servicios.appendChild(optionTag);
-                
+                    optionTag.value = element.idServicio;
+                    optionTag.text = element.nombreServicio;
+                    servicios.appendChild(optionTag);                
                 })
             }
         })

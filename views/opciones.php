@@ -38,12 +38,12 @@ switch ($permiso){
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
+            [   "menu" => "Configuración Cuenta", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-password nav-small-cap-icon"
             ],
             [   
-                "menu" => "Vista Doctor", 
+                "menu" => "Atención", 
                 "url" => "index.php?view=vistaDoctores.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
             ],
@@ -68,7 +68,7 @@ switch ($permiso){
                 "url" => "index.php?view=gastos.php",
                 "icono" => "ti ti-coin nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
+            [   "menu" => "Configuración Cuenta", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-password nav-small-cap-icon"
             ]
@@ -76,7 +76,7 @@ switch ($permiso){
     break;
     case "T":
         $opciones = [
-            [   "menu" => "Historia Clinica", 
+            [   "menu" => "Historia Clínica", 
                 "url" => "index.php?view=historiaClinica.php",
                 "icono" => "ti ti-clipboard-heart nav-small-cap-icon"
             ],
@@ -84,13 +84,18 @@ switch ($permiso){
                 "url" => "index.php?view=triaje.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
-                "url" => "index.php?view=cambiarClave.php",
-                "icono" => "ti ti-password nav-small-cap-icon"
-            ],
-            [   "menu" => "Historias clinicas", 
+            [   "menu" => "Buscar Historias clínicas", 
                 "url" => "index.php?view=vistaDetalleHistoriasClinicas.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   
+                "menu" => "Atención", 
+                "url" => "index.php?view=vistaDoctores.php",
+                "icono" => "ti ti-stethoscope nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración Cuenta", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-password nav-small-cap-icon"
             ]
         ];    
     break;
@@ -108,7 +113,7 @@ switch ($permiso){
                 "url" => "index.php?view=configuracionAtencion.php",
                 "icono" => "ti ti-settings nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
+            [   "menu" => "Configuración Cuenta", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-password nav-small-cap-icon"
             ]
@@ -117,18 +122,19 @@ switch ($permiso){
     case "E":
         $opciones = [
             [   
-                "menu" => "Vista Doctor", 
+                "menu" => "Atención", 
                 "url" => "index.php?view=vistaDoctores.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
-                "url" => "index.php?view=cambiarClave.php",
-                "icono" => "ti ti-coin nav-small-cap-icon"
-            ],
-            [   "menu" => "Historias clinicas", 
+            [   "menu" => "Historias clínicas", 
                 "url" => "index.php?view=vistaDetalleHistoriasClinicas.php",
                 "icono" => "ti ti-heartbeat nav-small-cap-icon"
+            ],
+            [   "menu" => "Configuración cuenta", 
+                "url" => "index.php?view=cambiarClave.php",
+                "icono" => "ti ti-coin nav-small-cap-icon"
             ]
+            
         ];    
     break;
     case "S":
@@ -138,7 +144,7 @@ switch ($permiso){
                 "url" => "index.php?view=vistaServicios.php",
                 "icono" => "ti ti-stethoscope nav-small-cap-icon"
             ],
-            [   "menu" => "Cambiar Clave", 
+            [   "menu" => "Configuración cuenta", 
                 "url" => "index.php?view=cambiarClave.php",
                 "icono" => "ti ti-coin nav-small-cap-icon"
             ]

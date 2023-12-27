@@ -339,9 +339,7 @@ function listarCards(){
     })
     .then(response => response.json())
     .then(datos => {
-        //console.log(datos);
-        cardresumen.innerHTML = ""; // Limpiar el contenido de la fila de tarjetas
-        
+        cardresumen.innerHTML = "";        
         datos.forEach(element =>{
             idatencion = element.idAtencion;
             console.log(idatencion);
@@ -426,7 +424,6 @@ cardresumen.addEventListener("click", (event) => {
                 console.log(datos);
                 nombrePaciente.innerHTML= element.nombres + ", "+ element.apellidoPaterno+" "+element.apellidoMaterno;
                 dniPaciente.innerHTML = element.numeroDocumento;
-                //edad.innerHTML = element.Edad;
                 if(element.Edad == 1){
                     edad.innerHTML = element.Edad ;
                     añosMeses.innerHTML = "Año";
@@ -489,7 +486,6 @@ cardresumen.addEventListener("click", (event) => {
     }
 });
 
-
 // suma del total a pagar en detalle atencion
 function calcularTotalResumen() {
     const tablaFilas = detalle.rows;
@@ -511,15 +507,12 @@ function calcularRestante(){
     for(let i = 1; i<filaPagos.length; i++){
         const precioCelda = parseFloat(filaPagos[i].cells[2].innerText);
         totaltablapagos +=precioCelda;
-        //console.log(precioCelda);
         if(restante >= 0){
             restante = restante - precioCelda;
         }
         
-    }
-    
+    }    
     totalRestante.value = restante;
-    //console.log(totalRestante.value);
 }
 
 
@@ -537,24 +530,17 @@ function agregarPagoTabla(){
             
             for(let i=1; i< filaMedios.length; i++){
                 const medioCelda = filaMedios[i].cells[1].innerText;
-
                 const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);
-            
-
-            
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
-                    totaltablapagos  +=  precioCelda;                
-                    //break;
+                    totaltablapagos  +=  precioCelda;
                     console.log(precioCelda);
-                }
-                
-                
+                }                
             }
             console.log(totaltablapagos);
             calcularRestante();
             if(montoIngresado > restante){
-                toast("excede el monto restante");
+                toast("Excede el monto restante");
             }else{
                 if(!medioRepetido){
                     
@@ -583,7 +569,6 @@ function agregarPagoTabla(){
         toast("Monto inválido");
         totalMedioPago.value = "";
     }  
-    //calcularRestante();
 }
 
 detallepagos.addEventListener("click", (e) => {
@@ -623,7 +608,7 @@ function validarDevoluciones(){
         listarCards();
         })
     }else{
-        notificar("POLICLINICO SOLIDARIO", "la cantidad total no coincide con el monto de la devolucion", 2)
+        notificar("POLICLINICO SOLIDARIO", "la cantidad total no coincide con el monto de la devolución", 2)
     }
 }
 function limpiarPagos(){
@@ -669,7 +654,6 @@ function tablaDetalle(idatencion){
         })
         .then(response => response.json())
         .then(datos => {
-            //console.log(datos);
             cuerpomodal.innerHTML = ``;
             datos.forEach(element => {
                 
@@ -695,8 +679,7 @@ function cambiarEstadoDevolucion(){
     })
     .then(response => response.json())
     .then(datos => {  
-        toastCheck("estado cambiado");  
-        
+        toastCheck("Devolución registrada");          
         listarCards();    
     })
 }
@@ -711,8 +694,7 @@ function cambiarEstadoPago(){
     })
     .then(response => response.json())
     .then(datos => {  
-        toastCheck("estado cambiado");  
-        
+        toastCheck("Pago registrado");          
         listarCards();    
     })
 }
@@ -745,7 +727,6 @@ function listarMetodosPago(select){
 function calcularRestanteDev(){
     const filaDevo = devDetallepagos.rows;
     let devrestante =montoTotalDevolucion;
-    //console.log(devrestante);
     let totaltabladev = 0;
     for(let i = 1; i<filaDevo.length; i++){
         const precios = parseFloat(filaDevo[i].cells[2].innerText);
@@ -759,14 +740,12 @@ function calcularRestanteDev(){
     }
     
     devTotalRestante.value = devrestante;
-    console.log(devTotalRestante.value);
 }
 calcularRestanteDev();
 
 function agregarMontoDevolucion() {
     const montoIngresado = parseFloat(devMontoIngresado.value);
     const restante = parseFloat(devTotalRestante.value);
-    console.log(restante);
 
     if(devMontoIngresado.value > 0){  
         const medioSeleccionado = devMetodoPago.options[devMetodoPago.selectedIndex];    
@@ -780,14 +759,10 @@ function agregarMontoDevolucion() {
                 const precioCelda = parseFloat(filaMedios[i].cells[2].innerText);        
                 if(medioCelda === medioSeleccionado.text){
                     medioRepetido = true;
-                   // totaltabladevo  = totaltabladevo +  precioCelda;                
-                    //break;
-                    console.log(precioCelda);
                 }
                 
                 
             }
-           // console.log(totaltabladevo);
             calcularRestanteDev();
             if(montoIngresado > restante){
                 toast("excede el monto restante");
@@ -934,7 +909,7 @@ agregarPago.addEventListener("click", () => {
     if(metodosPago.value > 0 ){
         agregarPagoTabla();
     }else{
-        toast("Seleccion un metodo de pago");
+        toast("Seleccione un método de pago");
     }
 });
 
@@ -942,10 +917,9 @@ guardarPago.addEventListener("click",validarPagos);
 
 devbtAgregarPago.addEventListener("click", () => {
     if(devMetodoPago.value > 0 ){
-        //agregarMontoDevolucion();
         validarMontoMP();
     }else{
-        toast("Seleccion un metodo de pago");
+        toast("Seleccione un método de pago");
     }
 });
 
