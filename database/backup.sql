@@ -63,7 +63,7 @@ CREATE TABLE `atenciones` (
   CONSTRAINT `fk_fami_ate` FOREIGN KEY (`idFamiliar`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_per_ate` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_usuario_ate` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=640 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=642 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `atenciones` */
 
@@ -702,7 +702,9 @@ insert  into `atenciones`(`idAtencion`,`turno`,`numeroAtencion`,`fechaCreacion`,
 (636,'T','271220230012','2023-12-27 12:07:53','2023-12-27 12:09:32',NULL,1,NULL,NULL,349,'2023-12-27','1','0'),
 (637,'T','271220230013','2023-12-27 12:11:18','2023-12-27 12:13:40',NULL,1,NULL,NULL,72,'2023-12-27','1','0'),
 (638,'T','271220230014','2023-12-27 12:11:52','2023-12-27 12:13:47',NULL,1,NULL,NULL,350,'2023-12-27','1','0'),
-(639,'T','271220230015','2023-12-27 12:13:26','2023-12-27 12:13:57',NULL,1,NULL,NULL,351,'2023-12-27','1','0');
+(639,'T','271220230015','2023-12-27 12:13:26','2023-12-27 12:13:57',NULL,1,NULL,NULL,351,'2023-12-27','1','0'),
+(640,'T','011220230041','2023-12-01 14:14:37','2023-12-01 14:18:04',NULL,1,NULL,NULL,69,'2023-12-01','2','0'),
+(641,'T','011220230042','2023-12-01 14:15:08','2023-12-01 14:16:40',NULL,1,NULL,NULL,69,'2023-12-01','2','0');
 
 /*Table structure for table `detalle_alergias` */
 
@@ -759,12 +761,14 @@ CREATE TABLE `detalle_atenciones` (
   CONSTRAINT `fk_idAtencion_das` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idHistoria_das` FOREIGN KEY (`idHistoria`) REFERENCES `historias_clinicas` (`idHistoriaClinica`),
   CONSTRAINT `fk_idusuario_das` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_atenciones` */
 
 insert  into `detalle_atenciones`(`idDetalleAtenciones`,`peso`,`talla`,`frecuenciaCardiaca`,`frecuenciaRespiratoria`,`presionArterial`,`temperatura`,`saturacionOxigeno`,`examenGeneral`,`frecuencia`,`inicio`,`curso`,`relato`,`procedimiento`,`observaciones`,`fechaCreacion`,`fechaActualizacion`,`idHistoria`,`idAtencion`,`idUsuario`) values 
-(1,78.00,177,'66x1','20x1','133/88',36.0,97,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-12-21 22:54:54',NULL,19,417,1);
+(1,78.00,177,'66x1','20x1','133/88',36.0,97,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-12-21 22:54:54',NULL,19,417,1),
+(2,66.00,160,'60x1','19x1','120/80',37.0,99,'vómitos, diarrea, malestar general','','3 dias','dolor continuo','Cólico abdominal','Necesita hacerse hemograma completo, H. pylori y examen completo de orina','','2023-12-04 13:41:10','2023-12-04 13:48:45',18,95,1),
+(3,58.00,159,'60x1','19x1','120/80',37.0,99,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-12-01 14:18:23',NULL,21,85,1);
 
 /*Table structure for table `detalle_servicios` */
 
@@ -779,7 +783,7 @@ CREATE TABLE `detalle_servicios` (
   KEY `fk_idServicios_detalle_dpr` (`idservicios_detalle`),
   CONSTRAINT `fk_idAtencion_dpr` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idServicios_detalle_dpr` FOREIGN KEY (`idservicios_detalle`) REFERENCES `servicios_detalle` (`idservicios_detalle`)
-) ENGINE=InnoDB AUTO_INCREMENT=748 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=750 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `detalle_servicios` */
 
@@ -1530,7 +1534,9 @@ insert  into `detalle_servicios`(`idDetalleServicio`,`idservicios_detalle`,`idAt
 (744,283,636),
 (745,160,637),
 (746,283,638),
-(747,113,639);
+(747,113,639),
+(748,284,640),
+(749,283,641);
 
 /*Table structure for table `devoluciones` */
 
@@ -1552,13 +1558,15 @@ CREATE TABLE `devoluciones` (
   CONSTRAINT `fk_idate_dev` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_dev` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_dev` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `devoluciones` */
 
 insert  into `devoluciones`(`idDevolucion`,`montoDevolucion`,`estado`,`motivoDevolucion`,`fechaHoraDevolucion`,`idAtencion`,`idMedioPago`,`idUsuario`) values 
 (1,40.00,'0','Demora en atención','2023-12-01 23:09:09',55,1,1),
-(2,120.00,'0','Emergencia','2023-12-19 15:20:21',399,3,1);
+(2,120.00,'0','Emergencia','2023-12-19 15:20:21',399,3,1),
+(3,20.00,'0','Urgencia','2023-12-01 14:16:40',641,3,1),
+(4,40.00,'0','','2023-12-01 14:18:04',640,3,1);
 
 /*Table structure for table `enfermedad_pacientes` */
 
@@ -1573,7 +1581,7 @@ CREATE TABLE `enfermedad_pacientes` (
   KEY `fk_det_epp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_epp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`),
   CONSTRAINT `fk_enf_epp` FOREIGN KEY (`idEnfermedad`) REFERENCES `enfermedades` (`idEnfermedad`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `enfermedad_pacientes` */
 
@@ -1793,7 +1801,7 @@ CREATE TABLE `historias_clinicas` (
   KEY `fk_idUsuario_hcl` (`idUsuario`),
   CONSTRAINT `fk_idPersona_hcl` FOREIGN KEY (`idPersona`) REFERENCES `personas` (`idPersona`),
   CONSTRAINT `fk_idUsuario_hcl` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `historias_clinicas` */
 
@@ -1817,7 +1825,8 @@ insert  into `historias_clinicas`(`idHistoriaClinica`,`antecedentePersonal`,`ant
 (17,NULL,NULL,NULL,NULL,1,72),
 (18,NULL,NULL,NULL,NULL,1,74),
 (19,NULL,NULL,NULL,NULL,1,238),
-(20,NULL,NULL,NULL,NULL,1,321);
+(20,NULL,NULL,NULL,NULL,1,321),
+(21,NULL,NULL,NULL,NULL,1,69);
 
 /*Table structure for table `medio_pagos` */
 
@@ -1858,7 +1867,7 @@ CREATE TABLE `pagos` (
   CONSTRAINT `fk_idate_pag` FOREIGN KEY (`idAtencion`) REFERENCES `atenciones` (`idAtencion`),
   CONSTRAINT `fk_idmep_pag` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pagos` (`idMedioPago`),
   CONSTRAINT `fk_idusuario_pag` FOREIGN KEY (`idUsuario`) REFERENCES `usuarios` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=640 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=642 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `pagos` */
 
@@ -2501,7 +2510,9 @@ insert  into `pagos`(`idPago`,`monto`,`estado`,`fechaHoraPago`,`idAtencion`,`idM
 (636,20.00,'0','2023-12-27 12:09:32',636,1,1),
 (637,70.00,'0','2023-12-27 12:13:40',637,3,1),
 (638,20.00,'0','2023-12-27 12:13:47',638,5,1),
-(639,20.00,'0','2023-12-27 12:13:57',639,4,1);
+(639,20.00,'0','2023-12-27 12:13:57',639,4,1),
+(640,40.00,'0','2023-12-01 14:16:20',640,3,1),
+(641,20.00,'0','2023-12-01 14:16:28',641,3,1);
 
 /*Table structure for table `personas` */
 
@@ -3378,9 +3389,12 @@ CREATE TABLE `tratamiento_paciente` (
   PRIMARY KEY (`idTratamiento`),
   KEY `fk_det_tp` (`idDetalleAtencion`),
   CONSTRAINT `fk_det_tp` FOREIGN KEY (`idDetalleAtencion`) REFERENCES `detalle_atenciones` (`idDetalleAtenciones`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tratamiento_paciente` */
+
+insert  into `tratamiento_paciente`(`idTratamiento`,`idDetalleAtencion`,`medicamento`,`presentacion`,`cantidad`,`dosis`,`dias`,`fechaCreacion`,`fechaActualizacion`) values 
+(1,2,'enterogermina','pastillas',6,'2','3','2023-12-04 13:48:45',NULL);
 
 /*Table structure for table `usuarios` */
 
@@ -4301,6 +4315,9 @@ IN _examenGeneral 	VARCHAR(2000),
 IN _frecuencia 		CHAR(1)
 )
 BEGIN
+	IF _frecuencia = '' THEN SET _frecuencia = NULL; END IF;
+	IF _observaciones = '' THEN SET _observaciones = NULL; END IF;
+	
 	UPDATE Detalle_Atenciones SET
 		inicio = _inicio,
 		curso = _curso,
