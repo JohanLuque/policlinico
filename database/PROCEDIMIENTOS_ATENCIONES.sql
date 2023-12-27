@@ -177,8 +177,8 @@ BEGIN
 	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()-- Filtrar por la fecha actual
-	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY atenciones.`fechaCreacion` ;
+	GROUP BY Dia, atenciones.idAtencion 
+	ORDER BY atenciones.`estado` ;
 END $$
 
 -- OBTENIENDO INFORMACIÓN POR ATENCIÓN 
