@@ -251,7 +251,7 @@ function validarMontoMP(){
                 nombre.value = element.ApellidosNombres;
             });
             }else{
-                console.log("no hay")
+                toast("No existen datos")
             }
         })
     }
@@ -277,7 +277,7 @@ function validarMontoMP(){
                 toastCheck("Guardado Correctamente");
                 listarGastosTabla();
             } else {
-                console.log("Algo salió mal");
+                toast("Problemas al guardar");
             }
         })
         .catch(error => {
@@ -314,9 +314,7 @@ function validarMontoMP(){
         })
         .then(response => response.json())
         .then(result => {
-            // Limpiar la tabla antes de agregar nuevas filas
             tablaDT.clear();
-            // Agregar filas a la tabla
             result.forEach(element => {
                 tablaDT.row.add([
                     element.descripcionGasto,
@@ -326,7 +324,6 @@ function validarMontoMP(){
                     element.nombrePago
                 ]);
             });
-            // Dibujar la tabla
             tablaDT.draw();
         })
         .catch(error => console.error('Error en la solicitud fetch:', error));
@@ -339,7 +336,7 @@ function validarMontoMP(){
             form.classList.add('was-validated');
         }else{
             if(monto.value <=0.1){
-                notificar("No permitido", "solo numeros mayores a 0",4);
+                notificar("No permitido", "Solo numeros mayores a 0",4);
                 return;
             }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
