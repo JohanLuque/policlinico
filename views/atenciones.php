@@ -20,7 +20,7 @@
                 <label class="fw-bolder text-dark"  for="DNI_personas">N° Doc:</label>          
               </div>
               <div class="col-md-3">                                  
-                <input class="form-control " id="DNI_personas" placeholder="12345678" maxlength="10" type="tel" required>
+                <input class="form-control " id="DNI_personas" placeholder="12345678" maxlength="10" type="number" required>
                 <div class="invalid-feedback">
                   Complete este campo para continuar
                 </div>       
@@ -270,7 +270,7 @@
             <div class="mb-3 row g-2">
               <div class="col-md-6">                    
                 <div class="form-floating">
-                  <input type="text" class="form-control border " id="DNIp" type="tel" placeholder="88888888" required>
+                  <input type="number" class="form-control border " id="DNIp" placeholder="88888888" autofocus required>
                   <label for="">
                       <i class="ti ti-id-badge me-2 fs-4"></i>
                       N° Documento
@@ -605,6 +605,7 @@ function registrarAtencion(){
       limpiarFormulario();    
       limpiarTabla();
       cambiarTurno();
+      formPaciente.reset();
     }else{
       console.log(datos.message);
     }
@@ -1021,11 +1022,27 @@ function consultarDNI() {
 
 
 dni.addEventListener("keypress", (evt) => {
-  if (evt.charCode == 13) consultarDNI();
+  if (evt.charCode == 13)consultarDNI();
 });
 
 dniPersonas.addEventListener("keypress", (evt) => {
-    if (evt.charCode == 13) consultarPaciente();
+    if (evt.charCode == 13){
+      if(dniPersonas.value.trim().length>=8){
+        apellidoPaterno.value='';
+        apellidoMaterno.value='';
+        nombres.value='';
+        fechanacimiento.value='';
+        telefono.value='';
+        distrito.value='';
+        document.querySelector("#rbFemenino").checked=false;
+        document.querySelector("#rbMasculino").checked=false;
+        dni.focus();
+        consultarPaciente();
+      }
+      else{
+        notificar("Ingrese un DNI", "o verifigue los espacios en blanco",4)
+      }
+    } 
 });
 
 dniFamiliar.addEventListener("keypress", (evt) => {
