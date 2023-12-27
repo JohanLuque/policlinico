@@ -463,10 +463,6 @@
     let user;
     let id;
     let edad;
-
-//window.addEventListener('load', async () => {
-    //});
-    
     function consultarPersonas(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -509,7 +505,6 @@
             })
             .then(datos => {
             const resultado = JSON.parse(datos);
-            //console.log(resultado);
             if (resultado.dni == documento) {
                 apellidoPaterno.value = resultado.apellidoPaterno;
                 apellidoMaterno.value = resultado.apellidoMaterno;
@@ -526,11 +521,10 @@
     function validar(){
         if(!formularioUsuario.checkValidity()){
             event.preventDefault();
-            // event.stopPropagation();
             formularioUsuario.classList.add('was-validated');
         }else{
             if(!nombre.value){
-                notificar("Presione enter","en el DNI para llenar el campo de la persona",5);
+                notificar("Presione enter","En el DNI para llenar el campo de la persona",5);
                 dni.focus();
                 return;
             }
@@ -545,17 +539,17 @@
             } else if(rbServicio.checked){
                 nivel = rbServicio.value;
             } else{
-                notificar("Seleccione", "el nivel para continuar",5);
+                notificar("Seleccione", "El nivel para continuar",5);
                 return;
             }
 
             if(edad<17){
-                notificar("Dato invalido", "No se puede añadir un usuario menor de edad",5);
+                notificar("Dato inválido", "No se puede añadir un usuario menor de edad",5);
                 return;
             }
             
             if(rbEspecialista.checked && edad <20){
-                notificar("Dato invalido", "No se puede guardar un especilidad que sea menor a 20 años",5);
+                notificar("Dato inválido", "No se puede guardar un especilidad que sea menor a 20 años",5);
                 return;
             }
 
@@ -644,12 +638,12 @@
         const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
         if (!tipoDocumento) {
             notificar("Seleccione un tipo de doc","Por favor, selecciona un tipo de documento.",2);
-            return;  // No hay opción seleccionada, no continuamos
+            return;
         }
         const genero = document.querySelector('input[name="options"]:checked');
         if (!genero) {
-            notificar("Por favor, seleccione un genero","",2);
-            return;  // No hay opción seleccionada, no continuamos
+            notificar("Por favor, seleccione un género","",2);
+            return;
         }
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
             if(result.isConfirmed){  
@@ -701,7 +695,7 @@
             if(datos.status){
                 listarUsuarios();
                 modal.toggle();
-                toastCheck("elimado correctamente");
+                toastCheck("Elimado correctamente");
             }else{
                 contrasenia.focus();
                 contrasenia.vale = null;
@@ -730,7 +724,6 @@
         if(evt.charCode == 13) consultarDNI();
     });
 
-    //listarUsuarios();
     cuerpoUsuarios.addEventListener("click", (event) => {
         nivelData = event.target.dataset.nivel;
         user = event.target.dataset.user;

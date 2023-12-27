@@ -301,17 +301,16 @@
     })
     .then(response => response.json())
     .then(datos => {
-      console.log(datos);
       alergia.innerHTML = "<option value=''>Seleccione</option>";
-
       datos.forEach(element => {
         const optionTag = document.createElement("option");
         optionTag.value = element.idAlergia;
         optionTag.text = element.alergia
         alergia.appendChild(optionTag);
       })
-      choiseAlergias.setChoices([], 'value', 'label', true); // Vacía las opciones
-      choiseAlergias.setChoices(datos, 'idAlergia', 'alergia', true); // Agrega las nuevas opciones
+      choiseAlergias.setChoices([], 'value', 'label', true); 
+      // Agrega las nuevas opciones
+      choiseAlergias.setChoices(datos, 'idAlergia', 'alergia', true); 
       
     })
   }
@@ -373,12 +372,11 @@
     })
     .then(response => response.json())
     .then(datos =>{
-      //console.log(datos)
       if(datos.length > 0){
         datos.forEach(element => {
+          
           if(element.historiaClinica == 'si'){
             idhistoria = element.idHistoriaClinica;
-            console.log(idhistoria);
             registrarAlergiasHistoria(idhistoria);
             listarSinHistoria();
           }
@@ -437,6 +435,7 @@
             toastCheck("Guardado correctamente");
             listarAlergias();
             modalAlergias.toggle();
+            nombreAlergia.value ="";
         }else{
             notificar("Error", "La alergia ya existe",2)
         }
@@ -447,7 +446,7 @@
     buscar = event.target.dataset.buscar;
     if(event.target.classList[0] == 'historia'){
       if(dni.value){
-        mostrarPregunta("Cambiar", "¿Está seguro de cambiar?, los datos ingresados se borraran").then((result) => {
+        mostrarPregunta("Cambiar", "¿Está seguro de cambiar?, los datos ingresados se borrarán").then((result) => {
           if(result.isConfirmed){
             resetdata();
             dni.value = buscar;
@@ -463,9 +462,9 @@
 
   guardarAlergia.addEventListener("click", () => {
       mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
-              if(result.isConfirmed){
-                  registrarAlergias();
-              }
-          })
+          if(result.isConfirmed){
+              registrarAlergias();
+          }
+      })
   });
 </script>

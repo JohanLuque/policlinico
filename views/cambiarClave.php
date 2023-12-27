@@ -479,7 +479,7 @@
     const formularioUsuario = document.querySelector("#form-usuarios");
     let idPersona;
     let nivel;
-    //nav_usuarios.style.display = "none";
+
     if(nombreNivelA == "Gerente"){
         nav_usuarios.style.display = "";
     }else{
@@ -489,7 +489,6 @@
     function informacionUsuario(){
         nivel1.innerHTML = nombreNivelA;
         nivel2.innerHTML = nombreNivelA;
-        console.log(nombreNivelA);
         edad.innerHTML = edadUsu;
         distrito_info.innerHTML = distritoUsu;
         telefono_info.innerHTML = telefonoUsu;
@@ -527,7 +526,6 @@
         })
         .then(response => response.json())
         .then(datos=>{
-            console.log(datos)
             if(datos.status){
                 toastCheck("Actualizado correctamente");
                 formulario.reset();
@@ -554,7 +552,6 @@
                 datos.forEach(element => {
                 idPersona = element.idPersona;
                 nombre.value = element.ApellidosNombres;
-                //edad = element.Edad;
             });
             }else{
                 modalRegistrar.show();
@@ -580,7 +577,6 @@
             })
             .then(datos => {
             const resultado = JSON.parse(datos);
-            //console.log(resultado);
             if (resultado.dni == documento) {
                 apellidoPaterno.value = resultado.apellidoPaterno;
                 apellidoMaterno.value = resultado.apellidoMaterno;
@@ -597,7 +593,6 @@
     function validarRegistroUsuario(){
         if(!formularioUsuario.checkValidity()){
             event.preventDefault();
-            // event.stopPropagation();
             formularioUsuario.classList.add('was-validated');
         }else{
             if(!nombre.value){
@@ -621,12 +616,12 @@
             }
 
             if(edad<17){
-                notificar("Dato invalido", "No se puede añadir un usuario menor de edad",5);
+                notificar("Dato inválido", "No se puede añadir un usuario menor de edad",5);
                 return;
             }
             
             if(rbEspecialista.checked && edad <20){
-                notificar("Dato invalido", "No se puede guardar un especilidad que sea menor a 20 años",5);
+                notificar("Dato inválido", "No se puede guardar un especilidad que sea menor a 20 años",5);
                 return;
             }
 
@@ -659,7 +654,7 @@
             }
         })
         .catch(error => {
-            console.error(error);
+            toast("Error al guardar")
         })
     }
     function validarPacientes(){
@@ -674,13 +669,13 @@
     function registrarPaciente(){
         const tipoDocumento = document.querySelector('input[name="inlineRadioOptions"]:checked');
         if (!tipoDocumento) {
-            notificar("Seleccione un tipo de doc","Por favor, selecciona un tipo de documento.",2);
-            return;  // No hay opción seleccionada, no continuamos
+            notificar("Seleccione un tipo de documento","Por favor, selecciona un tipo de documento.",2);
+            return; 
         }
         const genero = document.querySelector('input[name="options"]:checked');
         if (!genero) {
-            notificar("Por favor, seleccione un genero","",2);
-            return;  // No hay opción seleccionada, no continuamos
+            notificar("Por favor, seleccione un género","",2);
+            return;
         }
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
             if(result.isConfirmed){  
@@ -706,7 +701,7 @@
                 modalRegistrar.toggle();
                 formPaciente.reset();
                 }else{
-                    alert(datos.mensaje);
+                    toast("El paciente ya existe");
                 }
             })
             .catch(error => {

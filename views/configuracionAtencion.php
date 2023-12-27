@@ -346,8 +346,8 @@
     const btGuardarEspSer = document.querySelector("#guardarServicioEspecialista");
     const btCancelarEspSer = document.querySelector("#cancelarServicioEspecialista");
 
-    
-const tablaAtenciones = new DataTable('#tabla-atenciones', {        
+    // objeto dataTable
+    const tablaAtenciones = new DataTable('#tabla-atenciones', {        
         dom: 'Bfrtip',
         buttons: [
             {
@@ -370,7 +370,8 @@ const tablaAtenciones = new DataTable('#tabla-atenciones', {
         ]
     });
 
-function listarGastosTabla() {
+
+    function listarGastosTabla() {
         const parametros = new URLSearchParams();
         parametros.append('operacion', 'listarAtencionesTodo');
 
@@ -379,11 +380,10 @@ function listarGastosTabla() {
             body: parametros
         })
         .then(response => response.json())
-        .then(result => {
-            // Limpiar la tabla antes de agregar nuevas filas
+        .then(datos => {
             tablaAtenciones.clear();
-            // Agregar filas a la tabla
-            result.forEach(element => {
+            // Agregamos las filas a la tabla
+            datos.forEach(element => {
                 tablaAtenciones.row.add([
                     element.fecha,
                     element.nombreCompleto,
@@ -393,13 +393,12 @@ function listarGastosTabla() {
                     element.descripcion
                 ]);
             });
-            // Dibujar la tabla
             tablaAtenciones.draw();
         })
         .catch(error => console.error('Error en la solicitud fetch:', error));
     }
 
-    listarGastosTabla();
+    // listar servicios en choices
     function listarServicios(select){
         const choiselistaServicios = new Choices(select, {
             searchEnabled: true,
@@ -427,6 +426,7 @@ function listarGastosTabla() {
         })
     }
 
+    // listar especialistas en choices
     function listarEspecialistas(){
         const choiselistaServicios = new Choices(especialistasSelect, {
             searchEnabled: true,
@@ -455,6 +455,7 @@ function listarGastosTabla() {
         })
     }
 
+    //validamos si estan completos todos los campos 
     function validarServicio(){
         if(!formularioServicio.checkValidity()){
             event.preventDefault();
@@ -466,7 +467,7 @@ function listarGastosTabla() {
             }else if(rbServicio.checked){
                 tipo = rbServicio.value;
             }else{
-                notificar("Seleccione", "el tipo de servicio",2)
+                notificar("Seleccione", "El tipo de servicio",2)
                 return
             }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
@@ -477,8 +478,7 @@ function listarGastosTabla() {
         }
     }
 
-    function guardarServicio() {
-        
+    function guardarServicio() {        
         const parametros = new URLSearchParams();
         parametros.append("operacion", "agregarServicio");
         parametros.append("tipo", tipo);
@@ -543,7 +543,6 @@ function listarGastosTabla() {
         .then(datos =>{
             if(datos.status){
                 toastCheck("Guardado correctamente");
-                //formularioDetalles.reset();
                 descripcionServicio.value="";
                 precio.value="";
                 listarServicios();
@@ -588,12 +587,11 @@ function listarGastosTabla() {
         .then(response => response.json())
         .then(datos => {
             if(datos.length>0){
-
-            datos.forEach(element => {
-                idPersona = element.idPersona;
-                nombre.value = element.ApellidosNombres;
-                edad = element.Edad;
-            });
+                datos.forEach(element => {
+                    idPersona = element.idPersona;
+                    nombre.value = element.ApellidosNombres;
+                    edad = element.Edad;
+                });
             }else{
                 toast("No existes la persona registrada");
             }
@@ -607,7 +605,7 @@ function listarGastosTabla() {
             formularioEspecialistas.classList.add('was-validated');
         }else{
             if(edad<20){
-                notificar("Dato invalido", "No se puede guardar un especilidad que sea menor a 20 años",5);
+                notificar("Dato inválido", "No se puede guardar un especialista que sea menor a 20 años",5);
                 return;
             }
             mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
@@ -620,7 +618,7 @@ function listarGastosTabla() {
     
     function comprobarEspecialista(){
         if(!nombre.value){
-            toast("Pulse la tecla enter para completar que guarde el nombre de la persona");
+            toast("Pulse la tecla enter para confirmar el nombre de la persona.");
             return;
         }else{
             guardarEspecialista();
@@ -664,10 +662,10 @@ function listarGastosTabla() {
         .then(response => response.json())
         .then(datos => {
             if(datos.status){
-                toastCheck("guardado correctamente");
+                toastCheck("Guardado correctamente");
 
             }else{
-                toast("no se puede porque ya existe");
+                toast("El especialista ya se encuentra registrado");
             }
         })
         .catch(error => {
@@ -696,10 +694,7 @@ function listarGastosTabla() {
         especialistasSelect.selectedIndex = 0;
     }
     
-    listarServicios(servicios);
-    listarServicios(serviciosEspecialistas);
-    listarEspecialistas();
-
+    
     function consultarPaciente(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "getData");
@@ -721,6 +716,10 @@ function listarGastosTabla() {
         })
     }
 
+    listarServicios(servicios);
+    listarServicios(serviciosEspecialistas);
+    listarEspecialistas();
+    listarGastosTabla();
     btGuardarServicio.addEventListener("click", validarServicio);
     btGuardarDetalle.addEventListener("click",validarDetalle);
     btCancelarDetalle.addEventListener("click",limpiarDetalles);
