@@ -288,7 +288,7 @@ function validarMontoMP(){
     const tablaDT = new DataTable('#tabla-lista-gastos', {        
         dom: 'Bfrtip',
         buttons: [
-                    'print', 'excel', 'pdf', 'copy'
+                    'print', 'excel'
         ],
         language: {
             url: 'js/Spanish.json'

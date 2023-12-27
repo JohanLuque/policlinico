@@ -275,7 +275,7 @@
         </div>
         <div class="tab-pane fade" id="pills-reporte" role="tabpanel" aria-labelledby="pills-reporte-tab" tabindex="0">
             <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
-                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">ESPECIALISTAS</h3>
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">ATENCIONES</h3>
             </div> 
             <div class="row">
                 <div class="card">

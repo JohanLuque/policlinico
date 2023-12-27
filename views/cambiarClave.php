@@ -528,10 +528,13 @@
         .then(datos=>{
             if(datos.status){
                 toastCheck("Actualizado correctamente");
-                formulario.reset();
+                //formulario.reset();
+                actual.value = "";
+                confirmar.value = "";
+                nueva.value = "";
             }else{
                 toast("Contraseña incorrecta");
-                actual.focus();
+               // actual.focus();
             }
         })
     }
