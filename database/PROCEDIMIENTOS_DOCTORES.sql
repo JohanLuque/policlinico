@@ -209,14 +209,3 @@ BEGIN
 	WHERE Detalle_Atenciones.idDetalleAtenciones = _idDetalleAtenciones
 	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
 END $$
-
-DELIMITER $$
-CREATE PROCEDURE spu_doctores_actualizar_fechaActualizacion
-(
-IN _idDetalleAtenciones INT
-)
-BEGIN
-	UPDATE Detalle_Atenciones SET
-	 fechaActualizacion = NOW()
-	 WHERE idDetalleAtenciones = _idDetalleAtenciones;
-END $$

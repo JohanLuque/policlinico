@@ -240,18 +240,4 @@ class HistoriaClinica extends Conexion{
     }
     return $respuesta;
   }
-
-  public function cambiarfechaActualizacion($data =[]){
-    try{
-      $query = $this->connection->prepare("CALL spu_doctores_actualizar_fechaActualizacion(?)");
-      $query->execute(
-        array(
-            $data['idDetalleAtenciones']
-        )
-      );
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    }catch(Exception $e){
-      die($e->getCode());
-    }
-  }
 }
