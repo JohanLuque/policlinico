@@ -361,6 +361,7 @@ function listarCards(){
                 clase = "devolucion"
             }else if (element.estado == 2){
                 color = "bg-warning";
+                activo = "disabled";
                 nombreBoton = "Resumen";
                 colorBoton = "btn-warning";
                 colorFondo = "bg-light-warning";

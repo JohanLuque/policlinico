@@ -12,7 +12,7 @@ $permisos = [
                 "pagos.php","triaje.php","dashboartCaja.php", "cambiarClave.php","vistaDoctores.php"],
     "A" => ["dashboart.php","atenciones.php","atencionesListado.php", "configuracionAtencion.php","dashboart.php", "cambiarClave.php"],
     "C" => ["dashboart.php","dashboartCaja.php","pagos.php", "gastos.php", "cambiarClave.php"],
-    "T" => ["dashboart.php","historiaClinica.php", "triaje.php", "cambiarClave.php"],
+    "T" => ["dashboart.php","historiaClinica.php", "triaje.php", "cambiarClave.php","vistaDoctores.php"],
     "E" => ["dashboart.php","vistaDoctores.php", "cambiarClave.php"],
     "S" => ["dashboart.php","vistaServicios.php", "cambiarClave.php"]
 ];
