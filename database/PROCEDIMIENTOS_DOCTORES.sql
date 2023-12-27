@@ -51,6 +51,9 @@ IN _examenGeneral 	VARCHAR(2000),
 IN _frecuencia 		CHAR(1)
 )
 BEGIN
+	IF _frecuencia = '' THEN SET _frecuencia = NULL; END IF;
+	IF _observaciones = '' THEN SET _observaciones = NULL; END IF;
+	
 	UPDATE Detalle_Atenciones SET
 		inicio = _inicio,
 		curso = _curso,
