@@ -187,41 +187,6 @@
                                             <textarea class="form-control" id="observaciones"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row g-2 mb-2">
-                                        <h5 class="fw-bolder">DATOS DEL PROFESIONAL</h5>
-                                    </div>
-                                    <div class="row g-2 mb-2">
-                                        <div class="col-md-2">
-                                            <label class="fw-bolder" for="">PROFESIONAL:</label>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <select name="" id="especialistas" class="form-select " >
-                                                <option value="">Seleccione</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row g-2 mb-2">
-                                        <div class="col-md-2">
-                                            <label class="fw-bolder" for="">CÓDIGO:</label>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input class="form-control form-control-m bg-light" id="codigo-especialista" type="text" readonly>
-                                        </div>
-                                        <div class="col-md-1"></div>
-                                        <div class="col-md-1">
-                                            <label class="fw-bolder" for="">TURNO:</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" checked name="RadioOptions" id="rbMañana" value="M">
-                                                <label class="form-check-label">M</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="RadioOptions" id="rbTarde"  value="T">
-                                                <label class="form-check-label">T</label>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -249,8 +214,6 @@
     const cie10 = document.querySelector("#cie-10");
     const descripcion = document.querySelector("#descripcion");
     const tabla = document.querySelector("#tabla-tratamiento");
-    const especialistas = document.querySelector("#especialistas");
-    const codEspe = document.querySelector("#codigo-especialista");
     //TRATAMIENTO
     const medicamento = document.querySelector("#medicamento");
     const presentacion = document.querySelector("#presentacion");
@@ -278,7 +241,6 @@
         })
         .then(response => response.json())
         .then(datos=>{
-            console.log("todoo ok",datos)
             datos.forEach(element =>{
                 const nuevoCard = `
                     <div class="col-md-3" >
@@ -308,7 +270,6 @@
     cardListado.addEventListener("click", (e) => {
         idDetalleModal = parseInt(e.target.dataset.idatencion);
         idServicio = parseInt(e.target.dataset.idservicio);
-        listarEspecialistas();
         if(e.target.classList[0] === ("historia")){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "obtenerDatos");
@@ -328,7 +289,6 @@
         .catch(error => console.error('Error al obtener detalles de la cita:', error))
         modalHC.toggle();  
         }else if(event.target.classList[0] == 'clinica'){
-            console.log(idDetalleModal)
             if(idDetalleModal >0){
                 const parametros = new URLSearchParams();
                 parametros.append("idDetalleAtenciones", idDetalleModal);
@@ -341,33 +301,7 @@
         }
     });
 
-    function listarEspecialistas(){
-        const parametros = new URLSearchParams();
-        parametros.append("operacion", "filtroDoctores");
-        parametros.append("idServicio" , idServicio);
-        fetch("../controllers/servicio.php",{
-            method : "POST",
-            body: parametros
-        })
-        .then(response => response.json())
-        .then(datos => {
-            datos.forEach(element => {
-                especialistas.innerHTML = `<option value=''>Seleccione</option>`;
-                const optionTag = document.createElement("option");
-                optionTag.value = element.idEspecialistasServicios;
-                optionTag.text = element.NombreCompleto;
-                optionTag.dataset.codigo = element.codigo;
-                especialistas.appendChild(optionTag);
-            });
-        })
-    }
 
-    especialistas.addEventListener('change', (e) => {
-        const selectedOption = e.target.options[e.target.selectedIndex];
-        const codigo = selectedOption.dataset.codigo; // Obtener el código del especialista
-        console.log(codigo)
-        codEspe.value = codigo || ''; 
-    });
 
     function validarForm(){
         if(!formHC.checkValidity()){
@@ -581,9 +515,10 @@
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
             if(result.isConfirmed){
                 validarForm();
+                listar();
             }
         })
     });
-    listarEspecialistas();
+
     listar();
 </script>

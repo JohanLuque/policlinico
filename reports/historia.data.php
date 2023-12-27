@@ -276,31 +276,6 @@
     </table>
     <?php endforeach?>
     <!--Datos del profesional-->
-    <h2 class="mb-2 titulo">9.- DATOS DEL PROFESIONAL</h2>
-    <table class="table table-borde mt-3 mb-5">
-        <colgroup>  
-            <col style="width: 50%">
-            <col style="width: 10%">
-            <col style="width: 30%">
-            <col style="width: 10%">
-        </colgroup>
-        <thead>
-            <tr>
-                <th class="text-bold text-center">PROFESIONAL DE SALUD</th>
-                <th class="text-bold text-center">CODIGO</th>
-                <th class="text-bold text-center">CONSULTORIO</th>
-                <th class="text-bold text-center">TURNO</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="tabla"></td>
-                <td class="tabla"></td>
-                <td class="tabla"></td>
-                <td class="tabla"></td>
-            </tr>
-        </tbody>
-    </table>
     <!--Firma y sello-->
     <div class="container mt-5">
             <h4 class="text-center mb-1 mt-5">______________________ </h4>
