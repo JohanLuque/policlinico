@@ -3460,6 +3460,25 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `listar_atenciones_todo` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `listar_atenciones_todo` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `listar_atenciones_todo`()
+BEGIN
+	SELECT atenciones.`fechaAtencion` AS fecha, CONCAT(personas.apellidoPaterno, ' ', personas.apellidoMaterno, ' ', personas.nombres) AS 'nombreCompleto',
+	personas.`numeroDocumento`,servicios.`nombreServicio`, servicios_detalle.`precio`, servicios_detalle.`descripcion`
+	FROM Detalle_Servicios
+	INNER JOIN atenciones ON atenciones.`idAtencion` = detalle_servicios.`idAtencion`
+	INNER JOIN personas ON personas.`idPersona` = atenciones.`idPersona`
+	INNER JOIN servicios_detalle ON servicios_detalle.idservicios_detalle = Detalle_Servicios.idservicios_detalle
+	INNER JOIN servicios ON servicios.idServicio = servicios_detalle.idservicio
+	ORDER BY atenciones.`fechaAtencion`;
+END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `spu_admision_cambiar_clave` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `spu_admision_cambiar_clave` */;
@@ -3717,8 +3736,8 @@ BEGIN
 	-- LEFT JOIN Especialistas_Servicios ON Especialistas_Servicios.idServicio = servicios.idServicio
 	INNER JOIN personas PP ON atenciones.idPersona = PP.idPersona
 	WHERE DATE(atenciones.fechaCreacion) = CURDATE()-- Filtrar por la fecha actual
-	GROUP BY Dia, atenciones.idAtencion
-	ORDER BY atenciones.`fechaCreacion` ;
+	GROUP BY Dia, atenciones.idAtencion 
+	ORDER BY atenciones.`estado` ;
 END */$$
 DELIMITER ;
 
@@ -4328,6 +4347,22 @@ BEGIN
 		frecuencia = _frecuencia,
 		fechaActualizacion = NOW()
 	WHERE idDetalleAtenciones = _idDetalleatencion;
+END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `spu_doctores_registrar_enfermedades` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `spu_doctores_registrar_enfermedades` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `spu_doctores_registrar_enfermedades`(
+IN _codigoCie_10	VARCHAR(10),
+IN _descripcion		VARCHAR(200)
+)
+BEGIN
+	INSERT INTO Enfermedades (codigoCie_10, descripcion) VALUES
+	(_codigoCie_10, _descripcion);
 END */$$
 DELIMITER ;
 
