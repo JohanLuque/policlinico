@@ -212,3 +212,14 @@ BEGIN
 	WHERE Detalle_Atenciones.idDetalleAtenciones = _idDetalleAtenciones
 	ORDER BY Tratamiento_paciente.idDetalleAtencion DESC;
 END $$
+
+DELIMITER $$
+CREATE PROCEDURE spu_doctores_registrar_enfermedades
+(
+IN _codigoCie_10	VARCHAR(10),
+IN _descripcion		VARCHAR(200)
+)
+BEGIN
+	INSERT INTO Enfermedades (codigoCie_10, descripcion) VALUES
+	(_codigoCie_10, _descripcion);
+END $$

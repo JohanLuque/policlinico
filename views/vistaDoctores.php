@@ -10,7 +10,7 @@
         </div>
     </div>  
 </div>
-
+<!-- modal para registrar los detalles -->
 <div class="modal fade" id="modalHC" tabindex="-1" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
         <div class="modal-content">
@@ -88,6 +88,9 @@
                                         </div>
                                         <div class="col-md-5">
                                             <input class="form-control form-control-m bg-light" id="cie-10" type="text">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-sm" id="registrar-E"  type="button"><i class="fa-solid fa-circle-plus fa-2xl" style="color: #e66814;"></i></button>
                                         </div>
                                         <div class="col-md-5">
                                             <div class="form-check form-check-inline">
@@ -200,7 +203,57 @@
         </div>
     </div>
 </div>
+<!-- modal para alergias -->
+<div class="modal fade" id="modalEnfermedades" tabindex="-1"  aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Registrar Enfermedad</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row mt-2 mb-3">
+            <div class="col-md-12">
+              <div class="row g-2 mb-3">  
+                <form action="" id="form-alergias">
+                  <div class="mb-3 row g-2">
+                    <div class="form-floating">
+                      <input type="text" class="form-control border"  placeholder="" id="cie-10" type="text" required>
+                      <label for="">
+                          <i class="ti ti-user me-2 fs-4"></i>
+                          CIE-10
+                      </label> 
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control border"  placeholder="" id="descripcion-e" type="text" required>
+                        <label for="">
+                            <i class="ti ti-user me-2 fs-4"></i>
+                            Descripción
+                        </label> 
+                      </div>
+                  </div>
+                </form>
+              </div>          
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="guardarE">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script>
+    const modalEnfermedades = new bootstrap.Modal(document.querySelector("#modalEnfermedades"));
+    const btregistrarE = document.querySelector("#registrar-E");
+    const cie_10 = document.querySelector("#cie-10");
+    const descripcionEnf = document.querySelector("#descripcion-e");
+
+    btregistrarE.addEventListener("click",()=>{
+        modalEnfermedades.toggle();
+    });
+
     //Modal
     const inicio = document.querySelector("#mdInicio");
     const curso = document.querySelector("#mdCurso");
@@ -301,7 +354,30 @@
         }
     });
 
+    function registrarEnfermedad(){
+        toast("si")
+        /* const parametros = new URLSearchParams();
+        parametros.append("operacion", "registrarEnfermedad");
+        parametros.append("codigoCie_10", cie_10);
+        parametros.append("descripcion", descripcionEnf);
 
+        fetch("../controllers/enfermedad.php",{
+            method: 'POST',
+            body: parametros
+        })
+        .then(response => response.json())
+        .then(datos => {
+            if(datos.status){
+                toastCheck("Guardado Correctamente");   
+                modalEnfermedades.toggle();
+            }else{
+                notificar("Error","El cie10 ya exciste", 4);
+            }
+        })
+        .catch(error => {
+            console.error("Error al guardar");
+        }) */
+    }
 
     function validarForm(){
         if(!formHC.checkValidity()){
@@ -511,6 +587,7 @@
         }
     });
     btnTratamiento.addEventListener("click",agregarTratamiento);
+    btregistrarE.addEventListener("click",registrarEnfermedad);
     btnActualizar.addEventListener("click", () =>{
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
             if(result.isConfirmed){
