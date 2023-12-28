@@ -218,7 +218,7 @@
                 <form action="" id="form-alergias">
                   <div class="mb-3 row g-2">
                     <div class="form-floating">
-                      <input type="text" class="form-control border"  placeholder="" id="cie-10" type="text" required>
+                      <input type="text" class="form-control border"  placeholder="" id="cie-10E" type="text" required>
                       <label for="">
                           <i class="ti ti-user me-2 fs-4"></i>
                           CIE-10
@@ -247,11 +247,14 @@
 <script>
     const modalEnfermedades = new bootstrap.Modal(document.querySelector("#modalEnfermedades"));
     const btregistrarE = document.querySelector("#registrar-E");
-    const cie_10 = document.querySelector("#cie-10");
+    const btguardarE = document.querySelector("#guardarE");
+    const cie_10E = document.querySelector("#cie-10E");
     const descripcionEnf = document.querySelector("#descripcion-e");
 
     btregistrarE.addEventListener("click",()=>{
         modalEnfermedades.toggle();
+        cie_10E.value = '';
+        descripcionEnf.value = '';
     });
 
     //Modal
@@ -354,12 +357,12 @@
         }
     });
 
-    function registrarEnfermedad(){
-        toast("si")
-        /* const parametros = new URLSearchParams();
+    function registrarNuevaEnfermedad(){
+        console.log()
+        const parametros = new URLSearchParams();
         parametros.append("operacion", "registrarEnfermedad");
-        parametros.append("codigoCie_10", cie_10);
-        parametros.append("descripcion", descripcionEnf);
+        parametros.append("codigoCie_10", cie_10E.value);
+        parametros.append("descripcion", descripcionEnf.value);
 
         fetch("../controllers/enfermedad.php",{
             method: 'POST',
@@ -376,7 +379,7 @@
         })
         .catch(error => {
             console.error("Error al guardar");
-        }) */
+        })
     }
 
     function validarForm(){
@@ -560,7 +563,7 @@
         dias.value = "";    
     }
 
-    function registrarEnfermedad(){
+    function registrarEnfermedadAtencion(){
         const parametros = new URLSearchParams();
         parametros.append("operacion", "agregarEnfermedad");
         parametros.append("idEnfermedad",idEnfermedad);
@@ -587,7 +590,20 @@
         }
     });
     btnTratamiento.addEventListener("click",agregarTratamiento);
-    btregistrarE.addEventListener("click",registrarEnfermedad);
+    btguardarE.addEventListener("click", () =>{
+        if(cie_10E.value === ''){
+            cie_10E.focus();
+            notificar("Campo vacío", "Complete el código", 4);
+            return;
+        }else if(descripcionEnf.value === ""){
+            descripcionEnf.focus();
+            notificar("Campo vacío", "Complete la descripción", 4);
+            return;   
+        }
+        else{
+            registrarNuevaEnfermedad();
+        }
+    });
     btnActualizar.addEventListener("click", () =>{
         mostrarPregunta("REGISTRAR", "¿Está seguro de Guardar?").then((result) => {
             if(result.isConfirmed){
